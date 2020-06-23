@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="CheckPayment">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPaymentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckPayment" />
+  </wsdl:message>
+  <wsdl:message name="CheckPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckPaymentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CheckPaymentServiceSoap">
+    <wsdl:operation name="CheckPayment">
+      <wsdl:input message="tns:CheckPaymentSoapIn" />
+      <wsdl:output message="tns:CheckPaymentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CheckPaymentServiceSoap" type="tns:CheckPaymentServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckPayment">
+      <soap:operation soapAction="http://tempuri.org/CheckPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CheckPaymentServiceSoap12" type="tns:CheckPaymentServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckPayment">
+      <soap12:operation soapAction="http://tempuri.org/CheckPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CheckPaymentService">
+    <wsdl:port name="CheckPaymentServiceSoap" binding="tns:CheckPaymentServiceSoap">
+      <soap:address location="http://localhost:10600/Pages/PaymentWebService/CheckPaymentService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CheckPaymentServiceSoap12" binding="tns:CheckPaymentServiceSoap12">
+      <soap12:address location="http://localhost:10600/Pages/PaymentWebService/CheckPaymentService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

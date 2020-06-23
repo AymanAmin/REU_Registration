@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b8edd164847b430b8bb61733ce9e81db" Name="Diagram1">
+        <EntityTypeShape EntityType="REU_RegistrationModel.Collage" Width="1.5" PointX="1.5" PointY="36.25" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Employee" Width="1.5" PointX="0.75" PointY="14.625" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.File" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Group" Width="1.5" PointX="1.5" PointY="27.875" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Group_Status" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.LanguageMaster" Width="1.5" PointX="1.5" PointY="20.375" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Lanuage_Detials" Width="1.5" PointX="3.75" PointY="36.25" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.LastUpdate" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Log_File" Width="1.5" PointX="6" PointY="17.375" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Nationality" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Employee" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Master" Width="1.5" PointX="3" PointY="30.875" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Show" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Payment_Process" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Payment_Type" Width="1.5" PointX="3" PointY="13.625" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Permission" Width="1.5" PointX="3.75" PointY="20.375" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Permission_Group" Width="1.5" PointX="3.75" PointY="28" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Resource" Width="1.5" PointX="0.75" PointY="23.875" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Rosom_Request" Width="1.5" PointX="7.5" PointY="2.125" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Rosom_Response" Width="1.5" PointX="9.75" PointY="3" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Sequence" Width="1.5" PointX="6" PointY="10.125" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Specialization" Width="1.5" PointX="0.75" PointY="30.875" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Status" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Student" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Student_Concat" Width="1.5" PointX="3" PointY="24" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.sysdiagram" Width="1.5" PointX="10.75" PointY="9.75" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Specialization_Collage" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Employee_Group" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Employee_LanguageMaster" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Log_File_Employee" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Employee_Employee" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Employee" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Employee" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Files_Student" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Group_Status_Group" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Permission_Group_Group" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Group_Status_Status" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Lanuage_Detials_LanguageMaster" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Log_File_Permission" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Nationality_Nationality" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Nationality" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Employee_Notification_Show" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Master_Notification_Show" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Payment_Process_Payment_Type" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Payment_Study_Student" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Request_Payment_Process" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Response_Payment_Process" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Permission_Group_Permission" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Resource" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Response_Rosom_Request" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Status" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Student" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Specialization" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Concat_Status" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Status" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

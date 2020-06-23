@@ -1,0 +1,7 @@
+USE [REU_Registration]
+GO
+
+
+ALTER TABLE [dbo].[Student]
+ADD UNIQUE ([Student_SSN]);
+GO

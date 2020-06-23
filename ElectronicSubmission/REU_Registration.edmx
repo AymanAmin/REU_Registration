@@ -1,0 +1,2138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="REU_RegistrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Collage">
+          <Key>
+            <PropertyRef Name="Collage_ID" />
+          </Key>
+          <Property Name="Collage_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Collage_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Collage_Name_En" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Employee_Name_En" Type="nvarchar(max)" />
+          <Property Name="Employee_Email" Type="nvarchar(max)" />
+          <Property Name="Employee_Phone" Type="nvarchar(max)" />
+          <Property Name="Group_Id" Type="int" />
+          <Property Name="Employee_Profile" Type="nvarchar(max)" />
+          <Property Name="Employee_Password" Type="nvarchar(max)" />
+          <Property Name="Employee_Active" Type="bit" />
+          <Property Name="Language_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="File_Id" />
+          </Key>
+          <Property Name="File_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="File_Name" Type="nvarchar(max)" />
+          <Property Name="File_Path" Type="nvarchar(max)" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="Student_Id" Type="int" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Group_Id" />
+          </Key>
+          <Property Name="Group_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Group_Name_En" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Group_Status">
+          <Key>
+            <PropertyRef Name="Group_Status_Id" />
+          </Key>
+          <Property Name="Group_Status_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Group_Id" Type="int" />
+          <Property Name="Status_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="LanguageMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Language_Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lanuage_Detials">
+          <Key>
+            <PropertyRef Name="Language_Detial_Id" />
+          </Key>
+          <Property Name="Language_Detial_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Language_Master_Id" Type="int" />
+          <Property Name="Language_Detial_FieldName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Language_Detial_Value" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="LastUpdate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Counter" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Log_File">
+          <Key>
+            <PropertyRef Name="Log_Id" />
+          </Key>
+          <Property Name="Log_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Log_Date" Type="datetime" />
+          <Property Name="Log_Note" Type="ntext" />
+          <Property Name="Login_Id" Type="int" />
+          <Property Name="Form_Id" Type="int" />
+          <Property Name="Log_Name" Type="nvarchar(max)" />
+          <Property Name="Log_Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Nationality">
+          <Key>
+            <PropertyRef Name="Nationality_Id" />
+          </Key>
+          <Property Name="Nationality_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country_code" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Country_Name_En" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Country_Name_Ar" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nationality_Name_En" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Nationality_Name_Ar" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Notification_Employee">
+          <Key>
+            <PropertyRef Name="NotificationShow_Employee_Id" />
+          </Key>
+          <Property Name="NotificationShow_Employee_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Id" Type="int" />
+          <Property Name="NotificationShow_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Notification_Master">
+          <Key>
+            <PropertyRef Name="Notification_Id" />
+          </Key>
+          <Property Name="Notification_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Notification_Date" Type="datetime" />
+          <Property Name="Notification_Description_Ar" Type="nvarchar(max)" />
+          <Property Name="Notification_Description_En" Type="nvarchar(max)" />
+          <Property Name="Is_Read" Type="bit" />
+          <Property Name="Date_Read" Type="datetime" />
+          <Property Name="From_Employee_Structure_Id" Type="int" />
+          <Property Name="To_Employee_Structure_Id" Type="int" />
+          <Property Name="Master_Id" Type="int" />
+          <Property Name="Notification_Link" Type="nvarchar(max)" />
+          <Property Name="Is_Show_Reply" Type="bit" />
+          <Property Name="Date_Show_Reply" Type="datetime" />
+          <Property Name="Notification_Show_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Notification_Show">
+          <Key>
+            <PropertyRef Name="Notification_Show_Id" />
+          </Key>
+          <Property Name="Notification_Show_Id" Type="int" Nullable="false" />
+          <Property Name="Notification_Show_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Notification_Show_Name_En" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Payment_Process">
+          <Key>
+            <PropertyRef Name="Payment_Id" />
+          </Key>
+          <Property Name="Payment_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_Id" Type="int" />
+          <Property Name="Payment_IsPaid" Type="bit" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="Send_EntityId" Type="nvarchar(max)" />
+          <Property Name="Send_Amount" Type="float" />
+          <Property Name="Send_Currency" Type="nvarchar(max)" />
+          <Property Name="Send_PaymentType" Type="nvarchar(max)" />
+          <Property Name="Result_Code" Type="nvarchar(max)" />
+          <Property Name="Result_Description" Type="nvarchar(max)" />
+          <Property Name="Result_BuildNumber" Type="nvarchar(max)" />
+          <Property Name="Result_Timestamp" Type="nvarchar(max)" />
+          <Property Name="Result_Ndc" Type="nvarchar(max)" />
+          <Property Name="Result_Id" Type="nvarchar(max)" />
+          <Property Name="Payment_Date" Type="datetime" />
+          <Property Name="Payment_Type_Id" Type="int" />
+          <Property Name="Payment_Trackingkey" Type="nvarchar(max)" />
+          <Property Name="Payment_URL_IsValid" Type="bit" />
+          <Property Name="Payment_Result_Json" Type="varchar(max)" />
+          <Property Name="Payment_SMS_Result" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Payment_Type">
+          <Key>
+            <PropertyRef Name="Payment_Type_Id" />
+          </Key>
+          <Property Name="Payment_Type_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Payment_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Payment_Name_En" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Permission_Id" />
+          </Key>
+          <Property Name="Permission_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permission_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Permission_Name_En" Type="nvarchar(max)" />
+          <Property Name="Parent" Type="int" />
+          <Property Name="Url_Path" Type="nvarchar(max)" />
+          <Property Name="Permission_Icon" Type="nvarchar(max)" />
+          <Property Name="System_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Permission_Group">
+          <Key>
+            <PropertyRef Name="Permission_Group_Id" />
+          </Key>
+          <Property Name="Permission_Group_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Permission_Id" Type="int" />
+          <Property Name="Group_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceID" />
+          </Key>
+          <Property Name="ResourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Resource_Name_Ar" Type="nchar" MaxLength="100" />
+          <Property Name="Resource_Name_En" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Rosom_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Trackingkey" Type="nvarchar" MaxLength="100" />
+          <Property Name="Payment_Process_Id" Type="int" />
+          <Property Name="PaymentType" Type="int" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="UUID" Type="nvarchar" MaxLength="200" />
+          <Property Name="Timestamp" Type="nvarchar" MaxLength="50" />
+          <Property Name="MerchantId" Type="nchar" MaxLength="10" />
+          <Property Name="Invoice_Students_Id" Type="nvarchar" MaxLength="200" />
+          <Property Name="Invoice_Students_FirstName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Invoice_Students_LastName" Type="nvarchar" MaxLength="200" />
+          <Property Name="InvoiceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="PayeeId" Type="nvarchar" MaxLength="200" />
+          <Property Name="InvoiceStatus" Type="nvarchar" MaxLength="200" />
+          <Property Name="BillType" Type="nvarchar" MaxLength="200" />
+          <Property Name="DisplayInfo" Type="nvarchar(max)" />
+          <Property Name="AmountDue" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreateDate" Type="nvarchar" MaxLength="200" />
+          <Property Name="ExpiryDate" Type="nvarchar" MaxLength="200" />
+          <Property Name="PaymentRange_MinPartialAmount" Type="nvarchar" MaxLength="200" />
+          <Property Name="PaymentRange_MinAdvanceAmount" Type="nvarchar" MaxLength="200" />
+          <Property Name="PaymentRange_MaxAdvanceAmount" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsPaid" Type="bit" />
+          <Property Name="Result_JSON" Type="nvarchar(max)" />
+          <Property Name="Response_InvoiceId" Type="nvarchar" MaxLength="200" />
+          <Property Name="Response_SADADNumber" Type="nvarchar" MaxLength="200" />
+          <Property Name="Response_Status_Code" Type="nvarchar" MaxLength="200" />
+          <Property Name="Response_Status_Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Rosom_Response">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Payment_Process_Id" Type="int" />
+          <Property Name="Rosom_Request_Id" Type="int" />
+          <Property Name="Trackingkey" Type="nvarchar(max)" />
+          <Property Name="InvoiceId" Type="nvarchar" MaxLength="250" />
+          <Property Name="PaymentId" Type="nvarchar" MaxLength="250" />
+          <Property Name="SADADTransactionId" Type="nvarchar(max)" />
+          <Property Name="BankTransactionId" Type="nvarchar(max)" />
+          <Property Name="PaidAmount" Type="nvarchar" MaxLength="250" />
+          <Property Name="PaymentDate" Type="nvarchar" MaxLength="250" />
+          <Property Name="SADADNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="MerchantId" Type="nvarchar(max)" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="250" />
+          <Property Name="DistrictCode" Type="nvarchar(max)" />
+          <Property Name="BranchCode" Type="nvarchar(max)" />
+          <Property Name="AccessChannel" Type="nvarchar(max)" />
+          <Property Name="PmtMethod" Type="nvarchar" MaxLength="250" />
+          <Property Name="PmtType" Type="nvarchar" MaxLength="250" />
+          <Property Name="ServiceType" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Sequence">
+          <Key>
+            <PropertyRef Name="Sequence_Id" />
+          </Key>
+          <Property Name="Sequence_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_Id" Type="int" />
+          <Property Name="Status_Id" Type="int" />
+          <Property Name="Student_Id" Type="int" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="Specialization_Id" />
+          </Key>
+          <Property Name="Specialization_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Specialization_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Specialization_Name_En" Type="nvarchar(max)" />
+          <Property Name="Collage_Id" Type="int" />
+          <Property Name="Condition_Ar" Type="nvarchar(max)" />
+          <Property Name="High_School_Percent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Capabilities_Percent" Type="nvarchar" MaxLength="50" />
+          <Property Name="My_Achievement_Percent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Weighted_Ratio_Percent" Type="nvarchar" MaxLength="50" />
+          <Property Name="Specialization_Icon" Type="nvarchar(max)" />
+          <Property Name="Specialization_Image" Type="nvarchar(max)" />
+          <Property Name="Condition_En" Type="nvarchar(max)" />
+          <Property Name="Specialization_Description_Ar" Type="nvarchar(max)" />
+          <Property Name="Specialization_Description_En" Type="nvarchar(max)" />
+          <Property Name="Specialization_Registeration_Payment" Type="float" />
+          <Property Name="Specialization_Study_Payment" Type="float" />
+          <Property Name="Specialization_Suspend" Type="bit" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Status_Id" />
+          </Key>
+          <Property Name="Status_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status_Code" Type="int" />
+          <Property Name="Status_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Status_Name_En" Type="nvarchar(max)" />
+          <Property Name="Status_Color" Type="nvarchar(max)" />
+          <Property Name="Status_Icon" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Student_Id" />
+          </Key>
+          <Property Name="Student_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_SSN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Student_Name_En" Type="nvarchar(max)" />
+          <Property Name="Student_Name_Ar" Type="nvarchar(max)" />
+          <Property Name="Student_Address" Type="nvarchar(max)" />
+          <Property Name="Student_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Student_Email" Type="nvarchar(max)" />
+          <Property Name="Student_High_School_Degree" Type="nvarchar" MaxLength="50" />
+          <Property Name="Student_Capabilities_Degree" Type="nvarchar" MaxLength="50" />
+          <Property Name="Student_My_Achievement_Degree" Type="nvarchar" MaxLength="50" />
+          <Property Name="Student_CreationDate" Type="datetime" />
+          <Property Name="Student_Employee_Id" Type="int" />
+          <Property Name="Student_Assign_Date" Type="datetime" />
+          <Property Name="Student_Image_Profile" Type="nvarchar(max)" />
+          <Property Name="Student_Specialization_Id" Type="int" />
+          <Property Name="Student_Nationality_Id" Type="int" />
+          <Property Name="Student_Resource_Id" Type="int" />
+          <Property Name="Student_Status_Id" Type="int" />
+          <Property Name="Student_Total" Type="nvarchar" MaxLength="50" />
+          <Property Name="Suspended" Type="int" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Student_URL_Video" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Student_Concat">
+          <Key>
+            <PropertyRef Name="Student_Concat_Id" />
+          </Key>
+          <Property Name="Student_Concat_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_Concat_Name" Type="nvarchar(max)" />
+          <Property Name="Student_Concat_Phone" Type="nvarchar(max)" />
+          <Property Name="Student_Concat_Email" Type="nvarchar(max)" />
+          <Property Name="Student_Concat_Message" Type="nvarchar(max)" />
+          <Property Name="Student_Concat_Status" Type="int" />
+          <Property Name="Student_Concat_CreationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Employee_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_LanguageMaster">
+          <End Role="LanguageMaster" Type="Self.LanguageMaster" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguageMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Files_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Status_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Group_Status" Type="Self.Group_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Group_Status">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Status_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Group_Status" Type="Self.Group_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Group_Status">
+              <PropertyRef Name="Status_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lanuage_Detials_LanguageMaster">
+          <End Role="LanguageMaster" Type="Self.LanguageMaster" Multiplicity="0..1" />
+          <End Role="Lanuage_Detials" Type="Self.Lanuage_Detials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguageMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lanuage_Detials">
+              <PropertyRef Name="Language_Master_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_File_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Log_File" Type="Self.Log_File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Log_File">
+              <PropertyRef Name="Login_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_File_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Log_File" Type="Self.Log_File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Permission_Id" />
+            </Principal>
+            <Dependent Role="Log_File">
+              <PropertyRef Name="Form_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nationality_Nationality">
+          <End Role="Nationality" Type="Self.Nationality" Multiplicity="1" />
+          <End Role="Nationality1" Type="Self.Nationality" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Nationality">
+              <PropertyRef Name="Nationality_Id" />
+            </Principal>
+            <Dependent Role="Nationality1">
+              <PropertyRef Name="Nationality_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Employee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Notification_Employee" Type="Self.Notification_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Notification_Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Employee_Notification_Show">
+          <End Role="Notification_Show" Type="Self.Notification_Show" Multiplicity="0..1" />
+          <End Role="Notification_Employee" Type="Self.Notification_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notification_Show">
+              <PropertyRef Name="Notification_Show_Id" />
+            </Principal>
+            <Dependent Role="Notification_Employee">
+              <PropertyRef Name="NotificationShow_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Master_Notification_Show">
+          <End Role="Notification_Show" Type="Self.Notification_Show" Multiplicity="0..1" />
+          <End Role="Notification_Master" Type="Self.Notification_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notification_Show">
+              <PropertyRef Name="Notification_Show_Id" />
+            </Principal>
+            <Dependent Role="Notification_Master">
+              <PropertyRef Name="Notification_Show_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Process_Payment_Type">
+          <End Role="Payment_Type" Type="Self.Payment_Type" Multiplicity="0..1" />
+          <End Role="Payment_Process" Type="Self.Payment_Process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Type">
+              <PropertyRef Name="Payment_Type_Id" />
+            </Principal>
+            <Dependent Role="Payment_Process">
+              <PropertyRef Name="Payment_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Study_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Payment_Process" Type="Self.Payment_Process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Payment_Process">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Group_Group">
+          <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
+          <End Role="Permission_Group" Type="Self.Permission_Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Permission_Group">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Group_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_Group" Type="Self.Permission_Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Permission_Id" />
+            </Principal>
+            <Dependent Role="Permission_Group">
+              <PropertyRef Name="Permission_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rosom_Request_Payment_Process">
+          <End Role="Payment_Process" Type="Self.Payment_Process" Multiplicity="0..1" />
+          <End Role="Rosom_Request" Type="Self.Rosom_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Process">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="Rosom_Request">
+              <PropertyRef Name="Payment_Process_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rosom_Response_Payment_Process">
+          <End Role="Payment_Process" Type="Self.Payment_Process" Multiplicity="0..1" />
+          <End Role="Rosom_Response" Type="Self.Rosom_Response" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Process">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="Rosom_Response">
+              <PropertyRef Name="Payment_Process_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rosom_Response_Rosom_Request">
+          <End Role="Rosom_Request" Type="Self.Rosom_Request" Multiplicity="0..1" />
+          <End Role="Rosom_Response" Type="Self.Rosom_Response" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rosom_Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rosom_Response">
+              <PropertyRef Name="Rosom_Request_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sequence_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Sequence" Type="Self.Sequence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Sequence">
+              <PropertyRef Name="Emp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sequence_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Sequence" Type="Self.Sequence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Sequence">
+              <PropertyRef Name="Status_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sequence_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Sequence" Type="Self.Sequence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Sequence">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialization_Collage">
+          <End Role="Collage" Type="Self.Collage" Multiplicity="0..1" />
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collage">
+              <PropertyRef Name="Collage_ID" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="Collage_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Concat_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Student_Concat" Type="Self.Student_Concat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Student_Concat">
+              <PropertyRef Name="Student_Concat_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Nationality">
+          <End Role="Nationality" Type="Self.Nationality" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nationality">
+              <PropertyRef Name="Nationality_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Nationality_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Resource">
+          <End Role="Resource" Type="Self.Resource" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="ResourceID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Resource_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Specialization">
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Specialization_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Specialization_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Status_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="REU_RegistrationModelStoreContainer">
+          <EntitySet Name="Collage" EntityType="Self.Collage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group_Status" EntityType="Self.Group_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LanguageMaster" EntityType="Self.LanguageMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lanuage_Detials" EntityType="Self.Lanuage_Detials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LastUpdate" EntityType="Self.LastUpdate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log_File" EntityType="Self.Log_File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nationality" EntityType="Self.Nationality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Employee" EntityType="Self.Notification_Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Master" EntityType="Self.Notification_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification_Show" EntityType="Self.Notification_Show" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment_Process" EntityType="Self.Payment_Process" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment_Type" EntityType="Self.Payment_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission_Group" EntityType="Self.Permission_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Resource" EntityType="Self.Resource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rosom_Request" EntityType="Self.Rosom_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rosom_Response" EntityType="Self.Rosom_Response" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sequence" EntityType="Self.Sequence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Concat" EntityType="Self.Student_Concat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Employee_Group" Association="Self.FK_Employee_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_LanguageMaster" Association="Self.FK_Employee_LanguageMaster">
+            <End Role="LanguageMaster" EntitySet="LanguageMaster" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Files_Student" Association="Self.FK_Files_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Status_Group" Association="Self.FK_Group_Status_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Group_Status" EntitySet="Group_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Status_Status" Association="Self.FK_Group_Status_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Group_Status" EntitySet="Group_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lanuage_Detials_LanguageMaster" Association="Self.FK_Lanuage_Detials_LanguageMaster">
+            <End Role="LanguageMaster" EntitySet="LanguageMaster" />
+            <End Role="Lanuage_Detials" EntitySet="Lanuage_Detials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_File_Employee" Association="Self.FK_Log_File_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Log_File" EntitySet="Log_File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_File_Permission" Association="Self.FK_Log_File_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Log_File" EntitySet="Log_File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nationality_Nationality" Association="Self.FK_Nationality_Nationality">
+            <End Role="Nationality" EntitySet="Nationality" />
+            <End Role="Nationality1" EntitySet="Nationality" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Employee_Employee" Association="Self.FK_Notification_Employee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Notification_Employee" EntitySet="Notification_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Employee_Notification_Show" Association="Self.FK_Notification_Employee_Notification_Show">
+            <End Role="Notification_Show" EntitySet="Notification_Show" />
+            <End Role="Notification_Employee" EntitySet="Notification_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Master_Notification_Show" Association="Self.FK_Notification_Master_Notification_Show">
+            <End Role="Notification_Show" EntitySet="Notification_Show" />
+            <End Role="Notification_Master" EntitySet="Notification_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Process_Payment_Type" Association="Self.FK_Payment_Process_Payment_Type">
+            <End Role="Payment_Type" EntitySet="Payment_Type" />
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Study_Student" Association="Self.FK_Payment_Study_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Group_Group" Association="Self.FK_Permission_Group_Group">
+            <End Role="Group" EntitySet="Group" />
+            <End Role="Permission_Group" EntitySet="Permission_Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Group_Permission" Association="Self.FK_Permission_Group_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Permission_Group" EntitySet="Permission_Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rosom_Request_Payment_Process" Association="Self.FK_Rosom_Request_Payment_Process">
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+            <End Role="Rosom_Request" EntitySet="Rosom_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rosom_Response_Payment_Process" Association="Self.FK_Rosom_Response_Payment_Process">
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+            <End Role="Rosom_Response" EntitySet="Rosom_Response" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rosom_Response_Rosom_Request" Association="Self.FK_Rosom_Response_Rosom_Request">
+            <End Role="Rosom_Request" EntitySet="Rosom_Request" />
+            <End Role="Rosom_Response" EntitySet="Rosom_Response" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sequence_Employee" Association="Self.FK_Sequence_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Sequence" EntitySet="Sequence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sequence_Status" Association="Self.FK_Sequence_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Sequence" EntitySet="Sequence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sequence_Student" Association="Self.FK_Sequence_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Sequence" EntitySet="Sequence" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialization_Collage" Association="Self.FK_Specialization_Collage">
+            <End Role="Collage" EntitySet="Collage" />
+            <End Role="Specialization" EntitySet="Specialization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Concat_Status" Association="Self.FK_Student_Concat_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Student_Concat" EntitySet="Student_Concat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Employee" Association="Self.FK_Student_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Nationality" Association="Self.FK_Student_Nationality">
+            <End Role="Nationality" EntitySet="Nationality" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Resource" Association="Self.FK_Student_Resource">
+            <End Role="Resource" EntitySet="Resource" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Specialization" Association="Self.FK_Student_Specialization">
+            <End Role="Specialization" EntitySet="Specialization" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Status" Association="Self.FK_Student_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="REU_RegistrationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="REU_RegistrationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Collages" EntityType="REU_RegistrationModel.Collage" />
+          <EntitySet Name="Employees" EntityType="REU_RegistrationModel.Employee" />
+          <EntitySet Name="Files" EntityType="REU_RegistrationModel.File" />
+          <EntitySet Name="Groups" EntityType="REU_RegistrationModel.Group" />
+          <EntitySet Name="Group_Status" EntityType="REU_RegistrationModel.Group_Status" />
+          <EntitySet Name="LanguageMasters" EntityType="REU_RegistrationModel.LanguageMaster" />
+          <EntitySet Name="Lanuage_Detials" EntityType="REU_RegistrationModel.Lanuage_Detials" />
+          <EntitySet Name="LastUpdates" EntityType="REU_RegistrationModel.LastUpdate" />
+          <EntitySet Name="Log_File" EntityType="REU_RegistrationModel.Log_File" />
+          <EntitySet Name="Nationalities" EntityType="REU_RegistrationModel.Nationality" />
+          <EntitySet Name="Notification_Employee" EntityType="REU_RegistrationModel.Notification_Employee" />
+          <EntitySet Name="Notification_Master" EntityType="REU_RegistrationModel.Notification_Master" />
+          <EntitySet Name="Notification_Show" EntityType="REU_RegistrationModel.Notification_Show" />
+          <EntitySet Name="Payment_Process" EntityType="REU_RegistrationModel.Payment_Process" />
+          <EntitySet Name="Payment_Type" EntityType="REU_RegistrationModel.Payment_Type" />
+          <EntitySet Name="Permissions" EntityType="REU_RegistrationModel.Permission" />
+          <EntitySet Name="Permission_Group" EntityType="REU_RegistrationModel.Permission_Group" />
+          <EntitySet Name="Resources" EntityType="REU_RegistrationModel.Resource" />
+          <EntitySet Name="Rosom_Request" EntityType="REU_RegistrationModel.Rosom_Request" />
+          <EntitySet Name="Rosom_Response" EntityType="REU_RegistrationModel.Rosom_Response" />
+          <EntitySet Name="Sequences" EntityType="REU_RegistrationModel.Sequence" />
+          <EntitySet Name="Specializations" EntityType="REU_RegistrationModel.Specialization" />
+          <EntitySet Name="Status" EntityType="REU_RegistrationModel.Status" />
+          <EntitySet Name="Students" EntityType="REU_RegistrationModel.Student" />
+          <EntitySet Name="Student_Concat" EntityType="REU_RegistrationModel.Student_Concat" />
+          <EntitySet Name="sysdiagrams" EntityType="REU_RegistrationModel.sysdiagram" />
+          <AssociationSet Name="FK_Specialization_Collage" Association="REU_RegistrationModel.FK_Specialization_Collage">
+            <End Role="Collage" EntitySet="Collages" />
+            <End Role="Specialization" EntitySet="Specializations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Group" Association="REU_RegistrationModel.FK_Employee_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_LanguageMaster" Association="REU_RegistrationModel.FK_Employee_LanguageMaster">
+            <End Role="LanguageMaster" EntitySet="LanguageMasters" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_File_Employee" Association="REU_RegistrationModel.FK_Log_File_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Log_File" EntitySet="Log_File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Employee_Employee" Association="REU_RegistrationModel.FK_Notification_Employee_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Notification_Employee" EntitySet="Notification_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sequence_Employee" Association="REU_RegistrationModel.FK_Sequence_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Sequence" EntitySet="Sequences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Employee" Association="REU_RegistrationModel.FK_Student_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Files_Student" Association="REU_RegistrationModel.FK_Files_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Status_Group" Association="REU_RegistrationModel.FK_Group_Status_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Group_Status" EntitySet="Group_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Group_Group" Association="REU_RegistrationModel.FK_Permission_Group_Group">
+            <End Role="Group" EntitySet="Groups" />
+            <End Role="Permission_Group" EntitySet="Permission_Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_Status_Status" Association="REU_RegistrationModel.FK_Group_Status_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Group_Status" EntitySet="Group_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Lanuage_Detials_LanguageMaster" Association="REU_RegistrationModel.FK_Lanuage_Detials_LanguageMaster">
+            <End Role="LanguageMaster" EntitySet="LanguageMasters" />
+            <End Role="Lanuage_Detials" EntitySet="Lanuage_Detials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_File_Permission" Association="REU_RegistrationModel.FK_Log_File_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Log_File" EntitySet="Log_File" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Nationality_Nationality" Association="REU_RegistrationModel.FK_Nationality_Nationality">
+            <End Role="Nationality" EntitySet="Nationalities" />
+            <End Role="Nationality1" EntitySet="Nationalities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Nationality" Association="REU_RegistrationModel.FK_Student_Nationality">
+            <End Role="Nationality" EntitySet="Nationalities" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Employee_Notification_Show" Association="REU_RegistrationModel.FK_Notification_Employee_Notification_Show">
+            <End Role="Notification_Show" EntitySet="Notification_Show" />
+            <End Role="Notification_Employee" EntitySet="Notification_Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Notification_Master_Notification_Show" Association="REU_RegistrationModel.FK_Notification_Master_Notification_Show">
+            <End Role="Notification_Show" EntitySet="Notification_Show" />
+            <End Role="Notification_Master" EntitySet="Notification_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Process_Payment_Type" Association="REU_RegistrationModel.FK_Payment_Process_Payment_Type">
+            <End Role="Payment_Type" EntitySet="Payment_Type" />
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Study_Student" Association="REU_RegistrationModel.FK_Payment_Study_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rosom_Request_Payment_Process" Association="REU_RegistrationModel.FK_Rosom_Request_Payment_Process">
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+            <End Role="Rosom_Request" EntitySet="Rosom_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rosom_Response_Payment_Process" Association="REU_RegistrationModel.FK_Rosom_Response_Payment_Process">
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+            <End Role="Rosom_Response" EntitySet="Rosom_Response" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Group_Permission" Association="REU_RegistrationModel.FK_Permission_Group_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Permission_Group" EntitySet="Permission_Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Resource" Association="REU_RegistrationModel.FK_Student_Resource">
+            <End Role="Resource" EntitySet="Resources" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rosom_Response_Rosom_Request" Association="REU_RegistrationModel.FK_Rosom_Response_Rosom_Request">
+            <End Role="Rosom_Request" EntitySet="Rosom_Request" />
+            <End Role="Rosom_Response" EntitySet="Rosom_Response" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sequence_Status" Association="REU_RegistrationModel.FK_Sequence_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Sequence" EntitySet="Sequences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sequence_Student" Association="REU_RegistrationModel.FK_Sequence_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Sequence" EntitySet="Sequences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Specialization" Association="REU_RegistrationModel.FK_Student_Specialization">
+            <End Role="Specialization" EntitySet="Specializations" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Concat_Status" Association="REU_RegistrationModel.FK_Student_Concat_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Student_Concat" EntitySet="Student_Concat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Status" Association="REU_RegistrationModel.FK_Student_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Collage">
+          <Key>
+            <PropertyRef Name="Collage_ID" />
+          </Key>
+          <Property Name="Collage_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Collage_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Collage_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Specializations" Relationship="REU_RegistrationModel.FK_Specialization_Collage" FromRole="Collage" ToRole="Specialization" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Employee_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Employee_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Employee_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Group_Id" Type="Int32" />
+          <Property Name="Employee_Profile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Employee_Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Employee_Active" Type="Boolean" />
+          <Property Name="Language_id" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="REU_RegistrationModel.FK_Employee_Group" FromRole="Employee" ToRole="Group" />
+          <NavigationProperty Name="LanguageMaster" Relationship="REU_RegistrationModel.FK_Employee_LanguageMaster" FromRole="Employee" ToRole="LanguageMaster" />
+          <NavigationProperty Name="Log_File" Relationship="REU_RegistrationModel.FK_Log_File_Employee" FromRole="Employee" ToRole="Log_File" />
+          <NavigationProperty Name="Notification_Employee" Relationship="REU_RegistrationModel.FK_Notification_Employee_Employee" FromRole="Employee" ToRole="Notification_Employee" />
+          <NavigationProperty Name="Sequences" Relationship="REU_RegistrationModel.FK_Sequence_Employee" FromRole="Employee" ToRole="Sequence" />
+          <NavigationProperty Name="Students" Relationship="REU_RegistrationModel.FK_Student_Employee" FromRole="Employee" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="File_Id" />
+          </Key>
+          <Property Name="File_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="File_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="File_Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="Student_Id" Type="Int32" />
+          <Property Name="Type" Type="Int32" />
+          <NavigationProperty Name="Student" Relationship="REU_RegistrationModel.FK_Files_Student" FromRole="File" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Group_Id" />
+          </Key>
+          <Property Name="Group_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Group_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="REU_RegistrationModel.FK_Employee_Group" FromRole="Group" ToRole="Employee" />
+          <NavigationProperty Name="Group_Status" Relationship="REU_RegistrationModel.FK_Group_Status_Group" FromRole="Group" ToRole="Group_Status" />
+          <NavigationProperty Name="Permission_Group" Relationship="REU_RegistrationModel.FK_Permission_Group_Group" FromRole="Group" ToRole="Permission_Group" />
+        </EntityType>
+        <EntityType Name="Group_Status">
+          <Key>
+            <PropertyRef Name="Group_Status_Id" />
+          </Key>
+          <Property Name="Group_Status_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Group_Id" Type="Int32" />
+          <Property Name="Status_Id" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="REU_RegistrationModel.FK_Group_Status_Group" FromRole="Group_Status" ToRole="Group" />
+          <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Group_Status_Status" FromRole="Group_Status" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="LanguageMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Language_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="REU_RegistrationModel.FK_Employee_LanguageMaster" FromRole="LanguageMaster" ToRole="Employee" />
+          <NavigationProperty Name="Lanuage_Detials" Relationship="REU_RegistrationModel.FK_Lanuage_Detials_LanguageMaster" FromRole="LanguageMaster" ToRole="Lanuage_Detials" />
+        </EntityType>
+        <EntityType Name="Lanuage_Detials">
+          <Key>
+            <PropertyRef Name="Language_Detial_Id" />
+          </Key>
+          <Property Name="Language_Detial_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Language_Master_Id" Type="Int32" />
+          <Property Name="Language_Detial_FieldName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Language_Detial_Value" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LanguageMaster" Relationship="REU_RegistrationModel.FK_Lanuage_Detials_LanguageMaster" FromRole="Lanuage_Detials" ToRole="LanguageMaster" />
+        </EntityType>
+        <EntityType Name="LastUpdate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Counter" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Log_File">
+          <Key>
+            <PropertyRef Name="Log_Id" />
+          </Key>
+          <Property Name="Log_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Log_Date" Type="DateTime" Precision="3" />
+          <Property Name="Log_Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Login_Id" Type="Int32" />
+          <Property Name="Form_Id" Type="Int32" />
+          <Property Name="Log_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Log_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="REU_RegistrationModel.FK_Log_File_Employee" FromRole="Log_File" ToRole="Employee" />
+          <NavigationProperty Name="Permission" Relationship="REU_RegistrationModel.FK_Log_File_Permission" FromRole="Log_File" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="Nationality">
+          <Key>
+            <PropertyRef Name="Nationality_Id" />
+          </Key>
+          <Property Name="Nationality_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country_code" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Country_Name_En" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Country_Name_Ar" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Nationality_Name_En" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nationality_Name_Ar" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Nationality1" Relationship="REU_RegistrationModel.FK_Nationality_Nationality" FromRole="Nationality" ToRole="Nationality1" />
+          <NavigationProperty Name="Nationality2" Relationship="REU_RegistrationModel.FK_Nationality_Nationality" FromRole="Nationality1" ToRole="Nationality" />
+          <NavigationProperty Name="Students" Relationship="REU_RegistrationModel.FK_Student_Nationality" FromRole="Nationality" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Notification_Employee">
+          <Key>
+            <PropertyRef Name="NotificationShow_Employee_Id" />
+          </Key>
+          <Property Name="NotificationShow_Employee_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Id" Type="Int32" />
+          <Property Name="NotificationShow_Id" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="REU_RegistrationModel.FK_Notification_Employee_Employee" FromRole="Notification_Employee" ToRole="Employee" />
+          <NavigationProperty Name="Notification_Show" Relationship="REU_RegistrationModel.FK_Notification_Employee_Notification_Show" FromRole="Notification_Employee" ToRole="Notification_Show" />
+        </EntityType>
+        <EntityType Name="Notification_Master">
+          <Key>
+            <PropertyRef Name="Notification_Id" />
+          </Key>
+          <Property Name="Notification_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notification_Date" Type="DateTime" Precision="3" />
+          <Property Name="Notification_Description_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notification_Description_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Read" Type="Boolean" />
+          <Property Name="Date_Read" Type="DateTime" Precision="3" />
+          <Property Name="From_Employee_Structure_Id" Type="Int32" />
+          <Property Name="To_Employee_Structure_Id" Type="Int32" />
+          <Property Name="Master_Id" Type="Int32" />
+          <Property Name="Notification_Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Show_Reply" Type="Boolean" />
+          <Property Name="Date_Show_Reply" Type="DateTime" Precision="3" />
+          <Property Name="Notification_Show_Id" Type="Int32" />
+          <NavigationProperty Name="Notification_Show" Relationship="REU_RegistrationModel.FK_Notification_Master_Notification_Show" FromRole="Notification_Master" ToRole="Notification_Show" />
+        </EntityType>
+        <EntityType Name="Notification_Show">
+          <Key>
+            <PropertyRef Name="Notification_Show_Id" />
+          </Key>
+          <Property Name="Notification_Show_Id" Type="Int32" Nullable="false" />
+          <Property Name="Notification_Show_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notification_Show_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Notification_Employee" Relationship="REU_RegistrationModel.FK_Notification_Employee_Notification_Show" FromRole="Notification_Show" ToRole="Notification_Employee" />
+          <NavigationProperty Name="Notification_Master" Relationship="REU_RegistrationModel.FK_Notification_Master_Notification_Show" FromRole="Notification_Show" ToRole="Notification_Master" />
+        </EntityType>
+        <EntityType Name="Payment_Process">
+          <Key>
+            <PropertyRef Name="Payment_Id" />
+          </Key>
+          <Property Name="Payment_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_Id" Type="Int32" />
+          <Property Name="Payment_IsPaid" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="Send_EntityId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Send_Amount" Type="Double" />
+          <Property Name="Send_Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Send_PaymentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_BuildNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_Timestamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_Ndc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_Id" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Date" Type="DateTime" Precision="3" />
+          <Property Name="Payment_Type_Id" Type="Int32" />
+          <Property Name="Payment_Trackingkey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_URL_IsValid" Type="Boolean" />
+          <Property Name="Payment_Result_Json" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Payment_SMS_Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Payment_Type" Relationship="REU_RegistrationModel.FK_Payment_Process_Payment_Type" FromRole="Payment_Process" ToRole="Payment_Type" />
+          <NavigationProperty Name="Student" Relationship="REU_RegistrationModel.FK_Payment_Study_Student" FromRole="Payment_Process" ToRole="Student" />
+          <NavigationProperty Name="Rosom_Request" Relationship="REU_RegistrationModel.FK_Rosom_Request_Payment_Process" FromRole="Payment_Process" ToRole="Rosom_Request" />
+          <NavigationProperty Name="Rosom_Response" Relationship="REU_RegistrationModel.FK_Rosom_Response_Payment_Process" FromRole="Payment_Process" ToRole="Rosom_Response" />
+        </EntityType>
+        <EntityType Name="Payment_Type">
+          <Key>
+            <PropertyRef Name="Payment_Type_Id" />
+          </Key>
+          <Property Name="Payment_Type_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Payment_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment_Process" Relationship="REU_RegistrationModel.FK_Payment_Process_Payment_Type" FromRole="Payment_Type" ToRole="Payment_Process" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Permission_Id" />
+          </Key>
+          <Property Name="Permission_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permission_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Permission_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Parent" Type="Int32" />
+          <Property Name="Url_Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Permission_Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="System_Id" Type="Int32" />
+          <NavigationProperty Name="Log_File" Relationship="REU_RegistrationModel.FK_Log_File_Permission" FromRole="Permission" ToRole="Log_File" />
+          <NavigationProperty Name="Permission_Group" Relationship="REU_RegistrationModel.FK_Permission_Group_Permission" FromRole="Permission" ToRole="Permission_Group" />
+        </EntityType>
+        <EntityType Name="Permission_Group">
+          <Key>
+            <PropertyRef Name="Permission_Group_Id" />
+          </Key>
+          <Property Name="Permission_Group_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Permission_Id" Type="Int32" />
+          <Property Name="Group_Id" Type="Int32" />
+          <NavigationProperty Name="Group" Relationship="REU_RegistrationModel.FK_Permission_Group_Group" FromRole="Permission_Group" ToRole="Group" />
+          <NavigationProperty Name="Permission" Relationship="REU_RegistrationModel.FK_Permission_Group_Permission" FromRole="Permission_Group" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="ResourceID" />
+          </Key>
+          <Property Name="ResourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Resource_Name_Ar" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Resource_Name_En" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="REU_RegistrationModel.FK_Student_Resource" FromRole="Resource" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Rosom_Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Trackingkey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Payment_Process_Id" Type="Int32" />
+          <Property Name="PaymentType" Type="Int32" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="UUID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MerchantId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Invoice_Students_Id" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Invoice_Students_FirstName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Invoice_Students_LastName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PayeeId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BillType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AmountDue" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ExpiryDate" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentRange_MinPartialAmount" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentRange_MinAdvanceAmount" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentRange_MaxAdvanceAmount" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsPaid" Type="Boolean" />
+          <Property Name="Result_JSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Response_InvoiceId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Response_SADADNumber" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Response_Status_Code" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Response_Status_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment_Process" Relationship="REU_RegistrationModel.FK_Rosom_Request_Payment_Process" FromRole="Rosom_Request" ToRole="Payment_Process" />
+          <NavigationProperty Name="Rosom_Response" Relationship="REU_RegistrationModel.FK_Rosom_Response_Rosom_Request" FromRole="Rosom_Request" ToRole="Rosom_Response" />
+        </EntityType>
+        <EntityType Name="Rosom_Response">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Payment_Process_Id" Type="Int32" />
+          <Property Name="Rosom_Request_Id" Type="Int32" />
+          <Property Name="Trackingkey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentId" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SADADTransactionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankTransactionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaidAmount" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentDate" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SADADNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MerchantId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BankName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DistrictCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AccessChannel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PmtMethod" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PmtType" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceType" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payment_Process" Relationship="REU_RegistrationModel.FK_Rosom_Response_Payment_Process" FromRole="Rosom_Response" ToRole="Payment_Process" />
+          <NavigationProperty Name="Rosom_Request" Relationship="REU_RegistrationModel.FK_Rosom_Response_Rosom_Request" FromRole="Rosom_Response" ToRole="Rosom_Request" />
+        </EntityType>
+        <EntityType Name="Sequence">
+          <Key>
+            <PropertyRef Name="Sequence_Id" />
+          </Key>
+          <Property Name="Sequence_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_Id" Type="Int32" />
+          <Property Name="Status_Id" Type="Int32" />
+          <Property Name="Student_Id" Type="Int32" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="REU_RegistrationModel.FK_Sequence_Employee" FromRole="Sequence" ToRole="Employee" />
+          <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Sequence_Status" FromRole="Sequence" ToRole="Status" />
+          <NavigationProperty Name="Student" Relationship="REU_RegistrationModel.FK_Sequence_Student" FromRole="Sequence" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="Specialization_Id" />
+          </Key>
+          <Property Name="Specialization_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Specialization_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Collage_Id" Type="Int32" />
+          <Property Name="Condition_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="High_School_Percent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Capabilities_Percent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="My_Achievement_Percent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Weighted_Ratio_Percent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization_Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Condition_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization_Description_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization_Description_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Specialization_Registeration_Payment" Type="Double" />
+          <Property Name="Specialization_Study_Payment" Type="Double" />
+          <Property Name="Specialization_Suspend" Type="Boolean" />
+          <NavigationProperty Name="Collage" Relationship="REU_RegistrationModel.FK_Specialization_Collage" FromRole="Specialization" ToRole="Collage" />
+          <NavigationProperty Name="Students" Relationship="REU_RegistrationModel.FK_Student_Specialization" FromRole="Specialization" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="Status_Id" />
+          </Key>
+          <Property Name="Status_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status_Code" Type="Int32" />
+          <Property Name="Status_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status_Color" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status_Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Group_Status" Relationship="REU_RegistrationModel.FK_Group_Status_Status" FromRole="Status" ToRole="Group_Status" />
+          <NavigationProperty Name="Sequences" Relationship="REU_RegistrationModel.FK_Sequence_Status" FromRole="Status" ToRole="Sequence" />
+          <NavigationProperty Name="Student_Concat" Relationship="REU_RegistrationModel.FK_Student_Concat_Status" FromRole="Status" ToRole="Student_Concat" />
+          <NavigationProperty Name="Students" Relationship="REU_RegistrationModel.FK_Student_Status" FromRole="Status" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Student_Id" />
+          </Key>
+          <Property Name="Student_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_SSN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Name_En" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Name_Ar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_High_School_Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Capabilities_Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Student_My_Achievement_Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Student_CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="Student_Employee_Id" Type="Int32" />
+          <Property Name="Student_Assign_Date" Type="DateTime" Precision="3" />
+          <Property Name="Student_Image_Profile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Specialization_Id" Type="Int32" />
+          <Property Name="Student_Nationality_Id" Type="Int32" />
+          <Property Name="Student_Resource_Id" Type="Int32" />
+          <Property Name="Student_Status_Id" Type="Int32" />
+          <Property Name="Student_Total" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Suspended" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_URL_Video" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="REU_RegistrationModel.FK_Student_Employee" FromRole="Student" ToRole="Employee" />
+          <NavigationProperty Name="Files" Relationship="REU_RegistrationModel.FK_Files_Student" FromRole="Student" ToRole="File" />
+          <NavigationProperty Name="Nationality" Relationship="REU_RegistrationModel.FK_Student_Nationality" FromRole="Student" ToRole="Nationality" />
+          <NavigationProperty Name="Payment_Process" Relationship="REU_RegistrationModel.FK_Payment_Study_Student" FromRole="Student" ToRole="Payment_Process" />
+          <NavigationProperty Name="Resource" Relationship="REU_RegistrationModel.FK_Student_Resource" FromRole="Student" ToRole="Resource" />
+          <NavigationProperty Name="Sequences" Relationship="REU_RegistrationModel.FK_Sequence_Student" FromRole="Student" ToRole="Sequence" />
+          <NavigationProperty Name="Specialization" Relationship="REU_RegistrationModel.FK_Student_Specialization" FromRole="Student" ToRole="Specialization" />
+          <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Student_Status" FromRole="Student" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Student_Concat">
+          <Key>
+            <PropertyRef Name="Student_Concat_Id" />
+          </Key>
+          <Property Name="Student_Concat_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_Concat_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Concat_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Concat_Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Concat_Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Student_Concat_Status" Type="Int32" />
+          <Property Name="Student_Concat_CreationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Student_Concat_Status" FromRole="Student_Concat" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Specialization_Collage">
+          <End Type="REU_RegistrationModel.Collage" Role="Collage" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Specialization" Role="Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collage">
+              <PropertyRef Name="Collage_ID" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="Collage_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_Group">
+          <End Type="REU_RegistrationModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_LanguageMaster">
+          <End Type="REU_RegistrationModel.LanguageMaster" Role="LanguageMaster" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguageMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="Language_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_File_Employee">
+          <End Type="REU_RegistrationModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Log_File" Role="Log_File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Log_File">
+              <PropertyRef Name="Login_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Employee_Employee">
+          <End Type="REU_RegistrationModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Notification_Employee" Role="Notification_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Notification_Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sequence_Employee">
+          <End Type="REU_RegistrationModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Sequence" Role="Sequence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Sequence">
+              <PropertyRef Name="Emp_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Employee">
+          <End Type="REU_RegistrationModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Files_Student">
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Status_Group">
+          <End Type="REU_RegistrationModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Group_Status" Role="Group_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Group_Status">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Group_Group">
+          <End Type="REU_RegistrationModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Permission_Group" Role="Permission_Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Group_Id" />
+            </Principal>
+            <Dependent Role="Permission_Group">
+              <PropertyRef Name="Group_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Status_Status">
+          <End Type="REU_RegistrationModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Group_Status" Role="Group_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Group_Status">
+              <PropertyRef Name="Status_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Lanuage_Detials_LanguageMaster">
+          <End Type="REU_RegistrationModel.LanguageMaster" Role="LanguageMaster" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Lanuage_Detials" Role="Lanuage_Detials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguageMaster">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lanuage_Detials">
+              <PropertyRef Name="Language_Master_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_File_Permission">
+          <End Type="REU_RegistrationModel.Permission" Role="Permission" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Log_File" Role="Log_File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Permission_Id" />
+            </Principal>
+            <Dependent Role="Log_File">
+              <PropertyRef Name="Form_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Nationality_Nationality">
+          <End Type="REU_RegistrationModel.Nationality" Role="Nationality" Multiplicity="1" />
+          <End Type="REU_RegistrationModel.Nationality" Role="Nationality1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Nationality">
+              <PropertyRef Name="Nationality_Id" />
+            </Principal>
+            <Dependent Role="Nationality1">
+              <PropertyRef Name="Nationality_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Nationality">
+          <End Type="REU_RegistrationModel.Nationality" Role="Nationality" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nationality">
+              <PropertyRef Name="Nationality_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Nationality_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Employee_Notification_Show">
+          <End Type="REU_RegistrationModel.Notification_Show" Role="Notification_Show" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Notification_Employee" Role="Notification_Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notification_Show">
+              <PropertyRef Name="Notification_Show_Id" />
+            </Principal>
+            <Dependent Role="Notification_Employee">
+              <PropertyRef Name="NotificationShow_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Notification_Master_Notification_Show">
+          <End Type="REU_RegistrationModel.Notification_Show" Role="Notification_Show" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Notification_Master" Role="Notification_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Notification_Show">
+              <PropertyRef Name="Notification_Show_Id" />
+            </Principal>
+            <Dependent Role="Notification_Master">
+              <PropertyRef Name="Notification_Show_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Process_Payment_Type">
+          <End Type="REU_RegistrationModel.Payment_Type" Role="Payment_Type" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Payment_Process" Role="Payment_Process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Type">
+              <PropertyRef Name="Payment_Type_Id" />
+            </Principal>
+            <Dependent Role="Payment_Process">
+              <PropertyRef Name="Payment_Type_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Study_Student">
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Payment_Process" Role="Payment_Process" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Payment_Process">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rosom_Request_Payment_Process">
+          <End Type="REU_RegistrationModel.Payment_Process" Role="Payment_Process" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Rosom_Request" Role="Rosom_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Process">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="Rosom_Request">
+              <PropertyRef Name="Payment_Process_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rosom_Response_Payment_Process">
+          <End Type="REU_RegistrationModel.Payment_Process" Role="Payment_Process" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Rosom_Response" Role="Rosom_Response" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Process">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="Rosom_Response">
+              <PropertyRef Name="Payment_Process_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Group_Permission">
+          <End Type="REU_RegistrationModel.Permission" Role="Permission" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Permission_Group" Role="Permission_Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="Permission_Id" />
+            </Principal>
+            <Dependent Role="Permission_Group">
+              <PropertyRef Name="Permission_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Resource">
+          <End Type="REU_RegistrationModel.Resource" Role="Resource" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Resource">
+              <PropertyRef Name="ResourceID" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Resource_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rosom_Response_Rosom_Request">
+          <End Type="REU_RegistrationModel.Rosom_Request" Role="Rosom_Request" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Rosom_Response" Role="Rosom_Response" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rosom_Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rosom_Response">
+              <PropertyRef Name="Rosom_Request_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sequence_Status">
+          <End Type="REU_RegistrationModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Sequence" Role="Sequence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Sequence">
+              <PropertyRef Name="Status_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sequence_Student">
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Sequence" Role="Sequence" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Sequence">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Specialization">
+          <End Type="REU_RegistrationModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Specialization_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Specialization_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Concat_Status">
+          <End Type="REU_RegistrationModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student_Concat" Role="Student_Concat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Student_Concat">
+              <PropertyRef Name="Student_Concat_Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Status">
+          <End Type="REU_RegistrationModel.Status" Role="Status" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="Status_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Status_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="REU_RegistrationModelStoreContainer" CdmEntityContainer="REU_RegistrationEntities">
+          <EntitySetMapping Name="Collages">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Collage">
+              <MappingFragment StoreEntitySet="Collage">
+                <ScalarProperty Name="Collage_Name_En" ColumnName="Collage_Name_En" />
+                <ScalarProperty Name="Collage_Name_Ar" ColumnName="Collage_Name_Ar" />
+                <ScalarProperty Name="Collage_ID" ColumnName="Collage_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Language_id" ColumnName="Language_id" />
+                <ScalarProperty Name="Employee_Active" ColumnName="Employee_Active" />
+                <ScalarProperty Name="Employee_Password" ColumnName="Employee_Password" />
+                <ScalarProperty Name="Employee_Profile" ColumnName="Employee_Profile" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="Employee_Phone" ColumnName="Employee_Phone" />
+                <ScalarProperty Name="Employee_Email" ColumnName="Employee_Email" />
+                <ScalarProperty Name="Employee_Name_En" ColumnName="Employee_Name_En" />
+                <ScalarProperty Name="Employee_Name_Ar" ColumnName="Employee_Name_Ar" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.File">
+              <MappingFragment StoreEntitySet="Files">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="File_Path" ColumnName="File_Path" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="File_Id" ColumnName="File_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Group">
+              <MappingFragment StoreEntitySet="Group">
+                <ScalarProperty Name="Group_Name_En" ColumnName="Group_Name_En" />
+                <ScalarProperty Name="Group_Name_Ar" ColumnName="Group_Name_Ar" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group_Status">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Group_Status">
+              <MappingFragment StoreEntitySet="Group_Status">
+                <ScalarProperty Name="Status_Id" ColumnName="Status_Id" />
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="Group_Status_Id" ColumnName="Group_Status_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LanguageMasters">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.LanguageMaster">
+              <MappingFragment StoreEntitySet="LanguageMaster">
+                <ScalarProperty Name="Language_Name" ColumnName="Language_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lanuage_Detials">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Lanuage_Detials">
+              <MappingFragment StoreEntitySet="Lanuage_Detials">
+                <ScalarProperty Name="Language_Detial_Value" ColumnName="Language_Detial_Value" />
+                <ScalarProperty Name="Language_Detial_FieldName" ColumnName="Language_Detial_FieldName" />
+                <ScalarProperty Name="Language_Master_Id" ColumnName="Language_Master_Id" />
+                <ScalarProperty Name="Language_Detial_Id" ColumnName="Language_Detial_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LastUpdates">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.LastUpdate">
+              <MappingFragment StoreEntitySet="LastUpdate">
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Counter" ColumnName="Counter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log_File">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Log_File">
+              <MappingFragment StoreEntitySet="Log_File">
+                <ScalarProperty Name="Log_Description" ColumnName="Log_Description" />
+                <ScalarProperty Name="Log_Name" ColumnName="Log_Name" />
+                <ScalarProperty Name="Form_Id" ColumnName="Form_Id" />
+                <ScalarProperty Name="Login_Id" ColumnName="Login_Id" />
+                <ScalarProperty Name="Log_Note" ColumnName="Log_Note" />
+                <ScalarProperty Name="Log_Date" ColumnName="Log_Date" />
+                <ScalarProperty Name="Log_Id" ColumnName="Log_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nationalities">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Nationality">
+              <MappingFragment StoreEntitySet="Nationality">
+                <ScalarProperty Name="Nationality_Name_Ar" ColumnName="Nationality_Name_Ar" />
+                <ScalarProperty Name="Nationality_Name_En" ColumnName="Nationality_Name_En" />
+                <ScalarProperty Name="Country_Name_Ar" ColumnName="Country_Name_Ar" />
+                <ScalarProperty Name="Country_Name_En" ColumnName="Country_Name_En" />
+                <ScalarProperty Name="Country_code" ColumnName="Country_code" />
+                <ScalarProperty Name="Nationality_Id" ColumnName="Nationality_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification_Employee">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Notification_Employee">
+              <MappingFragment StoreEntitySet="Notification_Employee">
+                <ScalarProperty Name="NotificationShow_Id" ColumnName="NotificationShow_Id" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="NotificationShow_Employee_Id" ColumnName="NotificationShow_Employee_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification_Master">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Notification_Master">
+              <MappingFragment StoreEntitySet="Notification_Master">
+                <ScalarProperty Name="Notification_Show_Id" ColumnName="Notification_Show_Id" />
+                <ScalarProperty Name="Date_Show_Reply" ColumnName="Date_Show_Reply" />
+                <ScalarProperty Name="Is_Show_Reply" ColumnName="Is_Show_Reply" />
+                <ScalarProperty Name="Notification_Link" ColumnName="Notification_Link" />
+                <ScalarProperty Name="Master_Id" ColumnName="Master_Id" />
+                <ScalarProperty Name="To_Employee_Structure_Id" ColumnName="To_Employee_Structure_Id" />
+                <ScalarProperty Name="From_Employee_Structure_Id" ColumnName="From_Employee_Structure_Id" />
+                <ScalarProperty Name="Date_Read" ColumnName="Date_Read" />
+                <ScalarProperty Name="Is_Read" ColumnName="Is_Read" />
+                <ScalarProperty Name="Notification_Description_En" ColumnName="Notification_Description_En" />
+                <ScalarProperty Name="Notification_Description_Ar" ColumnName="Notification_Description_Ar" />
+                <ScalarProperty Name="Notification_Date" ColumnName="Notification_Date" />
+                <ScalarProperty Name="Notification_Id" ColumnName="Notification_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notification_Show">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Notification_Show">
+              <MappingFragment StoreEntitySet="Notification_Show">
+                <ScalarProperty Name="Notification_Show_Name_En" ColumnName="Notification_Show_Name_En" />
+                <ScalarProperty Name="Notification_Show_Name_Ar" ColumnName="Notification_Show_Name_Ar" />
+                <ScalarProperty Name="Notification_Show_Id" ColumnName="Notification_Show_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment_Process">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Payment_Process">
+              <MappingFragment StoreEntitySet="Payment_Process">
+                <ScalarProperty Name="Payment_SMS_Result" ColumnName="Payment_SMS_Result" />
+                <ScalarProperty Name="Payment_Result_Json" ColumnName="Payment_Result_Json" />
+                <ScalarProperty Name="Payment_URL_IsValid" ColumnName="Payment_URL_IsValid" />
+                <ScalarProperty Name="Payment_Trackingkey" ColumnName="Payment_Trackingkey" />
+                <ScalarProperty Name="Payment_Type_Id" ColumnName="Payment_Type_Id" />
+                <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
+                <ScalarProperty Name="Result_Id" ColumnName="Result_Id" />
+                <ScalarProperty Name="Result_Ndc" ColumnName="Result_Ndc" />
+                <ScalarProperty Name="Result_Timestamp" ColumnName="Result_Timestamp" />
+                <ScalarProperty Name="Result_BuildNumber" ColumnName="Result_BuildNumber" />
+                <ScalarProperty Name="Result_Description" ColumnName="Result_Description" />
+                <ScalarProperty Name="Result_Code" ColumnName="Result_Code" />
+                <ScalarProperty Name="Send_PaymentType" ColumnName="Send_PaymentType" />
+                <ScalarProperty Name="Send_Currency" ColumnName="Send_Currency" />
+                <ScalarProperty Name="Send_Amount" ColumnName="Send_Amount" />
+                <ScalarProperty Name="Send_EntityId" ColumnName="Send_EntityId" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Payment_IsPaid" ColumnName="Payment_IsPaid" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Payment_Id" ColumnName="Payment_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payment_Type">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Payment_Type">
+              <MappingFragment StoreEntitySet="Payment_Type">
+                <ScalarProperty Name="Payment_Name_En" ColumnName="Payment_Name_En" />
+                <ScalarProperty Name="Payment_Name_Ar" ColumnName="Payment_Name_Ar" />
+                <ScalarProperty Name="Payment_Type_Id" ColumnName="Payment_Type_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="System_Id" ColumnName="System_Id" />
+                <ScalarProperty Name="Permission_Icon" ColumnName="Permission_Icon" />
+                <ScalarProperty Name="Url_Path" ColumnName="Url_Path" />
+                <ScalarProperty Name="Parent" ColumnName="Parent" />
+                <ScalarProperty Name="Permission_Name_En" ColumnName="Permission_Name_En" />
+                <ScalarProperty Name="Permission_Name_Ar" ColumnName="Permission_Name_Ar" />
+                <ScalarProperty Name="Permission_Id" ColumnName="Permission_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission_Group">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Permission_Group">
+              <MappingFragment StoreEntitySet="Permission_Group">
+                <ScalarProperty Name="Group_Id" ColumnName="Group_Id" />
+                <ScalarProperty Name="Permission_Id" ColumnName="Permission_Id" />
+                <ScalarProperty Name="Permission_Group_Id" ColumnName="Permission_Group_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Resources">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Resource">
+              <MappingFragment StoreEntitySet="Resource">
+                <ScalarProperty Name="Resource_Name_En" ColumnName="Resource_Name_En" />
+                <ScalarProperty Name="Resource_Name_Ar" ColumnName="Resource_Name_Ar" />
+                <ScalarProperty Name="ResourceID" ColumnName="ResourceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rosom_Request">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Rosom_Request">
+              <MappingFragment StoreEntitySet="Rosom_Request">
+                <ScalarProperty Name="Response_Status_Description" ColumnName="Response_Status_Description" />
+                <ScalarProperty Name="Response_Status_Code" ColumnName="Response_Status_Code" />
+                <ScalarProperty Name="Response_SADADNumber" ColumnName="Response_SADADNumber" />
+                <ScalarProperty Name="Response_InvoiceId" ColumnName="Response_InvoiceId" />
+                <ScalarProperty Name="Result_JSON" ColumnName="Result_JSON" />
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="PaymentRange_MaxAdvanceAmount" ColumnName="PaymentRange_MaxAdvanceAmount" />
+                <ScalarProperty Name="PaymentRange_MinAdvanceAmount" ColumnName="PaymentRange_MinAdvanceAmount" />
+                <ScalarProperty Name="PaymentRange_MinPartialAmount" ColumnName="PaymentRange_MinPartialAmount" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="DisplayInfo" ColumnName="DisplayInfo" />
+                <ScalarProperty Name="BillType" ColumnName="BillType" />
+                <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
+                <ScalarProperty Name="PayeeId" ColumnName="PayeeId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Invoice_Students_LastName" ColumnName="Invoice_Students_LastName" />
+                <ScalarProperty Name="Invoice_Students_FirstName" ColumnName="Invoice_Students_FirstName" />
+                <ScalarProperty Name="Invoice_Students_Id" ColumnName="Invoice_Students_Id" />
+                <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="Payment_Process_Id" ColumnName="Payment_Process_Id" />
+                <ScalarProperty Name="Trackingkey" ColumnName="Trackingkey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rosom_Response">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Rosom_Response">
+              <MappingFragment StoreEntitySet="Rosom_Response">
+                <ScalarProperty Name="ServiceType" ColumnName="ServiceType" />
+                <ScalarProperty Name="PmtType" ColumnName="PmtType" />
+                <ScalarProperty Name="PmtMethod" ColumnName="PmtMethod" />
+                <ScalarProperty Name="AccessChannel" ColumnName="AccessChannel" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="DistrictCode" ColumnName="DistrictCode" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="MerchantId" ColumnName="MerchantId" />
+                <ScalarProperty Name="SADADNumber" ColumnName="SADADNumber" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="BankTransactionId" ColumnName="BankTransactionId" />
+                <ScalarProperty Name="SADADTransactionId" ColumnName="SADADTransactionId" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="Trackingkey" ColumnName="Trackingkey" />
+                <ScalarProperty Name="Rosom_Request_Id" ColumnName="Rosom_Request_Id" />
+                <ScalarProperty Name="Payment_Process_Id" ColumnName="Payment_Process_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sequences">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Sequence">
+              <MappingFragment StoreEntitySet="Sequence">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Status_Id" ColumnName="Status_Id" />
+                <ScalarProperty Name="Emp_Id" ColumnName="Emp_Id" />
+                <ScalarProperty Name="Sequence_Id" ColumnName="Sequence_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializations">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Specialization">
+              <MappingFragment StoreEntitySet="Specialization">
+                <ScalarProperty Name="Specialization_Suspend" ColumnName="Specialization_Suspend" />
+                <ScalarProperty Name="Specialization_Study_Payment" ColumnName="Specialization_Study_Payment" />
+                <ScalarProperty Name="Specialization_Registeration_Payment" ColumnName="Specialization_Registeration_Payment" />
+                <ScalarProperty Name="Specialization_Description_En" ColumnName="Specialization_Description_En" />
+                <ScalarProperty Name="Specialization_Description_Ar" ColumnName="Specialization_Description_Ar" />
+                <ScalarProperty Name="Condition_En" ColumnName="Condition_En" />
+                <ScalarProperty Name="Specialization_Image" ColumnName="Specialization_Image" />
+                <ScalarProperty Name="Specialization_Icon" ColumnName="Specialization_Icon" />
+                <ScalarProperty Name="Weighted_Ratio_Percent" ColumnName="Weighted_Ratio_Percent" />
+                <ScalarProperty Name="My_Achievement_Percent" ColumnName="My_Achievement_Percent" />
+                <ScalarProperty Name="Capabilities_Percent" ColumnName="Capabilities_Percent" />
+                <ScalarProperty Name="High_School_Percent" ColumnName="High_School_Percent" />
+                <ScalarProperty Name="Condition_Ar" ColumnName="Condition_Ar" />
+                <ScalarProperty Name="Collage_Id" ColumnName="Collage_Id" />
+                <ScalarProperty Name="Specialization_Name_En" ColumnName="Specialization_Name_En" />
+                <ScalarProperty Name="Specialization_Name_Ar" ColumnName="Specialization_Name_Ar" />
+                <ScalarProperty Name="Specialization_Id" ColumnName="Specialization_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Status_Icon" ColumnName="Status_Icon" />
+                <ScalarProperty Name="Status_Color" ColumnName="Status_Color" />
+                <ScalarProperty Name="Status_Name_En" ColumnName="Status_Name_En" />
+                <ScalarProperty Name="Status_Name_Ar" ColumnName="Status_Name_Ar" />
+                <ScalarProperty Name="Status_Code" ColumnName="Status_Code" />
+                <ScalarProperty Name="Status_Id" ColumnName="Status_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Student_URL_Video" ColumnName="Student_URL_Video" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Suspended" ColumnName="Suspended" />
+                <ScalarProperty Name="Student_Total" ColumnName="Student_Total" />
+                <ScalarProperty Name="Student_Status_Id" ColumnName="Student_Status_Id" />
+                <ScalarProperty Name="Student_Resource_Id" ColumnName="Student_Resource_Id" />
+                <ScalarProperty Name="Student_Nationality_Id" ColumnName="Student_Nationality_Id" />
+                <ScalarProperty Name="Student_Specialization_Id" ColumnName="Student_Specialization_Id" />
+                <ScalarProperty Name="Student_Image_Profile" ColumnName="Student_Image_Profile" />
+                <ScalarProperty Name="Student_Assign_Date" ColumnName="Student_Assign_Date" />
+                <ScalarProperty Name="Student_Employee_Id" ColumnName="Student_Employee_Id" />
+                <ScalarProperty Name="Student_CreationDate" ColumnName="Student_CreationDate" />
+                <ScalarProperty Name="Student_My_Achievement_Degree" ColumnName="Student_My_Achievement_Degree" />
+                <ScalarProperty Name="Student_Capabilities_Degree" ColumnName="Student_Capabilities_Degree" />
+                <ScalarProperty Name="Student_High_School_Degree" ColumnName="Student_High_School_Degree" />
+                <ScalarProperty Name="Student_Email" ColumnName="Student_Email" />
+                <ScalarProperty Name="Student_Phone" ColumnName="Student_Phone" />
+                <ScalarProperty Name="Student_Address" ColumnName="Student_Address" />
+                <ScalarProperty Name="Student_Name_Ar" ColumnName="Student_Name_Ar" />
+                <ScalarProperty Name="Student_Name_En" ColumnName="Student_Name_En" />
+                <ScalarProperty Name="Student_SSN" ColumnName="Student_SSN" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Concat">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Student_Concat">
+              <MappingFragment StoreEntitySet="Student_Concat">
+                <ScalarProperty Name="Student_Concat_CreationDate" ColumnName="Student_Concat_CreationDate" />
+                <ScalarProperty Name="Student_Concat_Status" ColumnName="Student_Concat_Status" />
+                <ScalarProperty Name="Student_Concat_Message" ColumnName="Student_Concat_Message" />
+                <ScalarProperty Name="Student_Concat_Email" ColumnName="Student_Concat_Email" />
+                <ScalarProperty Name="Student_Concat_Phone" ColumnName="Student_Concat_Phone" />
+                <ScalarProperty Name="Student_Concat_Name" ColumnName="Student_Concat_Name" />
+                <ScalarProperty Name="Student_Concat_Id" ColumnName="Student_Concat_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
