@@ -23,5 +23,6 @@ namespace ElectronicSubmission.Classes
         public string Specialization_Description_En { get; set; }
         public Nullable<double> Specialization_Registeration_Payment { get; set; }
         public Nullable<double> Specialization_Study_Payment { get; set; }
+        public Nullable<bool> Specialization_Suspend { get; set; }
     }
 }

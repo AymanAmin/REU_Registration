@@ -58,6 +58,24 @@ namespace ElectronicSubmission {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl headerBody;
         
         /// <summary>
+        /// registerationPay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl registerationPay;
+        
+        /// <summary>
+        /// studyPay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl studyPay;
+        
+        /// <summary>
         /// bachelorsDescription control.
         /// </summary>
         /// <remarks>

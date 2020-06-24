@@ -151,19 +151,19 @@
                                                 <li class="col-md-4">
                                                     <div class="wm-professor-contact">
                                                         <div class="wm-professor-icon">
-                                                            <a href="#" class="icon-hidden"><i class="wmicon-technology4" aria-hidden="true"></i></a>
+                                                            <a href="#" class="icon-hidden"><i class="fa fa-money" aria-hidden="true"></i></a>
                                                         </div>
-                                                        <h6><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone", "Phone") %>:</h6>
-                                                        <span>920-000-842</span>
+                                                        <h6><% = ElectronicSubmission.FieldNames.getFieldName("Bachelors-RegisterFees", "Register Fees") %>:</h6>
+                                                        <span id="registerationPay" runat="server"></span><span>&nbsp;<% = ElectronicSubmission.FieldNames.getFieldName("homepage-SAR", "SAR") %></span>
                                                     </div>
                                                 </li>
                                                 <li class="col-md-4">
                                                     <div class="wm-professor-contact">
                                                         <div class="wm-professor-icon">
-                                                            <a href="#"><i class="wmicon-web2" aria-hidden="true"></i></a>
+                                                            <a href="#"><i class="fa fa-money" aria-hidden="true"></i></a>
                                                         </div>
-                                                        <h6><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Email", "E-mail") %>:</h6>
-                                                        <span>info@riyadh.edu.sa</span>
+                                                        <h6><% = ElectronicSubmission.FieldNames.getFieldName("Bachelors-StudyFees", "Study Fees") %>:</h6>
+                                                        <span id="studyPay" runat="server"></span><span>&nbsp;<% = ElectronicSubmission.FieldNames.getFieldName("homepage-SAR", "SAR") %></span>
                                                     </div>
                                                 </li>
                                                 <li class="col-md-4">
