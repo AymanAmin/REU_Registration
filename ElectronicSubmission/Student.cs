@@ -27,6 +27,8 @@ public partial class Student
 
         this.Sequences = new HashSet<Sequence>();
 
+        this.Student_Other_Info = new HashSet<Student_Other_Info>();
+
     }
 
 
@@ -91,6 +93,8 @@ public partial class Student
     public virtual Specialization Specialization { get; set; }
 
     public virtual Status Status { get; set; }
+
+    public virtual ICollection<Student_Other_Info> Student_Other_Info { get; set; }
 
 }
 

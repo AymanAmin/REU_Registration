@@ -124,7 +124,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                     if (ListAllStudent[i].Status.Status_Code == 4)
                     {
-                        str += "<a href='#' data-href= '../../../../Pages/RegistrationProcess/StudentInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "'  data-toggle='modal' data-target='#confirm-delete'  style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-edit h5'></i>&nbsp;&nbsp;</a>";
+                        str += "<a href='../../../../Pages/RegistrationProcess/StudentInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "'  style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-edit h5'></i>&nbsp;&nbsp;</a>";
 
                     }
 

@@ -7,7 +7,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body_Holder" runat="server">
 
-     <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><% = ElectronicSubmission.FieldNames.getFieldName("View-Cancel", "Cancel") %></button>
-                    <a class="btn btn-danger btn-ok" style="color:white;"><% = ElectronicSubmission.FieldNames.getFieldName("View-Delete", "Delete") %></a>
+                    <a class="btn btn-danger btn-ok" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("View-Delete", "Delete") %></a>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
 
             <!-- Student Details card  -->
             <div class="card">
-                <div class="row invoice-contact" style="margin-bottom: 2%;overflow-y: hidden;">
+                <div class="row invoice-contact" style="margin-bottom: 2%; overflow-y: hidden;">
                     <div class="col-md-12">
                         <div class="invoice-box row">
                             <div class="col-sm-12">
@@ -187,12 +187,26 @@
                     <div class="card">
                         <div class="card-block">
                             <div class="row text-left">
-                                <div class="col-sm-12" id="txtURL_Video_Label" runat="server" Visible="false"><% = ElectronicSubmission.FieldNames.getFieldName("View-URLVideoLink", "URL Video Link") %></div>
-                                <div class="col-sm-12">
-                                    <asp:TextBox ID="txtURL_Video" runat="server" class="form-control" TextMode="SingleLine" Style="width: 100%" Visible="false"></asp:TextBox>
-                                    <br />
+                                <div class="col-md-12" id="txtSetMeetingInfo" runat="server" visible="false">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-12" ><% = ElectronicSubmission.FieldNames.getFieldName("View-URLVideoLink", "URL Video Link") %></div>
+                                        <div class="col-sm-12">
+                                            <asp:TextBox ID="txtURL_Video" runat="server" class="form-control" TextMode="SingleLine" Style="width: 100%"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-sm-6">
+                                            <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-MeetingDate", "Meeting Date") %></div>
+                                            <input type="date" id="txtMeeting_Date" runat="server" class="form-control" />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-MeetingTime", "Meeting Time") %></div>
+                                            <input type="time" id="txtMeeting_Time" runat="server" class="form-control" />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-sm-12">
+                                    <br />
                                     <asp:TextBox ID="txtNote" runat="server" class="form-control" TextMode="MultiLine" Style="width: 100%"></asp:TextBox>
                                 </div>
 
@@ -234,9 +248,9 @@
     </div>
 
     <script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
+        $('#confirm-delete').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
+
             $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
         });
     </script>

@@ -82,6 +82,8 @@ public partial class REU_RegistrationEntities : DbContext
 
     public DbSet<Student_Concat> Student_Concat { get; set; }
 
+    public DbSet<Student_Other_Info> Student_Other_Info { get; set; }
+
     public DbSet<sysdiagram> sysdiagrams { get; set; }
 
 }

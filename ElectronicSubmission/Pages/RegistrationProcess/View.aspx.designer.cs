@@ -202,13 +202,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivAction;
         
         /// <summary>
-        /// txtURL_Video_Label control.
+        /// txtSetMeetingInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtURL_Video_Label;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtSetMeetingInfo;
         
         /// <summary>
         /// txtURL_Video control.
@@ -218,6 +218,24 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtURL_Video;
+        
+        /// <summary>
+        /// txtMeeting_Date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtMeeting_Date;
+        
+        /// <summary>
+        /// txtMeeting_Time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtMeeting_Time;
         
         /// <summary>
         /// txtNote control.
