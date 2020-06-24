@@ -170,6 +170,7 @@
     <Content Include="Pages\PaymentWebService\CheckPaymentService.asmx" />
     <Content Include="Pages\RegistrationProcess\AllRecords.aspx" />
     <Content Include="Pages\RegistrationProcess\ListView.aspx" />
+    <Content Include="Pages\RegistrationProcess\OtherInfo.aspx" />
     <Content Include="Pages\RegistrationProcess\RestoreStudent.aspx" />
     <Content Include="Pages\RegistrationProcess\StudentInfo.aspx" />
     <Content Include="Pages\RegistrationProcess\View.aspx" />
@@ -2781,6 +2782,13 @@
     <Compile Include="Pages\RegistrationProcess\ListView.aspx.designer.cs">
       <DependentUpon>ListView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Pages\RegistrationProcess\OtherInfo.aspx.cs">
+      <DependentUpon>OtherInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\RegistrationProcess\OtherInfo.aspx.designer.cs">
+      <DependentUpon>OtherInfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\RegistrationProcess\RestoreStudent.aspx.cs">
       <DependentUpon>RestoreStudent.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2970,6 +2978,9 @@
       <DependentUpon>StudentSubmitting.aspx</DependentUpon>
     </Compile>
     <Compile Include="Student_Concat.cs">
+      <DependentUpon>REU_Registration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Student_Other_Info.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">

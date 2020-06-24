@@ -338,6 +338,17 @@
           <Property Name="Student_Concat_Status" Type="int" />
           <Property Name="Student_Concat_CreationDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="Student_Other_Info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Student_Id" Type="int" />
+          <Property Name="MessageType" Type="nvarchar(max)" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -660,6 +671,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Student_Other_Info_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="Student_Other_Info" Type="Self.Student_Other_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Student_Other_Info">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Student_Resource">
           <End Role="Resource" Type="Self.Resource" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
@@ -722,6 +745,7 @@
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student_Concat" EntityType="Self.Student_Concat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student_Other_Info" EntityType="Self.Student_Other_Info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Employee_Group" Association="Self.FK_Employee_Group">
             <End Role="Group" EntitySet="Group" />
@@ -827,6 +851,10 @@
             <End Role="Nationality" EntitySet="Nationality" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
+          <AssociationSet Name="FK_Student_Other_Info_Student" Association="Self.FK_Student_Other_Info_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Student_Other_Info" EntitySet="Student_Other_Info" />
+          </AssociationSet>
           <AssociationSet Name="FK_Student_Resource" Association="Self.FK_Student_Resource">
             <End Role="Resource" EntitySet="Resource" />
             <End Role="Student" EntitySet="Student" />
@@ -870,6 +898,7 @@
           <EntitySet Name="Status" EntityType="REU_RegistrationModel.Status" />
           <EntitySet Name="Students" EntityType="REU_RegistrationModel.Student" />
           <EntitySet Name="Student_Concat" EntityType="REU_RegistrationModel.Student_Concat" />
+          <EntitySet Name="Student_Other_Info" EntityType="REU_RegistrationModel.Student_Other_Info" />
           <EntitySet Name="sysdiagrams" EntityType="REU_RegistrationModel.sysdiagram" />
           <AssociationSet Name="FK_Specialization_Collage" Association="REU_RegistrationModel.FK_Specialization_Collage">
             <End Role="Collage" EntitySet="Collages" />
@@ -986,6 +1015,10 @@
           <AssociationSet Name="FK_Student_Status" Association="REU_RegistrationModel.FK_Student_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Other_Info_Student" Association="REU_RegistrationModel.FK_Student_Other_Info_Student">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="Student_Other_Info" EntitySet="Student_Other_Info" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Collage">
@@ -1365,6 +1398,7 @@
           <NavigationProperty Name="Sequences" Relationship="REU_RegistrationModel.FK_Sequence_Student" FromRole="Student" ToRole="Sequence" />
           <NavigationProperty Name="Specialization" Relationship="REU_RegistrationModel.FK_Student_Specialization" FromRole="Student" ToRole="Specialization" />
           <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Student_Status" FromRole="Student" ToRole="Status" />
+          <NavigationProperty Name="Student_Other_Info" Relationship="REU_RegistrationModel.FK_Student_Other_Info_Student" FromRole="Student" ToRole="Student_Other_Info" />
         </EntityType>
         <EntityType Name="Student_Concat">
           <Key>
@@ -1378,6 +1412,18 @@
           <Property Name="Student_Concat_Status" Type="Int32" />
           <Property Name="Student_Concat_CreationDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Student_Concat_Status" FromRole="Student_Concat" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Student_Other_Info">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Student_Id" Type="Int32" />
+          <Property Name="MessageType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Student" Relationship="REU_RegistrationModel.FK_Student_Other_Info_Student" FromRole="Student_Other_Info" ToRole="Student" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1737,7 +1783,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Student_Other_Info_Student">
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student_Other_Info" Role="Student_Other_Info" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="Student_Id" />
+            </Principal>
+            <Dependent Role="Student_Other_Info">
+              <PropertyRef Name="Student_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2098,6 +2156,18 @@
                 <ScalarProperty Name="Student_Concat_Phone" ColumnName="Student_Concat_Phone" />
                 <ScalarProperty Name="Student_Concat_Name" ColumnName="Student_Concat_Name" />
                 <ScalarProperty Name="Student_Concat_Id" ColumnName="Student_Concat_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student_Other_Info">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.Student_Other_Info">
+              <MappingFragment StoreEntitySet="Student_Other_Info">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="MessageType" ColumnName="MessageType" />
+                <ScalarProperty Name="Student_Id" ColumnName="Student_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

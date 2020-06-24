@@ -137,10 +137,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     DateTime date = DateTime.Parse(std.Student_CreationDate.ToString());
                     txtStudent_CreationDate.Text = date.ToShortDateString();
 
-                    if (std.Student_Status_Id == 7 || std.Student_Status_Id == 9)
+                    if (std.Student_Status_Id == 7)
                     {
-                        txtURL_Video.Visible = true;
-                        txtURL_Video_Label.Visible = true;
+                        txtSetMeetingInfo.Visible = true;
                     }
 
                     // Change status to pendding if it's new
@@ -398,7 +397,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 6: newStatus = 7; break; // 6- Pay the Registration Fees
                     case 7: newStatus = 8; break; // 7- Registration Fee Paid
                     case 8: newStatus = 10; break; // 8- Book a Test Date
-                    case 9: newStatus = 8; break; // 9- Failure in the Test
+                    case 9: newStatus = 7; break; // 9- Failure in the Test
                     case 10: newStatus = 11; break; // 10- Success in the Test
                     case 11: newStatus = 12; break; // 11- Pay the Tuition Fees
                     case 12: newStatus = 13; break; // 12- Tuition Fees Paid
@@ -407,10 +406,14 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 15: newStatus = restore_id; break; // 15- File Complete with Failure
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
-
+                bool meeting_stage = false;
                 if (std.Student_Status_Id == 7)
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
+                    std.Notes= "Meeting Date: "+ txtMeeting_Date.Value+" Meeting Time: "+ txtMeeting_Time.Value;
+                    string MeetingDate = txtMeeting_Date.Value;
+                    string MeetingTime = txtMeeting_Time.Value;
+                    meeting_stage = true;
                 }
 
                 std.Student_Status_Id = newStatus;
@@ -432,7 +435,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 //Ready to apay
                 if (std.Student_Status_Id == 6 || std.Student_Status_Id == 11)
                 {
-                    ReadyToPay(std); 
+                    ReadyToPay(std);
+                }
+                else if (meeting_stage)
+                {
+                    sendEamil_Meeting(std, txtURL_Video.Text, txtMeeting_Date.Value, txtMeeting_Time.Value);
+                }
+                else
+                { //Send Email
+                    sendEamil(std);
                 }
 
                 db.Configuration.LazyLoadingEnabled = false;
@@ -452,10 +463,27 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         public bool sendEamil(Student std)
         {
             string sever_name = Request.Url.Authority.ToString();
+
+            string StudentEmail = std.Student_Email;
+
             SendEmail send = new SendEmail();
-            string Text = " <Strong>You have new student file  </Strong><br /><Strong>TrackId : </Strong> " + std.Student_Id + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En+ " <br /> <Strong>Note:</Strong> " + txtNote.Text;
-            //bool result = send.TextEmail("Student File : #"+ std.Student_Id,SessionWrapper.LoggedUser.Employee_Email, Text, sever_name);
-            return false;
+            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
+            SaveMessage(std.Student_Id, "E-mail", Text);
+            return result;
+        }
+
+        public bool sendEamil_Meeting(Student std,string url,string date, string time)
+        {
+            string sever_name = Request.Url.Authority.ToString();
+
+            string StudentEmail = std.Student_Email;
+
+            SendEmail send = new SendEmail();
+            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Timme:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> htttps://www.google.com <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
+            SaveMessage(std.Student_Id, "E-mail", Text);
+            return result;
         }
 
         public bool send_ReadyToPay(Student std, Payment_Process payment, string Payment_For)
@@ -467,8 +495,10 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string StudentEmail = std.Student_Email; // "ayman@softwarecornerit.com";//
             SendEmail send = new SendEmail();
 
-            string Text = " <Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>Now you can pay the fees of " + Payment_For + ": </Strong> " + URL + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>Now you can pay the fees of " + Payment_For + ": </Strong> " + URL + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
             bool result = send.TextEmail("Ready To Pay", StudentEmail, Text, sever_name);
+
+            SaveMessage(std.Student_Id, "E-mail", Text);
 
             return result;
         }
@@ -634,6 +664,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string number_Phone = std.Student_Phone;
             string reslt_message = send_sms.SendMessage(Text, number_Phone);
 
+            SaveMessage(std.Student_Id, "SMS", Text);
+
 
         }
 
@@ -717,7 +749,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
         }
 
-        
+        public void SaveMessage(int student_id,string MessageType,string Message)
+        {
+            Student_Other_Info std_OI = db.Student_Other_Info.Create();
+            std_OI.Student_Id = student_id;
+            std_OI.MessageType = MessageType;
+            std_OI.Message = Message;
+            std_OI.DateCreation = DateTime.Now;
+            std_OI.Note = "";
+            db.Student_Other_Info.Add(std_OI);
+            db.SaveChanges();
+        }
 
         public string Date_Different(DateTime ReveviedDate)
         {
