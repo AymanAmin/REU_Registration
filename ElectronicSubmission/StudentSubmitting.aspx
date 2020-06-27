@@ -205,7 +205,7 @@
                 <div class="wm-main-section">
                     <div class="container">
                         <form id="form1" runat="server">
-                            <div class="card-block">
+                            <div class="card-block" id="SubmittingForm" runat="server">
                                 <!-- Start Student Form-->
 
                                 <!-- Start Profile-->
@@ -253,7 +253,7 @@
                                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentPhone", "Student Phone") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icofont icofont-ui-call"></i></span>
-                                            <asp:TextBox ID="StudentPhone" runat="server" class="form-control" placeholder="05xxxxxxxx" TextMode="Number"  onkeyup="validatelimit(this,10)"></asp:TextBox>
+                                            <asp:TextBox ID="StudentPhone" runat="server" class="form-control" placeholder="05xxxxxxxx" TextMode="Number"  onkeyup="validatelimit(this,13"></asp:TextBox>
                                         </div>
                                         <asp:RequiredFieldValidator ID="StudentPhoneValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student Phone" ValidationGroup="valFormGroup" ControlToValidate="StudentPhone" ValidationExpression = "^[\s\S]{0,10}$"   Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
@@ -395,9 +395,38 @@
                                 
                                     <button type="button" style="display:none;" id="Success-btn-Ar"  class="btn btn-success success-Ar m-b-10" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'success-Ar']);">Success</button>
                                     <button type="button" style="display:none;" id="Success-btn-En"  class="btn btn-success success-En m-b-10" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'success-En']);">Success</button>
-                                
-                                <!-- End Student Form-->
                             </div>
+                             <!-- End Student Form-->
+
+                            <!-- start File Table-->
+                            <div class="row" runat="server" id="FileTable" visible="false">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table class="table  invoice-detail-table">
+                                            <thead>
+                                                <tr class="thead-default">
+                                                    <th class="view-table"><% = ElectronicSubmission.FieldNames.getFieldName("View-FileName", "File Name") %></th>
+                                                    <th><% = ElectronicSubmission.FieldNames.getFieldName("View-Type", "Type") %></th>
+                                                    <th><% = ElectronicSubmission.FieldNames.getFieldName("View-View", "View") %></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <asp:Literal ID="txtFiles" runat="server"></asp:Literal>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End file Table-->
+
+                            <!-- Start notfound Form-->
+                             <div id="Div_invalid" runat="server" class="row" visible="false">
+                                <aside class="col-sm-3"></aside>
+                                <aside class="col-sm-6">
+                                    <asp:Image ID="image" runat="server" style="width:100%" ImageUrl="~/Template/images/notfound.png" /></aside>
+                                <aside class="col-sm-3"></aside>
+                            </div>
+                            <!-- End notfound Form-->
                         </form>
                     </div>
                 </div>

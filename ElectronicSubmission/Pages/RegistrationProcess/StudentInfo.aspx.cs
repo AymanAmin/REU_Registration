@@ -257,9 +257,39 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
                     Note.InnerText = Student.Notes;
                     RegistrationDate.Text = Student.Student_CreationDate.ToString();
+                    LoadStudentFiles(StudentId);
                 }
             }
             catch (Exception e) { }
+        }
+
+        private void LoadStudentFiles(int Student_Id)
+        {
+            try
+            {
+                string str = string.Empty, FileName = string.Empty;
+                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0;
+                int Current_Counter = 1;
+                List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
+                for (int i = 0; i < List_File.Count; i++)
+                {
+                    string fileType = string.Empty;
+                    if (List_File[i].Type == (int)FileType.Nationality) { fileType = FieldNames.getFieldName("View-Nationality", "Nationality"); Current_Counter = Nationality_Counter = Nationality_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Capabilities) { fileType = FieldNames.getFieldName("View-Capabilities", "Capabilities"); Current_Counter = Capabilities_Counter = Capabilities_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.High_School) { fileType = FieldNames.getFieldName("View-HighSchool", "High School"); Current_Counter = High_School_Counter = High_School_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.My_Achievement) { fileType = FieldNames.getFieldName("View-MyAchievement", "My Achievement"); Current_Counter = My_Achievement_Counter = My_Achievement_Counter + 1; }
+                    str += "<tr>" +
+                           "<td>" +
+                           "" + fileType + " " + Current_Counter + "" +
+                           "</td>" +
+                           "<td>" + fileType + " </td>";
+                    str += "<td><a href = '../../../../media/StudentAttachments/" + List_File[i].File_Path + "' target='_blank' style='font-size: x-large; color: blue;'><i class='icofont icofont-eye-alt'></i></a></td>" +
+                      "</tr>";
+                }
+                txtFiles.Text = str;
+                FileTable.Visible = true;
+            }
+            catch { }
         }
 
         public void ClearForm()
