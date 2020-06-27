@@ -42,14 +42,14 @@ namespace ElectronicSubmission
                          {
                                 if (langId == 1)
                                 {
-                                   if(Request["Trackingkey"] == null)
+                                   if(Request["Student_Id"] == null)
                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
                                    else
                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
                                 }
                                 else
                                 {
-                                    if (Request["Trackingkey"] == null)
+                                    if (Request["Student_Id"] == null)
                                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
                                     else
                                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
@@ -83,14 +83,10 @@ namespace ElectronicSubmission
 
         public void ini() {
 
-            if (Request["Trackingkey"] != null)
+            if (Request["Student_Id"] != null)
             {
-
-                Trackingkey = Request["Trackingkey"];
-                Payment_Process payment = db.Payment_Process.Where(x => x.Payment_Trackingkey == Trackingkey).FirstOrDefault();
-                if (payment != null)
-                {
-                    int.TryParse(payment.Student_Id.ToString(), out StudentID);
+                
+                    int.TryParse(Request["Student_Id"], out StudentID);
 
                     Student StudInfo = db.Students.Where(x => x.Student_Id == StudentID && x.Student_Status_Id == 4).FirstOrDefault();
                     if (StudInfo != null)
@@ -108,12 +104,7 @@ namespace ElectronicSubmission
                         Div_invalid.Visible = true;
                         SubmittingForm.Visible = false;
                     }
-                }
-                else
-                {
-                    Div_invalid.Visible = true;
-                    SubmittingForm.Visible = false;
-                }
+               
             }
             else
             {
