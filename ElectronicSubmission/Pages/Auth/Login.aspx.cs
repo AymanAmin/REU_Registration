@@ -44,7 +44,7 @@ namespace ElectronicSubmission.Pages.Setting.Auth
                 List<Employee> emp_list = db.Employees.ToList();
                 for (int i = 0; i < emp_list.Count; i++)
                 {
-                    if (username.ToUpper() == emp_list[i].Employee_Email.ToUpper())
+                    if (username.Trim().ToUpper() == emp_list[i].Employee_Email.Trim().ToUpper())
                     {
                         string DecryptedPassword = StringCipher.Decrypt(emp_list[i].Employee_Password, "Password");
                         if (password == DecryptedPassword && (bool)emp_list[i].Employee_Active)
