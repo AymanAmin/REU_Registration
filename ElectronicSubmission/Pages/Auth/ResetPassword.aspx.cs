@@ -31,8 +31,9 @@ namespace ElectronicSubmission.Pages.Setting.Auth
 
         private bool rest_account(string email)
         {
+            email = email.Trim().ToLower();
             db.Configuration.LazyLoadingEnabled = false;
-            Employee emp = db.Employees.Where(x => x.Employee_Email == email).FirstOrDefault();
+            Employee emp = db.Employees.Where(x => x.Employee_Email.ToLower() == email).FirstOrDefault();
             if (emp != null)
             {
                 string New_Password = StringCipher.RandomString(7);
@@ -42,6 +43,13 @@ namespace ElectronicSubmission.Pages.Setting.Auth
                 db.SaveChanges();
 
                 string sever_name = Request.Url.Authority.ToString();
+                // Send SMS
+                SendSMS send_sms = new SendSMS();
+                string url = "http://registration.riyadh.edu.sa/Pages/Auth/Login.aspx";
+                string Text = "Reset Password\n\nEmail:" + emp.Employee_Email + "\n\nPassword:" + New_Password + "\n\nURL:"+ url;
+                string number_Phone = emp.Employee_Phone;
+                string reslt_message = send_sms.SendMessage(Text, number_Phone);
+
                 SendEmail send = new SendEmail();
                 bool result = send.ResetEmail(emp.Employee_Email, New_Password, sever_name,"Reset Password");
                 if (result)

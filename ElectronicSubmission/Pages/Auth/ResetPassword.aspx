@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>ECMS - Rest Password </title>
+    <title>Admission - Rest Password </title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 10]>
@@ -162,7 +162,7 @@
                             <div class="card-block">
                                 <div class="row m-b-20">
                                     <div class="col-md-12 text-center">
-                            <img src="..\..\..\..\..\Theme\files\assets\images\logo.png" alt="logo.png" />
+                            <img src="..\..\..\..\..\Theme\files\assets\images\favicon.ico" alt="logo.png" />
                                         <br /><br />
                         </div>
                                     <div class="col-md-12 text-center">

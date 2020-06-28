@@ -440,6 +440,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 else if (meeting_stage)
                 {
                     sendEamil_Meeting(std, txtURL_Video.Text, txtMeeting_Date.Value, txtMeeting_Time.Value);
+                    // Send SMS
+                    SendSMS send_sms = new SendSMS();
+                    
+
+                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n"+std.Notes+ "\n\nPlease Check Your Email.";
+                    string number_Phone = std.Student_Phone;
+                    string reslt_message = send_sms.SendMessage(Text, number_Phone);
+
+                    SaveMessage(std.Student_Id, "SMS", Text);
                 }
                 else
                 { //Send Email
@@ -480,7 +489,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string StudentEmail = std.Student_Email;
 
             SendEmail send = new SendEmail();
-            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Timme:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> htttps://www.google.com <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Timme:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
             bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
             SaveMessage(std.Student_Id, "E-mail", Text);
             return result;
@@ -497,6 +506,23 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
             string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>Now you can pay the fees of " + Payment_For + ": </Strong> " + URL + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
             bool result = send.TextEmail("Ready To Pay", StudentEmail, Text, sever_name);
+
+            SaveMessage(std.Student_Id, "E-mail", Text);
+
+            return result;
+        }
+
+        public bool send_DatNotCompleted(Student std)
+        {
+            string sever_name = Request.Url.Authority.ToString();
+            string URL = sever_name + "/StudentSubmitting.aspx?Student_Id=" + std.Student_Id;
+            if (URL.Substring(0, 4).ToLower() != "http".ToLower())
+                URL = "http://" + URL;
+
+            string StudentEmail = std.Student_Email; // "ayman@softwarecornerit.com";//
+            SendEmail send = new SendEmail();
+            string Text = " <Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>Please complete the missing data in your file as soon as posible Link:</Strong> " + URL + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En + " <br /> <Strong>Note:</Strong> " + txtNote.Text + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            bool result = send.TextEmail("Data Not Complete", StudentEmail, Text, sever_name);
 
             SaveMessage(std.Student_Id, "E-mail", Text);
 
@@ -584,7 +610,11 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 std.Student_Status_Id = newStatus;
                 db.Entry(std).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
 
+                bool IsNotCompleted = false;
+                if (std.Student_Status_Id == 4)
+                    IsNotCompleted = true;
                 Sequence seq = db.Sequences.Create();
 
                 seq.Emp_Id = SessionWrapper.LoggedUser.Employee_Id;
@@ -598,6 +628,24 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 //Send Email
                 sendEamil(std);
+
+                // Send Not Complete data
+                if (IsNotCompleted)
+                {
+                    send_DatNotCompleted(std);
+                    // Send SMS
+                    SendSMS send_sms = new SendSMS();
+                    string sever_name = Request.Url.Authority.ToString();
+                    string URL = sever_name + "/StudentSubmitting.aspx?Student_Id=" + std.Student_Id;
+                    if (URL.Substring(0, 4).ToLower() != "http".ToLower())
+                        URL = "http://" + URL;
+
+                    string Text = "Dear " + std.Student_Name_En + "\nPlease complete the missing data in your file as soon as posible Link:" + URL +"\n\nPlease Check Your Email";
+                    string number_Phone = std.Student_Phone;
+                    string reslt_message = send_sms.SendMessage(Text, number_Phone);
+
+                    SaveMessage(std.Student_Id, "SMS", Text);
+                }
 
                 db.Configuration.LazyLoadingEnabled = false;
                 /* Add it to log file */
@@ -650,7 +698,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             db.Payment_Process.Add(payment);
             db.SaveChanges();
 
-            //Send Email 
+            // Send Email 
             send_ReadyToPay(std, payment, Payment_For);
 
             // Send SMS
@@ -660,7 +708,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             if (URL.Substring(0, 4).ToLower() != "http".ToLower())
                 URL = "http://" + URL;
 
-            string Text = "Dear " + std.Student_Name_En + "\nNow you can pay the fees of " + Payment_For + "\nPlease use this link: "+ URL;
+            string Text = "Dear " + std.Student_Name_En + "\n\nNow you can pay the fees of " + Payment_For + "\n\nPlease use this link: " + URL;
             string number_Phone = std.Student_Phone;
             string reslt_message = send_sms.SendMessage(Text, number_Phone);
 
