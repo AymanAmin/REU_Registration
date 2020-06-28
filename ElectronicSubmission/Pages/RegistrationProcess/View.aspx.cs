@@ -503,6 +503,21 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             return result;
         }
 
+        public bool send_DatNotCompleted(Student std)
+        {
+            string sever_name = Request.Url.Authority.ToString();
+            string URL = sever_name + "/StudentSubmitting.aspx?Student_Id=" + std.Student_Id;
+            if (URL.Substring(0, 4).ToLower() != "http".ToLower())
+                URL = "http://" + URL;
+
+            string StudentEmail = std.Student_Email; // "ayman@softwarecornerit.com";//
+            SendEmail send = new SendEmail();
+            string Text = " <Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>Your Data is not completed Please complete as soon as posible </Strong> " + URL + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En + " <br /> <Strong>Note:</Strong> " + txtNote.Text + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            bool result = send.TextEmail("Data Not Complete", StudentEmail, Text, sever_name);
+
+            return result;
+        }
+
         private string GetApproveStatusName(int CurrentStatus_Id)
         {
             if (SessionWrapper.LoggedUser.Language_id != 1)
@@ -584,7 +599,11 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 std.Student_Status_Id = newStatus;
                 db.Entry(std).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
 
+                bool IsNotCompleted = false;
+                if (std.Student_Status_Id == 4)
+                    IsNotCompleted = true;
                 Sequence seq = db.Sequences.Create();
 
                 seq.Emp_Id = SessionWrapper.LoggedUser.Employee_Id;
@@ -598,6 +617,10 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 //Send Email
                 sendEamil(std);
+
+                // Send Not Complete data
+                if (IsNotCompleted)
+                    send_DatNotCompleted(std);
 
                 db.Configuration.LazyLoadingEnabled = false;
                 /* Add it to log file */

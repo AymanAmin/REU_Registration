@@ -71,7 +71,9 @@ namespace ElectronicSubmission
             msg = ConvertToUnicode(msg);
             /* End Encoding msg */
 
-            string number = "966"+ phone.Substring(1, phone.Length - 1);
+            //string number = "966"+ phone.Substring(1, phone.Length - 1);
+
+            string number = phone;
 
             string postData = "mobile=" + username + "&password=" + passwor + "&numbers=" + number + "&sender=" + sender + "&msg=" + msg + "&applicationType=24";
             string strResponcse = "-1";
