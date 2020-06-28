@@ -256,6 +256,15 @@ namespace ElectronicSubmission.Pages.Setting {
         protected global::System.Web.UI.WebControls.FileUpload addAttachments1;
         
         /// <summary>
+        /// Specialization_Suspend control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox Specialization_Suspend;
+        
+        /// <summary>
         /// Specialization_Description_Ar control.
         /// </summary>
         /// <remarks>

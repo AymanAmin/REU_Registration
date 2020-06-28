@@ -94,12 +94,12 @@ namespace ElectronicSubmission
                     List<Specialization> listSpecialization = new List<Specialization>();
 
                     if(collegeId == 0 && txtSearch == "")
-                        listSpecialization = db.Specializations.ToList();
+                        listSpecialization = db.Specializations.Where(x => x.Specialization_Suspend == false).ToList();
                     else if(collegeId == 0)
-                        listSpecialization = db.Specializations.Where(x => x.Specialization_Name_En.Contains(txtSearch) || x.Specialization_Name_Ar.Contains(txtSearch)).ToList();
+                        listSpecialization = db.Specializations.Where(x => (x.Specialization_Name_En.Contains(txtSearch) || x.Specialization_Name_Ar.Contains(txtSearch)) && x.Specialization_Suspend == false).ToList();
                     else if (txtSearch == "")
-                        listSpecialization = db.Specializations.Where(x => x.Collage_Id == collegeId).ToList();
-                    else listSpecialization = db.Specializations.Where(x => x.Collage_Id == collegeId && (x.Specialization_Name_En.Contains(txtSearch) || x.Specialization_Name_Ar.Contains(txtSearch))).ToList();
+                        listSpecialization = db.Specializations.Where(x => x.Collage_Id == collegeId && x.Specialization_Suspend == false).ToList();
+                    else listSpecialization = db.Specializations.Where(x => x.Collage_Id == collegeId && x.Specialization_Suspend == false && (x.Specialization_Name_En.Contains(txtSearch) || x.Specialization_Name_Ar.Contains(txtSearch))).ToList();
                     string SpecializationLangName = "";
                     for (int i = 0; i < listSpecialization.Count; i++)
                     {

@@ -18,6 +18,8 @@ namespace ElectronicSubmission
         int StudentID = 0;
         int StatusId = 0;
         float totalSum = 0;
+        string Trackingkey = string.Empty;
+        int Student_Id = 0;
         //LogFile Data
         LogFileModule logFileModule = new LogFileModule();
         String LogData = "";
@@ -31,7 +33,83 @@ namespace ElectronicSubmission
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try { 
+            try {
+                    ini();
+                    if (!IsPostBack)
+                    {
+                        FillDropDownLists();
+                         if (Session["Success"] != null)
+                         {
+                                if (langId == 1)
+                                {
+                                   if(Request["Student_Id"] == null)
+                                      Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
+                                   else
+                                      Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
+                                }
+                                else
+                                {
+                                    if (Request["Student_Id"] == null)
+                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
+                                    else
+                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
+                                }
+
+
+                                Session["Success"] = null;
+                         }else 
+                         if (Session["UpdateSuccess"] != null)
+                          {
+                                    if (langId == 1)
+                                    {
+                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
+                                    }
+                                    else
+                                    {
+                                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
+                                    }
+                                Session["UpdateSuccess"] = null;
+                          }
+
+                            if (StudentID == 0) Nationality_ID.SelectedValue = "191";
+                            if (StudentID != 0) ViewDataStudent(StudentID);
+                    }
+            }catch(Exception s)
+            {
+
+            }
+
+        }
+
+        public void ini() {
+
+            if (Request["Student_Id"] != null)
+            {
+                
+                    int.TryParse(Request["Student_Id"], out StudentID);
+
+                    Student StudInfo = db.Students.Where(x => x.Student_Id == StudentID && x.Student_Status_Id == 4).FirstOrDefault();
+                    if (StudInfo != null)
+                    {
+                        Div_invalid.Visible = false;
+                        SubmittingForm.Visible = true;
+                        HighSchoolDegreeFileValidator.Enabled = false;
+                        CapabilitiesDegreeFileValidator.Enabled = false;
+                        MyAchievementDegreeFileValidator.Enabled = false;
+                        StudentSSNFileValidator.Enabled = false;
+                    }
+                    else
+                    {
+                        StudentID = 0;
+                        Div_invalid.Visible = true;
+                        SubmittingForm.Visible = false;
+                    }
+               
+            }
+            else
+            {
+            }
+
             langId = 0;
             if (int.TryParse(Request["lang"], out langId) && langId > 0)
             {
@@ -49,30 +127,14 @@ namespace ElectronicSubmission
                     langId = int.Parse(Session["lang"].ToString());
                 }
             }
+
             SessionWrapper.Language = db.Lanuage_Detials.Where(x => x.Language_Master_Id == langId).ToList();
             translateArabic();
             SessionWrapper.LanguageHome = langId;
             getStyleScript();
-            if (!IsPostBack)
-            {
-                FillDropDownLists();
-                 if (Session["Success"] != null)
-                 {
-                        if (langId == 1)
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
-                        else
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
-
-                        Session["Success"] = null;
-                 }
-                    if (StatusId == 0) Nationality_ID.SelectedValue = "191";
-            }
-            }catch(Exception s)
-            {
-
-            }
 
         }
+
         private void getStyleScript()
         {
             StyleRTL.Text = FieldNames.getSTyleRTLHome();
@@ -104,27 +166,32 @@ namespace ElectronicSubmission
                     result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Res_id, Spec_id, Nat_id, totalSum);
                     if (result)
                     {
+                        if (StudentID == 0)
+                        {
+                            string Text = "";
+                            string sever_name = Request.Url.Authority.ToString();
+                            string StuEmail = StudentEmail.Text;
+                            SendEmail send = new SendEmail();
+                            Text = " <Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you for completed the application from at Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
+                            bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
+                            SaveMessage(Student_Id, "E-mail", Text);
 
-                        string Text = "";
-                        string sever_name = Request.Url.Authority.ToString();
-                        string StuEmail = StudentEmail.Text;
-                        SendEmail send = new SendEmail();
-                        Text = " <Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you for completed the application from at Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
-                        bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
 
-                        // Send SMS
-                        SendSMS send_sms = new SendSMS();
-                        string smsText = "Dear " + StudentNameEn.Text + "\n" + "Thank you for completed the application form at Riyadh Elm University. We will contact you within 48 hours." + " \n" + "Best Regard," + " \n" + "Admission System" ;
-                        string number_Phone = StudentPhone.Text;
-                        string reslt_message = send_sms.SendMessage(smsText, number_Phone);
-
-                        Session["Success"] = true;
+                            // Send SMS
+                            SendSMS send_sms = new SendSMS();
+                            string smsText = "Dear " + StudentNameEn.Text + "\n" + "Thank you for completed the application form at Riyadh Elm University. We will contact you within 48 hours." + " \n" + "Best Regard," + " \n" + "Admission System";
+                            string number_Phone = StudentPhone.Text;
+                            string reslt_message = send_sms.SendMessage(smsText, number_Phone);
+                            SaveMessage(Student_Id, "SMS", Text);
+                        }
+                         if(StudentID == 0) Session["Success"] = true; else Session["UpdateSuccess"] = true;
+                        
                         /*if (langId == 1)
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
                         else
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
                             */
-                        if (StudentID == 0) Response.Redirect("~/StudentSubmitting.aspx");
+                        Response.Redirect("~/StudentSubmitting.aspx");
                     }
                     else
                     {
@@ -153,7 +220,7 @@ namespace ElectronicSubmission
 
             try
             {
-                int Student_Id = 0;
+                 Student_Id = 0;
                 db.Configuration.LazyLoadingEnabled = false;
                 Student Stu = db.Students.Create();
                 if (StudentID != 0) Stu = db.Students.First(x => x.Student_Id == StudentID);
@@ -272,6 +339,61 @@ namespace ElectronicSubmission
             return Imagepath;
         }
 
+        public void ViewDataStudent(int StudentId)
+        {
+            try
+            {
+                if (StudentId > 0)
+                {
+                    var Student = db.Students.First(x => x.Student_Id == StudentId);
+                    Stu_Profile.ImageUrl = "media/StudentProfile/" + Student.Student_Image_Profile;
+                    StudentNameAr.Text = Student.Student_Name_Ar;
+                    StudentNameEn.Text = Student.Student_Name_En;
+                    StudentEmail.Text = Student.Student_Email;
+                    StudentPhone.Text = Student.Student_Phone;
+                    Address.Text = Student.Student_Address;
+                    Student_SSN.Text = Student.Student_SSN;
+                    HighSchoolDegree.Text = Student.Student_High_School_Degree;
+                    CapabilitiesDegree.Text = Student.Student_Capabilities_Degree;
+                    MyAchievementDegree.Text = Student.Student_My_Achievement_Degree;
+                    Resource_ID.SelectedValue = Student.Student_Resource_Id.ToString();
+                    Nationality_ID.SelectedValue = Student.Student_Nationality_Id.ToString();
+                    Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
+                    //Note.InnerText = Student.Notes;
+                    LoadStudentFiles(StudentId);
+                }
+            }
+            catch (Exception e) { }
+        }
+
+        private void LoadStudentFiles(int Student_Id)
+        {
+            try
+            {
+                string str = string.Empty, FileName = string.Empty;
+                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0;
+                int Current_Counter = 1;
+                List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
+                for (int i = 0; i < List_File.Count; i++)
+                {
+                    string fileType = string.Empty;
+                    if (List_File[i].Type == (int)FileType.Nationality) { fileType = FieldNames.getFieldName("View-Nationality", "Nationality"); Current_Counter = Nationality_Counter = Nationality_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Capabilities) { fileType = FieldNames.getFieldName("View-Capabilities", "Capabilities"); Current_Counter = Capabilities_Counter = Capabilities_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.High_School) { fileType = FieldNames.getFieldName("View-HighSchool", "High School"); Current_Counter = High_School_Counter = High_School_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.My_Achievement) { fileType = FieldNames.getFieldName("View-MyAchievement", "My Achievement"); Current_Counter = My_Achievement_Counter = My_Achievement_Counter + 1; }
+                    str += "<tr>" +
+                           "<td>" +
+                           "" + fileType + " " + Current_Counter + "" +
+                           "</td>" +
+                           "<td>" + fileType + " </td>";
+                        str += "<td><a href = '../../../../media/StudentAttachments/" + List_File[i].File_Path + "' target='_blank' style='font-size: x-large; color: blue;'><i class='icofont icofont-eye-alt'></i></a></td>" +
+                          "</tr>";
+                }
+                txtFiles.Text = str;
+                FileTable.Visible = true;
+            }
+            catch { }
+        }
 
         public void ClearForm()
         {
@@ -307,8 +429,9 @@ namespace ElectronicSubmission
                 else
                     ddlFiller.dropDDL(Resource_ID, "ResourceID", "Resource_Name_En", ResourceList, " - Select Resource -");
 
+
                 // Group dropdown
-                List<Specialization> SpecializationList = db.Specializations.ToList();
+                List<Specialization> SpecializationList = db.Specializations.Where(x=>x.Specialization_Suspend !=true ).ToList();
                 if (langId == 1)
                     ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_Ar", SpecializationList, " - إختر التخصص -");
                 else
@@ -401,6 +524,18 @@ namespace ElectronicSubmission
             HighSchoolDegree.Attributes["placeholder"] = "أدخل درجة الشهادة الثانوية";
             CapabilitiesDegree.Attributes["placeholder"] = " أدخل درجة القدرات";
             MyAchievementDegree.Attributes["placeholder"] = "أدخل درجة التحصيلي";
+        }
+
+        public void SaveMessage(int student_id, string MessageType, string Message)
+        {
+            Student_Other_Info std_OI = db.Student_Other_Info.Create();
+            std_OI.Student_Id = student_id;
+            std_OI.MessageType = MessageType;
+            std_OI.Message = Message;
+            std_OI.DateCreation = DateTime.Now;
+            std_OI.Note = "";
+            db.Student_Other_Info.Add(std_OI);
+            db.SaveChanges();
         }
     }
 }

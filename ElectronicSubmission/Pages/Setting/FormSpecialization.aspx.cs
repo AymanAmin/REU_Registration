@@ -137,6 +137,8 @@ namespace ElectronicSubmission.Pages.Setting
 
             double.TryParse(Registeration_Payment.Text, out registerationPaymentVal);
             double.TryParse(Study_Payment.Text, out studyPaymentVal);
+
+            bool flaySuspend = Specialization_Suspend.Checked;
             ////////////////////////////////////////////
             if (collegeId == 0 || registerationPaymentVal == 0 || studyPaymentVal == 0)
             {
@@ -146,7 +148,7 @@ namespace ElectronicSubmission.Pages.Setting
                 return;
             }
             /////////////////////////////////////////
-            bool result = AU_Specialization(Specialization_Name_Ar.Text, Specialization_Name_En.Text, collegeId, Specialization_Icon.Text, High_School_Percent.Text, Capabilities_Percent.Text, My_Achievement_Percent.Text, Weighted_Ratio_Percent.Text, Specialization_Description_Ar.Text, Specialization_Description_En.Text, speech.Text, Minutes.Text, registerationPaymentVal, studyPaymentVal);
+            bool result = AU_Specialization(Specialization_Name_Ar.Text, Specialization_Name_En.Text, collegeId, Specialization_Icon.Text, High_School_Percent.Text, Capabilities_Percent.Text, My_Achievement_Percent.Text, Weighted_Ratio_Percent.Text, Specialization_Description_Ar.Text, Specialization_Description_En.Text, speech.Text, Minutes.Text, registerationPaymentVal, studyPaymentVal, flaySuspend);
 
             if (result)
             {
@@ -166,7 +168,7 @@ namespace ElectronicSubmission.Pages.Setting
             }
         }
 
-        public bool AU_Specialization(string SpecializationNameAr, string SpecializationNameEn, int collegeId, string SpecializationIcon, string HighSchoolPercent, string CapabilitiesPercent, string MyAchievementPercent, string WeightedRatioPercent, string SpecializationDescriptionAr, string SpecializationDescriptionEn, string Speech, string Minutes, double registerationPaymentVal, double studyPaymentVal)
+        public bool AU_Specialization(string SpecializationNameAr, string SpecializationNameEn, int collegeId, string SpecializationIcon, string HighSchoolPercent, string CapabilitiesPercent, string MyAchievementPercent, string WeightedRatioPercent, string SpecializationDescriptionAr, string SpecializationDescriptionEn, string Speech, string Minutes, double registerationPaymentVal, double studyPaymentVal, bool flaySuspend)
         {
             try
             {
@@ -187,6 +189,7 @@ namespace ElectronicSubmission.Pages.Setting
                 Specl.Condition_En = Minutes;
                 Specl.Specialization_Registeration_Payment = registerationPaymentVal;
                 Specl.Specialization_Study_Payment = studyPaymentVal;
+                Specl.Specialization_Suspend = flaySuspend;
                 string ImagepathProfile = UploadFile(1);
                 if (ImagepathProfile != "")
                     Specl.Specialization_Image = ImagepathProfile;
@@ -354,7 +357,9 @@ namespace ElectronicSubmission.Pages.Setting
                     Condition_Ar = x.Condition_Ar,
                     Condition_En = x.Condition_En,
                     Specialization_Registeration_Payment = x.Specialization_Registeration_Payment,
-                    Specialization_Study_Payment = x.Specialization_Study_Payment
+                    Specialization_Study_Payment = x.Specialization_Study_Payment,
+                    Specialization_Suspend = x.Specialization_Suspend
+
                 }).FirstOrDefault();
 
                 return JsonConvert.SerializeObject(Emplo);

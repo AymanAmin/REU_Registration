@@ -42,7 +42,7 @@ namespace ElectronicSubmission
                         SpecializationId = (int)Session["SpecializationId"]; 
                     Session["SpecializationId"] = SpecializationId;
                     SessionWrapper.Language = db.Lanuage_Detials.Where(x => x.Language_Master_Id == langId).ToList();
-                    Specialization oneSpecialization = db.Specializations.FirstOrDefault(x => x.Specialization_Id == SpecializationId);
+                    Specialization oneSpecialization = db.Specializations.FirstOrDefault(x => x.Specialization_Id == SpecializationId && x.Specialization_Suspend == false);
                     if (oneSpecialization != null)
                     {
                         if (langId == 2)
@@ -53,6 +53,8 @@ namespace ElectronicSubmission
                             headerBody.InnerHtml = "<i class='" + oneSpecialization.Specialization_Icon + "'></i> " + oneSpecialization.Specialization_Name_En;
                             bachelorsDescription.InnerHtml = oneSpecialization.Specialization_Description_En;
                             bachelorsImage.Src = "Template/extra-images/" + oneSpecialization.Specialization_Image;
+                            registerationPay.InnerText = oneSpecialization.Specialization_Registeration_Payment.ToString();
+                            studyPay.InnerText = oneSpecialization.Specialization_Study_Payment.ToString();
                         }
                         else
                         {
@@ -62,6 +64,8 @@ namespace ElectronicSubmission
                             headerBody.InnerHtml = "<i class='" + oneSpecialization.Specialization_Icon + "'></i> " + oneSpecialization.Specialization_Name_Ar;
                             bachelorsDescription.InnerHtml = oneSpecialization.Specialization_Description_Ar;
                             bachelorsImage.Src = "Template/extra-images/" + oneSpecialization.Specialization_Image;
+                            registerationPay.InnerText = oneSpecialization.Specialization_Registeration_Payment.ToString();
+                            studyPay.InnerText = oneSpecialization.Specialization_Study_Payment.ToString();
                         }
                         translateArabic();
                     }

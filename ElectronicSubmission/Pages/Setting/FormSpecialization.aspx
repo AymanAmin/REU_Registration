@@ -34,11 +34,13 @@
                         CKEDITOR.instances['Body_Holder_Minutes'].setData(Emp.Condition_En);
                         $('#Body_Holder_Registeration_Payment').val(Emp.Specialization_Registeration_Payment);
                         $('#Body_Holder_Study_Payment').val(Emp.Specialization_Study_Payment);
+                        $('#Body_Holder_Specialization_Suspend').prop('checked', Emp.Specialization_Suspend);
                         if (Emp.Specialization_Image == "" || Emp.Specialization_Image == null) {
                             var Profile = "..\/..\/..\/..\/Template\/extra-images\/blue-and-silver.jpg";
                         } else {
                             var Profile = "..\/..\/..\/..\/Template\/extra-images\/" + Emp.Employee_Profile;
                         }
+                        //console.log($('#Body_Holder_Specialization_Suspend'));
                     }
                 });
             } else {
@@ -58,6 +60,7 @@
                 $('#Body_Holder_Minutes').val('');
                 $('#Body_Holder_Registeration_Payment').val('');
                 $('#Body_Holder_Study_Payment').val('');
+                $('#Body_Holder_Specialization_Suspend').prop('checked', false);
             }
 
             document.getElementById("AddEmp_show").click();
@@ -305,11 +308,17 @@
 
                                     <!-- File upload card start -->
                                     <div class="row">
-                                        <div class="form-group col-sm-12">
+                                        <div class="form-group col-sm-6">
                                             <label><% = ElectronicSubmission.FieldNames.getFieldName("FormSpecialization-SpecializationImage", "Specialization Image") %></label>
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="icofont icofont-picture"></i></span>
                                                 <asp:FileUpload ID="addAttachments1" runat="server" class="form-control" AllowMultiple="False" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label><% = ElectronicSubmission.FieldNames.getFieldName("FormSpecialization-SpecializationSuspend", "Suspend") %></label>
+                                            <div class="input-group">
+                                                    <input ID="Specialization_Suspend" runat="server" type="checkbox" />
                                             </div>
                                         </div>
                                     </div>
