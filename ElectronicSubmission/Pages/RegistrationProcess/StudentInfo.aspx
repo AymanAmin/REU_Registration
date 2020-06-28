@@ -103,12 +103,13 @@
                     </div>
                </div>
 
+
                 <div class="row">
                     <div class="form-group col-sm-6">
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentPhone", "Student Phone") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-ui-call"></i></span>
-                             <asp:TextBox ID="StudentPhone" runat="server" class="form-control" placeholder="05xxxxxxxx" TextMode="Number"  onkeyup="validatelimit(this,13"></asp:TextBox>
+                             <asp:TextBox ID="StudentPhone" runat="server" class="form-control" placeholder="9665xxxxxxxx" TextMode="Number"  onkeyup="validatelimit(this,13"></asp:TextBox>
                         </div>
                           <asp:RequiredFieldValidator ID="StudentPhoneValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student Phone" ValidationGroup="valFormGroup" ControlToValidate="StudentPhone" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>

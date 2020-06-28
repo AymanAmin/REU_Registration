@@ -429,8 +429,9 @@ namespace ElectronicSubmission
                 else
                     ddlFiller.dropDDL(Resource_ID, "ResourceID", "Resource_Name_En", ResourceList, " - Select Resource -");
 
+
                 // Group dropdown
-                List<Specialization> SpecializationList = db.Specializations.ToList();
+                List<Specialization> SpecializationList = db.Specializations.Where(x=>x.Specialization_Suspend !=true ).ToList();
                 if (langId == 1)
                     ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_Ar", SpecializationList, " - إختر التخصص -");
                 else
