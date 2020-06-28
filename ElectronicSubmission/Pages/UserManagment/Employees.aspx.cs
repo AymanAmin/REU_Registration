@@ -107,11 +107,8 @@ namespace ElectronicSubmission.Pages.Treatment
                     string New_Password = StringCipher.RandomString(7);
                      Encrypted_Password = StringCipher.Encrypt(New_Password, "Password"); // emp.Employee_Password.ToString();
                     Emp.Employee_Password = Encrypted_Password;
-
-                    /* string sever_name = Request.Url.Authority.ToString();
-                     SendEmail send = new SendEmail();
-                     bool EmailResult = send.ResetEmail(Email, New_Password, sever_name, "New Account");
-                     if (EmailResult)
+                    
+                    /* if (EmailResult)
                      {
                          Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "show_model_sucess();", true);
                      }*/
@@ -137,7 +134,7 @@ namespace ElectronicSubmission.Pages.Treatment
                 //Emp.Calendar_id = calander;
                 string ImagepathProfile = UploadFile(1);
                 string ImagepathSignature = UploadFile(2);
-                if (ImagepathProfile != "") Emp.Employee_Profile = ImagepathProfile; else if (EmployeeID == 0) ImagepathProfile = "Profile.JPG";
+                if (ImagepathProfile != "") Emp.Employee_Profile = ImagepathProfile; else if (EmployeeID == 0) Emp.Employee_Profile = "Profile.JPG";
                 if (EmployeeID != 0) {
                     db.Entry(Emp).State = System.Data.EntityState.Modified;
                 }
