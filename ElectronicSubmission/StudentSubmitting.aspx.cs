@@ -239,7 +239,7 @@ namespace ElectronicSubmission
                 Stu.Student_Nationality_Id = NationalityID;
                 Stu.Student_Total = StudentTotal.ToString();
                 Stu.Suspended = 0;
-                if (StudentID == 0) Stu.Student_Status_Id = 1;
+                if (StudentID == 0) Stu.Student_Status_Id = 1;else Stu.Student_Status_Id = 3;
                 string ImegProfile = UploadFile(StProfile, @"~\media\StudentProfile\");
                 if (ImegProfile != "") Stu.Student_Image_Profile = ImegProfile; else if (StudentID == 0) Stu.Student_Image_Profile = "Profile.JPG";
 
@@ -431,7 +431,9 @@ namespace ElectronicSubmission
 
 
                 // Group dropdown
-                List<Specialization> SpecializationList = db.Specializations.Where(x=>x.Specialization_Suspend !=true ).ToList();
+                //List<Specialization> SpecializationList = db.Specializations.Where(x=>x.Specialization_Suspend !=true ).ToList();
+                List<Specialization> SpecializationList = db.Specializations.ToList();
+
                 if (langId == 1)
                     ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_Ar", SpecializationList, " - إختر التخصص -");
                 else
