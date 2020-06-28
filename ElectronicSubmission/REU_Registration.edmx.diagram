@@ -4,64 +4,63 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b8edd164847b430b8bb61733ce9e81db" Name="Diagram1">
-        <EntityTypeShape EntityType="REU_RegistrationModel.Collage" Width="1.5" PointX="1.5" PointY="5.625" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Employee" Width="1.5" PointX="3" PointY="0.75" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.File" Width="1.5" PointX="5.25" PointY="23.5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Group" Width="1.5" PointX="3.75" PointY="8.5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Group_Status" Width="1.5" PointX="6" PointY="10.5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.LanguageMaster" Width="1.5" PointX="0.75" PointY="2.75" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Lanuage_Detials" Width="1.5" PointX="3" PointY="20.375" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.LastUpdate" Width="1.5" PointX="5.75" PointY="5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Log_File" Width="1.5" PointX="8.25" PointY="1.375" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Nationality" Width="1.5" PointX="0.75" PointY="18.625" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Employee" Width="1.5" PointX="5.25" PointY="1.75" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Master" Width="1.5" PointX="5.25" PointY="31.625" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Show" Width="1.5" PointX="3" PointY="29.5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Payment_Process" Width="1.5" PointX="8.25" PointY="12.625" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Payment_Type" Width="1.5" PointX="6" PointY="7.625" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Permission" Width="1.5" PointX="6" PointY="27.25" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Permission_Group" Width="1.5" PointX="9" PointY="8.5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Resource" Width="1.5" PointX="0.75" PointY="22.125" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Rosom_Request" Width="1.5" PointX="10.5" PointY="12.125" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Rosom_Response" Width="1.5" PointX="12.75" PointY="13" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Sequence" Width="1.5" PointX="5.25" PointY="14.125" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Specialization" Width="1.5" PointX="0.75" PointY="8.125" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Status" Width="1.5" PointX="0.75" PointY="14" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Student" Width="1.5" PointX="3" PointY="12" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Student_Concat" Width="1.5" PointX="3" PointY="25.5" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.Student_Other_Info" Width="1.5" PointX="5.25" PointY="17.75" />
-        <EntityTypeShape EntityType="REU_RegistrationModel.sysdiagram" Width="1.5" PointX="8.75" PointY="5" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Specialization_Collage" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Employee_Group" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Employee_LanguageMaster" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Log_File_Employee" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Employee_Employee" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Employee" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Employee" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Files_Student" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Group_Status_Group" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Permission_Group_Group" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Group_Status_Status" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Lanuage_Detials_LanguageMaster" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Log_File_Permission" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Nationality_Nationality" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Nationality" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Employee_Notification_Show" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Master_Notification_Show" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Payment_Process_Payment_Type" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Payment_Study_Student" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Request_Payment_Process" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Response_Payment_Process" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Permission_Group_Permission" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Resource" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Response_Rosom_Request" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Status" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Student" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Specialization" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Concat_Status" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Status" />
-        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Other_Info_Student" />
+      <Diagram DiagramId="c6ef926bfc424f27859b0b2f02c0c047" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="REU_RegistrationModel.Collage" Width="1.5" PointX="1.5" PointY="38.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Employee" Width="1.5" PointX="0.75" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.File" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Group" Width="1.5" PointX="1.5" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Group_Status" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.LanguageMaster" Width="1.5" PointX="1.5" PointY="27.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Lanuage_Detials" Width="1.5" PointX="3.75" PointY="31.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.LastUpdate" Width="1.5" PointX="5.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Log_File" Width="1.5" PointX="6" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Nationality" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Employee" Width="1.5" PointX="3" PointY="17.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Master" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Notification_Show" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Payment_Process" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Payment_Type" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Permission" Width="1.5" PointX="3.75" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Permission_Group" Width="1.5" PointX="3.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Resource" Width="1.5" PointX="0.75" PointY="30.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Rosom_Request" Width="1.5" PointX="10.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Rosom_Response" Width="1.5" PointX="12.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Sequence" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Specialization" Width="1.5" PointX="0.75" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Status" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Student" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Student_Concat" Width="1.5" PointX="3" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.Student_Other_Info" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Specialization_Collage" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Employee_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Employee_LanguageMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Log_File_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Employee_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Files_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Group_Status_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Permission_Group_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Group_Status_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Lanuage_Detials_LanguageMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Log_File_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Nationality_Nationality" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Nationality" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Employee_Notification_Show" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Notification_Master_Notification_Show" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Payment_Process_Payment_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Payment_Study_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Request_Payment_Process" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Response_Payment_Process" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Permission_Group_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Resource" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Rosom_Response_Rosom_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Sequence_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Specialization" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Concat_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Other_Info_Student" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
