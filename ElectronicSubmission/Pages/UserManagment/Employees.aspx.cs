@@ -21,6 +21,7 @@ namespace ElectronicSubmission.Pages.Treatment
         LogFileModule logFileModule = new LogFileModule();
         String LogData = "";
         List<Employee> ALLEmployees = new List<Employee>();
+        string Encrypted_Password = string.Empty;
         public string name { get; set; }
 
         protected void Page_PreInit(object sender, EventArgs e)
@@ -77,6 +78,10 @@ namespace ElectronicSubmission.Pages.Treatment
                 else
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "HideTheModel(); notify('top', 'right', 'fa fa-check', 'success', 'animated fadeInRight', 'animated fadeOutRight','  Save Status : ','  The  Employee was Sucessfully saved in system ! ');", true);
 
+               
+                   
+               
+
                 ALLEmployees = db.Employees.ToList();
                 UserCard();
             }
@@ -100,16 +105,30 @@ namespace ElectronicSubmission.Pages.Treatment
                 if (EmployeeID == 0)
                 {
                     string New_Password = StringCipher.RandomString(7);
-                    string Encrypted_Password = StringCipher.Encrypt(New_Password, "Password"); // emp.Employee_Password.ToString();
+                     Encrypted_Password = StringCipher.Encrypt(New_Password, "Password"); // emp.Employee_Password.ToString();
                     Emp.Employee_Password = Encrypted_Password;
 
+                    /* string sever_name = Request.Url.Authority.ToString();
+                     SendEmail send = new SendEmail();
+                     bool EmailResult = send.ResetEmail(Email, New_Password, sever_name, "New Account");
+                     if (EmailResult)
+                     {
+                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "show_model_sucess();", true);
+                     }*/
+
+                    //Send Email
+                    string Text = "";
                     string sever_name = Request.Url.Authority.ToString();
+                    string StuEmail = Email;
                     SendEmail send = new SendEmail();
-                    bool EmailResult = send.ResetEmail(Email, New_Password, sever_name, "New Account");
-                    if (EmailResult)
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "show_model_sucess();", true);
-                    }
+                    Text = " <Strong style='font-size:16px;'> Dear " + EnglishName + "</Strong><br /><br /> " + "Now you can access the online admission system through the link: http://registration.riyadh.edu.sa" + " <br /> <br />" + "User Name : "+ Email  + " <br />" + "Password : " + New_Password + " <br /><br />" + "Best Regard," + " <br />" + "Admission System" + " <br />";
+                    bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
+
+                    // Send SMS
+                    SendSMS send_sms = new SendSMS();
+                    string smsText = "Dear " + EnglishName + "\n" + "Now you can access the online admission system through the link: http://registration.riyadh.edu.sa" + "\n\n" + "User Name : " + Email + "\n" + "Password : " + New_Password + " \n\n" + "Best Regard," + " \n" + "Admission System";
+                    string number_Phone = Phone;
+                    string reslt_message = send_sms.SendMessage(smsText, number_Phone);
                 }
                 Emp.Employee_Phone = Phone;
                 Emp.Employee_Active = Active;
@@ -365,5 +384,7 @@ namespace ElectronicSubmission.Pages.Treatment
 
 
         }
+
+
      }
 }
