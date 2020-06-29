@@ -18,6 +18,7 @@ namespace ElectronicSubmission
         {
             this.Rosom_Request = new HashSet<Rosom_Request>();
             this.Rosom_Response = new HashSet<Rosom_Response>();
+            this.VISA_MADA = new HashSet<VISA_MADA>();
         }
     
         public int Payment_Id { get; set; }
@@ -46,5 +47,6 @@ namespace ElectronicSubmission
         public virtual Student Student { get; set; }
         public virtual ICollection<Rosom_Request> Rosom_Request { get; set; }
         public virtual ICollection<Rosom_Response> Rosom_Response { get; set; }
+        public virtual ICollection<VISA_MADA> VISA_MADA { get; set; }
     }
 }

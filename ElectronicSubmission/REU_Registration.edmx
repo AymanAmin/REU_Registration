@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="REU_RegistrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="REU_RegistrationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Collage">
           <Key>
             <PropertyRef Name="Collage_ID" />
@@ -348,6 +348,17 @@
           <Property Name="Message" Type="nvarchar(max)" />
           <Property Name="DateCreation" Type="datetime" />
           <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="VISA_MADA">
+          <Key>
+            <PropertyRef Name="VISA_MADA_Id" />
+          </Key>
+          <Property Name="VISA_MADA_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentProcess_Id" Type="int" />
+          <Property Name="Trackingkey" Type="nvarchar(max)" />
+          <Property Name="UUID" Type="nvarchar(max)" />
+          <Property Name="Result_JSON" Type="nvarchar(max)" />
+          <Property Name="DateCreation" Type="datetime" />
         </EntityType>
         <Association Name="FK_Employee_Group">
           <End Role="Group" Type="Self.Group" Multiplicity="0..1" />
@@ -709,6 +720,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VISA_MADA_Payment_Process">
+          <End Role="Payment_Process" Type="Self.Payment_Process" Multiplicity="0..1" />
+          <End Role="VISA_MADA" Type="Self.VISA_MADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Process">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="VISA_MADA">
+              <PropertyRef Name="PaymentProcess_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -767,6 +790,7 @@
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student_Concat" EntityType="Self.Student_Concat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student_Other_Info" EntityType="Self.Student_Other_Info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VISA_MADA" EntityType="Self.VISA_MADA" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Employee_Group" Association="Self.FK_Employee_Group">
             <End Role="Group" EntitySet="Group" />
             <End Role="Employee" EntitySet="Employee" />
@@ -887,9 +911,12 @@
             <End Role="Status" EntitySet="Status" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
+          <AssociationSet Name="FK_VISA_MADA_Payment_Process" Association="Self.FK_VISA_MADA_Payment_Process">
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+            <End Role="VISA_MADA" EntitySet="VISA_MADA" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="REU_RegistrationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1079,6 +1106,7 @@
           <NavigationProperty Name="Student" Relationship="Self.FK_Payment_Study_Student" FromRole="Payment_Process" ToRole="Student" />
           <NavigationProperty Name="Rosom_Request" Relationship="Self.FK_Rosom_Request_Payment_Process" FromRole="Payment_Process" ToRole="Rosom_Request" />
           <NavigationProperty Name="Rosom_Response" Relationship="Self.FK_Rosom_Response_Payment_Process" FromRole="Payment_Process" ToRole="Rosom_Response" />
+          <NavigationProperty Name="VISA_MADA" Relationship="REU_RegistrationModel.FK_VISA_MADA_Payment_Process" FromRole="Payment_Process" ToRole="VISA_MADA" />
         </EntityType>
         <EntityType Name="Payment_Type">
           <Key>
@@ -1834,7 +1862,36 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="VISA_MADA" EntityType="REU_RegistrationModel.VISA_MADA" />
+          <AssociationSet Name="FK_VISA_MADA_Payment_Process" Association="REU_RegistrationModel.FK_VISA_MADA_Payment_Process">
+            <End Role="Payment_Process" EntitySet="Payment_Process" />
+            <End Role="VISA_MADA" EntitySet="VISA_MADA" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="VISA_MADA">
+          <Key>
+            <PropertyRef Name="VISA_MADA_Id" />
+          </Key>
+          <Property Name="VISA_MADA_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentProcess_Id" Type="Int32" />
+          <Property Name="Trackingkey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UUID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Result_JSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Payment_Process" Relationship="REU_RegistrationModel.FK_VISA_MADA_Payment_Process" FromRole="VISA_MADA" ToRole="Payment_Process" />
+        </EntityType>
+        <Association Name="FK_VISA_MADA_Payment_Process">
+          <End Type="REU_RegistrationModel.Payment_Process" Role="Payment_Process" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.VISA_MADA" Role="VISA_MADA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payment_Process">
+              <PropertyRef Name="Payment_Id" />
+            </Principal>
+            <Dependent Role="VISA_MADA">
+              <PropertyRef Name="PaymentProcess_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2218,6 +2275,18 @@
           <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="REU_RegistrationModel.Store.sp_helpdiagrams" />
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="REU_RegistrationModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="REU_RegistrationModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="VISA_MADA">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.VISA_MADA">
+              <MappingFragment StoreEntitySet="VISA_MADA">
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Result_JSON" ColumnName="Result_JSON" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="Trackingkey" ColumnName="Trackingkey" />
+                <ScalarProperty Name="PaymentProcess_Id" ColumnName="PaymentProcess_Id" />
+                <ScalarProperty Name="VISA_MADA_Id" ColumnName="VISA_MADA_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

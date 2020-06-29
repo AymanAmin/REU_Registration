@@ -118,7 +118,7 @@ namespace ElectronicSubmission.Pages.Treatment
                     string sever_name = Request.Url.Authority.ToString();
                     string StuEmail = Email;
                     SendEmail send = new SendEmail();
-                    Text = " <Strong style='font-size:16px;'> Dear " + EnglishName + "</Strong><br /><br /> " + "Now you can access the online admission system through the link: http://registration.riyadh.edu.sa" + " <br /> <br />" + "User Name : "+ Email  + " <br />" + "Password : " + New_Password + " <br /><br />" + "Best Regard," + " <br />" + "Admission System" + " <br />";
+                    Text = " <Strong style='font-size:16px;'>Dear " + EnglishName + "</Strong><br /><br /> " + "Now you can access the online admission system through the link: http://registration.riyadh.edu.sa" + "<br /><br />" + "User Name :"+ Email  + " <br />" + "Password :" + New_Password + "<br /><br />" + "Best Regard," + " <br />" + "Admission System" + " <br />";
                     bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
 
                     // Send SMS

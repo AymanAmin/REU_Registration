@@ -61,7 +61,7 @@ namespace ElectronicSubmission.Payment
                             URL = "http://" + URL;
 
                         Payment_Form.Action = URL;
-                        render_Payment.Text = "<script src='https://test.oppwa.com/v1/paymentWidgets.js?checkoutId="+ payment.Result_Id + "'></script>" ;
+                        render_Payment.Text = "<script src='https://oppwa.com/v1/paymentWidgets.js?checkoutId=" + payment.Result_Id + "'></script>" ;
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "DisplayDiv(1);", true);
                     }
                     else
@@ -161,10 +161,10 @@ namespace ElectronicSubmission.Payment
             Dictionary<string, dynamic> responseData;
 
             string data = "entityId=" + entityId;
-            string url = "https://test.oppwa.com/v1/checkouts/" + PaymentId_local + "/payment?" + data;
+            string url = " https://oppwa.com/v1/checkouts/" + PaymentId_local + "/payment?" + data;
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "GET";
-            request.Headers["Authorization"] = "Bearer OGFjN2E0Yzg3Mjg0ZjZjOTAxNzI4ZTYxMTI5YjE1MGF8TldCblpGNUdUYg==";
+            request.Headers["Authorization"] = "Bearer OGFjZGE0Y2U3MmU1YTNkZjAxNzJmYjc0Y2ZjZTQ4ODd8NHBZOWZQc3lxeQ==";
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
                 Stream dataStream = response.GetResponseStream();

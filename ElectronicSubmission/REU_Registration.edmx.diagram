@@ -61,6 +61,8 @@
         <AssociationConnector Association="REU_RegistrationModel.FK_Student_Concat_Status" ManuallyRouted="false" />
         <AssociationConnector Association="REU_RegistrationModel.FK_Student_Status" ManuallyRouted="false" />
         <AssociationConnector Association="REU_RegistrationModel.FK_Student_Other_Info_Student" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="REU_RegistrationModel.VISA_MADA" Width="1.5" PointX="10.5" PointY="14.375" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_VISA_MADA_Payment_Process" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

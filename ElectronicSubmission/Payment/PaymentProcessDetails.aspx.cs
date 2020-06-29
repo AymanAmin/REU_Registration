@@ -64,16 +64,70 @@ namespace ElectronicSubmission.Payment
                 Payment_Process checkout_payment = db.Payment_Process.Where(x => x.Payment_Trackingkey == Trackingkey && x.Payment_URL_IsValid == true && x.Payment_IsPaid == false).FirstOrDefault();
                 if (checkout_payment != null)
                 {
-                    if (PaymentType.SelectedValue == "1" || PaymentType.SelectedValue == "2") Entity_ID = "8ac7a4c87284f6c901728e6183ff150e"; else if (PaymentType.SelectedValue == "3") Entity_ID = "8ac7a4c87284f6c901728e633a371512";
+                    if (PaymentType.SelectedValue == "1" || PaymentType.SelectedValue == "2") Entity_ID = "8acda4ce72e5a3df0172fb754c3c488c"; else if (PaymentType.SelectedValue == "3") Entity_ID = "8acda4ce72e5a3df0172fb75d45d4891";
 
                     if (PaymentType.SelectedValue != "4")
                     {
+                        VISA_MADA VM = db.VISA_MADA.Where(x => x.Trackingkey == Trackingkey).FirstOrDefault();
+                        if (VM != null)
+                        {
+                            VM.UUID = UUID;
+                            VM.DateCreation = DateTime.Now;
+                            db.Entry(VM).State = System.Data.EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            VISA_MADA NewVM = db.VISA_MADA.Create();
+                            NewVM.UUID = UUID;
+                            NewVM.PaymentProcess_Id = checkout_payment.Payment_Id;
+                            NewVM.Trackingkey = checkout_payment.Payment_Trackingkey;
+                            NewVM.Result_JSON = string.Empty;
+                            NewVM.DateCreation = DateTime.Now;
+                            db.VISA_MADA.Add(NewVM);
+                            db.SaveChanges();
+                        }
                         Dictionary<string, dynamic> responseData =
-                            Prepare_Check_Payment_Request(Entity_ID, checkout_payment.Send_Amount.ToString(), checkout_payment.Send_Currency, checkout_payment.Send_PaymentType, StudentName.Text, Studentsurname.Text, StudentEmail.Text, StudentCountry.SelectedValue, StudentState.Text, StudentCity.Text, StudentAddress.Text, StudentPostcode.Text);
+                            Prepare_Check_Payment_Request(UUID, Entity_ID, checkout_payment.Send_Amount.ToString(), checkout_payment.Send_Currency, checkout_payment.Send_PaymentType, StudentName.Text, Studentsurname.Text, StudentEmail.Text, StudentCountry.SelectedValue, StudentState.Text, StudentCity.Text, StudentAddress.Text, StudentPostcode.Text);
                         if (responseData["result"]["code"] == "000.200.100")
                         {
-                            string InvoiceId=responseData["InvoiceId"];
-                            Rosom_Request Rosom = db.Rosom_Request.FirstOrDefault(x=>x.Trackingkey== Trackingkey && x.InvoiceId== InvoiceId);
+                            checkout_payment.Result_Code = responseData["result"]["code"];
+                            checkout_payment.Result_Description = responseData["result"]["description"];
+                            checkout_payment.Result_BuildNumber = responseData["buildNumber"];
+                            checkout_payment.Result_Timestamp = responseData["timestamp"];
+                            checkout_payment.Result_Ndc = responseData["ndc"];
+                            checkout_payment.Result_Id = responseData["id"];
+                            checkout_payment.Send_EntityId = Entity_ID;
+                            db.Entry(checkout_payment);
+                            db.SaveChanges();
+
+                            Response = true;
+                        }
+                        else
+                        {
+                            Response = false;
+                            //return false;
+                        }
+                    }
+                    else
+                    {
+                        int studentID = 0;
+                        int.TryParse(checkout_payment.Student_Id.ToString(), out studentID);
+
+                        Dictionary<string, dynamic> responseData =
+                           Prepare_Check_Payment_Request_SADAD(UUID, checkout_payment.Send_Amount.ToString(), checkout_payment.Student.Student_SSN, checkout_payment.Send_PaymentType, StudentFirstName.Text, StudentLastName.Text, studentID);
+                        if (responseData["Status"]["Code"] == 0)
+                        {
+                            checkout_payment.Result_Code = responseData["InvoiceId"];
+                            checkout_payment.Result_Description = responseData["SADADNumber"];
+                            checkout_payment.Result_BuildNumber = responseData["Status"]["Code"];
+                            checkout_payment.Result_Timestamp = responseData["Status"]["Description"];
+                            checkout_payment.Result_Ndc = responseData["Status"]["Severity"];
+                            db.Entry(checkout_payment).State = System.Data.EntityState.Modified;
+                            db.SaveChanges();
+
+                            string InvoiceId = responseData["InvoiceId"];
+                            Rosom_Request Rosom = db.Rosom_Request.FirstOrDefault(x => x.Trackingkey == Trackingkey && x.InvoiceId == InvoiceId);
                             Rosom.Response_Status_Code = responseData["result"]["code"];
                             // Rosom. = responseData["result"]["description"];
                             Rosom.Response_SADADNumber = responseData["SADADNumber"];
@@ -81,7 +135,7 @@ namespace ElectronicSubmission.Payment
                             db.Entry(Rosom).State = System.Data.EntityState.Modified; ;
                             db.SaveChanges();
 
-                            SADAD_Number= responseData["SADADNumber"];
+                            SADAD_Number = responseData["SADADNumber"];
 
                             string Text = "";
                             string sever_name = Request.Url.Authority.ToString();
@@ -105,29 +159,6 @@ namespace ElectronicSubmission.Payment
                             //return false;
                         }
                     }
-                    else
-                    {
-                        int studentID = 0;
-                        int.TryParse(checkout_payment.Student_Id.ToString(),out studentID);
-                        Dictionary<string, dynamic> responseData =
-                           Prepare_Check_Payment_Request_SADAD(UUID, checkout_payment.Send_Amount.ToString(), checkout_payment.Student.Student_SSN, checkout_payment.Send_PaymentType, StudentFirstName.Text, StudentLastName.Text, studentID);
-                            if (responseData["Status"]["Code"] == 0)
-                            {
-                                checkout_payment.Result_Code = responseData["InvoiceId"];
-                                checkout_payment.Result_Description = responseData["SADADNumber"];
-                                checkout_payment.Result_BuildNumber = responseData["Status"]["Code"];
-                                checkout_payment.Result_Timestamp = responseData["Status"]["Description"];
-                                checkout_payment.Result_Ndc = responseData["Status"]["Severity"];
-                                db.Entry(checkout_payment).State = System.Data.EntityState.Modified;
-                                db.SaveChanges();
-                                Response = true;
-                            }
-                            else
-                            {
-                                Response = false;
-                                //return false;
-                            }
-                    }
                 }
                 else
                 {
@@ -141,7 +172,7 @@ namespace ElectronicSubmission.Payment
                 db.Configuration.LazyLoadingEnabled = false;
                 /* Add it to log file */
                 LogData = "data:" + JsonConvert.SerializeObject(er, logFileModule.settings);
-                logFileModule.logfile(10, "خطأ جديد التجهيز للدفع" , "New Exception in Checkout" , LogData);
+                logFileModule.logfile(10, "خطأ جديد التجهيز للدفع", "New Exception in Checkout", LogData);
                 return false;
             }
 
@@ -149,7 +180,7 @@ namespace ElectronicSubmission.Payment
             /* End Prepare the checkout */
         }
 
-        public Dictionary<string, dynamic> Prepare_Check_Payment_Request(string entityId, string amount, string currency, string paymentType,string Name, string surname, string Email, string Country, string State, string City, string Address, string Postcode)
+        public Dictionary<string, dynamic> Prepare_Check_Payment_Request(string UUID_Local,string entityId, string amount, string currency, string paymentType,string Name, string surname, string Email, string Country, string State, string City, string Address, string Postcode)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -160,7 +191,7 @@ namespace ElectronicSubmission.Payment
                 "&currency=" + currency +
                 "&paymentType=" + paymentType +
                 "&testMode=EXTERNAL"+
-                "&merchantTransactionId=" + Trackingkey +
+                "&merchantTransactionId=" + UUID_Local +
                 "&customer.email=" + Email +
                 "&billing.street1=" + Address +
                 "&billing.city=" + City +
@@ -169,11 +200,11 @@ namespace ElectronicSubmission.Payment
                 "&billing.postcode=" + Postcode +
                 "&customer.givenName=" + Name +
                 "customer.surname=" + surname;
-            string url = "https://test.oppwa.com/v1/checkouts";
+            string url = "https://oppwa.com/v1/checkouts";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
-            request.Headers["Authorization"] = "Bearer OGFjN2E0Yzg3Mjg0ZjZjOTAxNzI4ZTYxMTI5YjE1MGF8TldCblpGNUdUYg==";
+            request.Headers["Authorization"] = "Bearer OGFjZGE0Y2U3MmU1YTNkZjAxNzJmYjc0Y2ZjZTQ4ODd8NHBZOWZQc3lxeQ==";
             request.ContentType = "application/x-www-form-urlencoded";
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);
@@ -190,6 +221,18 @@ namespace ElectronicSubmission.Payment
             return responseData;
         }
 
+
+        /// <summary>
+        /// ROSOM - SADAD
+        /// </summary>
+        /// <param name="UUID"></param>
+        /// <param name="amount"></param>
+        /// <param name="SSN"></param>
+        /// <param name="paymentType"></param>
+        /// <param name="FirstName"></param>
+        /// <param name="LastName"></param>
+        /// <param name="Student_id"></param>
+        /// <returns></returns>
         public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName,int Student_id)
         {
             string CreateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -233,7 +276,7 @@ namespace ElectronicSubmission.Payment
             byte[] buffer = Encoding.ASCII.GetBytes(data);
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
-            request.Headers["Authorization"] = "Bearer OGFjN2E0Yzg3Mjg0ZjZjOTAxNzI4ZTYxMTI5YjE1MGF8TldCblpGNUdUYg==";
+            request.Headers["Authorization"] = "Bearer OGFjZGE0Y2U3MmU1YTNkZjAxNzJmYjc0Y2ZjZTQ4ODd8NHBZOWZQc3lxeQ==";
             request.ContentType = "application/x-www-form-urlencoded";
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);

@@ -187,6 +187,7 @@
     <Content Include="Pages\UserManagment\Permissions.aspx" />
     <Content Include="Pages\UserManagment\Profile.aspx" />
     <Content Include="Payment\PaymentProcess.aspx" />
+    <None Include="Properties\PublishProfiles\REU Registration.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -2981,6 +2982,9 @@
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>
     <Compile Include="Student_Other_Info.cs">
+      <DependentUpon>REU_Registration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VISA_MADA.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>
     <Compile Include="Web References\CheckPaymentRef\Reference.cs">
