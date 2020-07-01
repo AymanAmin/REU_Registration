@@ -2984,6 +2984,9 @@
     <Compile Include="Student_Other_Info.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>
+    <Compile Include="Student_Type.cs">
+      <DependentUpon>REU_Registration.tt</DependentUpon>
+    </Compile>
     <Compile Include="VISA_MADA.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>

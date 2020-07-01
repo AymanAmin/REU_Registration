@@ -44,6 +44,7 @@ namespace ElectronicSubmission
         public Nullable<int> Suspended { get; set; }
         public string Notes { get; set; }
         public string Student_URL_Video { get; set; }
+        public Nullable<int> Student_Type_Id { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual ICollection<File> Files { get; set; }
@@ -54,5 +55,6 @@ namespace ElectronicSubmission
         public virtual Specialization Specialization { get; set; }
         public virtual Status Status { get; set; }
         public virtual ICollection<Student_Other_Info> Student_Other_Info { get; set; }
+        public virtual Student_Type Student_Type { get; set; }
     }
 }

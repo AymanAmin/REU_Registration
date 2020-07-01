@@ -68,16 +68,7 @@ namespace ElectronicSubmission.Payment
 
                     if (PaymentType.SelectedValue != "4")
                     {
-                        VISA_MADA VM = db.VISA_MADA.Where(x => x.Trackingkey == Trackingkey).FirstOrDefault();
-                        if (VM != null)
-                        {
-                            VM.UUID = UUID;
-                            VM.DateCreation = DateTime.Now;
-                            db.Entry(VM).State = System.Data.EntityState.Modified;
-                            db.SaveChanges();
-                        }
-                        else
-                        {
+                        
                             VISA_MADA NewVM = db.VISA_MADA.Create();
                             NewVM.UUID = UUID;
                             NewVM.PaymentProcess_Id = checkout_payment.Payment_Id;
@@ -86,7 +77,7 @@ namespace ElectronicSubmission.Payment
                             NewVM.DateCreation = DateTime.Now;
                             db.VISA_MADA.Add(NewVM);
                             db.SaveChanges();
-                        }
+
                         Dictionary<string, dynamic> responseData =
                             Prepare_Check_Payment_Request(UUID, Entity_ID, checkout_payment.Send_Amount.ToString(), checkout_payment.Send_Currency, checkout_payment.Send_PaymentType, StudentName.Text, Studentsurname.Text, StudentEmail.Text, StudentCountry.SelectedValue, StudentState.Text, StudentCity.Text, StudentAddress.Text, StudentPostcode.Text);
                         if (responseData["result"]["code"] == "000.200.100")
@@ -101,12 +92,22 @@ namespace ElectronicSubmission.Payment
                             db.Entry(checkout_payment);
                             db.SaveChanges();
 
+                            
                             Response = true;
                         }
                         else
                         {
+
                             Response = false;
                             //return false;
+                        }
+                        // Save Result in all cases
+                        VISA_MADA VM_UpdateResult = db.VISA_MADA.Where(x => x.UUID == UUID).FirstOrDefault();
+                        if (VM_UpdateResult != null)
+                        {
+                            VM_UpdateResult.Result_JSON = JsonConvert.SerializeObject(responseData);
+                            db.Entry(VM_UpdateResult).State = System.Data.EntityState.Modified;
+                            db.SaveChanges();
                         }
                     }
                     else

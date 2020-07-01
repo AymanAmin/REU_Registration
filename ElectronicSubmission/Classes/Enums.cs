@@ -22,7 +22,16 @@ namespace ElectronicSubmission
             Nationality = 2,
             Capabilities = 3,
             High_School = 4,
-            My_Achievement = 5
+            My_Achievement = 5,
+            SAT1 = 6,
+            SAT2 = 7,
+            Diploma = 8 ,
+            Acadimec_Regsteration = 9,
+            Classification_Authority = 10,
+            English_Test = 11,
+            Description_of_Courses = 12,
+            Before_Contract = 13,
+            After_Contract = 14
 
         }
         public enum brnch

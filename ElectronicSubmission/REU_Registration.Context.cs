@@ -54,6 +54,7 @@ namespace ElectronicSubmission
         public DbSet<Student> Students { get; set; }
         public DbSet<Student_Concat> Student_Concat { get; set; }
         public DbSet<Student_Other_Info> Student_Other_Info { get; set; }
+        public DbSet<Student_Type> Student_Type { get; set; }
         public DbSet<VISA_MADA> VISA_MADA { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
