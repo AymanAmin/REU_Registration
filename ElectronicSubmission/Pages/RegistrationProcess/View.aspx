@@ -84,6 +84,11 @@
                                                 <% = ElectronicSubmission.FieldNames.getFieldName("View-Resource", "Resource") %> : </strong>
                                                 <asp:Label ID="txtStudent_Resource" runat="server" Text="Student_Resource"></asp:Label></td>
                                         </tr>
+                                        <tr>
+                                            <td><strong>
+                                                <% = ElectronicSubmission.FieldNames.getFieldName("View-TypeofAdmission", "Type of Admission") %> : </strong>
+                                                <asp:Label ID="txtTypeofSubmission" runat="server" Text="Student_Resource"></asp:Label></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -189,7 +194,7 @@
                             <div class="row text-left">
                                 <div class="col-md-12" id="txtSetMeetingInfo" runat="server" visible="false">
                                     <div class="col-md-12">
-                                        <div class="col-sm-12" ><% = ElectronicSubmission.FieldNames.getFieldName("View-URLVideoLink", "URL Video Link") %></div>
+                                        <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-URLVideoLink", "URL Video Link") %></div>
                                         <div class="col-sm-12">
                                             <asp:TextBox ID="txtURL_Video" runat="server" class="form-control" TextMode="SingleLine" Style="width: 100%"></asp:TextBox>
                                         </div>
@@ -203,6 +208,19 @@
                                             <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-MeetingTime", "Meeting Time") %></div>
                                             <input type="time" id="txtMeeting_Time" runat="server" class="form-control" />
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" id="txtContract_Label" runat="server" visible="false">
+                                    <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-ContractAttachments", "Contract Attachments") %></div>
+                                    <div class="col-md-12">
+                                        <asp:FileUpload ID="txtContracts" runat="server" class="form-control" AllowMultiple="True"  />
+                                    </div>
+                                </div>
+                                <div class="col-md-12" id="txtTypeOfCash_Label" runat="server">
+                                    <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-InCaseOfCash", "In Case Of Cash") %></div>
+                                    <div class="col-md-6">
+                                        <asp:DropDownList ID="txtTypeOfCash" class="form-control"  runat="server">
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
