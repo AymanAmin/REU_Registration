@@ -953,21 +953,33 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
             if (std.Student_Status_Id == 6)
             {
-                if (std.Nationality.Nationality_Id != 191)
-                    VAT = (double)spec.Specialization_Registeration_Payment * 15 / 100;
+                // Check if He is New
+                double amount_reg = 0;
+                if (std.Student_Type_Id == 1)
+                    amount_reg = (double)spec.Specialization_Registeration_Payment;
+                else
+                    amount_reg = (double)spec.Specialization_Study_Payment_Equation;
 
-                amount = (spec.Specialization_Registeration_Payment + VAT).ToString();
+                // Check if He is not Saudi
+                if (std.Nationality.Nationality_Id != 191)
+                    VAT = (amount_reg * 15 ) / 100;
+
+                amount = (amount_reg + VAT).ToString();
                 Payment_For = "Registration";
                 payment_type_id = 1;
             }
             else
             {
+                // Check if He is not Saudi
                 if (std.Nationality.Nationality_Id != 191)
                     VAT = (double)spec.Specialization_Study_Payment * 15 / 100;
-                if(Type_of_Cash == 1)
+
+                // Check if He is pay for full year of semster
+                if (Type_of_Cash == 1)
                     amount = ((spec.Specialization_Study_Payment + VAT) / 2).ToString();
                 else 
                     amount = (spec.Specialization_Study_Payment + VAT).ToString();
+
                 Payment_For = "Study";
                 payment_type_id = 2;
             }
