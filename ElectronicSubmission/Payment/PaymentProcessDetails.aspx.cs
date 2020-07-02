@@ -34,7 +34,7 @@ namespace ElectronicSubmission.Payment
                 {
                     Div_payment.Visible = true;
                     int student_Id = 0;
-                    int.TryParse(payment.Student_Id.ToString(),out student_Id);
+                    int.TryParse(payment.Student_Id.ToString(), out student_Id);
                     var student = db.Students.FirstOrDefault(x => x.Student_Id == student_Id);
                     if (student != null)
                     {
@@ -68,15 +68,15 @@ namespace ElectronicSubmission.Payment
 
                     if (PaymentType.SelectedValue != "4")
                     {
-                        
-                            VISA_MADA NewVM = db.VISA_MADA.Create();
-                            NewVM.UUID = UUID;
-                            NewVM.PaymentProcess_Id = checkout_payment.Payment_Id;
-                            NewVM.Trackingkey = checkout_payment.Payment_Trackingkey;
-                            NewVM.Result_JSON = string.Empty;
-                            NewVM.DateCreation = DateTime.Now;
-                            db.VISA_MADA.Add(NewVM);
-                            db.SaveChanges();
+
+                        VISA_MADA NewVM = db.VISA_MADA.Create();
+                        NewVM.UUID = UUID;
+                        NewVM.PaymentProcess_Id = checkout_payment.Payment_Id;
+                        NewVM.Trackingkey = checkout_payment.Payment_Trackingkey;
+                        NewVM.Result_JSON = string.Empty;
+                        NewVM.DateCreation = DateTime.Now;
+                        db.VISA_MADA.Add(NewVM);
+                        db.SaveChanges();
 
                         Dictionary<string, dynamic> responseData =
                             Prepare_Check_Payment_Request(UUID, Entity_ID, checkout_payment.Send_Amount.ToString(), checkout_payment.Send_Currency, checkout_payment.Send_PaymentType, StudentName.Text, Studentsurname.Text, StudentEmail.Text, StudentCountry.SelectedValue, StudentState.Text, StudentCity.Text, StudentAddress.Text, StudentPostcode.Text);
@@ -92,7 +92,7 @@ namespace ElectronicSubmission.Payment
                             db.Entry(checkout_payment);
                             db.SaveChanges();
 
-                            
+
                             Response = true;
                         }
                         else
@@ -181,7 +181,24 @@ namespace ElectronicSubmission.Payment
             /* End Prepare the checkout */
         }
 
-        public Dictionary<string, dynamic> Prepare_Check_Payment_Request(string UUID_Local,string entityId, string amount, string currency, string paymentType,string Name, string surname, string Email, string Country, string State, string City, string Address, string Postcode)
+        /// <summary>
+        /// MADA - VISA - MASTER CARD
+        /// </summary>
+        /// <param name="UUID_Local"></param>
+        /// <param name="entityId"></param>
+        /// <param name="amount"></param>
+        /// <param name="currency"></param>
+        /// <param name="paymentType"></param>
+        /// <param name="Name"></param>
+        /// <param name="surname"></param>
+        /// <param name="Email"></param>
+        /// <param name="Country"></param>
+        /// <param name="State"></param>
+        /// <param name="City"></param>
+        /// <param name="Address"></param>
+        /// <param name="Postcode"></param>
+        /// <returns></returns>
+        public Dictionary<string, dynamic> Prepare_Check_Payment_Request(string UUID_Local, string entityId, string amount, string currency, string paymentType, string Name, string surname, string Email, string Country, string State, string City, string Address, string Postcode)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -191,7 +208,7 @@ namespace ElectronicSubmission.Payment
                 "&amount=" + amount +
                 "&currency=" + currency +
                 "&paymentType=" + paymentType +
-                "&testMode=EXTERNAL"+
+                "&testMode=EXTERNAL" +
                 "&merchantTransactionId=" + UUID_Local +
                 "&customer.email=" + Email +
                 "&billing.street1=" + Address +
@@ -234,51 +251,63 @@ namespace ElectronicSubmission.Payment
         /// <param name="LastName"></param>
         /// <param name="Student_id"></param>
         /// <returns></returns>
-        public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName,int Student_id)
+        public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id)
         {
-            string CreateDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        
+            string CreateDate = DateTime.Now.ToString("yyy-MM-DDTHH:mm:ss");
 
-            string ExpiryDate = DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss");
-            string InvoiceId = StringCipher.RandomString(5) +StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
+
+            string ExpiryDate = DateTime.Now.AddDays(7).ToString("yyy-MM-DDTHH:mm:ss");
+            string InvoiceId = StringCipher.RandomString(5) + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
             string DisplayInfo = "Free text for merchant to add details to the bill";
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             Dictionary<string, dynamic> responseData;
 
+            /*HttpClientCertificate cert = Request.ClientCertificate;
 
-            string data = "UUID =" + UUID +
-                         "Timestamp =" + CreateDate +
-                         "MerchantId =" + "'1001'" +
-                         "Invoice =" + "{" +
-                             "Students =" + "[" +
-                                                "{" +
-                                                     "Id =" + SSN +
-                                                     "FirstName =" + FirstName +
-                                                     "LastName =" + LastName +
-                                                 "}" +
-                                             "]," +
-                            "InvoiceId =" + InvoiceId +
-                            "PayeeId =" + Student_id +
-                            "InvoiceStatus =" + "BillNew" +
-                            "BillType =" + "OneTime" +
-                            "DisplayInfo =" + DisplayInfo +
-                            "AmountDue =" + amount  +
-                            "CreateDate =" + CreateDate +
-                            "ExpiryDate =" + ExpiryDate +
-                            "PaymentRange =" + "{" +
-                                "MinPartialAmount =" + amount + "," +
-                                "MinAdvanceAmount =" + amount + "," +
-                                "MaxAdvanceAmount =" + amount +
-                            "}"+
-                           "}";
+            string certs_text = string.Empty;
+            if (cert.IsPresent)
+                certs_text = cert.Get("SUBJECT O");
+            else
+                certs_text = "No certificate was found.";*/
 
-            string url = "";//https://test.oppwa.com/v1/checkouts;
+            List<student_local> student_List = new List<student_local>();
+            student_local std_local = new student_local();
+            std_local.Id = SSN;
+            std_local.FirstName = FirstName;
+            std_local.LastName = LastName;
+            student_List.Add(std_local);
+
+            PaymentRange paymentRange_object = new PaymentRange();
+            paymentRange_object.MinPartialAmount = amount;
+            paymentRange_object.MinAdvanceAmount = amount;
+            paymentRange_object.MaxAdvanceAmount = amount;
+
+            Invoice invoice_object = new Invoice();
+            invoice_object.Students = student_List;
+            invoice_object.InvoiceId = InvoiceId;
+            invoice_object.PayeeId = Student_id.ToString();
+            invoice_object.InvoiceStatus = "BillNew";
+            invoice_object.BillType = "OneTime";
+            invoice_object.DisplayInfo = DisplayInfo;
+            invoice_object.AmountDue = amount;
+            invoice_object.CreateDate = CreateDate;
+            invoice_object.ExpiryDate = ExpiryDate;
+            invoice_object.PaymentRange = paymentRange_object;
+
+            Rosom rosom_object = new Rosom();
+            rosom_object.UUID = UUID;
+            rosom_object.Timestamp = CreateDate;
+            rosom_object.MerchantId = "12190";
+            rosom_object.Invoice = invoice_object;
+
+            string data = JsonConvert.SerializeObject(rosom_object);
+
+            string url = "https://rosomtest.brightware.com.sa/RosomAPI/";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
-            request.Headers["Authorization"] = "Bearer OGFjZGE0Y2U3MmU1YTNkZjAxNzJmYjc0Y2ZjZTQ4ODd8NHBZOWZQc3lxeQ==";
-            request.ContentType = "application/x-www-form-urlencoded";
+            //request.ContentType = "application/x-www-form-urlencoded";
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);
             PostData.Close();
@@ -294,32 +323,32 @@ namespace ElectronicSubmission.Payment
 
             if (responseData["Status"]["Code"] == 0)
             {
-                Rosom_Request Rosom=db.Rosom_Request.Create();
-                 Rosom.Trackingkey = Trackingkey;
-                 Rosom.PaymentType = 4;
-                 Rosom.CreateDate = DateTime.Now.ToString();
-                 Rosom.MerchantId = "1001";
-                 Rosom.Timestamp = CreateDate;
-                 Rosom.UUID = UUID;
-                 Rosom.Invoice_Students_FirstName = FirstName;
-                 Rosom.Invoice_Students_LastName = LastName;
-                 Rosom.InvoiceId = InvoiceId;
-                 Rosom.DisplayInfo = DisplayInfo;
-                 Rosom.AmountDue = amount;
-                 Rosom.CreateDate = CreateDate;
-                 Rosom.ExpiryDate = ExpiryDate;
-                 Rosom.PaymentRange_MaxAdvanceAmount = amount;
-                 Rosom.PaymentRange_MinAdvanceAmount = amount;
-                 Rosom.PaymentRange_MinPartialAmount = amount;
-                 db.Rosom_Request.Add(Rosom);
-                 db.SaveChanges();
+                Rosom_Request Rosom = db.Rosom_Request.Create();
+                Rosom.Trackingkey = Trackingkey;
+                Rosom.PaymentType = 4;
+                Rosom.CreateDate = DateTime.Now.ToString();
+                Rosom.MerchantId = "1001";
+                Rosom.Timestamp = CreateDate;
+                Rosom.UUID = UUID;
+                Rosom.Invoice_Students_FirstName = FirstName;
+                Rosom.Invoice_Students_LastName = LastName;
+                Rosom.InvoiceId = InvoiceId;
+                Rosom.DisplayInfo = DisplayInfo;
+                Rosom.AmountDue = amount;
+                Rosom.CreateDate = CreateDate;
+                Rosom.ExpiryDate = ExpiryDate;
+                Rosom.PaymentRange_MaxAdvanceAmount = amount;
+                Rosom.PaymentRange_MinAdvanceAmount = amount;
+                Rosom.PaymentRange_MinPartialAmount = amount;
+                db.Rosom_Request.Add(Rosom);
+                db.SaveChanges();
             }
             return responseData;
-        }                 
+        }
 
-            protected void confirm_Click(object sender, EventArgs e)
+        protected void confirm_Click(object sender, EventArgs e)
         {
-           bool redirect = confirm_To_Payment();
+            bool redirect = confirm_To_Payment();
             if (redirect)
             {
                 if (PaymentType.SelectedValue != "4")
@@ -342,7 +371,7 @@ namespace ElectronicSubmission.Payment
         {
             List<Nationality> NationalityList = db.Nationalities.ToList();
 
-            ddlFiller.dropDDL(StudentCountry, "Country_code" , "Country_Name_En" , NationalityList, "Select Country");
+            ddlFiller.dropDDL(StudentCountry, "Country_code", "Country_Name_En", NationalityList, "Select Country");
             //if (GroupList.Count > 0)
             //ddlGroups.SelectedIndex = 1;
         }
@@ -364,11 +393,48 @@ namespace ElectronicSubmission.Payment
 
         public string RandomTrackingkey(int student_id)
         {
-             string Trackingkey = StringCipher.RandomString(5) + student_id + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
+            string Trackingkey = StringCipher.RandomString(5) + student_id + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
 
             return Trackingkey;
         }
-    
+
+    }
+
+
+    public class Rosom
+    {
+        public string UUID { get; set; }
+        public string Timestamp { get; set; }
+        public string MerchantId { get; set; }
+        public Invoice Invoice { get; set; }
+    }
+
+    public class Invoice
+    {
+        public string InvoiceId { get; set; }
+        public string PayeeId { get; set; }
+        public string InvoiceStatus { get; set; }
+        public string BillType { get; set; }
+        public string DisplayInfo { get; set; }
+        public string AmountDue { get; set; }
+        public string CreateDate { get; set; }
+        public string ExpiryDate { get; set; }
+        public List<student_local> Students { get; set; }
+        public PaymentRange PaymentRange { get; set; }
+
+    }
+    public class PaymentRange
+    {
+        public string MinPartialAmount { get; set; }
+        public string MinAdvanceAmount { get; set; }
+        public string MaxAdvanceAmount { get; set; }
+    }
+    public class student_local
+    {
+        public string Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
     }
 
 }
