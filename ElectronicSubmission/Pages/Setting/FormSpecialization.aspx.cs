@@ -82,6 +82,17 @@ namespace ElectronicSubmission.Pages.Setting
                     Study_Payment.Attributes["placeholder"] = "الرسوم الدراسية";
                     RequiredFieldValidator9.Text = "أدخل الرسوم الدراسية";
                     CompareValidator2.Text = "يجب أن تكون القيمة رقمًا";
+
+                    Payment_Semester.Attributes["placeholder"] = "رسوم الفصل الدراسي";
+                    RequiredFieldValidator10.Text = "أدخل رسوم الفصل الدراسي";
+                    CompareValidator3.Text = "يجب أن تكون القيمة رقمًا";
+                    Payment_Contract.Attributes["placeholder"] = "رسوم العقد";
+                    RequiredFieldValidator11.Text = "أدخل رسوم العقد";
+                    CompareValidator4.Text = "يجب أن تكون القيمة رقمًا";
+                    Payment_Equation.Attributes["placeholder"] = "معادلة الدفع";
+                    RequiredFieldValidator12.Text = "أدخل معادلة الدفع";
+                    CompareValidator5.Text = "يجب أن تكون القيمة رقمًا";
+
                     Save.Text = "حفظ";
                     btnSearch.Text = "بحث";
                 }
@@ -122,7 +133,17 @@ namespace ElectronicSubmission.Pages.Setting
                     RequiredFieldValidator9.Text = "Enter Study Payment";
                     CompareValidator2.Text = "Value must be a Number";
 
-                    Save.Text = "حفظ";
+                    Payment_Semester.Attributes["placeholder"] = "Payment Semester";
+                    RequiredFieldValidator10.Text = "Enter Payment Semester";
+                    CompareValidator3.Text = "Value must be a Number";
+                    Payment_Contract.Attributes["placeholder"] = "Payment Contract";
+                    RequiredFieldValidator11.Text = "Enter Payment Contract";
+                    CompareValidator4.Text = "Value must be a Number";
+                    Payment_Equation.Attributes["placeholder"] = "Payment Equation";
+                    RequiredFieldValidator12.Text = "Enter Payment Equation";
+                    CompareValidator5.Text = "Value must be a Number";
+
+                    Save.Text = "Save";
                     btnSearch.Text = "Search";
                 }
             }
@@ -133,10 +154,14 @@ namespace ElectronicSubmission.Pages.Setting
             int collegeId = 0;
             int.TryParse(Collage_Id.SelectedValue, out collegeId);
             int.TryParse(SpecId.Value, out SpecializationId);
-            double registerationPaymentVal = 0, studyPaymentVal = 0;
+            double registerationPaymentVal = 0, studyPaymentVal = 0, paymentEquationVal = 0, paymentContractVal = 0, paymentSemesterVal = 0;
 
             double.TryParse(Registeration_Payment.Text, out registerationPaymentVal);
             double.TryParse(Study_Payment.Text, out studyPaymentVal);
+
+            double.TryParse(Payment_Semester.Text, out paymentSemesterVal);
+            double.TryParse(Payment_Contract.Text, out paymentContractVal);
+            double.TryParse(Payment_Equation.Text, out paymentEquationVal);
 
             bool flaySuspend = Specialization_Suspend.Checked;
             ////////////////////////////////////////////
@@ -148,7 +173,7 @@ namespace ElectronicSubmission.Pages.Setting
                 return;
             }
             /////////////////////////////////////////
-            bool result = AU_Specialization(Specialization_Name_Ar.Text, Specialization_Name_En.Text, collegeId, Specialization_Icon.Text, High_School_Percent.Text, Capabilities_Percent.Text, My_Achievement_Percent.Text, Weighted_Ratio_Percent.Text, Specialization_Description_Ar.Text, Specialization_Description_En.Text, speech.Text, Minutes.Text, registerationPaymentVal, studyPaymentVal, flaySuspend);
+            bool result = AU_Specialization(Specialization_Name_Ar.Text, Specialization_Name_En.Text, collegeId, Specialization_Icon.Text, High_School_Percent.Text, Capabilities_Percent.Text, My_Achievement_Percent.Text, Weighted_Ratio_Percent.Text, Specialization_Description_Ar.Text, Specialization_Description_En.Text, speech.Text, Minutes.Text, registerationPaymentVal, studyPaymentVal, flaySuspend, paymentSemesterVal, paymentContractVal, paymentEquationVal);
 
             if (result)
             {
@@ -168,7 +193,7 @@ namespace ElectronicSubmission.Pages.Setting
             }
         }
 
-        public bool AU_Specialization(string SpecializationNameAr, string SpecializationNameEn, int collegeId, string SpecializationIcon, string HighSchoolPercent, string CapabilitiesPercent, string MyAchievementPercent, string WeightedRatioPercent, string SpecializationDescriptionAr, string SpecializationDescriptionEn, string Speech, string Minutes, double registerationPaymentVal, double studyPaymentVal, bool flaySuspend)
+        public bool AU_Specialization(string SpecializationNameAr, string SpecializationNameEn, int collegeId, string SpecializationIcon, string HighSchoolPercent, string CapabilitiesPercent, string MyAchievementPercent, string WeightedRatioPercent, string SpecializationDescriptionAr, string SpecializationDescriptionEn, string Speech, string Minutes, double registerationPaymentVal, double studyPaymentVal, bool flaySuspend, double paymentSemesterVal, double paymentContractVal, double paymentEquationVal)
         {
             try
             {
@@ -190,6 +215,9 @@ namespace ElectronicSubmission.Pages.Setting
                 Specl.Specialization_Registeration_Payment = registerationPaymentVal;
                 Specl.Specialization_Study_Payment = studyPaymentVal;
                 Specl.Specialization_Suspend = flaySuspend;
+                Specl.Specialization_Study_Payment_Semester = paymentSemesterVal;
+                Specl.Specialization_Study_Payment_Contract = paymentContractVal;
+                Specl.Specialization_Study_Payment_Equation = paymentEquationVal;
                 string ImagepathProfile = UploadFile(1);
                 if (ImagepathProfile != "")
                     Specl.Specialization_Image = ImagepathProfile;
@@ -256,6 +284,12 @@ namespace ElectronicSubmission.Pages.Setting
             Specialization_Description_En.Text = "";
             speech.Text = "";
             Minutes.Text = "";
+            Specialization_Suspend.Checked = false;
+            Registeration_Payment.Text = "";
+            Study_Payment.Text = "";
+            Payment_Semester.Text = "";
+            Payment_Contract.Text = "";
+            Payment_Equation.Text = "";
         }
         private void Fillter()
         {
@@ -358,7 +392,10 @@ namespace ElectronicSubmission.Pages.Setting
                     Condition_En = x.Condition_En,
                     Specialization_Registeration_Payment = x.Specialization_Registeration_Payment,
                     Specialization_Study_Payment = x.Specialization_Study_Payment,
-                    Specialization_Suspend = x.Specialization_Suspend
+                    Specialization_Suspend = x.Specialization_Suspend,
+                    Specialization_Study_Payment_Semester = x.Specialization_Study_Payment_Semester,
+                    Specialization_Study_Payment_Contract = x.Specialization_Study_Payment_Contract,
+                    Specialization_Study_Payment_Equation = x.Specialization_Study_Payment_Equation
 
                 }).FirstOrDefault();
 
