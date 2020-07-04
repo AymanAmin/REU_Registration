@@ -310,13 +310,22 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload HighSchoolDegreeFile;
         
         /// <summary>
-        /// HighSchoolDegreeFileValidator control.
+        /// EducationType_Div control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator HighSchoolDegreeFileValidator;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl EducationType_Div;
+        
+        /// <summary>
+        /// EducationType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList EducationType;
         
         /// <summary>
         /// Capabilities_Div control.
@@ -364,15 +373,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload CapabilitiesDegreeFile;
         
         /// <summary>
-        /// CapabilitiesDegreeFileValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator CapabilitiesDegreeFileValidator;
-        
-        /// <summary>
         /// MyAchievement_Div control.
         /// </summary>
         /// <remarks>
@@ -418,15 +418,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload MyAchievementDegreeFile;
         
         /// <summary>
-        /// MyAchievementDegreeFileValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator MyAchievementDegreeFileValidator;
-        
-        /// <summary>
         /// SAT_Div control.
         /// </summary>
         /// <remarks>
@@ -445,15 +436,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload SAT1;
         
         /// <summary>
-        /// SAT1Validator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator SAT1Validator;
-        
-        /// <summary>
         /// SAT2 control.
         /// </summary>
         /// <remarks>
@@ -461,15 +443,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload SAT2;
-        
-        /// <summary>
-        /// SAT2Validator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator SAT2Validator;
         
         /// <summary>
         /// Diploma_Div control.
@@ -490,15 +463,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload Diploma;
         
         /// <summary>
-        /// DiplomaValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator DiplomaValidator;
-        
-        /// <summary>
         /// AcadimecRegsteration_Div control.
         /// </summary>
         /// <remarks>
@@ -517,15 +481,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload AcadimecRegsteration;
         
         /// <summary>
-        /// AcadimecRegsterationValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator AcadimecRegsterationValidator;
-        
-        /// <summary>
         /// SAHSC_Div control.
         /// </summary>
         /// <remarks>
@@ -542,15 +497,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload SAHSC;
-        
-        /// <summary>
-        /// SAHSCValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator SAHSCValidator;
         
         /// <summary>
         /// EnglishTest_Div control.
@@ -607,6 +553,24 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator4;
         
         /// <summary>
+        /// EnglishCertificate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload EnglishCertificate;
+        
+        /// <summary>
+        /// EnglishCertificateValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator EnglishCertificateValidator;
+        
+        /// <summary>
         /// Descriptionofcourses_Div control.
         /// </summary>
         /// <remarks>
@@ -625,15 +589,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.FileUpload Descriptionofcourses;
         
         /// <summary>
-        /// DescriptionofcoursesValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator DescriptionofcoursesValidator;
-        
-        /// <summary>
         /// GPA_Div control.
         /// </summary>
         /// <remarks>
@@ -650,15 +605,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList GPA;
-        
-        /// <summary>
-        /// GPAValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator GPAValidator;
         
         /// <summary>
         /// Note control.

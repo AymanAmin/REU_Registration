@@ -93,21 +93,50 @@ namespace ElectronicSubmission
 
                 int.TryParse(Request["Student_Id"], out StudentID);
 
-                Student StudInfo = db.Students.Where(x => x.Student_Id == StudentID && x.Student_Status_Id == 4).FirstOrDefault();
+                Student StudInfo = db.Students.Where(x => x.Student_Id == StudentID ).FirstOrDefault();
                 if (StudInfo != null)
                 {
-                    Div_invalid.Visible = false;
-                    SubmittingForm.Visible = true;
                     HighSchoolDegreeFileValidator.Enabled = false;
                     CapabilitiesDegreeFileValidator.Enabled = false;
                     MyAchievementDegreeFileValidator.Enabled = false;
                     StudentSSNFileValidator.Enabled = false;
+                    SAT1Validator.Enabled = false;
+                    SAT2Validator.Enabled = false;
+                    DiplomaValidator.Enabled = false;
+                    DescriptionofcoursesValidator.Enabled = false;
+                    AcadimecRegsterationValidator.Enabled = false;
+                    SAHSCValidator.Enabled = false;
+                    EnglishCertificateValidator.Enabled = false;
+                    ContractFilesValidator.Enabled = false;
+                    EnglishTestDegreeValidator.Enabled = false;
+                    HighSchoolDateValidator.Enabled = false;
+
+                    if(StudInfo.Student_Status_Id == 4)
+                    {
+                        Div_invalid.Visible = false;
+                        SubmittingForm.Visible = true;
+                        Contract_Div.Visible = false;
+                    }
+                    else if(StudInfo.Student_Status_Id ==17)
+                    {
+                        ContractFilesValidator.Enabled = true;
+                        Contract_Div.Visible = true;
+                        Div_invalid.Visible = false;
+                        SubmittingForm.Visible = false;
+                    }
+                    else
+                    {
+                        Div_invalid.Visible = true;
+                        SubmittingForm.Visible = false;
+                        Contract_Div.Visible = false;
+                    }
+
                 }
                 else
                 {
                     StudentID = 0;
-                    Div_invalid.Visible = true;
-                    SubmittingForm.Visible = false;
+                    Div_invalid.Visible=true;
+                    SubmittingForm.Visible=false;
                 }
 
             }
@@ -386,6 +415,9 @@ namespace ElectronicSubmission
 
                 if (Descriptionofcourses != null) AttachmentFile(Student_Id, (int)FileType.Description_of_Courses, Descriptionofcourses, @"~\media\StudentAttachments\");
 
+                if (EnglishCertificate != null) AttachmentFile(Student_Id, (int)FileType.English_Test, EnglishCertificate, @"~\media\StudentAttachments\");
+
+                
 
                 /* Add it to log file */
                 LogData = "data:" + JsonConvert.SerializeObject(Stu, logFileModule.settings);
@@ -473,6 +505,8 @@ namespace ElectronicSubmission
                     Stu_Profile.ImageUrl = "media/StudentProfile/" + Student.Student_Image_Profile;
                     StudentNameAr.Text = Student.Student_Name_Ar;
                     StudentNameEn.Text = Student.Student_Name_En;
+                    A_Name.Text = Student.Student_Name_Ar;
+                    E_Name.Text = Student.Student_Name_En;
                     StudentEmail.Text = Student.Student_Email;
                     StudentPhone.Text = Student.Student_Phone;
                     Address.Text = Student.Student_Address;
@@ -480,10 +514,12 @@ namespace ElectronicSubmission
                     HighSchoolDegree.Text = Student.Student_High_School_Degree;
                     CapabilitiesDegree.Text = Student.Student_Capabilities_Degree;
                     MyAchievementDegree.Text = Student.Student_My_Achievement_Degree;
+                    StudentType.SelectedValue = Student.Student_Type_Id.ToString();
                     Resource_ID.SelectedValue = Student.Student_Resource_Id.ToString();
                     Nationality_ID.SelectedValue = Student.Student_Nationality_Id.ToString();
                     Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
                     //Note.InnerText = Student.Notes;
+                    StudentTypeVisible();
                     LoadStudentFiles(StudentId);
                 }
             }
@@ -496,7 +532,8 @@ namespace ElectronicSubmission
             try
             {
                 string str = string.Empty, FileName = string.Empty;
-                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0;
+                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0, Contracts_Counter = 0, Before_Contract_Counter = 0, Acadimec_Regsteration_Counter = 0;
+                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0;
                 int Current_Counter = 1;
                 List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
                 for (int i = 0; i < List_File.Count; i++)
@@ -506,6 +543,15 @@ namespace ElectronicSubmission
                     else if (List_File[i].Type == (int)FileType.Capabilities) { fileType = FieldNames.getFieldName("View-Capabilities", "Capabilities"); Current_Counter = Capabilities_Counter = Capabilities_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.High_School) { fileType = FieldNames.getFieldName("View-HighSchool", "High School"); Current_Counter = High_School_Counter = High_School_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.My_Achievement) { fileType = FieldNames.getFieldName("View-MyAchievement", "My Achievement"); Current_Counter = My_Achievement_Counter = My_Achievement_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.After_Contract) { fileType = FieldNames.getFieldName("View-Contracts", "Contracts"); Current_Counter = Contracts_Counter = Contracts_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Before_Contract) { fileType = FieldNames.getFieldName("View-PrepareContracts", "Prepare Contracts"); Current_Counter = Before_Contract_Counter = Before_Contract_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Acadimec_Regsteration) { fileType = FieldNames.getFieldName("View-AcadimecRegistration", "Acadimec Registration"); Current_Counter = Acadimec_Regsteration_Counter = Acadimec_Regsteration_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Classification_Authority) { fileType = FieldNames.getFieldName("View-ClassificationAuthorit", "Classification Authorit"); Current_Counter = Classification_Authority_Counter = Classification_Authority_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
@@ -515,7 +561,7 @@ namespace ElectronicSubmission
                       "</tr>";
                 }
                 txtFiles.Text = str;
-                FileTable.Visible = true;
+                FileTable.Visible=true;
             }
             catch { }
         }
@@ -611,6 +657,23 @@ namespace ElectronicSubmission
             Nationality_IDValidator.Text = "إختر الجنسية";
             Specialization_IDValidator.Text = "إختر التخصص";
 
+            StudentTypeValidator.Text = "إختر نوع التقديم";
+            HighSchoolDateValidator.Text = "أدخل تاريخ الشهادة الثانوية";
+            SAT1Validator.Text = "الرجاء إرفاق سات 1";
+            SAT2Validator.Text = "الرجاء إرفاق سات 2";
+            DiplomaValidator.Text = "الرجاء إرفاق شهادة الدبلوم";
+            AcadimecRegsterationValidator.Text = "الرجاء إرفاق السجل الاكاديمي";
+            SAHSCValidator.Text = "الرجاء إرفاق  تصنيف الهيئة السعودية للتخصصات الصحية ساري المفعول";
+            EnglishTestValidator.Text = "الرجاء إختيار امتحانات الانجليزي";
+            EnglishTestDegreeValidator.Text = "أدخل معدل الإختبار";
+            EnglishTestValidator.Text = "الرجاء إختيار امتحانات الانجليزي";
+            EnglishTestDegreeValidator.Text = "أدخل معدل الإختبار";
+
+            DescriptionofcoursesValidator.Text = "الرجاء إرفاق وصف المقررات";
+            GPAValidator.Text = "إختر المعدل التراكمي";
+            
+
+
             StudentNameAr.Attributes["placeholder"] = "أدخل الاسم بالعربي";
             StudentNameEn.Attributes["placeholder"] = "أدخل الأسم بالانجليزي";
             StudentEmail.Attributes["placeholder"] = "أدخل البريد الإلكتروني";
@@ -620,6 +683,8 @@ namespace ElectronicSubmission
             HighSchoolDegree.Attributes["placeholder"] = "أدخل درجة الشهادة الثانوية";
             CapabilitiesDegree.Attributes["placeholder"] = " أدخل درجة القدرات";
             MyAchievementDegree.Attributes["placeholder"] = "أدخل درجة التحصيلي";
+            EnglishTestDegree.Attributes["placeholder"] = "أدخل معدل الإختبار";
+            HighSchoolDate.Attributes["placeholder"] = "أدخل تاريخ الشهادة الثانوية";
         }
 
         //------------------------------------Save Message -------------------------------------
@@ -652,60 +717,60 @@ namespace ElectronicSubmission
             {
                 //----------------------- New student ------------------------------
                 case 1:
-                    HighSchool_Div.Visible = true;
-                    Capabilities_Div.Visible = true;
-                    MyAchievement_Div.Visible = true;
-                    if (Nat_Id != 191) SAT_Div.Visible = true; else SAT_Div.Visible = false;
-                    Diploma_Div.Visible = false;
-                    AcadimecRegsteration_Div.Visible = false;
-                    SAHSC_Div.Visible = false;
-                    EnglishTest_Div.Visible = false;
-                    Descriptionofcourses_Div.Visible = false;
-                    GPA_Div.Visible = false;
+                    HighSchool_Div.Style.Add("display", "block");
+                    Capabilities_Div.Style.Add("display", "block");
+                    MyAchievement_Div.Style.Add("display", "block");
+                    if (Nat_Id != 191) SAT_Div.Style.Add("display", "block"); else SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "none");
+                    AcadimecRegsteration_Div.Style.Add("display", "none");
+                    SAHSC_Div.Style.Add("display", "none");
+                    EnglishTest_Div.Style.Add("display", "none");
+                    Descriptionofcourses_Div.Style.Add("display", "none");
+                    GPA_Div.Style.Add("display", "none");
                     break;
                 //-----------------------End New student ------------------------------
 
                 //----------------------- Tajseer student ------------------------------
                 case 2:
-                    HighSchool_Div.Visible = true;
-                    Capabilities_Div.Visible = false;
-                    MyAchievement_Div.Visible = false;
-                    SAT_Div.Visible = false;
-                    Diploma_Div.Visible = true;
-                    AcadimecRegsteration_Div.Visible = true;
-                    SAHSC_Div.Visible = true;
-                    EnglishTest_Div.Visible = true;
-                    Descriptionofcourses_Div.Visible = false;
-                    GPA_Div.Visible = false;
+                    HighSchool_Div.Style.Add("display", "block");
+                    Capabilities_Div.Style.Add("display", "none");
+                    MyAchievement_Div.Style.Add("display", "none");
+                    SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "block");
+                    AcadimecRegsteration_Div.Style.Add("display", "block");
+                    SAHSC_Div.Style.Add("display", "block");
+                    EnglishTest_Div.Style.Add("display", "block");
+                    Descriptionofcourses_Div.Style.Add("display", "none");
+                    GPA_Div.Style.Add("display", "none");
                     break;
                 //----------------------- End Tajseer student ------------------------------
 
                 //----------------------- Mohawl student ------------------------------
                 case 3:
-                    HighSchool_Div.Visible = false;
-                    Capabilities_Div.Visible = false;
-                    MyAchievement_Div.Visible = false;
-                    SAT_Div.Visible = false;
-                    Diploma_Div.Visible = false;
-                    AcadimecRegsteration_Div.Visible = true;
-                    SAHSC_Div.Visible = false;
-                    EnglishTest_Div.Visible = false;
-                    Descriptionofcourses_Div.Visible = true;
-                    GPA_Div.Visible = true;
+                    HighSchool_Div.Style.Add("display", "none");
+                    Capabilities_Div.Style.Add("display", "none");
+                    MyAchievement_Div.Style.Add("display", "none");
+                    SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "none");
+                    AcadimecRegsteration_Div.Style.Add("display", "block");
+                    SAHSC_Div.Style.Add("display", "none");
+                    EnglishTest_Div.Style.Add("display", "none");
+                    Descriptionofcourses_Div.Style.Add("display", "block");
+                    GPA_Div.Style.Add("display", "block");
                     break;
                 //----------------------- End Mohwal student ------------------------------
 
                 default:
-                    HighSchool_Div.Visible = false;
-                    Capabilities_Div.Visible = false;
-                    MyAchievement_Div.Visible = false;
-                    SAT_Div.Visible = false;
-                    Diploma_Div.Visible = false;
-                    AcadimecRegsteration_Div.Visible = false;
-                    SAHSC_Div.Visible = false;
-                    EnglishTest_Div.Visible = false;
-                    Descriptionofcourses_Div.Visible = false;
-                    GPA_Div.Visible = false;
+                    HighSchool_Div.Style.Add("display", "none");
+                    Capabilities_Div.Style.Add("display", "none");
+                    MyAchievement_Div.Style.Add("display", "none");
+                    SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "none");
+                    AcadimecRegsteration_Div.Style.Add("display", "none");
+                    SAHSC_Div.Style.Add("display", "none");
+                    EnglishTest_Div.Style.Add("display", "none");
+                    Descriptionofcourses_Div.Style.Add("display", "none");
+                    GPA_Div.Style.Add("display", "none");
                     break;
             }
         }
@@ -747,7 +812,17 @@ namespace ElectronicSubmission
             return T;
         }
 
-    
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (StudentID != 0) {
+                if (ContractFiles != null) AttachmentFile(StudentID, (int)FileType.After_Contract, ContractFiles, @"~\media\StudentAttachments\");
+                Student Stu = db.Students.First(x => x.Student_Id == StudentID);
+                Stu.Student_Status_Id = 18;
+                db.Entry(Stu).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+                Response.Redirect("~/StudentSubmitting.aspx");
+            }
+        }
     }
 
 }
