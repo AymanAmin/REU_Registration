@@ -217,7 +217,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         btnBranch2.Visible = false;
                     }
 
-                    if (std.Student_Status_Id != 10)
+                    if (std.Student_Status_Id != 10 &&  std.Student_Status_Id != 1016)
                     {
                         txtTypeOfCash.Visible = false;
                         txtTypeOfCash_Label.Visible = false;

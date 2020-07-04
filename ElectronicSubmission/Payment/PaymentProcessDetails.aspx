@@ -168,7 +168,7 @@
                                                     <asp:ListItem Value="1">VISA</asp:ListItem>
                                                     <asp:ListItem Value="2">MASTER</asp:ListItem>
                                                     <asp:ListItem Value="3">MADA</asp:ListItem>
-                                                    <asp:ListItem Value="4">SADAD</asp:ListItem>
+                                                    <!--<asp:ListItem Value="4">SADAD</asp:ListItem>-->
                                                 </asp:DropDownList> 
                                             </div>
                                             <asp:RequiredFieldValidator ID="PaymentTypeValidator1" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Select Payment Type" ValidationGroup="valFormGroup" ControlToValidate="PaymentType" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>

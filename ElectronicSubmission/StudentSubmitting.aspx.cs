@@ -117,7 +117,7 @@ namespace ElectronicSubmission
                         SubmittingForm.Visible = true;
                         Contract_Div.Visible = false;
                     }
-                    else if(StudInfo.Student_Status_Id ==17)
+                    else if(StudInfo.Student_Status_Id ==16)
                     {
                         ContractFilesValidator.Enabled = true;
                         Contract_Div.Visible = true;
@@ -277,7 +277,7 @@ namespace ElectronicSubmission
                     {
                         if (StudentID == 0)
                         {
-                            /*string Text = "";
+                            string Text = "";
                             string sever_name = Request.Url.Authority.ToString();
                             string StuEmail = StudentEmail.Text;
                             SendEmail send = new SendEmail();
@@ -291,7 +291,7 @@ namespace ElectronicSubmission
                             string smsText = "Dear " + StudentNameEn.Text + "\n" + "Thank you for completed the application form at Riyadh Elm University. We will contact you within 48 hours." + " \n" + "Best Regard," + " \n" + "Admission System";
                             string number_Phone = StudentPhone.Text;
                             string reslt_message = send_sms.SendMessage(smsText, number_Phone);
-                            SaveMessage(Student_Id, "SMS", Text);*/
+                            SaveMessage(Student_Id, "SMS", Text);
                         }
                         if (StudentID == 0) Session["Success"] = true; else Session["UpdateSuccess"] = true;
 
@@ -815,9 +815,9 @@ namespace ElectronicSubmission
         protected void Button1_Click(object sender, EventArgs e)
         {
             if (StudentID != 0) {
-                if (ContractFiles != null) AttachmentFile(StudentID, (int)FileType.After_Contract, ContractFiles, @"~\media\StudentAttachments\");
+                if (ContractFiles != null) AttachmentFile(StudentID, (int)FileType.Before_Contract, ContractFiles, @"~\media\StudentAttachments\");
                 Student Stu = db.Students.First(x => x.Student_Id == StudentID);
-                Stu.Student_Status_Id = 18;
+                Stu.Student_Status_Id = 17;
                 db.Entry(Stu).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
                 Response.Redirect("~/StudentSubmitting.aspx");
