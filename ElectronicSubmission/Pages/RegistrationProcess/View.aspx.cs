@@ -215,12 +215,16 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     if (std.Student_Status_Id != 17 && std.Student_Status_Id != 10 && std.Student_Status_Id != 1016)
                     {
                         btnBranch2.Visible = false;
+                    }
+
+                    if (std.Student_Status_Id != 10)
+                    {
                         txtTypeOfCash.Visible = false;
                         txtTypeOfCash_Label.Visible = false;
                     }
 
 
-                        if (std.Student_Status_Id == 18)
+                    if (std.Student_Status_Id == 18)
                     {
                         txtContracts.Visible = true;
                         txtContract_Label.Visible = true;
@@ -843,7 +847,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 15: return "الرجوع للحالة السابقة";// 15- File Complete with Failure
 
                     case 16: return db.Status.Find(17).Status_Name_Ar;  // 16- Complete Contract Files
-                    case 17: return db.Status.Find(18).Status_Name_Ar;  // 17- Files Contract Completed
+                    case 17: return db.Status.Find(16).Status_Name_Ar;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_Ar;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_Ar;  // 19- Certificate Equation
                     case 1016: return db.Status.Find(16).Status_Name_Ar;  // 20- Certificate Equation Completed
