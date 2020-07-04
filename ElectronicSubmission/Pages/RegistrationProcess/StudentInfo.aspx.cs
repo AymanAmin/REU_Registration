@@ -60,26 +60,52 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         {
             try
             {
-                int Stu_ID, Res_id, Spec_id, Nat_id = 0;
                 DateTime RegDate = DateTime.Now;
-                float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg = 0;
-                bool result = false;
+                DateTime.TryParse(RegistrationDate.Text, out RegDate);
 
-                int.TryParse(Student_ID.Text, out Stu_ID);
+                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id, GPA_Id = 0;
+                float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Eng_Test_Deg = 0;
+                bool result = false;
+                bool ToCheckPercent = false;
+
+                int.TryParse(StudentType.SelectedValue, out Stu_type_Id);
                 int.TryParse(Resource_ID.SelectedValue, out Res_id);
                 int.TryParse(Specialization_ID.SelectedValue, out Spec_id);
                 int.TryParse(Nationality_ID.SelectedValue, out Nat_id);
+                int.TryParse(EnglishTest.SelectedValue, out Eng_Test_Id);
+                int.TryParse(GPA.SelectedValue, out GPA_Id);
 
                 float.TryParse(HighSchoolDegree.Text, out HighSchoolDeg);
                 float.TryParse(CapabilitiesDegree.Text, out CapabilitiesDeg);
                 float.TryParse(MyAchievementDegree.Text, out MyAchievementDeg);
+                float.TryParse(EnglishTestDegree.Text, out Eng_Test_Deg);
 
-                DateTime.TryParse(RegistrationDate.Text, out RegDate);
 
-                bool ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
+
+                switch (Stu_type_Id)
+                {
+                    //----------------------- New student ------------------------------
+                    case 1:
+                        if (Nat_id != 191) ToCheckPercent = true; else ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
+                        break;
+                    //----------------------- Tajseer student ------------------------------
+                    case 2:
+                        if (Eng_Test_Id != 1 && Eng_Test_Id != 5) ToCheckPercent = TOFEL_Test(Eng_Test_Id, Eng_Test_Deg); else ToCheckPercent = true;
+                        break;
+                    //----------------------- Mohawl student ------------------------------
+                    case 3:
+                        ToCheckPercent = GPA_Degree(Spec_id, GPA_Id);
+                        break;
+                    //----------------------- End Mohwal student ------------------------------
+
+                    default:
+                        ToCheckPercent = false;
+                        break;
+                }
+
                 if (ToCheckPercent)
                 {
-                    result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Res_id, Spec_id, Nat_id, Note.InnerText, totalSum);
+                    result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Stu_type_Id, Res_id, Spec_id, Nat_id, Note.InnerText, totalSum);
 
                     if (result)
                     {
@@ -105,12 +131,46 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  الحالة: ','غير مستوفي النسبة المطلوبة !');", true);
                     else
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  Save Status : ','The required percentage is not met ! Choose the appropriate major, not this!');", true);
+
+                    switch (Stu_type_Id)
+                    {
+                        //----------------------- New student ------------------------------
+                        case 1:
+                            if (SessionWrapper.LoggedUser.Language_id == 1)
+                               Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  الحالة: ','غير مستوفي النسبة المطلوبة !');", true);
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight', 'Choose the appropriate major, not this!', 'error');", true);
+                            break;
+                        //----------------------- Tajseer student ------------------------------
+                        case 2:
+                            if (SessionWrapper.LoggedUser.Language_id == 1)
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  الحالة: ','درجة إمتحان التوفل اقلة من المطلوب  !');", true);
+
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','TOEFL score less than required!', 'error');", true);
+                            break;
+                        //----------------------- Mohawl student ------------------------------
+                        case 3:
+                            if (SessionWrapper.LoggedUser.Language_id == 1)
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  الحالة: ','المعدل التراكمي اقلة من المطلوب !');", true);
+
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','error');", true);
+                            break;
+                        //----------------------- End Mohwal student ------------------------------
+
+                        default:
+                            ToCheckPercent = false;
+                            break;
+                    }
+                    StudentType.SelectedValue = "0";
+
                 }
             }
             catch (Exception x) { }
         }
 
-        public bool IU_Student(int StudentID, string ArabicName, string EnglishName,FileUpload StProfile,string Email, string Phone,string StuAddress, DateTime RegistrationDate,string StudentSSN, float HighSchoolDeg,float CapabilitiesDeg,float MyAchievementDeg, int ResourceID, int SpecializationID,int NationalityID,string Notes,float StudentTotal)
+        public bool IU_Student(int StudentID, string ArabicName, string EnglishName,FileUpload StProfile,string Email, string Phone,string StuAddress, DateTime RegistrationDate,string StudentSSN, float HighSchoolDeg,float CapabilitiesDeg,float MyAchievementDeg, int Stu_Type , int ResourceID, int SpecializationID,int NationalityID,string Notes,float StudentTotal)
         {
 
             try
@@ -129,6 +189,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 Stu.Student_High_School_Degree = HighSchoolDeg.ToString();
                 Stu.Student_Capabilities_Degree = CapabilitiesDeg.ToString();
                 Stu.Student_My_Achievement_Degree = MyAchievementDeg.ToString();
+                Stu.Student_Type_Id = Stu_Type;
                 Stu.Student_Resource_Id = ResourceID;
                 Stu.Student_Specialization_Id = SpecializationID;
                 Stu.Student_Nationality_Id = NationalityID;
@@ -155,13 +216,27 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 {
                     Student_Id = Stu.Student_Id; 
                 }
-                string SSSNFile = UploadFile(Student_Id, (int)FileType.Nationality, StudentSSNFile, @"~\media\StudentAttachments\");
 
-                string HSFile = UploadFile(Student_Id, (int)FileType.High_School, HighSchoolDegreeFile, @"~\media\StudentAttachments\");
+                if (StudentSSNFile != null) AttachmentFile(Student_Id, (int)FileType.Nationality, StudentSSNFile, @"~\media\StudentAttachments\");
 
-                string CAFile = UploadFile(Student_Id, (int)FileType.Capabilities, CapabilitiesDegreeFile, @"~\media\StudentAttachments\");
+                if (HighSchoolDegreeFile != null) AttachmentFile(Student_Id, (int)FileType.High_School, HighSchoolDegreeFile, @"~\media\StudentAttachments\");
 
-                string MAfile = UploadFile(Student_Id, (int)FileType.My_Achievement, MyAchievementDegreeFile, @"~\media\StudentAttachments\");
+                if (CapabilitiesDegreeFile != null) AttachmentFile(Student_Id, (int)FileType.Capabilities, CapabilitiesDegreeFile, @"~\media\StudentAttachments\");
+
+                if (MyAchievementDegreeFile != null) AttachmentFile(Student_Id, (int)FileType.My_Achievement, MyAchievementDegreeFile, @"~\media\StudentAttachments\");
+
+                if (SAT1 != null) AttachmentFile(Student_Id, (int)FileType.SAT1, SAT1, @"~\media\StudentAttachments\");
+
+                if (SAT2 != null) AttachmentFile(Student_Id, (int)FileType.SAT2, SAT2, @"~\media\StudentAttachments\");
+
+                if (Diploma != null) AttachmentFile(Student_Id, (int)FileType.Diploma, Diploma, @"~\media\StudentAttachments\");
+
+                if (AcadimecRegsteration != null) AttachmentFile(Student_Id, (int)FileType.Acadimec_Regsteration, AcadimecRegsteration, @"~\media\StudentAttachments\");
+
+                if (SAHSC != null) AttachmentFile(Student_Id, (int)FileType.Classification_Authority, SAHSC, @"~\media\StudentAttachments\");
+
+                if (Descriptionofcourses != null) AttachmentFile(Student_Id, (int)FileType.Description_of_Courses, Descriptionofcourses, @"~\media\StudentAttachments\");
+
 
                 /* Add it to log file */
                 LogData = "data:" + JsonConvert.SerializeObject(Stu, logFileModule.settings);
@@ -178,61 +253,64 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             return true;
         }
 
-     
 
-         public string UploadFile(FileUpload Uplofile,string Path)
-         {
-             string Imagepath = "";
-            try { 
-                    if (this.Page.IsValid)
-                    {
-                        if (!UtilityClass.UploadFileIsValid(ref Uplofile, UtilityClass.ValidImagesExtentions))
-                        {
-                            Imagepath = "false";
-                        }
-                        Imagepath = string.Empty;
 
-                        Imagepath = UtilityClass.UploadFileWithExtention(ref Uplofile, Server.MapPath(Path));
-                    }
+        //------------------------------------Start Upload File-------------------------------------
+        public void AttachmentFile(int StudentID, int type, FileUpload Uplofile, string Path)
+        {
+            foreach (HttpPostedFile postfiles in Uplofile.PostedFiles)
+            {
+                if (postfiles.ContentLength > 0 && postfiles.FileName != "")
+                {
+                    File Fil = db.Files.Create();
+                    Fil.Student_Id = StudentID;
+                    Fil.File_Name = postfiles.FileName;
+                    Fil.File_Path = UploadFile(postfiles, Path);
+                    Fil.Type = type;
+                    Fil.DateCreation = DateTime.Now;
+                    db.Files.Add(Fil);
+                    db.SaveChanges();
+                }
             }
-            catch (Exception e) { }
-            return Imagepath;
-         }
+        }
 
-        public string UploadFile(int StudentID, int type, FileUpload Uplofile, string Path)
+        public string UploadFile(HttpPostedFile fileAttach, string Path)
         {
             string Imagepath = string.Empty;
+
+            if (!UtilityClass.UploadFileIsValid(ref fileAttach, UtilityClass.ValidFileExtentions))
+            {
+                //ltrMessage.Text = "<div class='alert alert-danger fade in'><strong>Images only allowed !</strong></div>";
+                Imagepath = "false";
+            }
+            Imagepath = string.Empty;
+
+            Imagepath = UtilityClass.UploadFilePostedFile(ref fileAttach, Server.MapPath(Path));
+
+            return Imagepath;
+        }
+
+        public string UploadFile(FileUpload Uplofile, string Path)
+        {
+            string Imagepath = "";
             try
             {
-                foreach (HttpPostedFile postfiles in Uplofile.PostedFiles)
+                if (this.Page.IsValid)
                 {
-
-                    if (this.Page.IsValid)
+                    if (!UtilityClass.UploadFileIsValid(ref Uplofile, UtilityClass.ValidImagesExtentions))
                     {
-                        if (!UtilityClass.UploadFileIsValid(ref Uplofile, UtilityClass.ValidImagesExtentions))
-                        {
-                            Imagepath = string.Empty;
-                        }
-                        Imagepath = string.Empty;
-
-                        Imagepath = UtilityClass.UploadFileWithExtention(ref Uplofile, Server.MapPath(Path));
-                        if (Imagepath != string.Empty)
-                        {
-                            File Fil = db.Files.Create();
-                            Fil.Student_Id = StudentID;
-                            Fil.File_Name = Imagepath;
-                            Fil.File_Path = Imagepath;
-                            Fil.Type = type;
-                            Fil.DateCreation = DateTime.Now;
-                            db.Files.Add(Fil);
-                            db.SaveChanges();
-                        }
+                        Imagepath = "false";
                     }
+                    Imagepath = string.Empty;
+
+                    Imagepath = UtilityClass.UploadFileWithExtention(ref Uplofile, Server.MapPath(Path));
                 }
             }
             catch (Exception e) { }
             return Imagepath;
         }
+
+        //------------------------------------End Upload File-------------------------------------
 
         public void ViewDataStudent(int StudentId)
         {
@@ -324,6 +402,12 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         {
             try
             {
+                // Group dropdown
+                List<Student_Type> Student_TypeList = db.Student_Type.ToList();
+                if (SessionWrapper.LoggedUser.Language_id == 1)
+                    ddlFiller.dropDDL(StudentType, "Student_Type_Id", "Student_Type_Name_Ar", Student_TypeList, " - إختر نوع الطالب -");
+                else
+                    ddlFiller.dropDDL(StudentType, "Student_Type_Id", "Student_Type_Name_En", Student_TypeList, " - Select Student Type -");
 
                 // Group dropdown
                 List<Resource> ResourceList = db.Resources.ToList();
@@ -414,6 +498,131 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             CapabilitiesDegree.Attributes["placeholder"] = " أدخل درجة القدرات";
             MyAchievementDegree.Attributes["placeholder"] = "أدخل درجة التحصيلي";
           
+        }
+
+        //------------------------------------Save Message -------------------------------------
+        public void SaveMessage(int student_id, string MessageType, string Message)
+        {
+            Student_Other_Info std_OI = db.Student_Other_Info.Create();
+            std_OI.Student_Id = student_id;
+            std_OI.MessageType = MessageType;
+            std_OI.Message = Message;
+            std_OI.DateCreation = DateTime.Now;
+            std_OI.Note = "";
+            db.Student_Other_Info.Add(std_OI);
+            db.SaveChanges();
+        }
+
+        //------------------------------------Student Type -------------------------------------
+        protected void StudentType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            StudentTypeVisible();
+        }
+
+        //------------------------------------Visible with the Student Type-------------------------------------
+        public void StudentTypeVisible()
+        {
+            int ST_Id = 0, Nat_Id;
+            int.TryParse(StudentType.SelectedValue, out ST_Id);
+            int.TryParse(Nationality_ID.SelectedValue, out Nat_Id);
+
+            switch (ST_Id)
+            {
+                //----------------------- New student ------------------------------
+                case 1:
+                    HighSchool_Div.Visible = true;
+                    Capabilities_Div.Visible = true;
+                    MyAchievement_Div.Visible = true;
+                    if (Nat_Id != 191) SAT_Div.Visible = true; else SAT_Div.Visible = false;
+                    Diploma_Div.Visible = false;
+                    AcadimecRegsteration_Div.Visible = false;
+                    SAHSC_Div.Visible = false;
+                    EnglishTest_Div.Visible = false;
+                    Descriptionofcourses_Div.Visible = false;
+                    GPA_Div.Visible = false;
+                    break;
+                //-----------------------End New student ------------------------------
+
+                //----------------------- Tajseer student ------------------------------
+                case 2:
+                    HighSchool_Div.Visible = true;
+                    Capabilities_Div.Visible = false;
+                    MyAchievement_Div.Visible = false;
+                    SAT_Div.Visible = false;
+                    Diploma_Div.Visible = true;
+                    AcadimecRegsteration_Div.Visible = true;
+                    SAHSC_Div.Visible = true;
+                    EnglishTest_Div.Visible = true;
+                    Descriptionofcourses_Div.Visible = false;
+                    GPA_Div.Visible = false;
+                    break;
+                //----------------------- End Tajseer student ------------------------------
+
+                //----------------------- Mohawl student ------------------------------
+                case 3:
+                    HighSchool_Div.Visible = false;
+                    Capabilities_Div.Visible = false;
+                    MyAchievement_Div.Visible = false;
+                    SAT_Div.Visible = false;
+                    Diploma_Div.Visible = false;
+                    AcadimecRegsteration_Div.Visible = true;
+                    SAHSC_Div.Visible = false;
+                    EnglishTest_Div.Visible = false;
+                    Descriptionofcourses_Div.Visible = true;
+                    GPA_Div.Visible = true;
+                    break;
+                //----------------------- End Mohwal student ------------------------------
+
+                default:
+                    HighSchool_Div.Visible = false;
+                    Capabilities_Div.Visible = false;
+                    MyAchievement_Div.Visible = false;
+                    SAT_Div.Visible = false;
+                    Diploma_Div.Visible = false;
+                    AcadimecRegsteration_Div.Visible = false;
+                    SAHSC_Div.Visible = false;
+                    EnglishTest_Div.Visible = false;
+                    Descriptionofcourses_Div.Visible = false;
+                    GPA_Div.Visible = false;
+                    break;
+            }
+        }
+
+        //------------------------------------Check to TOFEL Test -------------------------------------
+        public bool TOFEL_Test(int T_T_Id, float EnglishTestDeg)
+        {
+            bool T = false;
+
+            switch (T_T_Id)
+            {
+                //-----------------------------TOEFL Computer--------------------------------
+                case 2:
+                    if (EnglishTestDeg < 113) T = false; else T = true;
+                    break;
+                //-----------------------------TOEFL Internet--------------------------------
+                case 3:
+                    if (EnglishTestDeg < 30) T = false; else T = true;
+                    break;
+
+                //-----------------------------TOEFL Paper--------------------------------
+                case 4:
+                    if (EnglishTestDeg < 425) T = false; else T = true;
+                    break;
+                default:
+                    T = false;
+                    break;
+            }
+            return T;
+        }
+
+        //------------------------------------Check the GPA -------------------------------------
+        public bool GPA_Degree(int Specialization_id, int GPA_Deg)
+        {
+            bool T = false;
+
+            if (Specialization_id == 1 && GPA_Deg > 2) T = false; else T = true;
+
+            return T;
         }
     }
 }
