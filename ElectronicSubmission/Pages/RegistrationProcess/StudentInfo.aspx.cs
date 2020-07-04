@@ -237,6 +237,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 if (Descriptionofcourses != null) AttachmentFile(Student_Id, (int)FileType.Description_of_Courses, Descriptionofcourses, @"~\media\StudentAttachments\");
 
+                if (EnglishCertificate != null) AttachmentFile(Student_Id, (int)FileType.English_Test, EnglishCertificate, @"~\media\StudentAttachments\");
 
                 /* Add it to log file */
                 LogData = "data:" + JsonConvert.SerializeObject(Stu, logFileModule.settings);
@@ -330,11 +331,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     HighSchoolDegree.Text = Student.Student_High_School_Degree;
                     CapabilitiesDegree.Text = Student.Student_Capabilities_Degree;
                     MyAchievementDegree.Text = Student.Student_My_Achievement_Degree;
+                    StudentType.SelectedValue = Student.Student_Type_Id.ToString();
                     Resource_ID.SelectedValue = Student.Student_Resource_Id.ToString();
                     Nationality_ID.SelectedValue = Student.Student_Nationality_Id.ToString();
                     Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
                     Note.InnerText = Student.Notes;
                     RegistrationDate.Text = Student.Student_CreationDate.ToString();
+                    StudentTypeVisible();
                     LoadStudentFiles(StudentId);
                 }
             }
@@ -487,7 +490,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             Nationality_IDValidator.Text = "إختر الجنسية";
             Specialization_IDValidator.Text = "إختر التخصص";
 
-
             StudentNameAr.Attributes["placeholder"] = "أدخل الاسم بالعربي";
             StudentNameEn.Attributes["placeholder"] = "أدخل الأسم بالانجليزي";
             StudentEmail.Attributes["placeholder"] = "أدخل البريد الإلكتروني";
@@ -497,7 +499,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             HighSchoolDegree.Attributes["placeholder"] = "أدخل درجة الشهادة الثانوية";
             CapabilitiesDegree.Attributes["placeholder"] = " أدخل درجة القدرات";
             MyAchievementDegree.Attributes["placeholder"] = "أدخل درجة التحصيلي";
-          
+            EnglishTestDegree.Attributes["placeholder"] = "أدخل معدل الإختبار";
+            HighSchoolDate.Attributes["placeholder"] = "أدخل تاريخ الشهادة الثانوية";
         }
 
         //------------------------------------Save Message -------------------------------------
@@ -530,60 +533,60 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             {
                 //----------------------- New student ------------------------------
                 case 1:
-                    HighSchool_Div.Visible = true;
-                    Capabilities_Div.Visible = true;
-                    MyAchievement_Div.Visible = true;
-                    if (Nat_Id != 191) SAT_Div.Visible = true; else SAT_Div.Visible = false;
-                    Diploma_Div.Visible = false;
-                    AcadimecRegsteration_Div.Visible = false;
-                    SAHSC_Div.Visible = false;
-                    EnglishTest_Div.Visible = false;
-                    Descriptionofcourses_Div.Visible = false;
-                    GPA_Div.Visible = false;
+                    HighSchool_Div.Style.Add("display", "block");
+                    Capabilities_Div.Style.Add("display", "block");
+                    MyAchievement_Div.Style.Add("display", "block");
+                    if (Nat_Id != 191) SAT_Div.Style.Add("display", "block"); else SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "none");
+                    AcadimecRegsteration_Div.Style.Add("display", "none");
+                    SAHSC_Div.Style.Add("display", "none");
+                    EnglishTest_Div.Style.Add("display", "none");
+                    Descriptionofcourses_Div.Style.Add("display", "none");
+                    GPA_Div.Style.Add("display", "none");
                     break;
                 //-----------------------End New student ------------------------------
 
                 //----------------------- Tajseer student ------------------------------
                 case 2:
-                    HighSchool_Div.Visible = true;
-                    Capabilities_Div.Visible = false;
-                    MyAchievement_Div.Visible = false;
-                    SAT_Div.Visible = false;
-                    Diploma_Div.Visible = true;
-                    AcadimecRegsteration_Div.Visible = true;
-                    SAHSC_Div.Visible = true;
-                    EnglishTest_Div.Visible = true;
-                    Descriptionofcourses_Div.Visible = false;
-                    GPA_Div.Visible = false;
+                    HighSchool_Div.Style.Add("display", "block");
+                    Capabilities_Div.Style.Add("display", "none");
+                    MyAchievement_Div.Style.Add("display", "none");
+                    SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "block");
+                    AcadimecRegsteration_Div.Style.Add("display", "block");
+                    SAHSC_Div.Style.Add("display", "block");
+                    EnglishTest_Div.Style.Add("display", "block");
+                    Descriptionofcourses_Div.Style.Add("display", "none");
+                    GPA_Div.Style.Add("display", "none");
                     break;
                 //----------------------- End Tajseer student ------------------------------
 
                 //----------------------- Mohawl student ------------------------------
                 case 3:
-                    HighSchool_Div.Visible = false;
-                    Capabilities_Div.Visible = false;
-                    MyAchievement_Div.Visible = false;
-                    SAT_Div.Visible = false;
-                    Diploma_Div.Visible = false;
-                    AcadimecRegsteration_Div.Visible = true;
-                    SAHSC_Div.Visible = false;
-                    EnglishTest_Div.Visible = false;
-                    Descriptionofcourses_Div.Visible = true;
-                    GPA_Div.Visible = true;
+                    HighSchool_Div.Style.Add("display", "none");
+                    Capabilities_Div.Style.Add("display", "none");
+                    MyAchievement_Div.Style.Add("display", "none");
+                    SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "none");
+                    AcadimecRegsteration_Div.Style.Add("display", "block");
+                    SAHSC_Div.Style.Add("display", "none");
+                    EnglishTest_Div.Style.Add("display", "none");
+                    Descriptionofcourses_Div.Style.Add("display", "block");
+                    GPA_Div.Style.Add("display", "block");
                     break;
                 //----------------------- End Mohwal student ------------------------------
 
                 default:
-                    HighSchool_Div.Visible = false;
-                    Capabilities_Div.Visible = false;
-                    MyAchievement_Div.Visible = false;
-                    SAT_Div.Visible = false;
-                    Diploma_Div.Visible = false;
-                    AcadimecRegsteration_Div.Visible = false;
-                    SAHSC_Div.Visible = false;
-                    EnglishTest_Div.Visible = false;
-                    Descriptionofcourses_Div.Visible = false;
-                    GPA_Div.Visible = false;
+                    HighSchool_Div.Style.Add("display", "none");
+                    Capabilities_Div.Style.Add("display", "none");
+                    MyAchievement_Div.Style.Add("display", "none");
+                    SAT_Div.Style.Add("display", "none");
+                    Diploma_Div.Style.Add("display", "none");
+                    AcadimecRegsteration_Div.Style.Add("display", "none");
+                    SAHSC_Div.Style.Add("display", "none");
+                    EnglishTest_Div.Style.Add("display", "none");
+                    Descriptionofcourses_Div.Style.Add("display", "none");
+                    GPA_Div.Style.Add("display", "none");
                     break;
             }
         }

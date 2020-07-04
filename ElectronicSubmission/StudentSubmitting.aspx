@@ -136,6 +136,7 @@
         function StudType() {
             var ST_T_Id = document.getElementById("StudentType").value;
             var Nat_Id = document.getElementById("Nationality_ID").value;
+            var E_Type = Nat_Id = document.getElementById("EducationType").value;
             debugger;
             switch (ST_T_Id) {
                 //----------------------- New student ------------------------------
@@ -145,17 +146,35 @@
                     ValidatorEnable(document.getElementById("HighSchoolDegreeValidator"), true);
                     ValidatorEnable(document.getElementById("HighSchoolDegreeFileValidator"), true);
 
-                    document.getElementById("Capabilities_Div").style.display = 'block';
-                    ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), true);
-                    ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), true);
+                    document.getElementById("EducationType_Div").style.display = 'block';
 
-                    document.getElementById("MyAchievement_Div").style.display = 'block';
-                    ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), true);
-                    ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), true);
                     if (Nat_Id != "191") {
-                        document.getElementById("SAT_Div").style.display = 'block';
-                        ValidatorEnable(document.getElementById("SAT1Validator"), true);
-                        ValidatorEnable(document.getElementById("SAT2Validator"), true);
+                        if (E_Type == "2") {
+                            document.getElementById("SAT_Div").style.display = 'block';
+                            ValidatorEnable(document.getElementById("SAT1Validator"), true);
+                            ValidatorEnable(document.getElementById("SAT2Validator"), true);
+
+                            document.getElementById("Capabilities_Div").style.display = 'none';
+                            ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), false);
+                            ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), false);
+
+                            document.getElementById("MyAchievement_Div").style.display = 'none';
+                            ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), false);
+                            ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), false);
+                        } else {
+                            document.getElementById("SAT_Div").style.display = 'none';
+                            ValidatorEnable(document.getElementById("SAT1Validator"), false);
+                            ValidatorEnable(document.getElementById("SAT2Validator"), false);
+
+                            document.getElementById("Capabilities_Div").style.display = 'block';
+                            ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), true);
+                            ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), true);
+
+                            document.getElementById("MyAchievement_Div").style.display = 'block';
+                            ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), true);
+                            ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), true);
+                        }
+                        
                     } else {
                         document.getElementById("SAT_Div").style.display = 'none';
                         ValidatorEnable(document.getElementById("SAT1Validator"), false);
@@ -172,7 +191,8 @@
 
                     document.getElementById("EnglishTest_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("EnglishTestValidator"), false);
-                    ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false); 
+                    ValidatorEnable(document.getElementById("EnglishCertificateValidator"), false);
 
                     document.getElementById("Descriptionofcourses_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
@@ -213,6 +233,7 @@
                     document.getElementById("EnglishTest_Div").style.display = 'block';
                     ValidatorEnable(document.getElementById("EnglishTestValidator"), true);
                     ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), true);
+                    ValidatorEnable(document.getElementById("EnglishCertificateValidator"), true);
 
                     document.getElementById("Descriptionofcourses_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
@@ -253,6 +274,7 @@
                     document.getElementById("EnglishTest_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("EnglishTestValidator"), false);
                     ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("EnglishCertificateValidator"), false);
 
                     document.getElementById("Descriptionofcourses_Div").style.display = 'block';
                     ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), true);
@@ -285,6 +307,7 @@
                     document.getElementById("EnglishTest_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("EnglishTestValidator"), false);
                     ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("EnglishCertificateValidator"), false);
                     document.getElementById("Descriptionofcourses_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
                     document.getElementById("GPA_Div").style.display = 'none';
@@ -553,6 +576,16 @@
                                     </div>
                                 </div>
 
+                                 <div class="row" runat="server" id="EducationType_Div" style="display:none">
+                                    <div class="form-group col-sm-6">
+                                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Education Type", "EducationType") %></label>
+                                        <asp:DropDownList ID="EducationType" class="form-control" runat="server" onchange="StudType();">
+                                            <asp:ListItem Value="1">Saudi Education</asp:ListItem>
+                                            <asp:ListItem Value="2">Foreign Education</asp:ListItem>
+                                       </asp:DropDownList>
+                                    </div>
+                               </div>
+
                                 <div class="row" runat="server" id="Capabilities_Div" style="display:none">
                                     <div class="form-group col-sm-6">
                                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-CapabilitiesDegree", "Capabilities Degree") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
@@ -630,7 +663,7 @@
                                 </div>
 
                                  <div class="row" runat="server" id="EnglishTest_Div" style="display:none">
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-4">
                                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EnglishTest", "English Test") %></label>
                                         <asp:DropDownList ID="EnglishTest" class="form-control" runat="server">
                                             <asp:ListItem Value="1">IELTS</asp:ListItem>
@@ -642,7 +675,7 @@
                                         <asp:RequiredFieldValidator ID="EnglishTestValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add English Test Attachments" ValidationGroup="valFormGroup" ControlToValidate="EnglishTest" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
 
-                                     <div class="form-group col-sm-6">
+                                     <div class="form-group col-sm-4">
                                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EnglishTestDegree", "English Test Degree") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icofont icofont-numbered"></i></span>
@@ -650,6 +683,12 @@
                                         </div>
                                         <asp:RequiredFieldValidator ID="EnglishTestDegreeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter English Test Degree Degree" ValidationGroup="valFormGroup" ControlToValidate="EnglishTestDegree" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                          <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck" Type="Double" ControlToValidate="EnglishTestDegree" ValidationGroup="valFormGroup" Text="Value must be a Number" Display="Dynamic" SetFocusOnError="True"></asp:CompareValidator>
+                                    </div>
+
+                                      <div class="form-group col-sm-4">
+                                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EnglishCertificate", "English Certificate") %></label>
+                                        <asp:FileUpload ID="EnglishCertificate" runat="server" class="form-control" AllowMultiple="True" />
+                                        <asp:RequiredFieldValidator ID="EnglishCertificateValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add English Certificate Attachments" ValidationGroup="valFormGroup" ControlToValidate="EnglishCertificate" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
 
@@ -672,6 +711,7 @@
                                         <asp:RequiredFieldValidator ID="GPAValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Cumulative average Attachments" ValidationGroup="valFormGroup" ControlToValidate="GPA" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
+                                
 
                                 <!--// Save Button \\-->
                                    <div class="form-group col-sm-12 text-right">
@@ -688,6 +728,42 @@
                                     <button type="button" style="display:none;" id="Success-btn-En"  class="btn btn-success success-En m-b-10" onclick="_gaq.push(['_trackEvent', 'example', 'try', 'success-En']);">Success</button>
                             </div>
                              <!-- End Student Form-->
+
+                            <!-- Start Contract-->
+                                <div class="row" runat="server" id="Contract_Div" visible="false">
+
+                                    <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentArabicName", "Student Arabic Name") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-underline"></i></span>
+                                            <asp:TextBox ID="A_Name" runat="server" class="form-control" placeholder="Enter Student Arabic Name" ReadOnly="true"></asp:TextBox>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentEnglishName", "Student English Name") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="icofont icofont-underline"></i></span>
+                                            <asp:TextBox ID="E_Name" runat="server" class="form-control" placeholder="Enter Student English Name" ReadOnly="true"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="row">
+                                    <div class="form-group col-sm-4">
+                                            <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-ContractFiles", "Contract Files") %></label>
+                                            <asp:FileUpload ID="ContractFiles" runat="server" class="form-control" AllowMultiple="True" />
+                                            <asp:RequiredFieldValidator ID="ContractFilesValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Contract Files Attachments" ValidationGroup="valFormGroupContracta" ControlToValidate="ContractFiles" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                     </div>
+                                    </div>
+                                      <!--// Save Button \\-->
+                                   <div class="form-group col-sm-12 text-right">
+                                     <asp:Button ID="Button1" runat="server" Text="Save" CssClass="btn btn-primary" ValidationGroup="valFormGroupContracta" OnClick="Button1_Click"  />
+                                    </div>
+                                <!--// Save Button t \\-->
+
+                                </div>
+                            <!-- End Contract-->
 
                             <!-- start File Table-->
                             <div class="row" runat="server" id="FileTable" visible="false">
@@ -711,7 +787,7 @@
                             <!-- End file Table-->
 
                             <!-- Start notfound Form-->
-                             <div id="Div_invalid" runat="server" class="row" style="display:none">
+                             <div id="Div_invalid" runat="server" class="row" visible="false">
                                 <aside class="col-sm-3"></aside>
                                 <aside class="col-sm-6">
                                     <asp:Image ID="image" runat="server" style="width:100%" ImageUrl="~/Template/images/notfound.png" /></aside>
