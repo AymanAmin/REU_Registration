@@ -304,7 +304,7 @@
                                         <div class="col-sm-6">
                                             <label class="j-label"><% = ElectronicSubmission.FieldNames.getFieldName("FormSpecialization-StudyPayment", "Study Payment") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="icofont icofont-money-bag"></i></span>
+                                                <span class="input-group-addon"><i class="icofont icofont-cur-riyal"></i></span>
                                                 <asp:TextBox ID="Study_Payment" runat="server" class="form-control" placeholder="Enter Study Payment" TextMode="SingleLine"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-12">
@@ -317,7 +317,7 @@
                                         <div class="col-sm-6">
                                             <label class="j-label"><% = ElectronicSubmission.FieldNames.getFieldName("FormSpecialization-PaymentSemester", "Payment Semester") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="icofont icofont-bill-alt"></i></span>
+                                                <span class="input-group-addon"><i class="icofont icofont-cur-riyal"></i></span>
                                                 <asp:TextBox ID="Payment_Semester" runat="server" class="form-control" placeholder="Enter Payment Semester" TextMode="SingleLine"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-12">
@@ -329,7 +329,7 @@
                                         <div class="col-sm-6">
                                             <label class="j-label"><% = ElectronicSubmission.FieldNames.getFieldName("FormSpecialization-PaymentContract", "Payment Contract") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="icofont icofont-list"></i></span>
+                                                <span class="input-group-addon"><i class="icofont icofont-cur-riyal"></i></span>
                                                 <asp:TextBox ID="Payment_Contract" runat="server" class="form-control" placeholder="Enter Payment Contract" TextMode="SingleLine"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-12">
@@ -342,7 +342,7 @@
                                         <div class="col-sm-6">
                                             <label class="j-label"><% = ElectronicSubmission.FieldNames.getFieldName("FormSpecialization-PaymentEquation", "Payment Equation") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="icofont icofont-coins"></i></span>
+                                                <span class="input-group-addon"><i class="icofont icofont-cur-riyal"></i></span>
                                                 <asp:TextBox ID="Payment_Equation" runat="server" class="form-control" placeholder="Enter Payment Equation" TextMode="SingleLine"></asp:TextBox>
                                             </div>
                                             <div class="col-sm-12">
