@@ -11,7 +11,7 @@ using System.IO;
 
 namespace ElectronicSubmission
 {
-    
+
     public partial class StudentSubmitting : System.Web.UI.Page
     {
         REU_RegistrationEntities db = new REU_RegistrationEntities();
@@ -33,78 +33,83 @@ namespace ElectronicSubmission
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try {
-                    ini();
-                    if (!IsPostBack)
+            try
+            {
+                ini();
+                if (!IsPostBack)
+                {
+                    FillDropDownLists();
+                    if (Session["Success"] != null)
                     {
-                        FillDropDownLists();
-                         if (Session["Success"] != null)
-                         {
-                                if (langId == 1)
-                                {
-                                   if(Request["Student_Id"] == null)
-                                      Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
-                                   else
-                                      Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
-                                }
-                                else
-                                {
-                                    if (Request["Student_Id"] == null)
-                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
-                                    else
-                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
-                                }
+                        if (langId == 1)
+                        {
+                            if (Request["Student_Id"] == null)
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
+                        }
+                        else
+                        {
+                            if (Request["Student_Id"] == null)
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
+                        }
 
 
-                                Session["Success"] = null;
-                         }else 
-                         if (Session["UpdateSuccess"] != null)
-                          {
-                                    if (langId == 1)
-                                    {
-                                       Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
-                                    }
-                                    else
-                                    {
-                                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
-                                    }
-                                Session["UpdateSuccess"] = null;
-                          }
-
-                            if (StudentID == 0) Nationality_ID.SelectedValue = "191";
-                            if (StudentID != 0) ViewDataStudent(StudentID);
+                        Session["Success"] = null;
                     }
-            }catch(Exception s)
+                    else
+                    if (Session["UpdateSuccess"] != null)
+                    {
+                        if (langId == 1)
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التعديل بنجاح', 'تم تعديل البيانات بنجاح', 'success');", true);
+                        }
+                        else
+                        {
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('updated successfully!', 'The message has been updated successfully. You will be contacted soon', 'success');", true);
+                        }
+                        Session["UpdateSuccess"] = null;
+                    }
+
+                    if (StudentID == 0) Nationality_ID.SelectedValue = "191";
+                    if (StudentID != 0) ViewDataStudent(StudentID);
+                }
+            }
+            catch (Exception s)
             {
 
             }
 
         }
 
-        public void ini() {
+        //------------------------------------ini-------------------------------------
+        public void ini()
+        {
 
             if (Request["Student_Id"] != null)
             {
-                
-                    int.TryParse(Request["Student_Id"], out StudentID);
 
-                    Student StudInfo = db.Students.Where(x => x.Student_Id == StudentID && x.Student_Status_Id == 4).FirstOrDefault();
-                    if (StudInfo != null)
-                    {
-                        Div_invalid.Visible = false;
-                        SubmittingForm.Visible = true;
-                        HighSchoolDegreeFileValidator.Enabled = false;
-                        CapabilitiesDegreeFileValidator.Enabled = false;
-                        MyAchievementDegreeFileValidator.Enabled = false;
-                        StudentSSNFileValidator.Enabled = false;
-                    }
-                    else
-                    {
-                        StudentID = 0;
-                        Div_invalid.Visible = true;
-                        SubmittingForm.Visible = false;
-                    }
-               
+                int.TryParse(Request["Student_Id"], out StudentID);
+
+                Student StudInfo = db.Students.Where(x => x.Student_Id == StudentID && x.Student_Status_Id == 4).FirstOrDefault();
+                if (StudInfo != null)
+                {
+                    Div_invalid.Visible = false;
+                    SubmittingForm.Visible = true;
+                    HighSchoolDegreeFileValidator.Enabled = false;
+                    CapabilitiesDegreeFileValidator.Enabled = false;
+                    MyAchievementDegreeFileValidator.Enabled = false;
+                    StudentSSNFileValidator.Enabled = false;
+                }
+                else
+                {
+                    StudentID = 0;
+                    Div_invalid.Visible = true;
+                    SubmittingForm.Visible = false;
+                }
+
             }
             else
             {
@@ -135,40 +140,115 @@ namespace ElectronicSubmission
 
         }
 
+        //------------------------------------Fill DropDown-------------------------------------
+        private void FillDropDownLists()
+        {
+            try
+            {
+
+                // Group dropdown
+                List<Student_Type> Student_TypeList = db.Student_Type.ToList();
+                if (langId == 1)
+                    ddlFiller.dropDDL(StudentType, "Student_Type_Id", "Student_Type_Name_Ar", Student_TypeList, " - إختر نوع الطالب -");
+                else
+                    ddlFiller.dropDDL(StudentType, "Student_Type_Id", "Student_Type_Name_En", Student_TypeList, " - Select Student Type -");
+
+                // Group dropdown
+                List<Resource> ResourceList = db.Resources.ToList();
+                if (langId == 1)
+                    ddlFiller.dropDDL(Resource_ID, "ResourceID", "Resource_Name_Ar", ResourceList, " - إختر المصدر -");
+                else
+                    ddlFiller.dropDDL(Resource_ID, "ResourceID", "Resource_Name_En", ResourceList, " - Select Resource -");
+
+
+                // Group dropdown
+                List<Specialization> SpecializationList = db.Specializations.Where(x => x.Specialization_Suspend != true).ToList();
+                if (langId == 1)
+                    ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_Ar", SpecializationList, " - إختر التخصص -");
+                else
+                    ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_En", SpecializationList, " - Select Specialization -");
+
+                // Group dropdown
+                List<Nationality> NationalityList = db.Nationalities.ToList();
+                if (langId == 1)
+                    ddlFiller.dropDDL(Nationality_ID, "Nationality_Id", "Nationality_Name_Ar", NationalityList, " - إختر الجنسية -");
+                else
+                    ddlFiller.dropDDL(Nationality_ID, "Nationality_Id", "Nationality_Name_En", NationalityList, " - Select Nationality -");
+
+                if (langId == 1)
+                    Save.Text = "حفظ";
+
+                if (langId == 1)
+                    translateValidationArabic();
+            }
+            catch (Exception e) { }
+
+        }
+
+        //------------------------------------Style-------------------------------------
+
         private void getStyleScript()
         {
             StyleRTL.Text = FieldNames.getSTyleRTLHome();
             ScriptRTL.Text = FieldNames.getJavaScriptRTLHome();
         }
 
+        //------------------------------------Save-------------------------------------
 
         protected void Save_Click(object sender, EventArgs e)
         {
             try
             {
-                int Stu_ID, Res_id, Spec_id, Nat_id = 0;
+                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id,GPA_Id = 0;
                 DateTime RegDate = DateTime.Now;
-                float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg = 0;
+                float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Eng_Test_Deg = 0;
                 bool result = false;
+                bool ToCheckPercent = false;
+                string ErorrMsg= "";
 
+                int.TryParse(StudentType.SelectedValue, out Stu_type_Id);
                 int.TryParse(Resource_ID.SelectedValue, out Res_id);
                 int.TryParse(Specialization_ID.SelectedValue, out Spec_id);
                 int.TryParse(Nationality_ID.SelectedValue, out Nat_id);
+                int.TryParse(EnglishTest.SelectedValue, out Eng_Test_Id);
+                int.TryParse(GPA.SelectedValue, out GPA_Id);
 
                 float.TryParse(HighSchoolDegree.Text, out HighSchoolDeg);
                 float.TryParse(CapabilitiesDegree.Text, out CapabilitiesDeg);
                 float.TryParse(MyAchievementDegree.Text, out MyAchievementDeg);
+                float.TryParse(EnglishTestDegree.Text, out Eng_Test_Deg);
 
 
-                bool ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
+
+                switch (Stu_type_Id)
+                {
+                    //----------------------- New student ------------------------------
+                    case 1:
+                        if (Nat_id != 191)ToCheckPercent = true; else ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
+                        break;
+                    //----------------------- Tajseer student ------------------------------
+                    case 2:
+                        if (Eng_Test_Id != 1 && Eng_Test_Id != 5) ToCheckPercent = TOFEL_Test(Eng_Test_Id, Eng_Test_Deg); else ToCheckPercent = true;
+                        break;
+                    //----------------------- Mohawl student ------------------------------
+                    case 3:
+                        ToCheckPercent = GPA_Degree(Spec_id, GPA_Id);
+                        break;
+                    //----------------------- End Mohwal student ------------------------------
+
+                    default:
+                        ToCheckPercent = false;
+                        break;
+                }
+
                 if (ToCheckPercent)
                 {
-                    result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Res_id, Spec_id, Nat_id, totalSum);
+                    result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Stu_type_Id, Res_id, Spec_id, Nat_id, totalSum);
                     if (result)
                     {
                         if (StudentID == 0)
                         {
-                            string Text = "";
+                            /*string Text = "";
                             string sever_name = Request.Url.Authority.ToString();
                             string StuEmail = StudentEmail.Text;
                             SendEmail send = new SendEmail();
@@ -182,19 +262,15 @@ namespace ElectronicSubmission
                             string smsText = "Dear " + StudentNameEn.Text + "\n" + "Thank you for completed the application form at Riyadh Elm University. We will contact you within 48 hours." + " \n" + "Best Regard," + " \n" + "Admission System";
                             string number_Phone = StudentPhone.Text;
                             string reslt_message = send_sms.SendMessage(smsText, number_Phone);
-                            SaveMessage(Student_Id, "SMS", Text);
+                            SaveMessage(Student_Id, "SMS", Text);*/
                         }
-                         if(StudentID == 0) Session["Success"] = true; else Session["UpdateSuccess"] = true;
-                        
-                        /*if (langId == 1)
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('تم التقديم بنجاح', 'تم التقديم الرسالة بنجاح سيتم التواصل معك قريباَ', 'success');", true);
-                        else
-                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submitted successfully!', 'The message has been Submitted successfully. You will be contacted soon', 'success');", true);
-                            */
+                        if (StudentID == 0) Session["Success"] = true; else Session["UpdateSuccess"] = true;
+
                         Response.Redirect("~/StudentSubmitting.aspx");
                     }
                     else
                     {
+                        ErorrMsg = "";
                         if (langId == 1)
                             Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('لقد قمت بالتقديم مسبقاً', 'يوجد تقديم مسبق مطابقاً لرقم الهوية', 'error');", true);
                         else
@@ -204,23 +280,50 @@ namespace ElectronicSubmission
                 }
                 else
                 {
-                    // Session["Warning"] = true; Response.Redirect("~/StudentSubmitting.aspx");
-                    if (langId == 1)
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('غير مستوفي النسبة المطلوبة !', 'إختر التخصص المناسب', 'error');", true);
-                    else
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('The required percentage is not met !', 'Choose the appropriate major, not this!', 'error');", true);
+                   
+                    switch (Stu_type_Id)
+                    {
+                        //----------------------- New student ------------------------------
+                        case 1:
+                            if (langId == 1)
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('غير مستوفي النسبة المطلوبة !', 'إختر التخصص المناسب', 'error');", true);
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('The required percentage is not met !', 'Choose the appropriate major, not this!', 'error');", true);
+                            break;
+                        //----------------------- Tajseer student ------------------------------
+                        case 2:
+                            if (langId == 1)
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('درجة إمتحان التوفل اقلة من المطلوب !', 'لا يمكن إكمال التقديم', 'error');", true);
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submission cannot be completed !', 'TOEFL score less than required!', 'error');", true);
+                            break;
+                        //----------------------- Mohawl student ------------------------------
+                        case 3:
+                            if (langId == 1)
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('المعدل التراكمي اقلة من المطلوب !', 'لا يمكن إكمال التقديم', 'error');", true);
+                            else
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submission cannot be completed !', 'GPA is lower than required!', 'error');", true);
+                            break;
+                        //----------------------- End Mohwal student ------------------------------
 
+                        default:
+                            ToCheckPercent = false;
+                            break;
+                    }
+                    StudentType.SelectedValue = "0";
                 }
             }
             catch (Exception x) { }
         }
 
-        public bool IU_Student(int StudentID, string ArabicName, string EnglishName, FileUpload StProfile, string Email, string Phone, string StuAddress, DateTime RegistrationDate, string StudentSSN, float HighSchoolDeg, float CapabilitiesDeg, float MyAchievementDeg, int ResourceID, int SpecializationID, int NationalityID, float StudentTotal)
+        //------------------------------------Insert Update Student-------------------------------------
+
+        public bool IU_Student(int StudentID, string ArabicName, string EnglishName, FileUpload StProfile, string Email, string Phone, string StuAddress, DateTime RegistrationDate, string StudentSSN, float HighSchoolDeg, float CapabilitiesDeg, float MyAchievementDeg, int Stu_Type, int ResourceID, int SpecializationID, int NationalityID, float StudentTotal)
         {
 
             try
             {
-                 Student_Id = 0;
+                Student_Id = 0;
                 db.Configuration.LazyLoadingEnabled = false;
                 Student Stu = db.Students.Create();
                 if (StudentID != 0) Stu = db.Students.First(x => x.Student_Id == StudentID);
@@ -234,12 +337,13 @@ namespace ElectronicSubmission
                 Stu.Student_High_School_Degree = HighSchoolDeg.ToString();
                 Stu.Student_Capabilities_Degree = CapabilitiesDeg.ToString();
                 Stu.Student_My_Achievement_Degree = MyAchievementDeg.ToString();
+                Stu.Student_Type_Id = Stu_Type;
                 Stu.Student_Resource_Id = ResourceID;
                 Stu.Student_Specialization_Id = SpecializationID;
                 Stu.Student_Nationality_Id = NationalityID;
                 Stu.Student_Total = StudentTotal.ToString();
                 Stu.Suspended = 0;
-                if (StudentID == 0) Stu.Student_Status_Id = 1;else Stu.Student_Status_Id = 3;
+                if (StudentID == 0) Stu.Student_Status_Id = 1; else Stu.Student_Status_Id = 3;
                 string ImegProfile = UploadFile(StProfile, @"~\media\StudentProfile\");
                 if (ImegProfile != "") Stu.Student_Image_Profile = ImegProfile; else if (StudentID == 0) Stu.Student_Image_Profile = "Profile.JPG";
 
@@ -260,15 +364,28 @@ namespace ElectronicSubmission
                 {
                     Student_Id = Stu.Student_Id;
                 }
-              
-            
-                string SSSNFile = UploadFile(Student_Id, (int)FileType.Nationality, StudentSSNFile, @"~\media\StudentAttachments\");
 
-                string HSFile = UploadFile(Student_Id, (int)FileType.High_School,HighSchoolDegreeFile, @"~\media\StudentAttachments\");
 
-                string CAFile = UploadFile(Student_Id, (int)FileType.Capabilities,CapabilitiesDegreeFile, @"~\media\StudentAttachments\");
+                if (StudentSSNFile != null) AttachmentFile(Student_Id, (int)FileType.Nationality, StudentSSNFile, @"~\media\StudentAttachments\");
 
-                string MAfile = UploadFile(Student_Id, (int)FileType.My_Achievement,MyAchievementDegreeFile, @"~\media\StudentAttachments\");
+                if (HighSchoolDegreeFile != null) AttachmentFile(Student_Id, (int)FileType.High_School, HighSchoolDegreeFile, @"~\media\StudentAttachments\");
+
+                if (CapabilitiesDegreeFile != null) AttachmentFile(Student_Id, (int)FileType.Capabilities, CapabilitiesDegreeFile, @"~\media\StudentAttachments\");
+
+                if (MyAchievementDegreeFile != null) AttachmentFile(Student_Id, (int)FileType.My_Achievement, MyAchievementDegreeFile, @"~\media\StudentAttachments\");
+
+                if (SAT1 != null) AttachmentFile(Student_Id, (int)FileType.SAT1, SAT1, @"~\media\StudentAttachments\");
+
+                if (SAT2 != null) AttachmentFile(Student_Id, (int)FileType.SAT2, SAT2, @"~\media\StudentAttachments\");
+
+                if (Diploma != null) AttachmentFile(Student_Id, (int)FileType.Diploma, Diploma, @"~\media\StudentAttachments\");
+
+                if (AcadimecRegsteration != null) AttachmentFile(Student_Id, (int)FileType.Acadimec_Regsteration, AcadimecRegsteration, @"~\media\StudentAttachments\");
+
+                if (SAHSC != null) AttachmentFile(Student_Id, (int)FileType.Classification_Authority, SAHSC, @"~\media\StudentAttachments\");
+
+                if (Descriptionofcourses != null) AttachmentFile(Student_Id, (int)FileType.Description_of_Courses, Descriptionofcourses, @"~\media\StudentAttachments\");
+
 
                 /* Add it to log file */
                 LogData = "data:" + JsonConvert.SerializeObject(Stu, logFileModule.settings);
@@ -283,6 +400,41 @@ namespace ElectronicSubmission
             }
             catch { return false; }
             return true;
+        }
+
+        //------------------------------------Start Upload File-------------------------------------
+        public void AttachmentFile(int StudentID, int type, FileUpload Uplofile, string Path)
+        {
+            foreach (HttpPostedFile postfiles in Uplofile.PostedFiles)
+            {
+                if (postfiles.ContentLength > 0 && postfiles.FileName != "")
+                {
+                    File Fil = db.Files.Create();
+                    Fil.Student_Id = StudentID;
+                    Fil.File_Name = postfiles.FileName;
+                    Fil.File_Path = UploadFile(postfiles, Path);
+                    Fil.Type = type;
+                    Fil.DateCreation = DateTime.Now;
+                    db.Files.Add(Fil);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public string UploadFile(HttpPostedFile fileAttach, string Path)
+        {
+            string Imagepath = string.Empty;
+           
+                if (!UtilityClass.UploadFileIsValid(ref fileAttach, UtilityClass.ValidFileExtentions))
+                {
+                    //ltrMessage.Text = "<div class='alert alert-danger fade in'><strong>Images only allowed !</strong></div>";
+                    Imagepath = "false";
+                }
+                Imagepath = string.Empty;
+
+                Imagepath = UtilityClass.UploadFilePostedFile(ref fileAttach, Server.MapPath(Path));
+            
+            return Imagepath;
         }
 
         public string UploadFile(FileUpload Uplofile, string Path)
@@ -305,40 +457,12 @@ namespace ElectronicSubmission
             return Imagepath;
         }
 
-        public string UploadFile(int StudentID,int type,FileUpload Uplofile, string Path)
-        {
-            string Imagepath = string.Empty;
-            try
-            {
-                foreach (HttpPostedFile postfiles in Uplofile.PostedFiles)
-                {
+        //------------------------------------End Upload File-------------------------------------
 
-                    if (this.Page.IsValid)
-                    {
-                        if (!UtilityClass.UploadFileIsValid(ref Uplofile, UtilityClass.ValidImagesExtentions))
-                        {
-                            Imagepath = string.Empty;
-                        }
-                        Imagepath = string.Empty;
 
-                        Imagepath = UtilityClass.UploadFileWithExtention(ref Uplofile, Server.MapPath(Path));
-                        if(Imagepath != string.Empty) { 
-                            File Fil = db.Files.Create();
-                            Fil.Student_Id = StudentID;
-                            Fil.File_Name = Imagepath;
-                            Fil.File_Path = Imagepath;
-                            Fil.Type = type;
-                            Fil.DateCreation = DateTime.Now;
-                            db.Files.Add(Fil);
-                            db.SaveChanges();
-                        }
-                    }
-                }
-            }
-            catch (Exception e) { }
-            return Imagepath;
-        }
 
+
+        //------------------------------------View Data-------------------------------------
         public void ViewDataStudent(int StudentId)
         {
             try
@@ -366,6 +490,7 @@ namespace ElectronicSubmission
             catch (Exception e) { }
         }
 
+        //------------------------------------LoadFile-------------------------------------
         private void LoadStudentFiles(int Student_Id)
         {
             try
@@ -386,8 +511,8 @@ namespace ElectronicSubmission
                            "" + fileType + " " + Current_Counter + "" +
                            "</td>" +
                            "<td>" + fileType + " </td>";
-                        str += "<td><a href = '../../../../media/StudentAttachments/" + List_File[i].File_Path + "' target='_blank' style='font-size: x-large; color: blue;'><i class='icofont icofont-eye-alt'></i></a></td>" +
-                          "</tr>";
+                    str += "<td><a href = '../../../../media/StudentAttachments/" + List_File[i].File_Path + "' target='_blank' style='font-size: x-large; color: blue;'><i class='icofont icofont-eye-alt'></i></a></td>" +
+                      "</tr>";
                 }
                 txtFiles.Text = str;
                 FileTable.Visible = true;
@@ -395,6 +520,7 @@ namespace ElectronicSubmission
             catch { }
         }
 
+        //------------------------------------Clear Form-------------------------------------
         public void ClearForm()
         {
             try
@@ -418,44 +544,10 @@ namespace ElectronicSubmission
             catch (Exception e) { }
         }
 
-        private void FillDropDownLists()
-        {
-            try
-            {
-                // Group dropdown
-                List<Resource> ResourceList = db.Resources.ToList();
-                if (langId == 1)
-                    ddlFiller.dropDDL(Resource_ID, "ResourceID", "Resource_Name_Ar", ResourceList, " - إختر المصدر -");
-                else
-                    ddlFiller.dropDDL(Resource_ID, "ResourceID", "Resource_Name_En", ResourceList, " - Select Resource -");
-
-
-                // Group dropdown
-                List<Specialization> SpecializationList = db.Specializations.Where(x=>x.Specialization_Suspend !=true ).ToList();
-                if (langId == 1)
-                    ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_Ar", SpecializationList, " - إختر التخصص -");
-                else
-                    ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_En", SpecializationList, " - Select Specialization -");
-
-                // Group dropdown
-                List<Nationality> NationalityList = db.Nationalities.ToList();
-                if (langId == 1)
-                    ddlFiller.dropDDL(Nationality_ID, "Nationality_Id", "Nationality_Name_Ar", NationalityList, " - إختر الجنسية -");
-                else
-                    ddlFiller.dropDDL(Nationality_ID, "Nationality_Id", "Nationality_Name_En", NationalityList, " - Select Nationality -");
-
-                if (langId == 1)
-                    Save.Text = "حفظ";
-
-                if (langId == 1)
-                    translateValidationArabic();
-            }
-            catch (Exception e) { }
-
-        }
 
 
 
+        //------------------------------------Check Specialization Percent -------------------------------------
         public bool SpecializationPercent(int Specialization_id, float HighSchoolDegre, float CapabilitiesDegre, float MyAchievementDegre)
         {
             float WeightedRatioPercent = 0;
@@ -477,11 +569,14 @@ namespace ElectronicSubmission
                 float.TryParse(SpecList.Weighted_Ratio_Percent, out WeightedRatioPercent);
 
                 totalSum = HighSchoolPercent2 + CapabilitiesPercent2 + MyAchievementPercent2;
-            }catch (Exception e) { }
+            }
+            catch (Exception e) { }
             if (totalSum < WeightedRatioPercent) return false;
 
             return true;
         }
+
+        //------------------------------------translate Arabic -------------------------------------
 
         private void translateArabic()
         {
@@ -494,7 +589,8 @@ namespace ElectronicSubmission
                 AdmissionFormButton.Value = "Please fill the application Form";
             }
         }
-        
+
+        //------------------------------------translate Validation Arabic -------------------------------------
         public void translateValidationArabic()
         {
             //Stu_ProfileValidator.Text = "إختر الصورة الشخصية";
@@ -526,6 +622,7 @@ namespace ElectronicSubmission
             MyAchievementDegree.Attributes["placeholder"] = "أدخل درجة التحصيلي";
         }
 
+        //------------------------------------Save Message -------------------------------------
         public void SaveMessage(int student_id, string MessageType, string Message)
         {
             Student_Other_Info std_OI = db.Student_Other_Info.Create();
@@ -537,5 +634,120 @@ namespace ElectronicSubmission
             db.Student_Other_Info.Add(std_OI);
             db.SaveChanges();
         }
+
+        //------------------------------------Student Type -------------------------------------
+        protected void StudentType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            StudentTypeVisible();
+        }
+
+        //------------------------------------Visible with the Student Type-------------------------------------
+        public void StudentTypeVisible()
+        {
+            int ST_Id = 0, Nat_Id;
+            int.TryParse(StudentType.SelectedValue, out ST_Id);
+            int.TryParse(Nationality_ID.SelectedValue, out Nat_Id);
+
+            switch (ST_Id)
+            {
+                //----------------------- New student ------------------------------
+                case 1:
+                    HighSchool_Div.Visible = true;
+                    Capabilities_Div.Visible = true;
+                    MyAchievement_Div.Visible = true;
+                    if (Nat_Id != 191) SAT_Div.Visible = true; else SAT_Div.Visible = false;
+                    Diploma_Div.Visible = false;
+                    AcadimecRegsteration_Div.Visible = false;
+                    SAHSC_Div.Visible = false;
+                    EnglishTest_Div.Visible = false;
+                    Descriptionofcourses_Div.Visible = false;
+                    GPA_Div.Visible = false;
+                    break;
+                //-----------------------End New student ------------------------------
+
+                //----------------------- Tajseer student ------------------------------
+                case 2:
+                    HighSchool_Div.Visible = true;
+                    Capabilities_Div.Visible = false;
+                    MyAchievement_Div.Visible = false;
+                    SAT_Div.Visible = false;
+                    Diploma_Div.Visible = true;
+                    AcadimecRegsteration_Div.Visible = true;
+                    SAHSC_Div.Visible = true;
+                    EnglishTest_Div.Visible = true;
+                    Descriptionofcourses_Div.Visible = false;
+                    GPA_Div.Visible = false;
+                    break;
+                //----------------------- End Tajseer student ------------------------------
+
+                //----------------------- Mohawl student ------------------------------
+                case 3:
+                    HighSchool_Div.Visible = false;
+                    Capabilities_Div.Visible = false;
+                    MyAchievement_Div.Visible = false;
+                    SAT_Div.Visible = false;
+                    Diploma_Div.Visible = false;
+                    AcadimecRegsteration_Div.Visible = true;
+                    SAHSC_Div.Visible = false;
+                    EnglishTest_Div.Visible = false;
+                    Descriptionofcourses_Div.Visible = true;
+                    GPA_Div.Visible = true;
+                    break;
+                //----------------------- End Mohwal student ------------------------------
+
+                default:
+                    HighSchool_Div.Visible = false;
+                    Capabilities_Div.Visible = false;
+                    MyAchievement_Div.Visible = false;
+                    SAT_Div.Visible = false;
+                    Diploma_Div.Visible = false;
+                    AcadimecRegsteration_Div.Visible = false;
+                    SAHSC_Div.Visible = false;
+                    EnglishTest_Div.Visible = false;
+                    Descriptionofcourses_Div.Visible = false;
+                    GPA_Div.Visible = false;
+                    break;
+            }
+        }
+
+        //------------------------------------Check to TOFEL Test -------------------------------------
+        public bool TOFEL_Test(int T_T_Id, float EnglishTestDeg)
+        {
+            bool T = false;
+
+            switch (T_T_Id)
+            {
+                //-----------------------------TOEFL Computer--------------------------------
+                case 2:
+                    if (EnglishTestDeg < 113) T = false; else T = true;
+                    break;
+                //-----------------------------TOEFL Internet--------------------------------
+                case 3:
+                    if (EnglishTestDeg < 30) T = false; else T = true;
+                    break;
+
+                //-----------------------------TOEFL Paper--------------------------------
+                case 4:
+                    if (EnglishTestDeg < 425) T = false; else T = true;
+                    break;
+                default:
+                    T = false;
+                    break;
+            }
+            return T;
+        }
+
+        //------------------------------------Check the GPA -------------------------------------
+        public bool GPA_Degree(int Specialization_id, int GPA_Deg)
+        {
+            bool T = false;
+
+            if(Specialization_id ==1 && GPA_Deg > 2)  T = false; else  T = true;
+
+            return T;
+        }
+
+    
     }
+
 }

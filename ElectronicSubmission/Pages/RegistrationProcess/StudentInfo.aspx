@@ -27,6 +27,190 @@
         }
 
     </script>
+        <script>
+            function DefDate(obj) {
+
+                if (this.id) obj = this;
+                const date1 = Date.now();
+                const date2 = new Date(obj.value);
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const diffYears = Math.ceil(diffTime / (365 * 1000 * 60 * 60 * 24));
+                console.log(diffTime + " milliseconds");
+                console.log(diffDays + " days");
+                if (diffYears > 5) {
+                    alert("The high school certificate must not exceed five years");
+                    HighSchoolDate.value = null;
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+    </script>
+    <script>
+            function StudType() {
+                debugger;
+            var ST_T_Id = document.getElementById("StudentType").value;
+            var Nat_Id = document.getElementById("Nationality_ID").value;
+           
+            switch (ST_T_Id) {
+                //----------------------- New student ------------------------------
+                case "1":
+                    document.getElementById("HighSchool_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("HighSchoolDateValidator"), true);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeValidator"), true);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeFileValidator"), true);
+
+                    document.getElementById("Capabilities_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), true);
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), true);
+
+                    document.getElementById("MyAchievement_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), true);
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), true);
+                    if (Nat_Id != "191") {
+                        document.getElementById("SAT_Div").style.display = 'block';
+                        ValidatorEnable(document.getElementById("SAT1Validator"), true);
+                        ValidatorEnable(document.getElementById("SAT2Validator"), true);
+                    } else {
+                        document.getElementById("SAT_Div").style.display = 'none';
+                        ValidatorEnable(document.getElementById("SAT1Validator"), false);
+                        ValidatorEnable(document.getElementById("SAT2Validator"), false);
+                    }
+                    document.getElementById("Diploma_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("DiplomaValidator"), false);
+
+                    document.getElementById("AcadimecRegsteration_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("AcadimecRegsterationValidator"), false);
+
+                    document.getElementById("SAHSC_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("SAHSCValidator"), false);
+
+                    document.getElementById("EnglishTest_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("EnglishTestValidator"), false);
+                    ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false);
+
+                    document.getElementById("Descriptionofcourses_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
+
+                    document.getElementById("GPA_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("GPAValidator"), false);
+                    break;
+                //-----------------------End New student ------------------------------
+
+                //----------------------- Tajseer student ------------------------------
+                case "2":
+                    document.getElementById("HighSchool_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("HighSchoolDateValidator"), true);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeValidator"), true);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeFileValidator"), true);
+
+                    document.getElementById("Capabilities_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), false);
+
+                    document.getElementById("MyAchievement_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), false);
+
+                    document.getElementById("SAT_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("SAT1Validator"), false);
+                    ValidatorEnable(document.getElementById("SAT2Validator"), false);
+
+                    document.getElementById("Diploma_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("DiplomaValidator"), true);
+
+                    document.getElementById("AcadimecRegsteration_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("AcadimecRegsterationValidator"), true);
+
+                    document.getElementById("SAHSC_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("SAHSCValidator"), true);
+
+                    document.getElementById("EnglishTest_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("EnglishTestValidator"), true);
+                    ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), true);
+
+                    document.getElementById("Descriptionofcourses_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
+
+                    document.getElementById("GPA_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("GPAValidator"), false);
+                    break;
+                //----------------------- End Tajseer student ------------------------------
+
+                //----------------------- Mohawl student ------------------------------
+                case "3":
+                    document.getElementById("HighSchool_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("HighSchoolDateValidator"), false);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeFileValidator"), false);
+
+                    document.getElementById("Capabilities_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), false);
+
+                    document.getElementById("MyAchievement_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), false);
+
+                    document.getElementById("SAT_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("SAT1Validator"), false);
+                    ValidatorEnable(document.getElementById("SAT2Validator"), false);
+
+                    document.getElementById("Diploma_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("DiplomaValidator"), false);
+
+                    document.getElementById("AcadimecRegsteration_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("AcadimecRegsterationValidator"), true);
+
+                    document.getElementById("SAHSC_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("SAHSCValidator"), false);
+
+                    document.getElementById("EnglishTest_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("EnglishTestValidator"), false);
+                    ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false);
+
+                    document.getElementById("Descriptionofcourses_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), true);
+
+                    document.getElementById("GPA_Div").style.display = 'block';
+                    ValidatorEnable(document.getElementById("GPAValidator"), true);
+                    break;
+                //----------------------- End Mohwal student ------------------------------
+
+                default:
+                    document.getElementById("HighSchool_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("HighSchoolDateValidator"), false);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("HighSchoolDegreeFileValidator"), false);
+                    document.getElementById("Capabilities_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("CapabilitiesDegreeFileValidator"), false);
+                    document.getElementById("MyAchievement_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeValidator"), false);
+                    ValidatorEnable(document.getElementById("MyAchievementDegreeFileValidator"), false);
+                    document.getElementById("SAT_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("SAT1Validator"), false);
+                    ValidatorEnable(document.getElementById("SAT2Validator"), false);
+                    document.getElementById("Diploma_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("DiplomaValidator"), false);
+                    document.getElementById("AcadimecRegsteration_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("AcadimecRegsterationValidator"), false);
+                    document.getElementById("SAHSC_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("SAHSCValidator"), false);
+                    document.getElementById("EnglishTest_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("EnglishTestValidator"), false);
+                    ValidatorEnable(document.getElementById("EnglishTestDegreeValidator"), false);
+                    document.getElementById("Descriptionofcourses_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
+                    document.getElementById("GPA_Div").style.display = 'none';
+                    ValidatorEnable(document.getElementById("GPAValidator"), false);
+                    break;
+            }
+
+            return true;
+        }
+    </script>
 
     <!-- Page-body start -->
     <div class="page-body">
@@ -149,33 +333,42 @@
                     </div>
                 </div>
 
-                <div class="row">
-
-                    <div class="form-group col-sm-4">
-                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Specialization", "Specialization") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
+                   <div class="row">
+                    <div class="form-group col-sm-3">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentType", "Student Type") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-safety"></i></span>
-                            <asp:DropDownList ID="Specialization_ID" CssClass="js-example-basic-single col-sm-12" runat="server">
+                            <asp:DropDownList ID="StudentType" class="form-control" runat="server"  onchange="StudType();">
+                            </asp:DropDownList>
+                        </div>
+                        <asp:RequiredFieldValidator ID="StudentTypeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Select Student Type" ValidationGroup="valFormGroup" ControlToValidate="StudentType" Display="Dynamic" CssClass="col-form-label" InitialValue="0" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Specialization", "Specialization") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icofont icofont-safety"></i></span>
+                            <asp:DropDownList ID="Specialization_ID" class="form-control" runat="server">
                             </asp:DropDownList>
                         </div>
                         <asp:RequiredFieldValidator ID="Specialization_IDValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Select Specialization" ValidationGroup="valFormGroup" ControlToValidate="Specialization_ID" Display="Dynamic" CssClass="col-form-label" InitialValue="0" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
 
-                    <div class="form-group col-sm-4">
-                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Resource", "Resource") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
+                    <div class="form-group col-sm-3">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Resource", "Resource") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-stock-mobile"></i></span>
-                            <asp:DropDownList ID="Resource_ID" CssClass="js-example-basic-single col-sm-12" runat="server">
+                            <asp:DropDownList ID="Resource_ID" class="form-control" runat="server">
                             </asp:DropDownList>
                         </div>
                         <asp:RequiredFieldValidator ID="Resource_IDValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Select Resource" ValidationGroup="valFormGroup" ControlToValidate="Resource_ID" Display="Dynamic" CssClass="col-form-label" InitialValue="0" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
 
-                    <div class="form-group col-sm-4">
-                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Nationality", "Nationality") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
+                    <div class="form-group col-sm-3">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Nationality", "Nationality") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-ui-tag"></i></span>
-                            <asp:DropDownList ID="Nationality_ID" CssClass="js-example-basic-single col-sm-12" runat="server">
+                            <asp:DropDownList ID="Nationality_ID" class="form-control" runat="server" onchange="StudType();">
                             </asp:DropDownList>
                         </div>
                         <asp:RequiredFieldValidator ID="Nationality_IDValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Select Nationality" ValidationGroup="valFormGroup" ControlToValidate="Nationality_ID" Display="Dynamic" CssClass="col-form-label" InitialValue="0" SetFocusOnError="True"></asp:RequiredFieldValidator>
@@ -183,54 +376,153 @@
 
                 </div>
 
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-HighSchoolDegree", "High School Degree") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
+                
+                <div class="row" runat="server" id="HighSchool_Div" style="display:none">
+                        <div class="form-group col-sm-4">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-HighSchoolDate", "High School Date") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="icofont icofont-numbered"></i></span>
-                            <asp:TextBox ID="HighSchoolDegree" runat="server" class="form-control" placeholder="Enter Student High School Degree"></asp:TextBox>
+                            <span class="input-group-addon"><i class="icofont icofont-calendar"></i></span>
+                            <input type="date" id="HighSchoolDate" runat="server" class="form-control" onchange="DefDate(this)" />
                         </div>
-                        <asp:RequiredFieldValidator ID="HighSchoolDegreeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student High School Degree" ValidationGroup="valFormGroup" ControlToValidate="HighSchoolDegree" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="HighSchoolDateValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student High School Date" ValidationGroup="valFormGroup" ControlToValidate="HighSchoolDate" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
 
-                    <div class="form-group col-sm-6">
+                    <div class="form-group col-sm-4">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-HighSchoolDegree", "High School Degree") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icofont icofont-numbered"></i></span>
+                            <asp:TextBox ID="HighSchoolDegree" runat="server" class="form-control" placeholder="Enter Student High School Degree" TextMode="SingleLine"></asp:TextBox>
+                        </div>
+                        <asp:RequiredFieldValidator ID="HighSchoolDegreeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student High School Degree" ValidationGroup="valFormGroup" ControlToValidate="HighSchoolDegree" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck" Type="Double" ControlToValidate="HighSchoolDegree" ValidationGroup="valFormGroup" Text="Value must be a Number" Display="Dynamic" SetFocusOnError="True"></asp:CompareValidator>
+                    </div>
+
+                    <div class="form-group col-sm-4">
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-AddHighSchoolDegreeAttachments", "Add High School Degree Attachments") %></label>
                         <asp:FileUpload ID="HighSchoolDegreeFile" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="HighSchoolDegreeFileValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add High School Degree Attachments" ValidationGroup="valFormGroup" ControlToValidate="HighSchoolDegreeFile" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                    
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" runat="server" id="Capabilities_Div" style="display:none">
                     <div class="form-group col-sm-6">
-                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-CapabilitiesDegree", "Capabilities Degree") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-CapabilitiesDegree", "Capabilities Degree") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-numbered"></i></span>
-                            <asp:TextBox ID="CapabilitiesDegree" runat="server" class="form-control" placeholder="Enter Student Capabilities Degree"></asp:TextBox>
+                            <asp:TextBox ID="CapabilitiesDegree" runat="server" class="form-control" placeholder="Enter Student Capabilities Degree" TextMode="SingleLine"></asp:TextBox>
                         </div>
                         <asp:RequiredFieldValidator ID="CapabilitiesDegreeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student Capabilities Degree" ValidationGroup="valFormGroup" ControlToValidate="CapabilitiesDegree" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator2" runat="server" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck" Type="Double" ControlToValidate="CapabilitiesDegree" ValidationGroup="valFormGroup" Text="Value must be a Number" Display="Dynamic" SetFocusOnError="True"></asp:CompareValidator>
                     </div>
 
                     <div class="form-group col-sm-6">
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-AddCapabilitiesDegreeAttachments", "Add Capabilities Degree Attachments") %></label>
                         <asp:FileUpload ID="CapabilitiesDegreeFile" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="CapabilitiesDegreeFileValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Capabilities Degree Attachments" ValidationGroup="valFormGroup" ControlToValidate="CapabilitiesDegreeFile" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
                 </div>
 
 
-                <div class="row">
+                <div class="row" runat="server" id="MyAchievement_Div" style="display:none">
                     <div class="form-group col-sm-6">
-                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-MyAchievementDegree", "My Achievement Degree") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-MyAchievementDegree", "My Achievement Degree") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-numbered"></i></span>
-                            <asp:TextBox ID="MyAchievementDegree" runat="server" class="form-control" placeholder="Enter Student My Achievement Degree"></asp:TextBox>
+                            <asp:TextBox ID="MyAchievementDegree" runat="server" class="form-control" placeholder="Enter Student My Achievement Degree" TextMode="SingleLine"></asp:TextBox>
                         </div>
                         <asp:RequiredFieldValidator ID="MyAchievementDegreeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter My Achievement Degree" ValidationGroup="valFormGroup" ControlToValidate="MyAchievementDegree" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck" Type="Double" ControlToValidate="MyAchievementDegree" ValidationGroup="valFormGroup" Text="Value must be a Number" Display="Dynamic" SetFocusOnError="True"></asp:CompareValidator>
                     </div>
 
                     <div class="form-group col-sm-6">
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-AddMyAchievementDegreeAttachments", "Add My Achievement Degree Attachments") %></label>
                         <asp:FileUpload ID="MyAchievementDegreeFile" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="MyAchievementDegreeFileValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add My Achievement Degree Attachments" ValidationGroup="valFormGroup" ControlToValidate="MyAchievementDegreeFile" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
 
+                </div>
+
+                    <div class="row" runat="server" id="SAT_Div" style="display:none">
+                    <div class="form-group col-sm-6">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-SAT1", "SAT-1") %></label>
+                        <asp:FileUpload ID="SAT1" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="SAT1Validator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add SAT-1 Attachments" ValidationGroup="valFormGroup" ControlToValidate="SAT1" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-SAT2", "SAT-2") %></label>
+                        <asp:FileUpload ID="SAT2" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="SAT2Validator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add SAT-2 Attachments" ValidationGroup="valFormGroup" ControlToValidate="SAT2" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                <div class="row" runat="server" id="Diploma_Div" style="display:none">
+                    <div class="form-group col-sm-12">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Diploma", "Diploma") %></label>
+                        <asp:FileUpload ID="Diploma" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="DiplomaValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Diploma Attachments" ValidationGroup="valFormGroup" ControlToValidate="Diploma" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                <div class="row" runat="server" id="AcadimecRegsteration_Div" style="display:none">
+                    <div class="form-group col-sm-12">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-AcadimecRegsteration", "Acadimec Regsteration") %></label>
+                        <asp:FileUpload ID="AcadimecRegsteration" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="AcadimecRegsterationValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Acadimec Regsteration Attachments" ValidationGroup="valFormGroup" ControlToValidate="AcadimecRegsteration" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                    <div class="row" runat="server" id="SAHSC_Div" style="display:none">
+                    <div class="form-group col-sm-12">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-SaudiAuthorityforHealthSpecialtiesclassification", "Saudi Authority for Health Specialties classification") %></label>
+                        <asp:FileUpload ID="SAHSC" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="SAHSCValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Saudi Authority for Health Specialties classification Attachments" ValidationGroup="valFormGroup" ControlToValidate="SAHSC" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                    <div class="row" runat="server" id="EnglishTest_Div" style="display:none">
+                    <div class="form-group col-sm-6">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EnglishTest", "English Test") %></label>
+                        <asp:DropDownList ID="EnglishTest" class="form-control" runat="server">
+                            <asp:ListItem Value="1">IELTS</asp:ListItem>
+                            <asp:ListItem Value="2">TOEFL Computer</asp:ListItem>
+                            <asp:ListItem Value="3">TOEFL Internet</asp:ListItem>
+                            <asp:ListItem Value="4">TOEFL Paper </asp:ListItem>
+                            <asp:ListItem Value="5">STEP (كفايات)</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="EnglishTestValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add English Test Attachments" ValidationGroup="valFormGroup" ControlToValidate="EnglishTest" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+
+                        <div class="form-group col-sm-6">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EnglishTestDegree", "English Test Degree") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="icofont icofont-numbered"></i></span>
+                            <asp:TextBox ID="EnglishTestDegree" runat="server" class="form-control" placeholder="Enter Student My Achievement Degree" TextMode="SingleLine"></asp:TextBox>
+                        </div>
+                        <asp:RequiredFieldValidator ID="EnglishTestDegreeValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter English Test Degree Degree" ValidationGroup="valFormGroup" ControlToValidate="EnglishTestDegree" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="CompareValidator" ForeColor="Red" Operator="DataTypeCheck" Type="Double" ControlToValidate="EnglishTestDegree" ValidationGroup="valFormGroup" Text="Value must be a Number" Display="Dynamic" SetFocusOnError="True"></asp:CompareValidator>
+                    </div>
+                </div>
+
+                    <div class="row" runat="server" id="Descriptionofcourses_Div" style="display:none">
+                    <div class="form-group col-sm-12">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Descriptionofcourses", "Description of courses") %></label>
+                        <asp:FileUpload ID="Descriptionofcourses" runat="server" class="form-control" AllowMultiple="True" />
+                        <asp:RequiredFieldValidator ID="DescriptionofcoursesValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Description of courses Attachments" ValidationGroup="valFormGroup" ControlToValidate="Descriptionofcourses" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
+                </div>
+
+                    <div class="row" runat="server" id="GPA_Div" style="display:none">
+                    <div class="form-group col-sm-6">
+                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Cumulativeaverage", "Cumulative average (GPA)") %></label>
+                        <asp:DropDownList ID="GPA" class="form-control" runat="server">
+                            <asp:ListItem Value="1">Excellent</asp:ListItem>
+                            <asp:ListItem Value="2">very good</asp:ListItem>
+                            <asp:ListItem Value="3">good</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="GPAValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add Cumulative average Attachments" ValidationGroup="valFormGroup" ControlToValidate="GPA" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                    </div>
                 </div>
 
                 <div class="row">
