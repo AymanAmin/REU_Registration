@@ -210,9 +210,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     //Button Names
                     btnReject.Text = GetRejectStatusName((int)std.Student_Status_Id);
                     btnApprove.Text = GetApproveStatusName((int)std.Student_Status_Id,std);
-                    btnBranch2.Text = GetApproveTwoStatusName((int)std.Student_Status_Id,std);
+                    btnBranch2.Text = GetApproveBranchStatusName((int)std.Student_Status_Id,std);
 
-                    if (std.Student_Status_Id != 10 && std.Student_Status_Id != 1016)
+                    if (std.Student_Status_Id != 17 && std.Student_Status_Id != 10 && std.Student_Status_Id != 1016)
                     {
                         btnBranch2.Visible = false;
                         txtTypeOfCash.Visible = false;
@@ -284,11 +284,11 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     else if (List_File[i].Type == (int)FileType.My_Achievement) { fileType = FieldNames.getFieldName("View-MyAchievement", "My Achievement"); Current_Counter = My_Achievement_Counter = My_Achievement_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.After_Contract) { fileType = FieldNames.getFieldName("View-Contracts", "Contracts"); Current_Counter = Contracts_Counter = Contracts_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Before_Contract) { fileType = FieldNames.getFieldName("View-PrepareContracts", "Prepare Contracts"); Current_Counter = Before_Contract_Counter = Before_Contract_Counter + 1; }
-                    else if (List_File[i].Type == (int)FileType.Acadimec_Regsteration) { fileType = FieldNames.getFieldName("View-AcadimecRegsteration", "Acadimec Regsteration"); Current_Counter = Acadimec_Regsteration_Counter = Acadimec_Regsteration_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Acadimec_Regsteration) { fileType = FieldNames.getFieldName("View-AcadimecRegistration", "Acadimec Registration"); Current_Counter = Acadimec_Regsteration_Counter = Acadimec_Regsteration_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Classification_Authority) { fileType = FieldNames.getFieldName("View-ClassificationAuthorit", "Classification Authorit"); Current_Counter = Classification_Authority_Counter = Classification_Authority_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
-                    else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "EnglishCertificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
                     str += "<tr>" +
@@ -456,7 +456,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
                 bool meeting_stage = false;
-                if (std.Student_Status_Id == 7)
+                if (std.Student_Status_Id == 7 && std.Student_Type_Id == 1)
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
                     std.Notes= "Meeting Date: "+ txtMeeting_Date.Value+" Meeting Time: "+ txtMeeting_Time.Value;
@@ -565,7 +565,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 15: newStatus = restore_id; break; // 15- File Complete with Failure
 
                     case 16: newStatus = 17; break; // 16- Complete Contract Files
-                    case 17: newStatus = 18; break; // 17- Files Contract Completed
+                    case 17: newStatus = 16; break; // 17- Files Contract Completed
                     case 18: newStatus = 12; break; // 18- Contract Stage
                     case 19: newStatus = 1016; break; // 19- Certificate Equation
                     case 1016: newStatus = 16; break; // 20- Certificate Equation Completed
@@ -573,7 +573,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
                 bool meeting_stage = false;
-                if (std.Student_Status_Id == 7)
+                if (std.Student_Status_Id == 7 && std.Student_Type_Id == 1)
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
                     std.Notes = "Meeting Date: " + txtMeeting_Date.Value + " Meeting Time: " + txtMeeting_Time.Value;
@@ -675,7 +675,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string StudentEmail = std.Student_Email;
 
             SendEmail send = new SendEmail();
-            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Timme:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
             bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
             SaveMessage(std.Student_Id, "E-mail", Text);
             return result;
@@ -791,7 +791,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
         }
 
-        private string GetApproveTwoStatusName(int CurrentStatus_Id,Student std)
+        private string GetApproveBranchStatusName(int CurrentStatus_Id,Student std)
         {
             if (SessionWrapper.LoggedUser.Language_id != 1)
             {
@@ -814,7 +814,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 15: return "Restore the last Status";// 15- File Complete with Failure
 
                     case 16: return db.Status.Find(17).Status_Name_En;  // 16- Complete Contract Files
-                    case 17: return db.Status.Find(18).Status_Name_En;  // 17- Files Contract Completed
+                    case 17: return db.Status.Find(16).Status_Name_En;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_En;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_En;  // 19- Certificate Equation
                     case 1016: return db.Status.Find(16).Status_Name_En;  // 20- Certificate Equation Completed
@@ -962,7 +962,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 // Check if He is not Saudi
                 if (std.Nationality.Nationality_Id != 191)
-                    VAT = (amount_reg * 15 ) / 100;
+                    VAT = (amount_reg * 15) / 100;
 
                 amount = (amount_reg + VAT).ToString();
                 Payment_For = "Registration";
@@ -972,12 +972,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             {
                 // Check if He is not Saudi
                 if (std.Nationality.Nationality_Id != 191)
-                    VAT = (double)spec.Specialization_Study_Payment * 15 / 100;
+                    if (Type_of_Cash == 1)
+                        VAT = (double)spec.Specialization_Study_Payment_Semester * 15 / 100;
+                    else
+                        VAT = (double)spec.Specialization_Study_Payment * 15 / 100;
 
                 // Check if He is pay for full year of semster
                 if (Type_of_Cash == 1)
-                    amount = ((spec.Specialization_Study_Payment + VAT) / 2).ToString();
-                else 
+                    amount = ((spec.Specialization_Study_Payment_Semester + VAT)).ToString();
+                else
                     amount = (spec.Specialization_Study_Payment + VAT).ToString();
 
                 Payment_For = "Study";
