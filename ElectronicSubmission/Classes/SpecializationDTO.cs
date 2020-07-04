@@ -24,5 +24,8 @@ namespace ElectronicSubmission.Classes
         public Nullable<double> Specialization_Registeration_Payment { get; set; }
         public Nullable<double> Specialization_Study_Payment { get; set; }
         public Nullable<bool> Specialization_Suspend { get; set; }
+        public Nullable<double> Specialization_Study_Payment_Semester { get; set; }
+        public Nullable<double> Specialization_Study_Payment_Contract { get; set; }
+        public Nullable<double> Specialization_Study_Payment_Equation { get; set; }
     }
 }

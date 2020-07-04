@@ -68,6 +68,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             else
                 ddlFiller.dropDDL(txtEmployees, "Employee_Id", "Employee_Name_En", EmpList, "Select Employee");
 
+            if (SessionWrapper.LoggedUser.Language_id == 1)
+            {
+                txtTypeOfCash.Items.Add("سنة كاملة");
+                txtTypeOfCash.Items.Add("سمستر");
+            }else
+            {
+                txtTypeOfCash.Items.Add("Full Year");
+                txtTypeOfCash.Items.Add("Semster");
+            }
+            txtTypeOfCash.SelectedIndex = 0;
+
         }
 
         private void LoadStudentInfo(Student std)
@@ -81,7 +92,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                     // select the color based on status id
                     int index = (int)std.Student_Status_Id - 1;
-                    if (index > Color.Length) index = 1;
+                    if (index >= Color.Length) index = 1;
 
                     // Set profile image
                     if(std.Student_Image_Profile == null || std.Student_Image_Profile == "")
@@ -93,6 +104,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     // load other data
                     txtStudent_Id.Text = std.Student_Id.ToString();
                     txtStudent_SSN.Text = std.Student_SSN;
+                    
                     if (SessionWrapper.LoggedUser.Language_id == 1)
                         txtStudent_Name.Text = std.Student_Name_Ar;
                     else
@@ -101,9 +113,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     txtStudent_Email.Text = std.Student_Email;
                     txtStudent_Address.Text = std.Student_Address;
                     if (SessionWrapper.LoggedUser.Language_id == 1)
+                    {
+                        txtTypeofSubmission.Text = std.Student_Type.Student_Type_Name_Ar;
                         txtSpecialization.Text = std.Specialization.Specialization_Name_Ar;
+                    }
                     else
+                    {
+                        txtTypeofSubmission.Text = std.Student_Type.Student_Type_Name_En;
                         txtSpecialization.Text = std.Specialization.Specialization_Name_En;
+                    }
                     if (SessionWrapper.LoggedUser.Language_id ==1)
                         txtStatus.Text = "<span class='label label-warning' style='background:" + Color[index] + " !important;'>" + std.Status.Status_Name_Ar + "</span>";
                     else
@@ -137,7 +155,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     DateTime date = DateTime.Parse(std.Student_CreationDate.ToString());
                     txtStudent_CreationDate.Text = date.ToShortDateString();
 
-                    if (std.Student_Status_Id == 7)
+                    if (std.Student_Status_Id == 7 && std.Student_Type_Id == 1)
                     {
                         txtSetMeetingInfo.Visible = true;
                     }
@@ -194,8 +212,20 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     btnApprove.Text = GetApproveStatusName((int)std.Student_Status_Id,std);
                     btnBranch2.Text = GetApproveTwoStatusName((int)std.Student_Status_Id,std);
 
-                    if (std.Student_Status_Id != 10)
+                    if (std.Student_Status_Id != 10 && std.Student_Status_Id != 1016)
+                    {
                         btnBranch2.Visible = false;
+                        txtTypeOfCash.Visible = false;
+                        txtTypeOfCash_Label.Visible = false;
+                    }
+
+
+                        if (std.Student_Status_Id == 18)
+                    {
+                        txtContracts.Visible = true;
+                        txtContract_Label.Visible = true;
+                        
+                    }
 
                 }
             }
@@ -240,7 +270,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             try
             {
                 string str = string.Empty, FileName = string.Empty;
-                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0;
+                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0, Contracts_Counter = 0, Before_Contract_Counter = 0, Acadimec_Regsteration_Counter = 0;
+                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0;
                 int Current_Counter = 1;
                 List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
                 for (int i = 0; i < List_File.Count; i++)
@@ -251,6 +282,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     else if (List_File[i].Type == (int)FileType.Capabilities) { fileType = FieldNames.getFieldName("View-Capabilities", "Capabilities"); Current_Counter = Capabilities_Counter = Capabilities_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.High_School) { fileType = FieldNames.getFieldName("View-HighSchool", "High School"); Current_Counter = High_School_Counter = High_School_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.My_Achievement) { fileType = FieldNames.getFieldName("View-MyAchievement", "My Achievement"); Current_Counter = My_Achievement_Counter = My_Achievement_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.After_Contract) { fileType = FieldNames.getFieldName("View-Contracts", "Contracts"); Current_Counter = Contracts_Counter = Contracts_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Before_Contract) { fileType = FieldNames.getFieldName("View-PrepareContracts", "Prepare Contracts"); Current_Counter = Before_Contract_Counter = Before_Contract_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Acadimec_Regsteration) { fileType = FieldNames.getFieldName("View-AcadimecRegsteration", "Acadimec Regsteration"); Current_Counter = Acadimec_Regsteration_Counter = Acadimec_Regsteration_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Classification_Authority) { fileType = FieldNames.getFieldName("View-ClassificationAuthorit", "Classification Authorit"); Current_Counter = Classification_Authority_Counter = Classification_Authority_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "EnglishCertificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
@@ -336,7 +376,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 // select the color based on status id
                 int index = (int)sequence[i].Status_Id - 1;
-                if (index > Color.Length) index = 1;
+                if (index >= Color.Length) index = 1;
 
                 str += "<div class='row m-b-25'>" +
                                 "<div class='col-auto p-r-0' style='margin-top:3%;'>" +
@@ -374,6 +414,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             int newStatus = 0, restore_id = 15;
             int student_record_id = int.Parse(Request["StudentID"].ToString());
             Student std = db.Students.Find(student_record_id);
+            
             if (std != null)
             {
                 if (!Can_I_Update_Record(std))
@@ -424,8 +465,16 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     meeting_stage = true;
                 }
 
+                if (std.Student_Status_Id == 18)
+                {
+                    UploadFile(std.Student_Id, (int)FileType.After_Contract, txtContracts, @"~\media\StudentAttachments\");
+                }
+
                 std.Student_Status_Id = newStatus;
                 db.Entry(std).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                
 
                 Sequence seq = db.Sequences.Create();
 
@@ -768,7 +817,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: return db.Status.Find(18).Status_Name_En;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_En;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_En;  // 19- Certificate Equation
-                    case 1016: return db.Status.Find(11).Status_Name_En;  // 20- Certificate Equation Completed
+                    case 1016: return db.Status.Find(16).Status_Name_En;  // 20- Certificate Equation Completed
 
                     default: return db.Status.Find(4).Status_Name_En;// Defalut Set To 4 Not Complate
                 }
@@ -797,7 +846,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: return db.Status.Find(18).Status_Name_Ar;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_Ar;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_Ar;  // 19- Certificate Equation
-                    case 1016: return db.Status.Find(11).Status_Name_Ar;  // 20- Certificate Equation Completed
+                    case 1016: return db.Status.Find(16).Status_Name_Ar;  // 20- Certificate Equation Completed
 
                     default: return db.Status.Find(4).Status_Name_Ar;// Defalut Set To 4 Not Complate
                 }
@@ -899,15 +948,38 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string amount = string.Empty, Payment_For = string.Empty;
             int payment_type_id = 1;
             Specialization spec = db.Specializations.Find(std.Student_Specialization_Id);
+            double VAT = 0;
+            int Type_of_Cash = txtTypeOfCash.SelectedIndex;
+
             if (std.Student_Status_Id == 6)
             {
-                amount = spec.Specialization_Registeration_Payment.ToString();
+                // Check if He is New
+                double amount_reg = 0;
+                if (std.Student_Type_Id == 1)
+                    amount_reg = (double)spec.Specialization_Registeration_Payment;
+                else
+                    amount_reg = (double)spec.Specialization_Study_Payment_Equation;
+
+                // Check if He is not Saudi
+                if (std.Nationality.Nationality_Id != 191)
+                    VAT = (amount_reg * 15 ) / 100;
+
+                amount = (amount_reg + VAT).ToString();
                 Payment_For = "Registration";
                 payment_type_id = 1;
             }
             else
             {
-                amount = spec.Specialization_Study_Payment.ToString();
+                // Check if He is not Saudi
+                if (std.Nationality.Nationality_Id != 191)
+                    VAT = (double)spec.Specialization_Study_Payment * 15 / 100;
+
+                // Check if He is pay for full year of semster
+                if (Type_of_Cash == 1)
+                    amount = ((spec.Specialization_Study_Payment + VAT) / 2).ToString();
+                else 
+                    amount = (spec.Specialization_Study_Payment + VAT).ToString();
+
                 Payment_For = "Study";
                 payment_type_id = 2;
             }
@@ -1130,6 +1202,41 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             catch { }
 
             return Different;
+        }
+
+        public void UploadFile(int StudentID, int type, FileUpload Uplofile, string Path)
+        {
+            foreach (HttpPostedFile postfiles in Uplofile.PostedFiles)
+            {
+                if (postfiles.ContentLength > 0 && postfiles.FileName != "")
+                {
+                    File Fil = db.Files.Create();
+                    Fil.Student_Id = StudentID;
+                    Fil.File_Name = UploadFile(postfiles, Path); 
+                    Fil.File_Path = UploadFile(postfiles, Path);
+                    Fil.Type = type;
+                    Fil.DateCreation = DateTime.Now;
+                    db.Files.Add(Fil);
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        public string UploadFile(HttpPostedFile fileAttach, string Path)
+        {
+            string Imagepath = " ";
+            if (this.Page.IsValid)
+            {
+                if (!UtilityClass.UploadFileIsValid(ref fileAttach, UtilityClass.ValidFileExtentions))
+                {
+                    //ltrMessage.Text = "<div class='alert alert-danger fade in'><strong>Images only allowed !</strong></div>";
+                    Imagepath = "false";
+                }
+                Imagepath = string.Empty;
+
+                Imagepath = UtilityClass.UploadFilePostedFile(ref fileAttach, Server.MapPath(Path));
+            }
+            return Imagepath;
         }
 
 
