@@ -532,7 +532,8 @@ namespace ElectronicSubmission
             try
             {
                 string str = string.Empty, FileName = string.Empty;
-                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0;
+                int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0, Contracts_Counter = 0, Before_Contract_Counter = 0, Acadimec_Regsteration_Counter = 0;
+                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0;
                 int Current_Counter = 1;
                 List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
                 for (int i = 0; i < List_File.Count; i++)
@@ -542,6 +543,15 @@ namespace ElectronicSubmission
                     else if (List_File[i].Type == (int)FileType.Capabilities) { fileType = FieldNames.getFieldName("View-Capabilities", "Capabilities"); Current_Counter = Capabilities_Counter = Capabilities_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.High_School) { fileType = FieldNames.getFieldName("View-HighSchool", "High School"); Current_Counter = High_School_Counter = High_School_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.My_Achievement) { fileType = FieldNames.getFieldName("View-MyAchievement", "My Achievement"); Current_Counter = My_Achievement_Counter = My_Achievement_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.After_Contract) { fileType = FieldNames.getFieldName("View-Contracts", "Contracts"); Current_Counter = Contracts_Counter = Contracts_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Before_Contract) { fileType = FieldNames.getFieldName("View-PrepareContracts", "Prepare Contracts"); Current_Counter = Before_Contract_Counter = Before_Contract_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Acadimec_Regsteration) { fileType = FieldNames.getFieldName("View-AcadimecRegistration", "Acadimec Registration"); Current_Counter = Acadimec_Regsteration_Counter = Acadimec_Regsteration_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Classification_Authority) { fileType = FieldNames.getFieldName("View-ClassificationAuthorit", "Classification Authorit"); Current_Counter = Classification_Authority_Counter = Classification_Authority_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
