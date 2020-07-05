@@ -132,6 +132,7 @@ namespace ElectronicSubmission
                         Div_invalid.Visible = true;
                         SubmittingForm.Visible = false;
                         Contract_Div.Visible = false;
+                        FileTable.Visible = false;
                     }
 
                 }
@@ -231,7 +232,7 @@ namespace ElectronicSubmission
         {
             try
             {
-                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id,GPA_Id = 0;
+                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id,GPA_Id,Edu_Type = 0;
                 DateTime RegDate = DateTime.Now;
                 float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Eng_Test_Deg = 0;
                 bool result = false;
@@ -244,6 +245,7 @@ namespace ElectronicSubmission
                 int.TryParse(Nationality_ID.SelectedValue, out Nat_id);
                 int.TryParse(EnglishTest.SelectedValue, out Eng_Test_Id);
                 int.TryParse(GPA.SelectedValue, out GPA_Id);
+                int.TryParse(EducationType.SelectedValue, out Edu_Type);
 
                 float.TryParse(HighSchoolDegree.Text, out HighSchoolDeg);
                 float.TryParse(CapabilitiesDegree.Text, out CapabilitiesDeg);
@@ -256,7 +258,7 @@ namespace ElectronicSubmission
                 {
                     //----------------------- New student ------------------------------
                     case 1:
-                        if (Nat_id != 191)ToCheckPercent = true; else ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
+                        if (Edu_Type != 1)ToCheckPercent = true; else ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
                         break;
                     //----------------------- Tajseer student ------------------------------
                     case 2:
@@ -522,8 +524,9 @@ namespace ElectronicSubmission
                     Nationality_ID.SelectedValue = Student.Student_Nationality_Id.ToString();
                     Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
                     //Note.InnerText = Student.Notes;
-                    StudentTypeVisible();
                     LoadStudentFiles(StudentId);
+                    StudentTypeVisible();
+                    
                 }
             }
             catch (Exception e) { }
@@ -553,8 +556,14 @@ namespace ElectronicSubmission
                     else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
-                    else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
-                    else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT1) {
+                        fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1;
+                        EducationType.SelectedValue = "2";
+                    }
+                    else if (List_File[i].Type == (int)FileType.SAT2) {
+                        fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1;
+                        EducationType.SelectedValue = "2";
+                    }
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
@@ -712,18 +721,25 @@ namespace ElectronicSubmission
         //------------------------------------Visible with the Student Type-------------------------------------
         public void StudentTypeVisible()
         {
-            int ST_Id = 0, Nat_Id;
+            int ST_Id = 0, Nat_Id,Edu_Type;
             int.TryParse(StudentType.SelectedValue, out ST_Id);
             int.TryParse(Nationality_ID.SelectedValue, out Nat_Id);
-
+            int.TryParse(EducationType.SelectedValue, out Edu_Type);
             switch (ST_Id)
             {
                 //----------------------- New student ------------------------------
                 case 1:
                     HighSchool_Div.Style.Add("display", "block");
-                    Capabilities_Div.Style.Add("display", "block");
-                    MyAchievement_Div.Style.Add("display", "block");
-                    if (Nat_Id != 191) SAT_Div.Style.Add("display", "block"); else SAT_Div.Style.Add("display", "none");
+                    EducationType_Div.Style.Add("display", "block");
+                    if (Edu_Type != 1) {
+                        SAT_Div.Style.Add("display", "block");
+                        Capabilities_Div.Style.Add("display", "none");
+                        MyAchievement_Div.Style.Add("display", "none");
+                    } else {
+                        SAT_Div.Style.Add("display", "none");
+                        Capabilities_Div.Style.Add("display", "block");
+                        MyAchievement_Div.Style.Add("display", "block");
+                    }
                     Diploma_Div.Style.Add("display", "none");
                     AcadimecRegsteration_Div.Style.Add("display", "none");
                     SAHSC_Div.Style.Add("display", "none");
@@ -745,6 +761,7 @@ namespace ElectronicSubmission
                     EnglishTest_Div.Style.Add("display", "block");
                     Descriptionofcourses_Div.Style.Add("display", "none");
                     GPA_Div.Style.Add("display", "none");
+                    EducationType_Div.Style.Add("display", "none");
                     break;
                 //----------------------- End Tajseer student ------------------------------
 
@@ -760,6 +777,7 @@ namespace ElectronicSubmission
                     EnglishTest_Div.Style.Add("display", "none");
                     Descriptionofcourses_Div.Style.Add("display", "block");
                     GPA_Div.Style.Add("display", "block");
+                    EducationType_Div.Style.Add("display", "none");
                     break;
                 //----------------------- End Mohwal student ------------------------------
 
@@ -774,6 +792,7 @@ namespace ElectronicSubmission
                     EnglishTest_Div.Style.Add("display", "none");
                     Descriptionofcourses_Div.Style.Add("display", "none");
                     GPA_Div.Style.Add("display", "none");
+                    EducationType_Div.Style.Add("display", "none");
                     break;
             }
         }
