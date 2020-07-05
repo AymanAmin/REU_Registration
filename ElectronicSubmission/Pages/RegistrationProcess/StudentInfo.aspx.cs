@@ -63,7 +63,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 DateTime RegDate = DateTime.Now;
                 DateTime.TryParse(RegistrationDate.Text, out RegDate);
 
-                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id, GPA_Id = 0;
+                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id, GPA_Id, Edu_Type = 0;
                 float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Eng_Test_Deg = 0;
                 bool result = false;
                 bool ToCheckPercent = false;
@@ -74,6 +74,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 int.TryParse(Nationality_ID.SelectedValue, out Nat_id);
                 int.TryParse(EnglishTest.SelectedValue, out Eng_Test_Id);
                 int.TryParse(GPA.SelectedValue, out GPA_Id);
+                int.TryParse(EducationType.SelectedValue, out Edu_Type);
 
                 float.TryParse(HighSchoolDegree.Text, out HighSchoolDeg);
                 float.TryParse(CapabilitiesDegree.Text, out CapabilitiesDeg);
@@ -86,7 +87,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 {
                     //----------------------- New student ------------------------------
                     case 1:
-                        if (Nat_id != 191) ToCheckPercent = true; else ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
+                        if (Edu_Type != 1) ToCheckPercent = true; else ToCheckPercent = SpecializationPercent(Spec_id, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg);
                         break;
                     //----------------------- Tajseer student ------------------------------
                     case 2:
@@ -337,8 +338,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
                     Note.InnerText = Student.Notes;
                     RegistrationDate.Text = Student.Student_CreationDate.ToString();
-                    StudentTypeVisible();
                     LoadStudentFiles(StudentId);
+                    StudentTypeVisible();
                 }
             }
             catch (Exception e) { }
@@ -367,8 +368,16 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
-                    else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
-                    else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.SAT1)
+                    {
+                        fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1;
+                        EducationType.SelectedValue = "2";
+                    }
+                    else if (List_File[i].Type == (int)FileType.SAT2)
+                    {
+                        fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1;
+                        EducationType.SelectedValue = "2";
+                    }
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
@@ -535,9 +544,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         //------------------------------------Visible with the Student Type-------------------------------------
         public void StudentTypeVisible()
         {
-            int ST_Id = 0, Nat_Id;
+            int ST_Id , Nat_Id, Edu_Type = 0;
             int.TryParse(StudentType.SelectedValue, out ST_Id);
             int.TryParse(Nationality_ID.SelectedValue, out Nat_Id);
+            int.TryParse(EducationType.SelectedValue, out Edu_Type);
+
+            EnglishTestDegreeValidator.Enabled = false;
+            HighSchoolDateValidator.Enabled = false;
 
             switch (ST_Id)
             {
@@ -546,7 +559,18 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     HighSchool_Div.Style.Add("display", "block");
                     Capabilities_Div.Style.Add("display", "block");
                     MyAchievement_Div.Style.Add("display", "block");
-                    if (Nat_Id != 191) SAT_Div.Style.Add("display", "block"); else SAT_Div.Style.Add("display", "none");
+                    if (Edu_Type != 1)
+                    {
+                        SAT_Div.Style.Add("display", "block");
+                        Capabilities_Div.Style.Add("display", "none");
+                        MyAchievement_Div.Style.Add("display", "none");
+                    }
+                    else
+                    {
+                        SAT_Div.Style.Add("display", "none");
+                        Capabilities_Div.Style.Add("display", "block");
+                        MyAchievement_Div.Style.Add("display", "block");
+                    }
                     Diploma_Div.Style.Add("display", "none");
                     AcadimecRegsteration_Div.Style.Add("display", "none");
                     SAHSC_Div.Style.Add("display", "none");

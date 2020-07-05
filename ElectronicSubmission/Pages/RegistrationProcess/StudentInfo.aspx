@@ -111,6 +111,8 @@
 
                     document.getElementById("Body_Holder_Descriptionofcourses_Div").style.display = 'none';
                     document.getElementById("Body_Holder_GPA_Div").style.display = 'none';
+
+                    document.getElementById("Body_Holder_EducationType_Div").style.display = 'none';
                     break;
                 //----------------------- End Tajseer student ------------------------------
 
@@ -130,7 +132,8 @@
                     document.getElementById("Body_Holder_EnglishTest_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("Body_Holder_EnglishTestDegreeValidator"), false);
                     document.getElementById("Body_Holder_Descriptionofcourses_Div").style.display = 'block';
-                    document.getElementById("Body_Holder_GPA_Div").style.display = 'block';;
+                    document.getElementById("Body_Holder_GPA_Div").style.display = 'block';
+                    document.getElementById("Body_Holder_EducationType_Div").style.display = 'none';
                     break;
                 //----------------------- End Mohwal student ------------------------------
 
@@ -149,6 +152,7 @@
                     ValidatorEnable(document.getElementById("Body_Holder_EnglishTestDegreeValidator"), false);
                     document.getElementById("Body_Holder_Descriptionofcourses_Div").style.display = 'none';
                     document.getElementById("Body_Holder_GPA_Div").style.display = 'none';
+                    document.getElementById("Body_Holder_EducationType_Div").style.display = 'none';
                     break;
             }
 
@@ -451,7 +455,6 @@
                                       <div class="form-group col-sm-4">
                                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EnglishCertificate", "English Certificate") %></label>
                                         <asp:FileUpload ID="EnglishCertificate" runat="server" class="form-control" AllowMultiple="True" />
-                                        <asp:RequiredFieldValidator ID="EnglishCertificateValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Add English Certificate Attachments" ValidationGroup="valFormGroup" ControlToValidate="EnglishCertificate" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
 

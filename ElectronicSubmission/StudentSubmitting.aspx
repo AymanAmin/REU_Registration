@@ -145,7 +145,6 @@
                     ValidatorEnable(document.getElementById("HighSchoolDateValidator"), true);
                     ValidatorEnable(document.getElementById("HighSchoolDegreeValidator"), true);
                     ValidatorEnable(document.getElementById("HighSchoolDegreeFileValidator"), true);
-
                     document.getElementById("EducationType_Div").style.display = 'block';
 
                     if (Nat_Id != "191") {
@@ -240,6 +239,8 @@
 
                     document.getElementById("GPA_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("GPAValidator"), false);
+
+                    document.getElementById("EducationType_Div").style.display = 'none';
                     break;
                 //----------------------- End Tajseer student ------------------------------
 
@@ -281,6 +282,8 @@
 
                     document.getElementById("GPA_Div").style.display = 'block';
                     ValidatorEnable(document.getElementById("GPAValidator"), true);
+
+                    document.getElementById("EducationType_Div").style.display = 'none';
                     break;
                 //----------------------- End Mohwal student ------------------------------
 
@@ -312,6 +315,8 @@
                     ValidatorEnable(document.getElementById("DescriptionofcoursesValidator"), false);
                     document.getElementById("GPA_Div").style.display = 'none';
                     ValidatorEnable(document.getElementById("GPAValidator"), false);
+
+                    document.getElementById("EducationType_Div").style.display = 'none';
                     break;
             }
 
