@@ -305,22 +305,27 @@ namespace ElectronicSubmission.Payment
 
             string data = JsonConvert.SerializeObject(rosom_object);
 
+            string certPath = "C:\\Users\\Kakashi\\Desktop\\RiyadhEducation.pfx";
+            string certPass = "Ri%ydHd@n9$";
+
+            // Create a collection object and populate it using the PFX file
+            X509Certificate2 Certificate = new X509Certificate2();
+            Certificate.Import(certPath, certPass, X509KeyStorageFlags.PersistKeySet);
+
+            //ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+
             string url = "https://rosomtest.brightware.com.sa/RosomAPI/api/Bill/CreateBill";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
 
-
-
-            /*X509Certificate2 cert = new X509Certificate2(Path.Combine("../Payment/", "RiyadhEducation.pfx"), "Ri%ydHd@n9$");
-            var handler = new HttpClientHandler();
-            handler.ClientCertificates.Add(cert);
-            var client = new HttpClient(handler);*/
-
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            //request.AllowAutoRedirect = true;
+            //request.ClientCertificates.Add(Certificate);
             request.Method = "POST";
             request.ContentType = "application/json";
             request.MediaType = "application/json";
-            request.Accept = "application/json";
-            request.UseDefaultCredentials = true;
+            //request.Accept = "application/json";
+            //request.UseDefaultCredentials = true;
+
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);
             PostData.Close();
