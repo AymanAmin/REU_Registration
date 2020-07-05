@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon icon -->
-    <link rel="icon" href="Theme\files\assets\images\favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="..\Theme\files\assets\images\favicon.ico" type="image/x-icon" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title><% = ElectronicSubmission.FieldNames.getFieldName("homepage-title", "REU - Admission") %></title>
 
@@ -32,8 +32,6 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!------ Include the above in your HEAD tag ---------->
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
       <style>
         .form-control {
@@ -168,8 +166,9 @@
                                                     <asp:ListItem Value="1">VISA</asp:ListItem>
                                                     <asp:ListItem Value="2">MASTER</asp:ListItem>
                                                     <asp:ListItem Value="3">MADA</asp:ListItem>
-                                                    <!--<asp:ListItem Value="4">SADAD</asp:ListItem>-->
+                                                   
                                                 </asp:DropDownList> 
+                                                 <!--<asp:ListItem Value="4">SADAD</asp:ListItem>-->
                                             </div>
                                             <asp:RequiredFieldValidator ID="PaymentTypeValidator1" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Select Payment Type" ValidationGroup="valFormGroup" ControlToValidate="PaymentType" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                         </div>

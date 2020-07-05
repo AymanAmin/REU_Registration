@@ -72,6 +72,9 @@ namespace ElectronicSubmission
                         }
                         Session["UpdateSuccess"] = null;
                     }
+                    else
+                    if (Request["Student_Id"] == null && Session["Terms"] == null)
+                        Response.Redirect("~/Payment/TermsAndConditions.aspx");
 
                     if (StudentID == 0) Nationality_ID.SelectedValue = "191";
                     if (StudentID != 0) ViewDataStudent(StudentID);
@@ -151,7 +154,7 @@ namespace ElectronicSubmission
             }
             else
             {
-                if (Session["lang"] == null)
+                if (Session["lang"] == null) 
                 {
                     langId = 2;
                     Session["lang"] = langId;
