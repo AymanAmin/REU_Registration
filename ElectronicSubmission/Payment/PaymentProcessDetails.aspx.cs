@@ -5,6 +5,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -303,14 +305,26 @@ namespace ElectronicSubmission.Payment
 
             string data = JsonConvert.SerializeObject(rosom_object);
 
-            string url = "https://rosomtest.brightware.com.sa/RosomAPI/";
+            string url = "https://rosomtest.brightware.com.sa/RosomAPI/api/Bill/CreateBill";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
+
+
+
+            /*X509Certificate2 cert = new X509Certificate2(Path.Combine("../Payment/", "RiyadhEducation.pfx"), "Ri%ydHd@n9$");
+            var handler = new HttpClientHandler();
+            handler.ClientCertificates.Add(cert);
+            var client = new HttpClient(handler);*/
+
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
-            //request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentType = "application/json";
+            request.MediaType = "application/json";
+            request.Accept = "application/json";
+            request.UseDefaultCredentials = true;
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);
             PostData.Close();
+
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             {
                 Stream dataStream = response.GetResponseStream();
