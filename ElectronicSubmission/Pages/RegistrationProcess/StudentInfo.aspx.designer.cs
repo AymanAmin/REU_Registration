@@ -193,24 +193,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator StudentTypeValidator;
         
         /// <summary>
-        /// Specialization_ID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Specialization_ID;
-        
-        /// <summary>
-        /// Specialization_IDValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Specialization_IDValidator;
-        
-        /// <summary>
         /// Resource_ID control.
         /// </summary>
         /// <remarks>
@@ -245,6 +227,33 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator Nationality_IDValidator;
+        
+        /// <summary>
+        /// Specialization_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Specialization_ID;
+        
+        /// <summary>
+        /// Specialization_IDValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Specialization_IDValidator;
+        
+        /// <summary>
+        /// Specialization_ID2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Specialization_ID2;
         
         /// <summary>
         /// HighSchool_Div control.
