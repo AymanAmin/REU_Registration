@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
@@ -123,7 +124,7 @@ namespace ElectronicSubmission.Payment
                         {
                             checkout_payment.Result_Code = responseData["InvoiceId"];
                             checkout_payment.Result_Description = responseData["SADADNumber"];
-                            checkout_payment.Result_BuildNumber = responseData["Status"]["Code"];
+                            checkout_payment.Result_BuildNumber = (responseData["Status"]["Code"]).ToString();
                             checkout_payment.Result_Timestamp = responseData["Status"]["Description"];
                             checkout_payment.Result_Ndc = responseData["Status"]["Severity"];
                             db.Entry(checkout_payment).State = System.Data.EntityState.Modified;
@@ -131,7 +132,7 @@ namespace ElectronicSubmission.Payment
 
                             string InvoiceId = responseData["InvoiceId"];
                             Rosom_Request Rosom = db.Rosom_Request.FirstOrDefault(x => x.Trackingkey == Trackingkey && x.InvoiceId == InvoiceId);
-                            Rosom.Response_Status_Code = responseData["result"]["code"];
+                            Rosom.Response_Status_Code = (responseData["Status"]["Code"]).ToString();
                             // Rosom. = responseData["result"]["description"];
                             Rosom.Response_SADADNumber = responseData["SADADNumber"];
                             Rosom.Result_JSON = responseData.ToString();
@@ -145,12 +146,12 @@ namespace ElectronicSubmission.Payment
                             string StuEmail = checkout_payment.Student.Student_Email;
 
                             SendEmail send = new SendEmail();
-                            Text = " <Strong style='font-size:16px;'> Dear " + checkout_payment.Student.Student_Name_En + "</Strong><br /><br /> " + "Thank you for completed the application from at Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
+                            Text = " <Strong style='font-size:16px;'> Dear " + checkout_payment.Student.Student_Name_En + "</Strong><br /><br /> " + "The invoice number of SADAD is:<Strong>" + SADAD_Number + "</Strong>.<br />The total amount: <Strong>" + checkout_payment.Send_Amount+ "</Strong> SAR.<br /><br />Please complete the payment befor 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
                             bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
 
                             // Send SMS
                             SendSMS send_sms = new SendSMS();
-                            string smsText = "Dear " + checkout_payment.Student.Student_Name_En + "\n" + "Thank you for completed the application form at Riyadh Elm University. We will contact you within 48 hours." + " \n" + "Best Regard," + " \n" + "Admission System";
+                            string smsText = "Dear " + checkout_payment.Student.Student_Name_En + "\n\n" + "The invoice number of SADAD is:" + SADAD_Number + ".\n\nThe total amount: " + checkout_payment.Send_Amount + " SAR.\n\nPlease complete the payment befor 48 hours." + " \n\n" + "Best Regard," + " \n" + "Admission System";
                             string number_Phone = checkout_payment.Student.Student_Phone;
                             string reslt_message = send_sms.SendMessage(smsText, number_Phone);
 
@@ -255,10 +256,10 @@ namespace ElectronicSubmission.Payment
         /// <returns></returns>
         public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id)
         {
-            string CreateDate = DateTime.Now.ToString("yyy-MM-DDTHH:mm:ss");
+            string CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
 
 
-            string ExpiryDate = DateTime.Now.AddDays(7).ToString("yyy-MM-DDTHH:mm:ss");
+            string ExpiryDate = DateTime.Now.AddDays(7).ToString("yyyy-MM-ddTHH:mm:ss");
             string InvoiceId = StringCipher.RandomString(5) + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
             string DisplayInfo = "Free text for merchant to add details to the bill";
             ServicePointManager.Expect100Continue = true;
@@ -275,24 +276,28 @@ namespace ElectronicSubmission.Payment
 
             List<student_local> student_List = new List<student_local>();
             student_local std_local = new student_local();
+
+            Guid obj = Guid.NewGuid();
+            UUID = obj.ToString();
+
             std_local.Id = SSN;
             std_local.FirstName = FirstName;
             std_local.LastName = LastName;
             student_List.Add(std_local);
 
             PaymentRange paymentRange_object = new PaymentRange();
-            paymentRange_object.MinPartialAmount = amount;
-            paymentRange_object.MinAdvanceAmount = amount;
-            paymentRange_object.MaxAdvanceAmount = amount;
+            paymentRange_object.MinPartialAmount = Decimal.Parse(amount);
+            paymentRange_object.MinAdvanceAmount = Decimal.Parse(amount);
+            paymentRange_object.MaxAdvanceAmount = Decimal.Parse(amount) + 1;
 
             Invoice invoice_object = new Invoice();
             invoice_object.Students = student_List;
             invoice_object.InvoiceId = InvoiceId;
-            invoice_object.PayeeId = Student_id.ToString();
+            invoice_object.PayeeId = StringCipher.RandomString(10);//Student_id.ToString();
             invoice_object.InvoiceStatus = "BillNew";
             invoice_object.BillType = "OneTime";
             invoice_object.DisplayInfo = DisplayInfo;
-            invoice_object.AmountDue = amount;
+            invoice_object.AmountDue = Decimal.Parse(amount);
             invoice_object.CreateDate = CreateDate;
             invoice_object.ExpiryDate = ExpiryDate;
             invoice_object.PaymentRange = paymentRange_object;
@@ -301,26 +306,34 @@ namespace ElectronicSubmission.Payment
             rosom_object.UUID = UUID;
             rosom_object.Timestamp = CreateDate;
             rosom_object.MerchantId = "12190";
+            rosom_object.SchoolId = "2426";
             rosom_object.Invoice = invoice_object;
 
             string data = JsonConvert.SerializeObject(rosom_object);
 
+            //string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            string certPath = "C:\\Users\\Kakashi\\Desktop\\RiyadhEducation.pfx";
+            string certPass = "Ri%ydHd@n9$";
+
+            // Create a collection object and populate it using the PFX file
+            X509Certificate2 Certificate = new X509Certificate2();
+            Certificate.Import(certPath, certPass, X509KeyStorageFlags.PersistKeySet);
+
+            ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+
             string url = "https://rosomtest.brightware.com.sa/RosomAPI/api/Bill/CreateBill";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
 
-
-
-            /*X509Certificate2 cert = new X509Certificate2(Path.Combine("../Payment/", "RiyadhEducation.pfx"), "Ri%ydHd@n9$");
-            var handler = new HttpClientHandler();
-            handler.ClientCertificates.Add(cert);
-            var client = new HttpClient(handler);*/
-
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
+            request.AllowAutoRedirect = true;
+            request.ClientCertificates.Add(Certificate);
             request.Method = "POST";
             request.ContentType = "application/json";
             request.MediaType = "application/json";
-            request.Accept = "application/json";
-            request.UseDefaultCredentials = true;
+            //request.Accept = "application/json";
+            //request.UseDefaultCredentials = true;
+
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);
             PostData.Close();
@@ -341,7 +354,7 @@ namespace ElectronicSubmission.Payment
                 Rosom.Trackingkey = Trackingkey;
                 Rosom.PaymentType = 4;
                 Rosom.CreateDate = DateTime.Now.ToString();
-                Rosom.MerchantId = "1001";
+                Rosom.MerchantId = "12190";
                 Rosom.Timestamp = CreateDate;
                 Rosom.UUID = UUID;
                 Rosom.Invoice_Students_FirstName = FirstName;
@@ -353,7 +366,7 @@ namespace ElectronicSubmission.Payment
                 Rosom.ExpiryDate = ExpiryDate;
                 Rosom.PaymentRange_MaxAdvanceAmount = amount;
                 Rosom.PaymentRange_MinAdvanceAmount = amount;
-                Rosom.PaymentRange_MinPartialAmount = amount;
+                Rosom.PaymentRange_MinPartialAmount = amount + 1;
                 db.Rosom_Request.Add(Rosom);
                 db.SaveChanges();
             }
@@ -420,6 +433,7 @@ namespace ElectronicSubmission.Payment
         public string UUID { get; set; }
         public string Timestamp { get; set; }
         public string MerchantId { get; set; }
+        public string SchoolId { get; set; }
         public Invoice Invoice { get; set; }
     }
 
@@ -430,7 +444,7 @@ namespace ElectronicSubmission.Payment
         public string InvoiceStatus { get; set; }
         public string BillType { get; set; }
         public string DisplayInfo { get; set; }
-        public string AmountDue { get; set; }
+        public Decimal AmountDue { get; set; }
         public string CreateDate { get; set; }
         public string ExpiryDate { get; set; }
         public List<student_local> Students { get; set; }
@@ -439,9 +453,9 @@ namespace ElectronicSubmission.Payment
     }
     public class PaymentRange
     {
-        public string MinPartialAmount { get; set; }
-        public string MinAdvanceAmount { get; set; }
-        public string MaxAdvanceAmount { get; set; }
+        public Decimal MinPartialAmount { get; set; }
+        public Decimal MinAdvanceAmount { get; set; }
+        public Decimal MaxAdvanceAmount { get; set; }
     }
     public class student_local
     {

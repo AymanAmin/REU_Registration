@@ -295,14 +295,14 @@ namespace ElectronicSubmission
                             string sever_name = Request.Url.Authority.ToString();
                             string StuEmail = StudentEmail.Text;
                             SendEmail send = new SendEmail();
-                            Text = " <Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you for completed the application from at Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
+                            Text = " <Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you for complete the admission form at Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
                             bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
                             SaveMessage(Student_Id, "E-mail", Text);
 
 
                             // Send SMS
                             SendSMS send_sms = new SendSMS();
-                            string smsText = "Dear " + StudentNameEn.Text + "\n" + "Thank you for completed the application form at Riyadh Elm University. We will contact you within 48 hours." + " \n" + "Best Regard," + " \n" + "Admission System";
+                            string smsText = "Dear " + StudentNameEn.Text + "\n\n" + "Thank you for complete the admission form at Riyadh Elm University. We will contact you within 48 hours." + " \n\n" + "Best Regard," + " \n" + "Admission System";
                             string number_Phone = StudentPhone.Text;
                             string reslt_message = send_sms.SendMessage(smsText, number_Phone);
                             SaveMessage(Student_Id, "SMS", Text);

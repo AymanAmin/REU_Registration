@@ -17,6 +17,7 @@ namespace ElectronicSubmission
         public Specialization()
         {
             this.Students = new HashSet<Student>();
+            this.Students1 = new HashSet<Student>();
         }
     
         public int Specialization_Id { get; set; }
@@ -42,5 +43,6 @@ namespace ElectronicSubmission
     
         public virtual Collage Collage { get; set; }
         public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Student> Students1 { get; set; }
     }
 }
