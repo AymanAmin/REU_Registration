@@ -193,6 +193,24 @@ namespace ElectronicSubmission {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator AddressValidator;
         
         /// <summary>
+        /// Nationality_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Nationality_ID;
+        
+        /// <summary>
+        /// Nationality_IDValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Nationality_IDValidator;
+        
+        /// <summary>
         /// StudentType control.
         /// </summary>
         /// <remarks>
@@ -209,24 +227,6 @@ namespace ElectronicSubmission {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator StudentTypeValidator;
-        
-        /// <summary>
-        /// Specialization_ID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Specialization_ID;
-        
-        /// <summary>
-        /// Specialization_IDValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Specialization_IDValidator;
         
         /// <summary>
         /// Resource_ID control.
@@ -247,22 +247,31 @@ namespace ElectronicSubmission {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator Resource_IDValidator;
         
         /// <summary>
-        /// Nationality_ID control.
+        /// Specialization_ID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Nationality_ID;
+        protected global::System.Web.UI.WebControls.DropDownList Specialization_ID;
         
         /// <summary>
-        /// Nationality_IDValidator control.
+        /// Specialization_IDValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator Nationality_IDValidator;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator Specialization_IDValidator;
+        
+        /// <summary>
+        /// Specialization_ID2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList Specialization_ID2;
         
         /// <summary>
         /// HighSchool_Div control.

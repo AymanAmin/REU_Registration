@@ -77,7 +77,7 @@ namespace ElectronicSubmission
                         Response.Redirect("~/Payment/TermsAndConditions.aspx");
 
                     if (StudentID == 0) Nationality_ID.SelectedValue = "191";
-                    if (StudentID != 0) ViewDataStudent(StudentID);
+                    //if (StudentID != 0) ViewDataStudent(StudentID);
                 }
             }
             catch (Exception s)
@@ -141,6 +141,7 @@ namespace ElectronicSubmission
                     StudentID = 0;
                     Div_invalid.Visible=true;
                     SubmittingForm.Visible=false;
+                    FileTable.Visible = false;
                 }
 
             }
@@ -202,6 +203,13 @@ namespace ElectronicSubmission
                     ddlFiller.dropDDL(Specialization_ID, "Specialization_Id", "Specialization_Name_En", SpecializationList, " - Select Specialization -");
 
                 // Group dropdown
+               // List<Specialization> SpecializationList2 = db.Specializations.Where(x => x.Specialization_Suspend != true).ToList();
+                if (langId == 1)
+                    ddlFiller.dropDDL(Specialization_ID2, "Specialization_Id", "Specialization_Name_Ar", SpecializationList, " - إختر التخصص -");
+                else
+                    ddlFiller.dropDDL(Specialization_ID2, "Specialization_Id", "Specialization_Name_En", SpecializationList, " - Select Specialization -");
+
+                // Group dropdown
                 List<Nationality> NationalityList = db.Nationalities.ToList();
                 if (langId == 1)
                     ddlFiller.dropDDL(Nationality_ID, "Nationality_Id", "Nationality_Name_Ar", NationalityList, " - إختر الجنسية -");
@@ -232,7 +240,7 @@ namespace ElectronicSubmission
         {
             try
             {
-                int Stu_ID, Res_id, Spec_id, Nat_id, Stu_type_Id, Eng_Test_Id,GPA_Id,Edu_Type = 0;
+                int Stu_ID, Res_id, Spec_id,Spec_id2, Nat_id, Stu_type_Id, Eng_Test_Id,GPA_Id,Edu_Type = 0;
                 DateTime RegDate = DateTime.Now;
                 float HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Eng_Test_Deg = 0;
                 bool result = false;
@@ -242,6 +250,7 @@ namespace ElectronicSubmission
                 int.TryParse(StudentType.SelectedValue, out Stu_type_Id);
                 int.TryParse(Resource_ID.SelectedValue, out Res_id);
                 int.TryParse(Specialization_ID.SelectedValue, out Spec_id);
+                int.TryParse(Specialization_ID2.SelectedValue, out Spec_id2);
                 int.TryParse(Nationality_ID.SelectedValue, out Nat_id);
                 int.TryParse(EnglishTest.SelectedValue, out Eng_Test_Id);
                 int.TryParse(GPA.SelectedValue, out GPA_Id);
@@ -277,7 +286,7 @@ namespace ElectronicSubmission
 
                 if (ToCheckPercent)
                 {
-                    result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Stu_type_Id, Res_id, Spec_id, Nat_id, totalSum);
+                    result = IU_Student(StudentID, StudentNameAr.Text, StudentNameEn.Text, stuProfile, StudentEmail.Text, StudentPhone.Text, Address.Text, RegDate, Student_SSN.Text, HighSchoolDeg, CapabilitiesDeg, MyAchievementDeg, Stu_type_Id, Res_id, Spec_id, Spec_id2, Nat_id, totalSum);
                     if (result)
                     {
                         if (StudentID == 0)
@@ -352,7 +361,7 @@ namespace ElectronicSubmission
 
         //------------------------------------Insert Update Student-------------------------------------
 
-        public bool IU_Student(int StudentID, string ArabicName, string EnglishName, FileUpload StProfile, string Email, string Phone, string StuAddress, DateTime RegistrationDate, string StudentSSN, float HighSchoolDeg, float CapabilitiesDeg, float MyAchievementDeg, int Stu_Type, int ResourceID, int SpecializationID, int NationalityID, float StudentTotal)
+        public bool IU_Student(int StudentID, string ArabicName, string EnglishName, FileUpload StProfile, string Email, string Phone, string StuAddress, DateTime RegistrationDate, string StudentSSN, float HighSchoolDeg, float CapabilitiesDeg, float MyAchievementDeg, int Stu_Type, int ResourceID, int SpecializationID, int SpecializationID2, int NationalityID, float StudentTotal)
         {
 
             try
@@ -374,6 +383,7 @@ namespace ElectronicSubmission
                 Stu.Student_Type_Id = Stu_Type;
                 Stu.Student_Resource_Id = ResourceID;
                 Stu.Student_Specialization_Id = SpecializationID;
+                //Stu.Student_Specialization_Id = SpecializationID2;
                 Stu.Student_Nationality_Id = NationalityID;
                 Stu.Student_Total = StudentTotal.ToString();
                 Stu.Suspended = 0;
