@@ -146,12 +146,12 @@ namespace ElectronicSubmission.Payment
                             string StuEmail = checkout_payment.Student.Student_Email;
 
                             SendEmail send = new SendEmail();
-                            Text = " <Strong style='font-size:16px;'> Dear " + checkout_payment.Student.Student_Name_En + "</Strong><br /><br /> " + "The invoice number of SADAD is:"+ SADAD_Number + ". Please complete the payment befor 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
+                            Text = " <Strong style='font-size:16px;'> Dear " + checkout_payment.Student.Student_Name_En + "</Strong><br /><br /> " + "The invoice number of SADAD is:<Strong>" + SADAD_Number + "</Strong>.<br />The total amount: <Strong>" + checkout_payment.Send_Amount+ "</Strong> SAR.<br /><br />Please complete the payment befor 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
                             bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
 
                             // Send SMS
                             SendSMS send_sms = new SendSMS();
-                            string smsText = "Dear " + checkout_payment.Student.Student_Name_En + "\n\n" + "The invoice number of SADAD is:" + SADAD_Number + ". Please complete the payment befor 48 hours." + " \n\n" + "Best Regard," + " \n" + "Admission System";
+                            string smsText = "Dear " + checkout_payment.Student.Student_Name_En + "\n\n" + "The invoice number of SADAD is:" + SADAD_Number + ".\n\nThe total amount: " + checkout_payment.Send_Amount + " SAR.\n\nPlease complete the payment befor 48 hours." + " \n\n" + "Best Regard," + " \n" + "Admission System";
                             string number_Phone = checkout_payment.Student.Student_Phone;
                             string reslt_message = send_sms.SendMessage(smsText, number_Phone);
 
@@ -311,7 +311,7 @@ namespace ElectronicSubmission.Payment
 
             string data = JsonConvert.SerializeObject(rosom_object);
 
-            string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            //string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             string certPath = "C:\\Users\\Kakashi\\Desktop\\RiyadhEducation.pfx";
             string certPass = "Ri%ydHd@n9$";
