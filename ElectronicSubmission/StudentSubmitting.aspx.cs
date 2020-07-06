@@ -35,8 +35,9 @@ namespace ElectronicSubmission
         {
             try
             {
-                ini();
-                if (!IsPostBack)
+                if (Request["Student_Id"] != null) int.TryParse(Request["Student_Id"], out StudentID);
+
+                    if (!IsPostBack)
                 {
                     FillDropDownLists();
                     if (Session["Success"] != null)
@@ -77,7 +78,7 @@ namespace ElectronicSubmission
                         Response.Redirect("~/Payment/TermsAndConditions.aspx");
 
                     if (StudentID == 0) Nationality_ID.SelectedValue = "191";
-                    //if (StudentID != 0) ViewDataStudent(StudentID);
+                    ini();
                 }
             }
             catch (Exception s)
@@ -119,6 +120,7 @@ namespace ElectronicSubmission
                         Div_invalid.Visible = false;
                         SubmittingForm.Visible = true;
                         Contract_Div.Visible = false;
+                        if (StudentID != 0) ViewDataStudent(StudentID);
                     }
                     else if(StudInfo.Student_Status_Id ==16)
                     {
@@ -383,7 +385,7 @@ namespace ElectronicSubmission
                 Stu.Student_Type_Id = Stu_Type;
                 Stu.Student_Resource_Id = ResourceID;
                 Stu.Student_Specialization_Id = SpecializationID;
-                //Stu.Student_Specialization_Id = SpecializationID2;
+                if(SpecializationID2 >0) Stu.Student_Specialization_2_Id = SpecializationID2;
                 Stu.Student_Nationality_Id = NationalityID;
                 Stu.Student_Total = StudentTotal.ToString();
                 Stu.Suspended = 0;
@@ -533,6 +535,7 @@ namespace ElectronicSubmission
                     Resource_ID.SelectedValue = Student.Student_Resource_Id.ToString();
                     Nationality_ID.SelectedValue = Student.Student_Nationality_Id.ToString();
                     Specialization_ID.SelectedValue = Student.Student_Specialization_Id.ToString();
+                    Specialization_ID2.SelectedValue = Student.Student_Specialization_2_Id.ToString();
                     //Note.InnerText = Student.Notes;
                     LoadStudentFiles(StudentId);
                     StudentTypeVisible();
