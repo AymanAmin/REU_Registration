@@ -17,8 +17,7 @@
     <AssemblyName>ElectronicSubmission</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -656,6 +655,7 @@
     <Content Include="Template\images\prettyPhoto\light_square\btnPrevious.png" />
     <Content Include="Template\images\prettyPhoto\light_square\sprite.png" />
     <Content Include="Template\images\see-bg.png" />
+    <Content Include="Template\images\success.png" />
     <Content Include="Template\images\testimonial-comment.png" />
     <Content Include="Template\images\testimonial-qoutes-2.png" />
     <Content Include="Template\images\testimonial-qoutes.png" />
