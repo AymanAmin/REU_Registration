@@ -65,6 +65,7 @@
         <AssociationConnector Association="REU_RegistrationModel.FK_Student_Status" />
         <AssociationConnector Association="REU_RegistrationModel.FK_Student_Other_Info_Student" />
         <AssociationConnector Association="REU_RegistrationModel.FK_Student_Student_Type" />
+        <AssociationConnector Association="REU_RegistrationModel.FK_Student_Specialization1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
