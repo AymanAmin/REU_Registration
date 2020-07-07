@@ -232,7 +232,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     }
 
 
-                    if (std.Student_Status_Id == 18)
+                    if (std.Student_Status_Id == 18 || std.Student_Status_Id == 19)
                     {
                         txtContracts.Visible = true;
                         txtContract_Label.Visible = true;
@@ -427,20 +427,20 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             int newStatus = 0, restore_id = 15;
             int student_record_id = int.Parse(Request["StudentID"].ToString());
             Student std = db.Students.Find(student_record_id);
-            
+
             if (std != null)
             {
                 if (!Can_I_Update_Record(std))
                     return;
-                
+
                 if (std.Student_Status_Id == 15)
                 {
                     List<Sequence> list_seq = db.Sequences.Where(x => x.Student_Id == student_record_id).OrderBy(x => x.DateCreation).ToList();
-                    if(list_seq.Count > 1)
+                    if (list_seq.Count > 1)
                     {
                         restore_id = (int)list_seq[list_seq.Count - 2].Status_Id;
                     }
-                        
+
                 }
 
                 bool IsFinish_Equation = Made_Equation(std);
@@ -453,7 +453,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: newStatus = 5; break; // 4- Not Complete
                     case 5: newStatus = 6; break; // 5- Data Completed
                     case 6: newStatus = 7; break; // 6- Pay the Registration Fees
-                    case 7: if (std.Student_Type_Id == 1 || IsFinish_Equation) newStatus = 8; else  newStatus = 19;  break; // 7- Registration Fee Paid
+                    case 7: if (std.Student_Type_Id == 1 || IsFinish_Equation) newStatus = 8; else newStatus = 19; break; // 7- Registration Fee Paid
                     case 8: newStatus = 10; break; // 8- Book a Test Date
                     case 9: newStatus = 7; break; // 9- Failure in the Test
                     case 10: newStatus = 11; break; // 10- Success in the Test
@@ -475,22 +475,28 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 if (std.Student_Status_Id == 7 && (std.Student_Type_Id == 1 || IsFinish_Equation))
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
-                    std.Notes= "Meeting Date: "+ txtMeeting_Date.Value+" Meeting Time: "+ txtMeeting_Time.Value;
+                    std.Notes = "Meeting Date: " + txtMeeting_Date.Value + " Meeting Time: " + txtMeeting_Time.Value;
                     string MeetingDate = txtMeeting_Date.Value;
                     string MeetingTime = txtMeeting_Time.Value;
                     meeting_stage = true;
                 }
 
+                //Contract File upload
                 if (std.Student_Status_Id == 18)
                 {
                     UploadFile(std.Student_Id, (int)FileType.After_Contract, txtContracts, @"~\media\StudentAttachments\");
+                }
+                //Equation File upload
+                else if (std.Student_Status_Id == 19)
+                {
+                    UploadFile(std.Student_Id, (int)FileType.Equation, txtContracts, @"~\media\StudentAttachments\");
                 }
 
                 std.Student_Status_Id = newStatus;
                 db.Entry(std).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
 
-                
+
 
                 Sequence seq = db.Sequences.Create();
 
@@ -515,9 +521,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     sendEamil_Meeting(std, txtURL_Video.Text, txtMeeting_Date.Value, txtMeeting_Time.Value);
                     // Send SMS
                     SendSMS send_sms = new SendSMS();
-                    
 
-                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n"+std.Notes+ "\n\nPlease Check Your Email.";
+
+                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
                     string number_Phone = std.Student_Phone;
                     string reslt_message = send_sms.SendMessage(Text, number_Phone);
 
