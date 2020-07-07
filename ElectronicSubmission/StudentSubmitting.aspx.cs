@@ -37,8 +37,32 @@ namespace ElectronicSubmission
             {
                 if (Request["Student_Id"] != null) int.TryParse(Request["Student_Id"], out StudentID);
 
-                    if (!IsPostBack)
+                if (!IsPostBack)
                 {
+                    langId = 0;
+                    if (int.TryParse(Request["lang"], out langId) && langId > 0)
+                    {
+                        Session["lang"] = langId;
+                    }
+                    else
+                    {
+                        if (Session["lang"] == null)
+                        {
+                            langId = 2;
+                            Session["lang"] = langId;
+                        }
+                        else
+                        {
+                            langId = int.Parse(Session["lang"].ToString());
+                        }
+                    }
+
+                    SessionWrapper.Language = db.Lanuage_Detials.Where(x => x.Language_Master_Id == langId).ToList();
+                    translateArabic();
+                    SessionWrapper.LanguageHome = langId;
+                    getStyleScript();
+
+
                     FillDropDownLists();
                     if (Session["Success"] != null)
                     {
@@ -151,28 +175,7 @@ namespace ElectronicSubmission
             {
             }
 
-            langId = 0;
-            if (int.TryParse(Request["lang"], out langId) && langId > 0)
-            {
-                Session["lang"] = langId;
-            }
-            else
-            {
-                if (Session["lang"] == null) 
-                {
-                    langId = 2;
-                    Session["lang"] = langId;
-                }
-                else
-                {
-                    langId = int.Parse(Session["lang"].ToString());
-                }
-            }
-
-            SessionWrapper.Language = db.Lanuage_Detials.Where(x => x.Language_Master_Id == langId).ToList();
-            translateArabic();
-            SessionWrapper.LanguageHome = langId;
-            getStyleScript();
+          
 
         }
 
