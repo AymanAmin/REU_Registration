@@ -352,7 +352,7 @@ namespace ElectronicSubmission.Payment
             {
                 Rosom_Request Rosom = db.Rosom_Request.Create();
                 Rosom.Trackingkey = Trackingkey;
-                Rosom.PaymentType = 4;
+                Rosom.PaymentType = 4; // SADDAD;
                 Rosom.CreateDate = DateTime.Now.ToString();
                 Rosom.MerchantId = "12190";
                 Rosom.Timestamp = CreateDate;
@@ -388,7 +388,7 @@ namespace ElectronicSubmission.Payment
                     Div_NotFound.Visible = false;
                     Div_payment.Visible = false;
                     Div_NotFound.Visible = false;
-                    SDADNumber.InnerText = "SDAD Number  = " + SADAD_Number;
+                    SDADNumber.InnerText = "SDAD Number : " + SADAD_Number;
                 }
 
             }
