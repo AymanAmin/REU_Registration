@@ -674,7 +674,7 @@ namespace ElectronicSubmission
             StudentPhoneValidator.Text = "الرجاء إدخال رقم الهاتف";
             AddressValidator.Text = "الرجاء إدخال العنوان";
             StudentSSNFileValidator.Text = "الرجاء إرفاق الهوية";
-            Student_SSNValidator.Text = "الرجاء إدخال رقم الهوية";
+            Student_SSNValidator.Text = "الرجاء إدخال رقم الهوية (10 ارقام) ";
             HighSchoolDegreeValidator.Text = "الرجاء إدخال درجات الشهادة الثانوية";
             CapabilitiesDegreeValidator.Text = "الرجاء إدخال درجات القدرات";
             MyAchievementDegreeValidator.Text = "الرجاء إدخال درجات التحصيلي";
