@@ -107,6 +107,23 @@
         }
         else
         { return true; }
+         }
+
+        function validateSSN(obj, maxchar) {
+
+            debugger;
+            if (this.id) obj = this;
+
+            var remaningChar = maxchar - obj.value.length;
+
+            if (remaningChar != 0) {
+                //obj.value = obj.value.substring(maxchar, 0);
+                obj.value = null;
+                return false;
+
+            }
+            else
+            { return true; }
         }
 
     </script>
@@ -486,9 +503,9 @@
                                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-NationalityID", "Nationality ID") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="icofont icofont-stamp"></i></span>
-                                            <asp:TextBox ID="Student_SSN" runat="server" class="form-control" placeholder="Enter Nationality ID"></asp:TextBox>
+                                            <asp:TextBox ID="Student_SSN" runat="server" class="form-control" placeholder="Enter Nationality ID" onchange="validateSSN(this,10)"></asp:TextBox>
                                         </div>
-                                        <asp:RequiredFieldValidator ID="Student_SSNValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Nationality ID" ValidationGroup="valFormGroup" ControlToValidate="Student_SSN" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                        <asp:RequiredFieldValidator ID="Student_SSNValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Nationality ID (10 Number)" ValidationGroup="valFormGroup" ControlToValidate="Student_SSN" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                                     </div>
 
                                     <div class="form-group col-sm-6">
