@@ -81,6 +81,11 @@
                                         </tr>
                                         <tr>
                                             <td><strong>
+                                                <% = ElectronicSubmission.FieldNames.getFieldName("View-OptionalSpecialization", "Optional Specialization") %> : </strong>
+                                                <asp:Label ID="txtSpecializationOptional" runat="server" Text="Student_Resource"></asp:Label></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>
                                                 <% = ElectronicSubmission.FieldNames.getFieldName("View-Resource", "Resource") %> : </strong>
                                                 <asp:Label ID="txtStudent_Resource" runat="server" Text="Student_Resource"></asp:Label></td>
                                         </tr>

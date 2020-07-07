@@ -31,7 +31,8 @@ namespace ElectronicSubmission
             English_Test = 11,
             Description_of_Courses = 12,
             Before_Contract = 13,
-            After_Contract = 14
+            After_Contract = 14,
+            Equation = 15 
 
         }
         public enum brnch

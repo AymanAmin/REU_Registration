@@ -200,113 +200,112 @@
         <!--// Main Banner \\-->
 
         <!--// Footer \\-->
-        <footer id="wm-footer" class="wm-footer-one">
+            <footer id="wm-footer" class="wm-footer-one">
 
-            <!--// FooterNewsLatter \\-->
-            <div class="wm-footer-newslatter">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <i class="wmicon-pen"></i>
-                            <input type="text" readonly="readonly" style="width: 77%;" value="Please click on the button to start the application Form">
-                            <a href="StudentSubmitting.aspx">Submission Form Request</a>
+                <!--// FooterNewsLatter \\-->
+                <div class="wm-footer-newslatter">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <i class="wmicon-pen"></i>
+                                <input type="text" readonly="readonly" style="width: 77%;" id="AdmissionFormButton" runat="server">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--// FooterNewsLatter \\-->
+                <!--// FooterNewsLatter \\-->
 
-            <!--// FooterWidgets \\-->
-            <div class="wm-footer-widget" id="aboutas">
-                <div class="container">
-                    <div class="row">
-                        <aside class="widget widget_contact_info col-md-3">
-                            <a href="../../../homepage.aspx" class="wm-footer-logo">
-                                <img src="../Template/images/logo-5.png" alt="" style="height: 77px;"></a>
-                            <ul>
-                                <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
-                                    <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
-                                </a></li>
-                                <li><i class="wm-color wmicon-phone"></i>+920-000-842</li>
-                                <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa">info@riyadh.edu.sa</a></li>
-                            </ul>
-                            <div class="wm-footer-icons">
-                                <a href="https://www.facebook.com/RiyadhColleges"><i class="fa fa-facebook-square"></i></a>
-                                <a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i></a>
-                                <a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i></a>
-                                <a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i></a>
-                                <a href="https://www.flickr.com/photos/riyadhcolleges"><i class="fa fa-flickr"></i></a>
-                                <a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i></a>
-                            </div>
-                        </aside>
-                        <aside class="widget widget_archive col-md-2">
-                            <div class="wm-footer-widget-title">
-                                <h5><i class="fa fa-link"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuickLinks", "Quick Links") %></h5>
-                            </div>
-                            <ul>
-                                <li class="active"><a href="#home"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
-                                <li><a href="#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
-                                <li><a href="#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
-                                <li><a href="#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
-                                <li><a href="#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
-                                <li><a href="StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
-                            </ul>
-                        </aside>
-                        <aside class="widget widget_twitter col-md-3">
-                            <div class="wm-footer-widget-title">
-                                <h5><i class="fa fa-eye"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurVisionHead", "Our Vision") %></h5>
-                            </div>
-                            <ul>
-                                <li>
-                                    <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurVisionDetail", "To become a preeminent educational institution locally, regionally, and internationally.") %></p>
-                                </li>
-                            </ul>
-                            <div class="wm-footer-widget-title">
-                                <h5><i class="fa fa-paper-plane-o"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurMissionHead", "Our Mission") %></h5>
-                            </div>
-                            <ul>
-                                <li>
-                                    <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurMissionDetail", "Effective education and training with active contribution to scientific research and community service.") %></p>
-                                </li>
-                            </ul>
-                        </aside>
-                        <aside class="widget widget_archive col-md-4">
-                            <div class="wm-footer-widget-title">
-                                <h5><i class="fa fa-google-wallet"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurGoals", "Our Goals") %></h5>
-                            </div>
-                            <ol>
-                                <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalOne", "Graduate competent professionals to meet the needs of the labor market.") %></li>
-                                <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalTwo", "Engage in community service.") %></li>
-                                <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalThree", "Conduct scientific research.") %></li>
-                                <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFour", "Provide competitive postgraduate programs.") %></li>
-                                <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFive", "Provide health care and promote health awareness to the public.") %></li>
-                                <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalSix", "Encourage lifelong learning through accredited continuous education programs.") %></li>
-                            </ol>
-                        </aside>
-                    </div>
-                </div>
-            </div>
-            <!--// FooterWidgets \\-->
-
-            <!--// FooterCopyRight \\-->
-            <div class="wm-copyright">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Copyright", "© Riyadh Elm University, Formerly Riyadh Colleges of Dentistry and Pharmacy | All Rights Reserved") %></span>
-                        </div>
-
-                        <div class="col-md-4">
-                            <p><a target="_blank" href="http://www.home.riyadh.edu.sa/"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-RiyadhElmUniversity", "Riyadh Elm University") %></a></p>
+                <!--// FooterWidgets \\-->
+                <div class="wm-footer-widget" id="aboutas">
+                    <div class="container">
+                        <div class="row">
+                            <aside class="widget widget_contact_info col-md-3">
+                                <a href="../../../homepage.aspx" class="wm-footer-logo">
+                                    <img src="../../Template/images/logo-5.png" alt="" style="height: 77px;"></a>
+                                <ul>
+                                    <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
+                                        <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
+                                    </a></li>
+                                    <li><i class="wm-color wmicon-phone"></i>920-000-842</li>
+                                    <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa">info@riyadh.edu.sa</a></li>
+                                </ul>
+                                <div class="wm-footer-icons">
+                                    <a href="https://www.facebook.com/RiyadhColleges"><i class="fa fa-facebook-square"></i></a>
+                                    <a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i></a>
+                                    <a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i></a>
+                                    <a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i></a>
+                                    <a href="https://www.flickr.com/photos/riyadhcolleges"><i class="fa fa-flickr"></i></a>
+                                    <a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i></a>
+                                </div>
+                            </aside>
+                            <aside class="widget widget_archive col-md-2">
+                                <div class="wm-footer-widget-title">
+                                    <h5><i class="fa fa-link"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuickLinks", "Quick Links") %></h5>
+                                </div>
+                                <ul>
+                                    <li class="active"><a href="homepage.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
+                                    <li><a href="homepage.aspx#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
+                                    <li><a href="homepage.aspx#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
+                                    <li><a href="homepage.aspx#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
+                                    <li><a href="homepage.aspx#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
+                                    <li><a href="StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
+                                </ul>
+                            </aside>
+                            <aside class="widget widget_twitter col-md-3">
+                                <div class="wm-footer-widget-title">
+                                    <h5><i class="fa fa-eye"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurVisionHead", "Our Vision") %></h5>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurVisionDetail", "To become a preeminent educational institution locally, regionally, and internationally.") %></p>
+                                    </li>
+                                </ul>
+                                <div class="wm-footer-widget-title">
+                                    <h5><i class="fa fa-paper-plane-o"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurMissionHead", "Our Mission") %></h5>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurMissionDetail", "Effective education and training with active contribution to scientific research and community service.") %></p>
+                                    </li>
+                                </ul>
+                            </aside>
+                            <aside class="widget widget_archive col-md-4">
+                                <div class="wm-footer-widget-title">
+                                    <h5><i class="fa fa-google-wallet"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurGoals", "Our Goals") %></h5>
+                                </div>
+                                <ol>
+                                    <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalOne", "Graduate competent professionals to meet the needs of the labor market.") %></li>
+                                    <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalTwo", "Engage in community service.") %></li>
+                                    <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalThree", "Conduct scientific research.") %></li>
+                                    <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFour", "Provide competitive postgraduate programs.") %></li>
+                                    <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFive", "Provide health care and promote health awareness to the public.") %></li>
+                                    <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalSix", "Encourage lifelong learning through accredited continuous education programs.") %></li>
+                                </ol>
+                            </aside>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--// FooterCopyRight \\-->
-            <!-- Page body start -->
+                <!--// FooterWidgets \\-->
 
-        </footer>
-        <!--// Footer \\-->
+                <!--// FooterCopyRight \\-->
+                <div class="wm-copyright">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Copyright", "© Riyadh Elm University, Formerly Riyadh Colleges of Dentistry and Pharmacy | All Rights Reserved") %></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p><a target="_blank" href="http://www.home.riyadh.edu.sa/"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-RiyadhElmUniversity", "Riyadh Elm University") %></a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--// FooterCopyRight \\-->
+                <!-- Page body start -->
+                
+            </footer>
+            <!--// Footer \\-->
 
         <div class="clearfix"></div>
     </div>
