@@ -43,7 +43,9 @@ namespace ElectronicSubmission.Payment
                     {
                         StudentName.Text = student.Student_Name_En;
                         StudentEmail.Text = student.Student_Email;
-                        UUID = RandomTrackingkey(student.Student_Id);
+                        Guid obj = Guid.NewGuid();
+                        UUID = obj.ToString();
+                        //UUID = RandomTrackingkey(student.Student_Id);
                     }
                 }
                 else
@@ -117,9 +119,9 @@ namespace ElectronicSubmission.Payment
                     {
                         int studentID = 0;
                         int.TryParse(checkout_payment.Student_Id.ToString(), out studentID);
-
+                        string PayeeId = StringCipher.RandomString(10);
                         Dictionary<string, dynamic> responseData =
-                           Prepare_Check_Payment_Request_SADAD(UUID, checkout_payment.Send_Amount.ToString(), checkout_payment.Student.Student_SSN, checkout_payment.Send_PaymentType, StudentFirstName.Text, StudentLastName.Text, studentID);
+                           Prepare_Check_Payment_Request_SADAD(checkout_payment.Payment_Id, PayeeId, UUID, checkout_payment.Send_Amount.ToString(), checkout_payment.Student.Student_SSN, checkout_payment.Send_PaymentType, StudentFirstName.Text, StudentLastName.Text, studentID);
                         if (responseData["Status"]["Code"] == 0)
                         {
                             checkout_payment.Result_Code = responseData["InvoiceId"];
@@ -254,32 +256,24 @@ namespace ElectronicSubmission.Payment
         /// <param name="LastName"></param>
         /// <param name="Student_id"></param>
         /// <returns></returns>
-        public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id)
+        public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(int Payment_Process_Id,string PayeeId, string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id)
         {
-            string CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-
-
-            string ExpiryDate = DateTime.Now.AddDays(7).ToString("yyyy-MM-ddTHH:mm:ss");
-            string InvoiceId = StringCipher.RandomString(5) + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
-            string DisplayInfo = "Free text for merchant to add details to the bill";
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             Dictionary<string, dynamic> responseData;
 
-            /*HttpClientCertificate cert = Request.ClientCertificate;
+            string CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            string ExpiryDate = DateTime.Now.AddDays(2).ToString("yyyy-MM-ddTHH:mm:ss");
 
-            string certs_text = string.Empty;
-            if (cert.IsPresent)
-                certs_text = cert.Get("SUBJECT O");
-            else
-                certs_text = "No certificate was found.";*/
+            string InvoiceId = StringCipher.RandomString(5) + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
+            string DisplayInfo = "Free text for merchant to add details to the bill";
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            
 
             List<student_local> student_List = new List<student_local>();
             student_local std_local = new student_local();
 
-            Guid obj = Guid.NewGuid();
-            UUID = obj.ToString();
-
+            
             std_local.Id = SSN;
             std_local.FirstName = FirstName;
             std_local.LastName = LastName;
@@ -288,12 +282,12 @@ namespace ElectronicSubmission.Payment
             PaymentRange paymentRange_object = new PaymentRange();
             paymentRange_object.MinPartialAmount = Decimal.Parse(amount);
             paymentRange_object.MinAdvanceAmount = Decimal.Parse(amount);
-            paymentRange_object.MaxAdvanceAmount = Decimal.Parse(amount) + 1;
+            paymentRange_object.MaxAdvanceAmount = Decimal.Parse(amount) + 100;
 
             Invoice invoice_object = new Invoice();
             invoice_object.Students = student_List;
             invoice_object.InvoiceId = InvoiceId;
-            invoice_object.PayeeId = StringCipher.RandomString(10);//Student_id.ToString();
+            invoice_object.PayeeId = PayeeId;
             invoice_object.InvoiceStatus = "BillNew";
             invoice_object.BillType = "OneTime";
             invoice_object.DisplayInfo = DisplayInfo;
@@ -352,8 +346,17 @@ namespace ElectronicSubmission.Payment
             {
                 Rosom_Request Rosom = db.Rosom_Request.Create();
                 Rosom.Trackingkey = Trackingkey;
-                Rosom.PaymentType = 4; // SADDAD;
-                Rosom.CreateDate = DateTime.Now.ToString();
+                Rosom.Payment_Process_Id = Payment_Process_Id;
+                Rosom.CreateDate = DateTime.Now.ToLongDateString();
+                Rosom.Invoice_Students_Id = InvoiceId;
+                Rosom.PayeeId = PayeeId;
+                Rosom.InvoiceStatus = "BillNew";
+                Rosom.BillType = "OneTime";
+                Rosom.DisplayInfo = DisplayInfo;
+                Rosom.PaymentType = 4; // SADDAD option type id;
+                Rosom.IsPaid = false;
+
+                Rosom.DateCreation = DateTime.Now;
                 Rosom.MerchantId = "12190";
                 Rosom.Timestamp = CreateDate;
                 Rosom.UUID = UUID;

@@ -235,7 +235,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Payment_Process_Id" Type="int" />
           <Property Name="Rosom_Request_Id" Type="int" />
           <Property Name="Trackingkey" Type="nvarchar(max)" />
@@ -320,8 +320,8 @@
           <Property Name="Student_Employee_Id" Type="int" />
           <Property Name="Student_Assign_Date" Type="datetime" />
           <Property Name="Student_Image_Profile" Type="nvarchar(max)" />
-          <Property Name="Student_Specialization_2_Id" Type="int" />
           <Property Name="Student_Specialization_Id" Type="int" />
+          <Property Name="Student_Specialization_2_Id" Type="int" />
           <Property Name="Student_Nationality_Id" Type="int" />
           <Property Name="Student_Resource_Id" Type="int" />
           <Property Name="Student_Status_Id" Type="int" />
@@ -1106,6 +1106,10 @@
             <End Role="Specialization" EntitySet="Specializations" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
+          <AssociationSet Name="FK_Student_Specialization1" Association="REU_RegistrationModel.FK_Student_Specialization1">
+            <End Role="Specialization" EntitySet="Specializations" />
+            <End Role="Student" EntitySet="Students" />
+          </AssociationSet>
           <AssociationSet Name="FK_Student_Concat_Status" Association="REU_RegistrationModel.FK_Student_Concat_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Student_Concat" EntitySet="Student_Concat" />
@@ -1120,10 +1124,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_Student_Student_Type" Association="REU_RegistrationModel.FK_Student_Student_Type">
             <End Role="Student_Type" EntitySet="Student_Type" />
-            <End Role="Student" EntitySet="Students" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Student_Specialization1" Association="REU_RegistrationModel.FK_Student_Specialization1">
-            <End Role="Specialization" EntitySet="Specializations" />
             <End Role="Student" EntitySet="Students" />
           </AssociationSet>
           </EntityContainer>
@@ -1396,7 +1396,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Payment_Process_Id" Type="Int32" />
           <Property Name="Rosom_Request_Id" Type="Int32" />
           <Property Name="Trackingkey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1494,6 +1494,7 @@
           <Property Name="Student_Assign_Date" Type="DateTime" Precision="3" />
           <Property Name="Student_Image_Profile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Student_Specialization_Id" Type="Int32" />
+          <Property Name="Student_Specialization_2_Id" Type="Int32" />
           <Property Name="Student_Nationality_Id" Type="Int32" />
           <Property Name="Student_Resource_Id" Type="Int32" />
           <Property Name="Student_Status_Id" Type="Int32" />
@@ -1509,11 +1510,10 @@
           <NavigationProperty Name="Resource" Relationship="REU_RegistrationModel.FK_Student_Resource" FromRole="Student" ToRole="Resource" />
           <NavigationProperty Name="Sequences" Relationship="REU_RegistrationModel.FK_Sequence_Student" FromRole="Student" ToRole="Sequence" />
           <NavigationProperty Name="Specialization" Relationship="REU_RegistrationModel.FK_Student_Specialization" FromRole="Student" ToRole="Specialization" />
+          <NavigationProperty Name="Specialization1" Relationship="REU_RegistrationModel.FK_Student_Specialization1" FromRole="Student" ToRole="Specialization" />
           <NavigationProperty Name="Status" Relationship="REU_RegistrationModel.FK_Student_Status" FromRole="Student" ToRole="Status" />
           <NavigationProperty Name="Student_Other_Info" Relationship="REU_RegistrationModel.FK_Student_Other_Info_Student" FromRole="Student" ToRole="Student_Other_Info" />
           <NavigationProperty Name="Student_Type" Relationship="REU_RegistrationModel.FK_Student_Student_Type" FromRole="Student" ToRole="Student_Type" />
-          <Property Name="Student_Specialization_2_Id" Type="Int32" />
-          <NavigationProperty Name="Specialization1" Relationship="REU_RegistrationModel.FK_Student_Specialization1" FromRole="Student" ToRole="Specialization" />
         </EntityType>
         <EntityType Name="Student_Concat">
           <Key>
@@ -1897,6 +1897,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Student_Specialization1">
+          <End Type="REU_RegistrationModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Specialization_Id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="Student_Specialization_2_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Student_Concat_Status">
           <End Type="REU_RegistrationModel.Status" Role="Status" Multiplicity="0..1" />
           <End Type="REU_RegistrationModel.Student_Concat" Role="Student_Concat" Multiplicity="*" />
@@ -1942,18 +1954,6 @@
             </Principal>
             <Dependent Role="Student">
               <PropertyRef Name="Student_Type_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_Specialization1">
-          <End Type="REU_RegistrationModel.Specialization" Role="Specialization" Multiplicity="0..1" />
-          <End Type="REU_RegistrationModel.Student" Role="Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Specialization">
-              <PropertyRef Name="Specialization_Id" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="Student_Specialization_2_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2286,7 +2286,6 @@
           <EntitySetMapping Name="Students">
             <EntityTypeMapping TypeName="REU_RegistrationModel.Student">
               <MappingFragment StoreEntitySet="Student">
-                <ScalarProperty Name="Student_Specialization_2_Id" ColumnName="Student_Specialization_2_Id" />
                 <ScalarProperty Name="Student_Type_Id" ColumnName="Student_Type_Id" />
                 <ScalarProperty Name="Student_URL_Video" ColumnName="Student_URL_Video" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
@@ -2295,6 +2294,7 @@
                 <ScalarProperty Name="Student_Status_Id" ColumnName="Student_Status_Id" />
                 <ScalarProperty Name="Student_Resource_Id" ColumnName="Student_Resource_Id" />
                 <ScalarProperty Name="Student_Nationality_Id" ColumnName="Student_Nationality_Id" />
+                <ScalarProperty Name="Student_Specialization_2_Id" ColumnName="Student_Specialization_2_Id" />
                 <ScalarProperty Name="Student_Specialization_Id" ColumnName="Student_Specialization_Id" />
                 <ScalarProperty Name="Student_Image_Profile" ColumnName="Student_Image_Profile" />
                 <ScalarProperty Name="Student_Assign_Date" ColumnName="Student_Assign_Date" />

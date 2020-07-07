@@ -37,6 +37,7 @@ namespace ElectronicSubmission
         public Nullable<System.DateTime> Student_Assign_Date { get; set; }
         public string Student_Image_Profile { get; set; }
         public Nullable<int> Student_Specialization_Id { get; set; }
+        public Nullable<int> Student_Specialization_2_Id { get; set; }
         public Nullable<int> Student_Nationality_Id { get; set; }
         public Nullable<int> Student_Resource_Id { get; set; }
         public Nullable<int> Student_Status_Id { get; set; }
@@ -45,7 +46,6 @@ namespace ElectronicSubmission
         public string Notes { get; set; }
         public string Student_URL_Video { get; set; }
         public Nullable<int> Student_Type_Id { get; set; }
-        public Nullable<int> Student_Specialization_2_Id { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual ICollection<File> Files { get; set; }
@@ -54,9 +54,9 @@ namespace ElectronicSubmission
         public virtual Resource Resource { get; set; }
         public virtual ICollection<Sequence> Sequences { get; set; }
         public virtual Specialization Specialization { get; set; }
+        public virtual Specialization Specialization1 { get; set; }
         public virtual Status Status { get; set; }
         public virtual ICollection<Student_Other_Info> Student_Other_Info { get; set; }
         public virtual Student_Type Student_Type { get; set; }
-        public virtual Specialization Specialization1 { get; set; }
     }
 }

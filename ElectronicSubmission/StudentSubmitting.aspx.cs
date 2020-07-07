@@ -36,7 +36,7 @@ namespace ElectronicSubmission
         {
             try
             {
-                if (Request["Student_Id"] != null) int.TryParse(Request["Student_Id"], out StudentID);
+                if (Request["Student_Id"] != null) { int.TryParse(Request["Student_Id"], out StudentID); Session["Terms"] = true; }
 
                 if (!IsPostBack)
                 {
@@ -557,7 +557,7 @@ namespace ElectronicSubmission
             {
                 string str = string.Empty, FileName = string.Empty;
                 int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0, Contracts_Counter = 0, Before_Contract_Counter = 0, Acadimec_Regsteration_Counter = 0;
-                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0;
+                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0, Equation_Counter = 0;
                 int Current_Counter = 1;
                 List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
                 for (int i = 0; i < List_File.Count; i++)
@@ -574,6 +574,7 @@ namespace ElectronicSubmission
                     else if (List_File[i].Type == (int)FileType.Description_of_Courses) { fileType = FieldNames.getFieldName("View-DescriptionofCourses", "Description of Courses"); Current_Counter = Description_of_Courses_Counter = Description_of_Courses_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Diploma) { fileType = FieldNames.getFieldName("View-Diploma", "Diploma"); Current_Counter = Diploma_Counter = Diploma_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Equation) { fileType = FieldNames.getFieldName("View-Equation", "Equation"); Current_Counter = Equation_Counter = Equation_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.SAT1) {
                         fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1;
                         EducationType.SelectedValue = "2";
