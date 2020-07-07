@@ -153,6 +153,7 @@ namespace ElectronicSubmission
                         Contract_Div.Visible = true;
                         Div_invalid.Visible = false;
                         SubmittingForm.Visible = false;
+                        if (StudentID != 0) ViewDataStudent(StudentID);
                     }
                     else
                     {
