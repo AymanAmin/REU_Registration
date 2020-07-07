@@ -116,11 +116,19 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     {
                         txtTypeofSubmission.Text = std.Student_Type.Student_Type_Name_Ar;
                         txtSpecialization.Text = std.Specialization.Specialization_Name_Ar;
+                        if (std.Student_Specialization_2_Id != null)
+                            txtSpecializationOptional.Text = std.Specialization1.Specialization_Name_Ar;
+                        else
+                            txtSpecializationOptional.Text = "  -  ";
                     }
                     else
                     {
                         txtTypeofSubmission.Text = std.Student_Type.Student_Type_Name_En;
                         txtSpecialization.Text = std.Specialization.Specialization_Name_En;
+                        if (std.Student_Specialization_2_Id != null)
+                            txtSpecializationOptional.Text = std.Specialization1.Specialization_Name_En;
+                        else
+                            txtSpecializationOptional.Text = "  -  ";
                     }
                     if (SessionWrapper.LoggedUser.Language_id ==1)
                         txtStatus.Text = "<span class='label label-warning' style='background:" + Color[index] + " !important;'>" + std.Status.Status_Name_Ar + "</span>";
@@ -154,16 +162,16 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                     DateTime date = DateTime.Parse(std.Student_CreationDate.ToString());
                     txtStudent_CreationDate.Text = date.ToShortDateString();
-
-                    if (std.Student_Status_Id == 7 && std.Student_Type_Id == 1)
+                    bool IsFinish_Equation = Made_Equation(std);
+                    if (std.Student_Status_Id == 7 && (std.Student_Type_Id == 1 || IsFinish_Equation))
                     {
                         txtSetMeetingInfo.Visible = true;
                     }
 
                     // Change status to pendding if it's new
-                    if (std.Status.Status_Code == 1)
+                    if (std.Status.Status_Code == 1)// New
                     {
-                        std.Student_Status_Id = 2;
+                        std.Student_Status_Id = 2;// Assigned
                         db.Entry(std).State = System.Data.EntityState.Modified;
 
                         Sequence seq = db.Sequences.Create();
@@ -207,17 +215,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     //Load sequence
                     LoadSequence(std.Student_Id);
 
-                    //Button Names
+                    //Buttons Name
                     btnReject.Text = GetRejectStatusName((int)std.Student_Status_Id);
                     btnApprove.Text = GetApproveStatusName((int)std.Student_Status_Id,std);
                     btnBranch2.Text = GetApproveBranchStatusName((int)std.Student_Status_Id,std);
 
-                    if (std.Student_Status_Id != 17 && std.Student_Status_Id != 10 && std.Student_Status_Id != 1016)
+                    if (std.Student_Status_Id != 17 && std.Student_Status_Id != 10)
                     {
                         btnBranch2.Visible = false;
                     }
 
-                    if (std.Student_Status_Id != 10 &&  std.Student_Status_Id != 1016)
+                    if (std.Student_Status_Id != 10)
                     {
                         txtTypeOfCash.Visible = false;
                         txtTypeOfCash_Label.Visible = false;
@@ -275,7 +283,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             {
                 string str = string.Empty, FileName = string.Empty;
                 int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0, Contracts_Counter = 0, Before_Contract_Counter = 0, Acadimec_Regsteration_Counter = 0;
-                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0;
+                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0, Equation_Counter = 0;
                 int Current_Counter = 1;
                 List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
                 for (int i = 0; i < List_File.Count; i++)
@@ -295,6 +303,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     else if (List_File[i].Type == (int)FileType.English_Test) { fileType = FieldNames.getFieldName("View-EnglishCertificate", "English Certificate"); Current_Counter = EnglishCertificate_Counter = EnglishCertificate_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.Equation) { fileType = FieldNames.getFieldName("View-Equation", "Equation"); Current_Counter = Equation_Counter = Equation_Counter + 1; }
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
@@ -433,6 +442,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     }
                         
                 }
+
+                bool IsFinish_Equation = Made_Equation(std);
+
                 switch (std.Student_Status_Id)
                 {
                     case 1: newStatus = 2; break; // 1- New
@@ -441,7 +453,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: newStatus = 5; break; // 4- Not Complete
                     case 5: newStatus = 6; break; // 5- Data Completed
                     case 6: newStatus = 7; break; // 6- Pay the Registration Fees
-                    case 7: if (std.Student_Type_Id == 1) newStatus = 8; else newStatus = 19; break; // 7- Registration Fee Paid
+                    case 7: if (std.Student_Type_Id == 1 || IsFinish_Equation) newStatus = 8; else  newStatus = 19;  break; // 7- Registration Fee Paid
                     case 8: newStatus = 10; break; // 8- Book a Test Date
                     case 9: newStatus = 7; break; // 9- Failure in the Test
                     case 10: newStatus = 11; break; // 10- Success in the Test
@@ -455,12 +467,12 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: newStatus = 18; break; // 17- Files Contract Completed
                     case 18: newStatus = 12; break; // 18- Contract Stage
                     case 19: newStatus = 1016; break; // 19- Certificate Equation
-                    case 1016: newStatus = 11; break; // 20- Certificate Equation Completed
+                    case 1016: newStatus = 6; break; // 20- Certificate Equation Completed
 
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
                 bool meeting_stage = false;
-                if (std.Student_Status_Id == 7 && std.Student_Type_Id == 1)
+                if (std.Student_Status_Id == 7 && (std.Student_Type_Id == 1 || IsFinish_Equation))
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
                     std.Notes= "Meeting Date: "+ txtMeeting_Date.Value+" Meeting Time: "+ txtMeeting_Time.Value;
@@ -550,6 +562,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     }
 
                 }
+
+                bool IsFinish_Equation = Made_Equation(std);
+
                 switch (std.Student_Status_Id)
                 {
                     case 1: newStatus = 2; break; // 1- New
@@ -558,7 +573,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: newStatus = 5; break; // 4- Not Complete
                     case 5: newStatus = 6; break; // 5- Data Completed
                     case 6: newStatus = 7; break; // 6- Pay the Registration Fees
-                    case 7: if(std.Student_Type_Id == 1) newStatus = 8; else newStatus = 19; break; // 7- Registration Fee Paid
+                    case 7: if(std.Student_Type_Id == 1 || IsFinish_Equation) newStatus = 8; else newStatus = 19; break; // 7- Registration Fee Paid
                     case 8: newStatus = 10; break; // 8- Book a Test Date
                     case 9: newStatus = 7; break; // 9- Failure in the Test
                     case 10: newStatus = 16; break; // 10- Success in the Test
@@ -572,7 +587,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: newStatus = 16; break; // 17- Files Contract Completed
                     case 18: newStatus = 12; break; // 18- Contract Stage
                     case 19: newStatus = 1016; break; // 19- Certificate Equation
-                    case 1016: newStatus = 16; break; // 20- Certificate Equation Completed
+                    case 1016: newStatus = 6; break; // 20- Certificate Equation Completed
 
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
@@ -665,6 +680,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
             string StudentEmail = std.Student_Email;
 
+            /*string Missing_Data = "";
+
+            if (std.Student_Status_Id == 4)//  Data Not completed
+            {
+                Missing_Data = "<br /><br /><Strong>Missing Data:</Strong> " + txtNote.Text + "<br />"; 
+            }*/
+
             SendEmail send = new SendEmail();
             string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
             bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
@@ -734,6 +756,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
         private string GetApproveStatusName(int CurrentStatus_Id,Student std)
         {
+            bool IsFinish_Equation = Made_Equation(std);
+
             if (SessionWrapper.LoggedUser.Language_id != 1)
             {
                 switch (CurrentStatus_Id)
@@ -744,7 +768,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: return db.Status.Find(5).Status_Name_En;// 4- Not Complete
                     case 5: return db.Status.Find(6).Status_Name_En;// 5- Data Completed
                     case 6: return db.Status.Find(7).Status_Name_En;// 6- Pay the Registration Fees
-                    case 7: if(std.Student_Type_Id == 1) return db.Status.Find(8).Status_Name_En; else return db.Status.Find(19).Status_Name_En;// 7- Registration Fee Paid
+                    case 7: if(std.Student_Type_Id == 1 || IsFinish_Equation) return db.Status.Find(8).Status_Name_En; else return db.Status.Find(19).Status_Name_En;// 7- Registration Fee Paid
                     case 8: return db.Status.Find(10).Status_Name_En;// 8- Book a Test Date
                     case 9: return db.Status.Find(8).Status_Name_En;// 9- Failure in the Test
                     case 10: return db.Status.Find(11).Status_Name_En;// 10- Success in the Test
@@ -758,7 +782,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: return db.Status.Find(18).Status_Name_En;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_En;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_En;  // 19- Certificate Equation
-                    case 1016: return db.Status.Find(11).Status_Name_En;  // 20- Certificate Equation Completed
+                    case 1016: return db.Status.Find(6).Status_Name_En;  // 20- Certificate Equation Completed
 
 
                     default: return db.Status.Find(4).Status_Name_En;// Defalut Set To 4 Not Complate
@@ -774,7 +798,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: return db.Status.Find(5).Status_Name_Ar;// 4- Not Complete
                     case 5: return db.Status.Find(6).Status_Name_Ar;// 5- Data Completed
                     case 6: return db.Status.Find(7).Status_Name_Ar;// 6- Pay the Registration Fees
-                    case 7: if (std.Student_Type_Id == 1) return db.Status.Find(8).Status_Name_Ar; else return db.Status.Find(19).Status_Name_Ar;// 7- Registration Fee Paid
+                    case 7: if (std.Student_Type_Id == 1 || IsFinish_Equation) return db.Status.Find(8).Status_Name_Ar; else return db.Status.Find(19).Status_Name_Ar;// 7- Registration Fee Paid
                     case 8: return db.Status.Find(10).Status_Name_Ar;// 8- Book a Test Date
                     case 9: return db.Status.Find(8).Status_Name_Ar;// 9- Failure in the Test
                     case 10: return db.Status.Find(11).Status_Name_Ar;// 10- Success in the Test
@@ -788,7 +812,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: return db.Status.Find(18).Status_Name_Ar;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_Ar;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_Ar;  // 19- Certificate Equation
-                    case 1016: return db.Status.Find(11).Status_Name_Ar;  // 20- Certificate Equation Completed
+                    case 1016: return db.Status.Find(6).Status_Name_Ar;  // 20- Certificate Equation Completed
 
                     default: return db.Status.Find(4).Status_Name_Ar;// Defalut Set To 4 Not Complate
                 }
@@ -797,6 +821,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
         private string GetApproveBranchStatusName(int CurrentStatus_Id,Student std)
         {
+            bool IsFinish_Equation = Made_Equation(std);
+
             if (SessionWrapper.LoggedUser.Language_id != 1)
             {
                 switch (CurrentStatus_Id)
@@ -807,7 +833,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: return db.Status.Find(5).Status_Name_En;// 4- Not Complete
                     case 5: return db.Status.Find(6).Status_Name_En;// 5- Data Completed
                     case 6: return db.Status.Find(7).Status_Name_En;// 6- Pay the Registration Fees
-                    case 7: if (std.Student_Type_Id == 1) return db.Status.Find(8).Status_Name_En; else return db.Status.Find(19).Status_Name_En;// 7- Registration Fee Paid
+                    case 7: if (std.Student_Type_Id == 1 || IsFinish_Equation) return db.Status.Find(8).Status_Name_En; else return db.Status.Find(19).Status_Name_En;// 7- Registration Fee Paid
                     case 8: return db.Status.Find(10).Status_Name_En;// 8- Book a Test Date
                     case 9: return db.Status.Find(8).Status_Name_En;// 9- Failure in the Test
                     case 10: return db.Status.Find(16).Status_Name_En;// 10- Success in the Test
@@ -821,7 +847,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: return db.Status.Find(16).Status_Name_En;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_En;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_En;  // 19- Certificate Equation
-                    case 1016: return db.Status.Find(16).Status_Name_En;  // 20- Certificate Equation Completed
+                    case 1016: return db.Status.Find(6).Status_Name_En;  // 20- Certificate Equation Completed
 
                     default: return db.Status.Find(4).Status_Name_En;// Defalut Set To 4 Not Complate
                 }
@@ -836,7 +862,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 4: return db.Status.Find(5).Status_Name_Ar;// 4- Not Complete
                     case 5: return db.Status.Find(6).Status_Name_Ar;// 5- Data Completed
                     case 6: return db.Status.Find(7).Status_Name_Ar;// 6- Pay the Registration Fees
-                    case 7: if (std.Student_Type_Id == 1) return db.Status.Find(8).Status_Name_Ar; else return db.Status.Find(19).Status_Name_Ar;// 7- Registration Fee Paid
+                    case 7: if (std.Student_Type_Id == 1 || IsFinish_Equation) return db.Status.Find(8).Status_Name_Ar; else return db.Status.Find(19).Status_Name_Ar;// 7- Registration Fee Paid
                     case 8: return db.Status.Find(10).Status_Name_Ar;// 8- Book a Test Date
                     case 9: return db.Status.Find(8).Status_Name_Ar;// 9- Failure in the Test
                     case 10: return db.Status.Find(16).Status_Name_Ar;// 10- Success in the Test
@@ -850,7 +876,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     case 17: return db.Status.Find(16).Status_Name_Ar;  // 17- Files Contract Completed
                     case 18: return db.Status.Find(12).Status_Name_Ar;  // 18- Contract Stage
                     case 19: return db.Status.Find(1016).Status_Name_Ar;  // 19- Certificate Equation
-                    case 1016: return db.Status.Find(16).Status_Name_Ar;  // 20- Certificate Equation Completed
+                    case 1016: return db.Status.Find(6).Status_Name_Ar;  // 20- Certificate Equation Completed
 
                     default: return db.Status.Find(4).Status_Name_Ar;// Defalut Set To 4 Not Complate
                 }
@@ -955,11 +981,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             double VAT = 0;
             int Type_of_Cash = txtTypeOfCash.SelectedIndex;
 
-            if (std.Student_Status_Id == 6)
+            bool IsFinish_Equation = Made_Equation(std);
+
+            if (std.Student_Status_Id == 6 || IsFinish_Equation)
             {
                 // Check if He is New
                 double amount_reg = 0;
-                if (std.Student_Type_Id == 1)
+                if (std.Student_Type_Id == 1 || IsFinish_Equation)
                     amount_reg = (double)spec.Specialization_Registeration_Payment;
                 else
                     amount_reg = (double)spec.Specialization_Study_Payment_Equation;
@@ -1244,6 +1272,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 Imagepath = UtilityClass.UploadFilePostedFile(ref fileAttach, Server.MapPath(Path));
             }
             return Imagepath;
+        }
+
+        public bool Made_Equation(Student std)
+        {
+            //Check If the student is make Equation Certificate
+            bool Make_Equation = false;
+            List<Sequence> seq = db.Sequences.Where(x => x.Student_Id == std.Student_Id && x.Status_Id == 1016).ToList(); // 1016 : Certificate Equation Completed
+            if (seq.Count > 0)
+                Make_Equation = true;
+
+            return Make_Equation;
         }
 
 

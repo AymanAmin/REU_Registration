@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="<%= ElectronicSubmission.FieldNames.getLangHome() %>" dir="<%= ElectronicSubmission.FieldNames.getDirRTLHome() %>">
+<html lang="ar" dir="rtl>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
     <!-- Favicon icon -->
     <link rel="icon" href="Theme\files\assets\images\favicon.ico" type="image/x-icon" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-title", "REU - Terms and Conditions") %></title>
+    <title><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-title", "الأحكام والشروط") %></title>
 
     <!-- Css Files -->
     <link href="../Template/css/bootstrap.css" rel="stylesheet">
@@ -64,6 +64,17 @@
 
         }
     </script>
+    <style>
+        .wm-courses-info ul li, .wm-certification-listing ul li{
+            width: 100% !important;
+            font-size:large;  
+            text-align: justify;
+            text-justify: inter-word;
+        }
+        .wm-certification-listing a{
+            font-size:large;
+        }
+    </style>
 </head>
 <body>
     <form id="form" runat="server">
@@ -142,13 +153,13 @@
 
                 <div class="container">
                     <hr>
-                    <div class="row" style=";">
+                    <div class="row" style="direction:rtl;text-align:right">
                         <aside class="col-sm-2"></aside>
                         <aside class="col-sm-8">
 
                             <div class="wm-our-course-detail">
-                                <div class="wm-title-full">
-                                    <h2><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-title", "Terms and Conditions") %></h2>
+                                <!--<div class="wm-title-full">
+                                    <h2><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-title", "الأحكام والشروط") %></h2>
                                 </div>
                                 <p class="wm-text">Architecture and engineering have a history where research and practice go hand in hand, where many great practices have grown as a result of fundamental research and where many research projects arise from ground-breaking design. This is especially true during periods of economic inactivity when recent modes of working are called into question and new modes (sometimes based on rediscovered historical precedent) are established.</p>
                                 <p>The programme encourages students to develop advanced and speculative approaches to the design of cities, landscape and territories. It promotes high design values and the integration of new and innovative technologies to address the challenges facing contemporary cities, such as urban growth, climate change, globalisation and social inequality. The programme is designed for students of architecture, landscape architecture, engineering and related disciplines, who wish to enhance their academic, intellectual and professional skills. </p>
@@ -172,21 +183,24 @@
                                         <li><a href="#" class="wmicon-lock"></a>Ecology & social sciences will also be considered</li>
                                         <li><a href="#" class="wmicon-lock"></a>Mathematics and Statistics</li>
                                     </ul>
-                                </div>
+                                </div>-->
                                 <div class="wm-certification-listing">
                                     <div class="wm-title-full">
-                                        <h2>Certification</h2>
+                                        <h2><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-Title", "الأحكام والشروط") %></h2>
                                     </div>
-                                    <p>The programme is designed for students of architecture, landscape architecture, engineering and related disciplines, who wish to enhance their academic, intellectual and professional skills. </p>
+                                    <p><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-SubTitle", "أتعهد وأقر بكل مما يلي:") %> </p>
                                     <ul>
-                                        <li><a href="#" class="wmicon-mark"></a>Research the conditions of urbanism</li>
-                                        <li><a href="#" class="wmicon-mark"></a>Employs advanced design techniques </li>
-                                        <li><a href="#" class="wmicon-mark"></a>Lens of landscape theory and design practice</li>
-                                        <li><a href="#" class="wmicon-mark"></a>inovative methodologies </li>
-                                        <li><a href="#" class="wmicon-mark"></a>Employ advanced design techniques</li>
-                                        <li><a href="#" class="wmicon-mark"></a>Develop speculative designs</li>
-                                        <li><a href="#" class="wmicon-mark"></a>Innovative methodologies</li>
-                                        <li><a href="#" class="wmicon-mark"></a>Strategies & interventions  </li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-1", "بأن أقوم بتعبئة جميع المعلومات المطلوبة وتزويد جامعة رياض العلم  بالوثائق اللازمة وبأن جميع المعلومات الواردة صحيحة ومطابقة للواقع.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-2", "أتعهد بأن ألتزم بكافة تعليمات وأنظمة جامعة رياض العلم  المعلنة والتي يتم إعلانها أو تعديلها لاحقًا، ومن ضمنها تعليمات الحضور والزي والأمانة العلمية والأكاديمية و المحافظة على الأدوات والمواد والأجهزة.") %> </li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-3", "أن رسوم التسجيل مستحقة لقاء المصاريف الأدارية و اتعهد بتسديد رسوم التسجيل بمبلغ 2000 ريال بتاريخ التسجيل وفقاً لسياسة الجامعه المالية.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-4", "اتعهد بأن رسوم التسجيل و/أو قيامي بدفع رسوم التسجيل أو أي جزءٍ منها هو إقرار مني بأن هذه الرسوم غير مستردة بأي حال من الأحوال، وهي حق الجامعة.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-5", "اتعهد بتسديد الرسوم الدراسة للدراسات العليا بالجامعة حين استحقاقها.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-6", "اتعهد بأن قيامي بالانسحاب من البرنامج لا يعطيني اي حق بطلب استعادة الرسوم المدفوعة أو أي جزءٍ منها أو الإمتناع عن تسديد اية رسوم مستحقة وغير مدفوعة بعد.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-7", "اتعهد بأن امتثال جامعة رياض العلم  لطلبي بسحب ملفي هو امتثال لقوانين الهيئة السعودية للتخصصات الصحية ولا يعتبر موافقة من جامعة رياض العلم  على سحب الملفات أو انهاء لأي تعاقد، وأن هذا الأمر لا يغير من اقراري بإن الرسوم المستحقة لجامعة رياض العلم  سواء كانت مدفوعة أو غير مدفوعة، وأن المدفوعة منها غير مستردة.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-8", "اتعهد بأن أي انهاء او انتهائه لأي سبب من الأسباب لا يؤثر على حق جامعة رياض العلم  باستيفاء الرسوم المستحقة سواء كانت مدفوعة من قبلي أم لم تدفع بعد، وليس لي أي حق باستعادة الرسوم الدراسية المدفوعة منها، أو الإمتاع عن تسديد الرسوم المستحقة وغير المدفوعة بعد، وأقر بأن قيمة هذه الرسوم المستحقة تُعتبر بمثابة تعويض اتفاقي مع جامعة رياض العلم  يترتب لها كتعويض عن الانسحاب أو الإقالة.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-9", "عدم تشويه سمعة جامعة رياض العلم  أو مؤسسيها و/ أو ممثليها أو التقليل من شأنها، داخل مجتمع جامعة رياض العلم  أو خارجه، بالفعل أو الكلمة او في مواقع التواصل الاجتماعي.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-10", "إن  جامعة رياض العلم  يمكن أن توّفر تجربة تعليمية قيمة للطالب وأنها تبذل كل جهد ممكن لتوفير بيئة آمنة ومأمونة للتعلم، ومع ذلك، فإن الطالب هو المسؤول عن سلوكه في جميع الأوقات وفي حال مخالفة الطالب لقواعد وأنظمة جامعة رياض العلم  ، بما في ذلك تلك المبيّنة في هذا الإقرار و التعهد، فأنه سوف يواجه عواقب تحددها جامعة رياض العلم  وضمن المبادئ التوجيهية للوزارة.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-11", "الحق بالأحتفاظ بالشهاده أو المستند والحق في وقف تسجيله في المقررات أو فصول دراسية إذا تعثر السداد .") %></li>
                                     </ul>
                                 </div>
                             </div>
@@ -197,11 +211,11 @@
                      <div class="row">
                             <aside class="col-md-3"></aside>
                             <aside class="col-md-3">
-                                <asp:Button ID="Disagree" runat="server" Text="Disagree" CssClass="subscribe btn btn-danger btn-block" OnClick="Disagree_Click" />
+                                <asp:Button ID="Disagree" runat="server" Text="لا أوافق" CssClass="subscribe btn btn-danger btn-block" OnClick="Disagree_Click" />
                                 </aside>
                         
                             <aside class="col-md-3">
-                            <asp:Button ID="Agree" runat="server" Text="Agree" CssClass="subscribe btn btn-success btn-block" OnClick="Agree_Click" />
+                            <asp:Button ID="Agree" runat="server" Text="أوافق" CssClass="subscribe btn btn-success btn-block" OnClick="Agree_Click" />
                            </aside>
                             <aside class="col-md-3"></aside>
                         <!-- col.// -->
@@ -217,7 +231,7 @@
             </div>
             <!--// Main Banner \\-->
 
-            <!--// Footer \\-->
+             <!--// Footer \\-->
             <footer id="wm-footer" class="wm-footer-one">
 
                 <!--// FooterNewsLatter \\-->
@@ -226,13 +240,12 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <i class="wmicon-pen"></i>
-                                <input type="text" id="txtAdmissionFormButton" runat="server" readonly="readonly" style="width: 77%;">
-                                <a href="../StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-AdmissionFormRequest", "Admission Form Request") %></a>
+                                <input type="text" readonly="readonly" style="width: 77%;" id="AdmissionFormButton" runat="server">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--// FooterNewsLatter \\--> 
+                <!--// FooterNewsLatter \\-->
 
                 <!--// FooterWidgets \\-->
                 <div class="wm-footer-widget" id="aboutas">
@@ -240,7 +253,7 @@
                         <div class="row">
                             <aside class="widget widget_contact_info col-md-3">
                                 <a href="../../../homepage.aspx" class="wm-footer-logo">
-                                    <img src="Template/images/logo-5.png" alt="" style="height: 77px;"></a>
+                                    <img src="../../Template/images/logo-5.png" alt="" style="height: 77px;"></a>
                                 <ul>
                                     <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
                                         <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
@@ -262,12 +275,12 @@
                                     <h5><i class="fa fa-link"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuickLinks", "Quick Links") %></h5>
                                 </div>
                                 <ul>
-                                    <li class="active"><a href="#home"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
-                                    <li><a href="#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
-                                    <li><a href="#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
-                                    <li><a href="#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
-                                    <li><a href="#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
-                                    <li><a href="../StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
+                                    <li class="active"><a href="homepage.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
+                                    <li><a href="homepage.aspx#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
+                                    <li><a href="homepage.aspx#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
+                                    <li><a href="homepage.aspx#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
+                                    <li><a href="homepage.aspx#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
+                                    <li><a href="StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
                                 </ul>
                             </aside>
                             <aside class="widget widget_twitter col-md-3">
@@ -322,7 +335,7 @@
                 </div>
                 <!--// FooterCopyRight \\-->
                 <!-- Page body start -->
-
+                
             </footer>
             <!--// Footer \\-->
 

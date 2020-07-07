@@ -85,6 +85,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.Label txtSpecialization;
         
         /// <summary>
+        /// txtSpecializationOptional control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label txtSpecializationOptional;
+        
+        /// <summary>
         /// txtStudent_Resource control.
         /// </summary>
         /// <remarks>

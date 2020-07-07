@@ -325,8 +325,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <i class="wmicon-pen"></i>
-                                <input type="text" readonly="readonly" style="width: 77%;" value="Please click on the button to start the application Form">
-                                <a href="../StudentSubmitting.aspx">Submission Form Request</a>
+                                <input type="text" readonly="readonly" style="width: 77%;" id="AdmissionFormButton" runat="server">
                             </div>
                         </div>
                     </div>
@@ -338,13 +337,13 @@
                     <div class="container">
                         <div class="row">
                             <aside class="widget widget_contact_info col-md-3">
-                                <a href="../../homepage.aspx" class="wm-footer-logo">
-                                    <img src="../Template/images/logo-5.png" alt="" style="height: 77px;"></a>
+                                <a href="../../../homepage.aspx" class="wm-footer-logo">
+                                    <img src="../../Template/images/logo-5.png" alt="" style="height: 77px;"></a>
                                 <ul>
                                     <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
                                         <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
                                     </a></li>
-                                    <li><i class="wm-color wmicon-phone"></i>+920-000-842</li>
+                                    <li><i class="wm-color wmicon-phone"></i>920-000-842</li>
                                     <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa">info@riyadh.edu.sa</a></li>
                                 </ul>
                                 <div class="wm-footer-icons">
@@ -361,12 +360,12 @@
                                     <h5><i class="fa fa-link"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuickLinks", "Quick Links") %></h5>
                                 </div>
                                 <ul>
-                                    <li class="active"><a href="#home"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
-                                    <li><a href="#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
-                                    <li><a href="#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
-                                    <li><a href="#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
-                                    <li><a href="#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
-                                    <li><a href="../StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
+                                    <li class="active"><a href="homepage.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
+                                    <li><a href="homepage.aspx#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
+                                    <li><a href="homepage.aspx#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
+                                    <li><a href="homepage.aspx#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
+                                    <li><a href="homepage.aspx#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
+                                    <li><a href="StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
                                 </ul>
                             </aside>
                             <aside class="widget widget_twitter col-md-3">
@@ -421,7 +420,7 @@
                 </div>
                 <!--// FooterCopyRight \\-->
                 <!-- Page body start -->
-
+                
             </footer>
             <!--// Footer \\-->
 
