@@ -29,6 +29,7 @@ namespace ElectronicSubmission
         float CapabilitiesTotal = 100;
         float MyAchievementTotal = 100;
         public int langId = 0;
+        public string EnglishDegree = "0";
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -341,9 +342,9 @@ namespace ElectronicSubmission
                         //----------------------- Tajseer student ------------------------------
                         case 2:
                             if (langId == 1)
-                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('درجة إمتحان التوفل اقلة من المطلوب !', 'لا يمكن إكمال التقديم', 'error');", true);
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('درجة إمتحان التوفل اقلة من المطلوب (" + EnglishDegree + ")!', 'لا يمكن إكمال التقديم', 'error');", true);
                             else
-                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submission cannot be completed !', 'TOEFL score less than required!', 'error');", true);
+                                Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "AlertNotify('Submission cannot be completed !', 'TOEFL score less than required (" + EnglishDegree + ")!', 'error');", true);
                             break;
                         //----------------------- Mohawl student ------------------------------
                         case 3:
@@ -822,16 +823,16 @@ namespace ElectronicSubmission
             {
                 //-----------------------------TOEFL Computer--------------------------------
                 case 2:
-                    if (EnglishTestDeg < 113) T = false; else T = true;
+                    if (EnglishTestDeg < 113) { EnglishDegree = "113"; T = false; } else T = true;
                     break;
                 //-----------------------------TOEFL Internet--------------------------------
                 case 3:
-                    if (EnglishTestDeg < 30) T = false; else T = true;
+                    if (EnglishTestDeg < 30) { EnglishDegree = "30"; T = false; } else T = true;
                     break;
 
                 //-----------------------------TOEFL Paper--------------------------------
                 case 4:
-                    if (EnglishTestDeg < 425) T = false; else T = true;
+                    if (EnglishTestDeg < 425) { EnglishDegree = "425"; T = false; } else T = true;
                     break;
                 default:
                     T = false;
