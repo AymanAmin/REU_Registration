@@ -594,7 +594,7 @@
 
                                  <div class="row" runat="server" id="EducationType_Div" style="display:none">
                                     <div class="form-group col-sm-6">
-                                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-Education Type", "EducationType") %></label>
+                                        <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-EducationType", "Education Type") %></label>
                                         <asp:DropDownList ID="EducationType" class="form-control" runat="server" onchange="StudType();">
                                             <asp:ListItem Value="1">Saudi Education</asp:ListItem>
                                             <asp:ListItem Value="2">Foreign Education</asp:ListItem>

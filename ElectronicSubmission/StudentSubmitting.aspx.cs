@@ -681,7 +681,6 @@ namespace ElectronicSubmission
             Resource_IDValidator.Text = "إختر المصدر";
             Nationality_IDValidator.Text = "إختر الجنسية";
             Specialization_IDValidator.Text = "إختر التخصص";
-
             StudentTypeValidator.Text = "إختر نوع التقديم";
             HighSchoolDateValidator.Text = "أدخل تاريخ الشهادة الثانوية";
             SAT1Validator.Text = "الرجاء إرفاق سات 1";
@@ -693,10 +692,11 @@ namespace ElectronicSubmission
             EnglishTestDegreeValidator.Text = "أدخل معدل الإختبار";
             EnglishTestValidator.Text = "الرجاء إختيار امتحانات الانجليزي";
             EnglishTestDegreeValidator.Text = "أدخل معدل الإختبار";
-
             DescriptionofcoursesValidator.Text = "الرجاء إرفاق وصف المقررات";
             GPAValidator.Text = "إختر المعدل التراكمي";
-            
+            EnglishCertificateValidator.Text = "أدخل شهادةالانجليزي";
+
+
 
 
             StudentNameAr.Attributes["placeholder"] = "أدخل الاسم بالعربي";
