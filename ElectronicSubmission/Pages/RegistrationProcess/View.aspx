@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12" id="txtContract_Label" runat="server" visible="false">
-                                    <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-ContractAttachments", "Contract Attachments") %></div>
+                                    <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-Attachments", "Attachments") %></div>
                                     <div class="col-md-12">
                                         <asp:FileUpload ID="txtContracts" runat="server" class="form-control" AllowMultiple="True"  />
                                     </div>

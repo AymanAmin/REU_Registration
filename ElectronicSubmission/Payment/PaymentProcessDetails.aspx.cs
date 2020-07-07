@@ -313,7 +313,7 @@ namespace ElectronicSubmission.Payment
 
             //string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            string certPath = "C:\\Users\\Mazin\\Desktop\\RiyadhEducation.pfx";
+            string certPath = "C:\\Users\\Kakashi\\Desktop\\RiyadhEducation.pfx";
             string certPass = "Ri%ydHd@n9$";
 
             // Create a collection object and populate it using the PFX file
