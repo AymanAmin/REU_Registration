@@ -198,6 +198,13 @@
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>
+
+    <script>
+        function exportdata() {
+
+        }
+        // Do something with the 'data' variable
+    </script>
     <script>
 
 

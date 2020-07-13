@@ -49,6 +49,7 @@ namespace ElectronicSubmission
             currentStructureUserId = SessionWrapper.EmpStructure;
             loadNotification();
             LoadStructure();
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "exportdata();", true);
             // ViewData(60);
         }
 

@@ -25,6 +25,8 @@ namespace ElectronicSubmission.Payment
                 PaymentProcessList = db.Payment_Process.ToList();
 
                 LoadStudent();
+                //Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "exportdata();", true);
+                
             }
 
         }
