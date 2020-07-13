@@ -4,6 +4,11 @@
     <title><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Title", "Student List") %></title>
     <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        setTimeout(function () {
+            location = '../../Pages/RegistrationProcess/ListView.aspx'
+        }, 60000)
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body_Holder" runat="server">
 
@@ -11,14 +16,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                   <% = ElectronicSubmission.FieldNames.getFieldName("ListView-DeleteHeader", "Delete Student") %>
+                    <% = ElectronicSubmission.FieldNames.getFieldName("ListView-DeleteHeader", "Delete Student") %>
                 </div>
                 <div class="modal-body">
                     <% = ElectronicSubmission.FieldNames.getFieldName("ListView-DeleteMessage", "Are you sure you want to delete this Student?") %>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Cancel", "Cancel") %></button>
-                    <a class="btn btn-danger btn-ok" style="color:white;"><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Delete", "Delete") %></a>
+                    <a class="btn btn-danger btn-ok" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Delete", "Delete") %></a>
                 </div>
             </div>
         </div>
@@ -39,7 +44,8 @@
                             </label>
                         </div>
                         <div class="col text-right">
-                            <h5 class=""><asp:Literal ID="txtFirst" runat="server"></asp:Literal></h5>
+                            <h5 class="">
+                                <asp:Literal ID="txtFirst" runat="server"></asp:Literal></h5>
                         </div>
                     </div>
                     <div class="progress m-t-15">
@@ -57,11 +63,13 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <label class="label label-warning">
-                                <asp:Literal ID="txtSecondPercentage" runat="server"></asp:Literal> <i class="m-l-10 feather icon-arrow-up"></i>
+                                <asp:Literal ID="txtSecondPercentage" runat="server"></asp:Literal>
+                                <i class="m-l-10 feather icon-arrow-up"></i>
                             </label>
                         </div>
                         <div class="col text-right">
-                            <h5 class=""><asp:Literal ID="txtSecond" runat="server"></asp:Literal></h5>
+                            <h5 class="">
+                                <asp:Literal ID="txtSecond" runat="server"></asp:Literal></h5>
                         </div>
                     </div>
                     <div class="progress m-t-15">
@@ -79,11 +87,13 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <label class="label label-success">
-                                <asp:Literal ID="txtThirdPercentage" runat="server"></asp:Literal> <i class="m-l-10 feather icon-arrow-up"></i>
+                                <asp:Literal ID="txtThirdPercentage" runat="server"></asp:Literal>
+                                <i class="m-l-10 feather icon-arrow-up"></i>
                             </label>
                         </div>
                         <div class="col text-right">
-                            <h5 class=""><asp:Literal ID="txtThird" runat="server"></asp:Literal></h5>
+                            <h5 class="">
+                                <asp:Literal ID="txtThird" runat="server"></asp:Literal></h5>
                         </div>
                     </div>
                     <div class="progress m-t-15">
@@ -101,15 +111,17 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <label class="label label-danger">
-                                <asp:Literal ID="txtFourPercentage" runat="server"></asp:Literal> <i class="m-l-10 feather icon-arrow-up"></i>
+                                <asp:Literal ID="txtFourPercentage" runat="server"></asp:Literal>
+                                <i class="m-l-10 feather icon-arrow-up"></i>
                             </label>
                         </div>
                         <div class="col text-right">
-                            <h5 class=""><asp:Literal ID="txtFour" runat="server"></asp:Literal></h5>
+                            <h5 class="">
+                                <asp:Literal ID="txtFour" runat="server"></asp:Literal></h5>
                         </div>
                     </div>
                     <div class="progress m-t-15">
-                         <asp:Literal ID="txtFourPercentageCss" runat="server"></asp:Literal>
+                        <asp:Literal ID="txtFourPercentageCss" runat="server"></asp:Literal>
                     </div>
                 </div>
             </div>
@@ -162,9 +174,9 @@
 
     <!-- Delete file -->
     <script>
-        $('#confirm-delete').on('show.bs.modal', function(e) {
+        $('#confirm-delete').on('show.bs.modal', function (e) {
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-            
+
             $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
         });
     </script>

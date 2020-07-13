@@ -13,6 +13,7 @@ namespace ElectronicSubmission
         public int langId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["Terms"] = null;
             langId = 0;
             if (int.TryParse(Request["lang"], out langId) && langId > 0)
             {

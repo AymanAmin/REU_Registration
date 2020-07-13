@@ -2,6 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title><% = ElectronicSubmission.FieldNames.getFieldName("Default-Title", "E-Admission - DashBoard") %></title>
+    <script type="text/javascript">
+        setTimeout(function () {
+            location = '../../Default.aspx'
+        }, 60000)
+    </script>
     <script>
         function Pie_Chart(Data, Names) {
             var options = {

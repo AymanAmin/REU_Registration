@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Web.Administration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
@@ -25,6 +27,7 @@ namespace ElectronicSubmission.Payment
         string SADAD_Number = "";
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (Request["Trackingkey"] != null)
             {
                 Trackingkey = Request["Trackingkey"];
@@ -41,6 +44,8 @@ namespace ElectronicSubmission.Payment
                     var student = db.Students.FirstOrDefault(x => x.Student_Id == student_Id);
                     if (student != null)
                     {
+                        //if (student.Student_Status_Id == 6)
+                           // PaymentType.Items.Remove("SADAD");
                         StudentName.Text = student.Student_Name_En;
                         StudentEmail.Text = student.Student_Email;
                         Guid obj = Guid.NewGuid();
@@ -73,6 +78,13 @@ namespace ElectronicSubmission.Payment
 
                     if (PaymentType.SelectedValue != "4")
                     {
+                        string paymentBrand = "VISA";
+                        if (PaymentType.SelectedValue == "1")
+                            paymentBrand = "VISA";
+                        else if(PaymentType.SelectedValue == "2")
+                            paymentBrand = "MASTER";
+                        else if (PaymentType.SelectedValue == "3")
+                            paymentBrand = "MADA";
 
                         VISA_MADA NewVM = db.VISA_MADA.Create();
                         NewVM.UUID = UUID;
@@ -84,7 +96,7 @@ namespace ElectronicSubmission.Payment
                         db.SaveChanges();
 
                         Dictionary<string, dynamic> responseData =
-                            Prepare_Check_Payment_Request(UUID, Entity_ID, checkout_payment.Send_Amount.ToString(), checkout_payment.Send_Currency, checkout_payment.Send_PaymentType, StudentName.Text, Studentsurname.Text, StudentEmail.Text, StudentCountry.SelectedValue, StudentState.Text, StudentCity.Text, StudentAddress.Text, StudentPostcode.Text);
+                            Prepare_Check_Payment_Request(UUID, paymentBrand, Entity_ID, checkout_payment.Send_Amount.ToString(), checkout_payment.Send_Currency, checkout_payment.Send_PaymentType, StudentName.Text, Studentsurname.Text, StudentEmail.Text, StudentCountry.SelectedValue, StudentState.Text, StudentCity.Text, StudentAddress.Text, StudentPostcode.Text);
                         if (responseData["result"]["code"] == "000.200.100")
                         {
                             checkout_payment.Result_Code = responseData["result"]["code"];
@@ -124,11 +136,11 @@ namespace ElectronicSubmission.Payment
                            Prepare_Check_Payment_Request_SADAD(checkout_payment.Payment_Id, PayeeId, UUID, checkout_payment.Send_Amount.ToString(), checkout_payment.Student.Student_SSN, checkout_payment.Send_PaymentType, StudentFirstName.Text, StudentLastName.Text, studentID);
                         if (responseData["Status"]["Code"] == 0)
                         {
-                            checkout_payment.Result_Code = responseData["InvoiceId"];
-                            checkout_payment.Result_Description = responseData["SADADNumber"];
-                            checkout_payment.Result_BuildNumber = (responseData["Status"]["Code"]).ToString();
-                            checkout_payment.Result_Timestamp = responseData["Status"]["Description"];
-                            checkout_payment.Result_Ndc = responseData["Status"]["Severity"];
+                            checkout_payment.Result_Code = (responseData["Status"]["Code"]).ToString();
+                            checkout_payment.Result_Description = responseData["Status"]["Description"];
+                            checkout_payment.Result_BuildNumber = responseData["SADADNumber"];
+                            checkout_payment.Result_Timestamp = responseData["Status"]["Severity"];
+                            checkout_payment.Result_Ndc = responseData["InvoiceId"];
                             db.Entry(checkout_payment).State = System.Data.EntityState.Modified;
                             db.SaveChanges();
 
@@ -148,7 +160,7 @@ namespace ElectronicSubmission.Payment
                             string StuEmail = checkout_payment.Student.Student_Email;
 
                             SendEmail send = new SendEmail();
-                            Text = " <Strong style='font-size:16px;'> Dear " + checkout_payment.Student.Student_Name_En + "</Strong><br /><br /> " + "The invoice number of SADAD is:<Strong>" + SADAD_Number + "</Strong>.<br />The total amount: <Strong>" + checkout_payment.Send_Amount+ "</Strong> SAR.<br /><br />Please complete the payment befor 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
+                            Text = " <Strong style='font-size:16px;'> Dear " + checkout_payment.Student.Student_Name_En + "</Strong><br /><br /> " + "The invoice number of SADAD is:<Strong>" + SADAD_Number + "</Strong>.<br />The total amount: <Strong>" + checkout_payment.Send_Amount + "</Strong> SAR.<br /><br />Please complete the payment befor 48 hours." + " <br /> <br />" + "Best Regard," + " <br />" + "Admission System" + " <br /> ";
                             bool R = send.TextEmail("Riyadh Elm University", StuEmail, Text, sever_name);
 
                             // Send SMS
@@ -178,7 +190,7 @@ namespace ElectronicSubmission.Payment
                 db.Configuration.LazyLoadingEnabled = false;
                 /* Add it to log file */
                 LogData = "data:" + JsonConvert.SerializeObject(er, logFileModule.settings);
-                logFileModule.logfile(10, "خطأ جديد التجهيز للدفع", "New Exception in Checkout", LogData);
+                logFileModule.logfile(10, "خطأ جديد للدفع", "New Exception in Payment", LogData);
                 return false;
             }
 
@@ -203,7 +215,7 @@ namespace ElectronicSubmission.Payment
         /// <param name="Address"></param>
         /// <param name="Postcode"></param>
         /// <returns></returns>
-        public Dictionary<string, dynamic> Prepare_Check_Payment_Request(string UUID_Local, string entityId, string amount, string currency, string paymentType, string Name, string surname, string Email, string Country, string State, string City, string Address, string Postcode)
+        public Dictionary<string, dynamic> Prepare_Check_Payment_Request(string UUID_Local,string paymentBrand, string entityId, string amount, string currency, string paymentType, string Name, string surname, string Email, string Country, string State, string City, string Address, string Postcode)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -213,8 +225,9 @@ namespace ElectronicSubmission.Payment
                 "&amount=" + amount +
                 "&currency=" + currency +
                 "&paymentType=" + paymentType +
-                "&testMode=EXTERNAL" +
+                //"&testMode=EXTERNAL" +
                 "&merchantTransactionId=" + UUID_Local +
+                //"&paymentBrand=" + paymentBrand +
                 "&customer.email=" + Email +
                 "&billing.street1=" + Address +
                 "&billing.city=" + City +
@@ -222,7 +235,7 @@ namespace ElectronicSubmission.Payment
                 "&billing.country=" + Country +
                 "&billing.postcode=" + Postcode +
                 "&customer.givenName=" + Name +
-                "customer.surname=" + surname;
+                "&customer.surname=" + surname;
             string url = "https://oppwa.com/v1/checkouts";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
@@ -256,9 +269,10 @@ namespace ElectronicSubmission.Payment
         /// <param name="LastName"></param>
         /// <param name="Student_id"></param>
         /// <returns></returns>
-        public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(int Payment_Process_Id,string PayeeId, string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id)
+        public Dictionary<string, dynamic> Prepare_Check_Payment_Request_SADAD(int Payment_Process_Id, string PayeeId, string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id)
         {
-            Dictionary<string, dynamic> responseData;
+
+            string Res_str = "";
 
             string CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             string ExpiryDate = DateTime.Now.AddDays(2).ToString("yyyy-MM-ddTHH:mm:ss");
@@ -266,14 +280,14 @@ namespace ElectronicSubmission.Payment
             string InvoiceId = StringCipher.RandomString(5) + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
             string DisplayInfo = "Free text for merchant to add details to the bill";
 
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            
+            /*ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;*/
+
 
             List<student_local> student_List = new List<student_local>();
             student_local std_local = new student_local();
 
-            
+
             std_local.Id = SSN;
             std_local.FirstName = FirstName;
             std_local.LastName = LastName;
@@ -305,44 +319,120 @@ namespace ElectronicSubmission.Payment
 
             string data = JsonConvert.SerializeObject(rosom_object);
 
-            //string path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            // Local Device
+            //X509Certificate2Collection col_cer = new X509Certificate2Collection();
+            //col_cer.Add(Certificate);
+            /*byte[] rawdata = Certificate.RawData;
 
-            string certPath = "C:\\Users\\Kakashi\\Desktop\\RiyadhEducation.pfx";
+            string s3 = Convert.ToBase64String(rawdata);  // gsjqFw==
+            byte[] decByte3 = Convert.FromBase64String(s3);*/
+
+            /*string str = rawdata.ToString();
+            string cert_str = Encoding.UTF8.GetString(rawdata, 0, rawdata.Length);
+            rawdata = Encoding.UTF8.GetBytes(cert_str);*/
+            //string cert_str = results.ToString();
+            //Certificate.Import(certPath, certPass, X509KeyStorageFlags.DefaultKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.UserKeySet | X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.Exportable);
+
+            //string certPath = "C:\\CertificateREU\\RiyadhEducation.pfx";
+            //string certPath = Server.MapPath("../RiyadhEducation.pfx");
+
+
+            //Server 
+            //string certPath = "C:\\CertificateREU\\RiyadhEducation.pfx";
             string certPass = "Ri%ydHd@n9$";
 
+            //string cert_str = "MIIDDjCCAfagAwIBAgIQeQEZkqBkSLtNGf2ETLVHMTANBgkqhkiG9w0BAQUFADAaMRgwFgYDVQQDDA9SaXlhZGhFZHVjYXRpb24wHhcNMjAwNzAxMTEyODAxWhcNMzAwNzAxMTEzODAxWjAaMRgwFgYDVQQDDA9SaXlhZGhFZHVjYXRpb24wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCqJPVBfVX+oUkPXNUNxlVAQRnQ2A4ewqdYepsS2ClW6UQUFytlMs4d3TW4sNS4QatyIQ8PzzVYuqk3fBRxYzLElPkZolxWzErp0njZQmFuvSNVp/rupbGqtv8FMaxqnvKvR3Y0xB8VLXhvyuZOx0jDv2+kU6Zr4+qQTMqSMro0d9cNF2BqnVim8q5bUkDBpEGjlP2ZejV2vK53wH+SOLmmEhbGdxsZBquiCuHE3V+ljnMf76IDH6yWKt61MtBKOUQVUyN+mL6KiL6ivjY8azv4eu40epoYnOmzmQqfGDCaxJhJKBFJlJHmO9K17+PZU44fHRrVLkvlRQRqq5JLk7lpAgMBAAGjUDBOMA4GA1UdDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwHQYDVR0OBBYEFNMeHmwhS01dl2sZ8M8ZrF9Dn8snMA0GCSqGSIb3DQEBBQUAA4IBAQB6/tALT8Gs72Y2OZQMqMFomgJMrP5hTHuV6sLRuOA0gelu8z+aNEiOZ80DcqbjxD4bM+xOU/6J0dWgVJqntewZZscdpp0MfPeBaHlairx+qwe7XAFYoIncqbsYpikM3lYzP89tQ0hlle7YLepz8w3vGF81+eqKHvQl46qsusEq+iChEYqC8/EdLYd+gtKieNYmKvGMuW3R9ZNDXeSOkcWmnZ2S5OncnP6MBsu++iXtlT1Y6abqoqjlYwWyc+vz+1JQ0p+DB9T7CScLclYVETaY7el+/PbumFjVNXNY5myCdLjohAEBL3sl8sY8RN76IhRxOFLxZSzOLVcDN6SyG65R";
+            //byte[] rawdata = Convert.FromBase64String(cert_str);
+
+            //ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol =  SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
             // Create a collection object and populate it using the PFX file
-            X509Certificate2 Certificate = new X509Certificate2();
-            Certificate.Import(certPath, certPass, X509KeyStorageFlags.PersistKeySet);
+            //X509Certificate2 Certificate = new X509Certificate2("RiyadhEducation", certPass);
+            //RSA rsa = Certificate.GetRSAPrivateKey();
+            //db.Configuration.LazyLoadingEnabled = false;
+            /* Add it to log file */
+            //LogData = "data:" + JsonConvert.SerializeObject(Certificate);
+            //logFileModule.logfile(10, "الشهادة اسم المصدر", "Certificate IssuerName.Name", Certificate.IssuerName.Name.ToString());
 
             ServicePointManager.ServerCertificateValidationCallback = (a, b, c, d) => true;
+
+            ServerManager manager = new ServerManager();
+            Site yourSite = manager.Sites["registration.riyadh.edu.sa"];
+
+            X509Certificate2 yourCertificate = null;
+
+            foreach (Binding binding in yourSite.Bindings)
+            {
+                if (binding.Protocol == "http" && binding.EndPoint.ToString() == "registration.riyadh.edu.sa" /*your binding IP*/)
+                {
+                    var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
+                    store.Open(OpenFlags.ReadOnly);
+                    yourCertificate = store.Certificates.Find(X509FindType.FindByThumbprint, ToHex(binding.CertificateHash), true)[0];
+                    break;
+                }
+            }
+
+            if (yourCertificate != null)
+            {
+                /* Add it to log file */
+                LogData = "data:" + JsonConvert.SerializeObject(yourCertificate, logFileModule.settings);
+                logFileModule.logfile(10, "الشهادة", "Certificate", LogData);
+            }
+            else
+                logFileModule.logfile(10, "الشهادة", "Certificate", "Not found");
 
             string url = "https://rosomtest.brightware.com.sa/RosomAPI/api/Bill/CreateBill";
             byte[] buffer = Encoding.ASCII.GetBytes(data);
 
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.AllowAutoRedirect = true;
-            request.ClientCertificates.Add(Certificate);
+            //request.AllowAutoRedirect = true;
+            //request.ClientCertificates.Clear();
+            //request.ClientCertificates.Add(Certificate);// = col_cer;
             request.Method = "POST";
             request.ContentType = "application/json";
             request.MediaType = "application/json";
-            //request.Accept = "application/json";
-            //request.UseDefaultCredentials = true;
 
             Stream PostData = request.GetRequestStream();
             PostData.Write(buffer, 0, buffer.Length);
             PostData.Close();
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                Stream dataStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
-                var s = new JavaScriptSerializer();
-                responseData = s.Deserialize<Dictionary<string, dynamic>>(reader.ReadToEnd());
-                reader.Close();
-                dataStream.Close();
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+
+                    Stream dataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    Res_str = reader.ReadToEnd();
+                    reader.Close();
+                    dataStream.Close();
+                }
+            }
+            catch (Exception er)
+            {
+                // Excption
+                db.Configuration.LazyLoadingEnabled = false;
+                /* Add it to log file */
+                LogData = "data:" + JsonConvert.SerializeObject(er, logFileModule.settings);
+                logFileModule.logfile(10, "خطأ جديد التجهيز للدفع", "New Exception in Checkout", LogData);
+
+                //json file
+                db.Configuration.LazyLoadingEnabled = false;
+                /* Add it to log file */
+                //LogData = "data:" + JsonConvert.SerializeObject(responseData, logFileModule.settings);
+                logFileModule.logfile(10, "خطأ جديد التجهيز للدفع - سداد", "New Exception in Checkout - Sadad", data);
             }
 
-            if (responseData["Status"]["Code"] == 0)
+            if (Res_str == "")
+            {
+                Dictionary<string, dynamic> responseData2 = new Dictionary<string, dynamic>();
+                return responseData2;
+            }
+
+
+            var s = new JavaScriptSerializer();
+            Dictionary<string, dynamic> responseData = s.Deserialize<Dictionary<string, dynamic>>(Res_str);
+            if (responseData != null && responseData["Status"]["Code"] == 0)
             {
                 Rosom_Request Rosom = db.Rosom_Request.Create();
                 Rosom.Trackingkey = Trackingkey;
@@ -426,6 +516,17 @@ namespace ElectronicSubmission.Payment
             string Trackingkey = StringCipher.RandomString(5) + student_id + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
 
             return Trackingkey;
+        }
+
+        public static string ToHex(byte[] ba)
+        {
+            var hex = new StringBuilder(ba.Length * 2);
+            foreach (byte b in ba)
+            {
+                hex.AppendFormat("{0:x2}", b);
+            }
+
+            return hex.ToString();
         }
 
     }

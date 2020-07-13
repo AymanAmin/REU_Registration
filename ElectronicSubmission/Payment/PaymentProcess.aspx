@@ -84,8 +84,8 @@
                             </div>
                             <ul class="wm-stripinfo">
                                 <li><i class="wmicon-location"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></a></li>
-                                <li><i class="wmicon-technology4"></i>+920-000-842</li>
-                                <li><i class="wmicon-clock2"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-work", "sat - fri: 7:00am - 6:00pm") %></li>
+                                    <li><i class="wmicon-technology4"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></li>
+                                    <li><i class="wmicon-clock2"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-work", "sat - fri: 7:00am - 6:00pm") %></li>
                             </ul>
                             <ul class="wm-adminuser-section">
                                 <li>
@@ -124,7 +124,7 @@
                                 </div>
                             </nav>
                             <!--// Navigation \\-->
-                            <a href="StudentSubmitting.aspx" class="wm-header-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a>
+                            <a href="../../StudentSubmitting.aspx" class="wm-header-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a>
                         </div>
                     </div>
                 </div>
@@ -145,8 +145,8 @@
                     <aside class="col-sm-6">
                         
                         <!--<p>Payment form1</p>-->
-                        <article class="card" id="paymentWidgets" style="border: 1px solid gray; border-radius: 10px; padding: 5%;display:none;"> 
-                            <form ID="Payment_Form" class="paymentWidgets" runat="server" data-brands="VISA MASTER AMEX"></form>
+                        <article class="card" id="paymentWidgets" dir="ltr" style="border: 1px solid gray; border-radius: 10px; padding: 5%;display:none;"> 
+                            <form ID="Payment_Form" class="paymentWidgets" runat="server" data-brands="VISA MASTER MADA"></form>
                         </article>
 
                         <article class="card" id="Div_InValid" style="display:none;">
@@ -243,12 +243,12 @@
                                     <h5><i class="fa fa-link"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuickLinks", "Quick Links") %></h5>
                                 </div>
                                 <ul>
-                                    <li class="active"><a href="homepage.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
-                                    <li><a href="homepage.aspx#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
-                                    <li><a href="homepage.aspx#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
-                                    <li><a href="homepage.aspx#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
-                                    <li><a href="homepage.aspx#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
-                                    <li><a href="StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
+                                    <li class="active"><a href="../../homepage.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-home", "Home") %></a></li>
+                                    <li><a href="../../homepage.aspx#colleges"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Colleges", "Colleges") %></a></li>
+                                    <li><a href="../../homepage.aspx#steps"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></a></li>
+                                    <li><a href="../../homepage.aspx#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Contact", "Contact") %></a></li>
+                                    <li><a href="../../homepage.aspx#aboutas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-About", "About") %></a></li>
+                                    <li><a href="../../StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Admission", "Admission") %></a></li>
                                 </ul>
                             </aside>
                             <aside class="widget widget_twitter col-md-3">

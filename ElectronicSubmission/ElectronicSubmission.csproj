@@ -90,6 +90,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Administration, Version=7.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\System32\inetsrv\Microsoft.Web.Administration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
@@ -153,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bachelors.aspx" />
+    <Content Include="Database\Clear Database from data.sql" />
     <Content Include="Database\Delete All Table.sql" />
     <Content Include="Database\LanguageData.sql" />
     <Content Include="Database\REU_Registration.sql" />
@@ -188,6 +193,7 @@
     <Content Include="Pages\UserManagment\Profile.aspx" />
     <Content Include="Payment\PaymentProcess.aspx" />
     <Content Include="Payment\RiyadhEducation.pfx" />
+    <Content Include="media\RiyadhEducation.pfx" />
     <None Include="Properties\PublishProfiles\REU Registration.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -198,10 +204,12 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>REU_Registration.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Payment\StudentsPaid.aspx" />
     <Content Include="Payment\TermsAndConditions.aspx" />
     <Content Include="REU_Registration.edmx.diagram">
       <DependentUpon>REU_Registration.edmx</DependentUpon>
     </Content>
+    <Content Include="RiyadhEducation.pfx" />
     <None Include="Service References\ServiceReferencePayment\CheckPaymentService.disco" />
     <None Include="Service References\ServiceReferencePayment\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferencePayment\configuration.svcinfo" />
@@ -2915,6 +2923,13 @@
     </Compile>
     <Compile Include="Payment\PaymentProcessDetails.aspx.designer.cs">
       <DependentUpon>PaymentProcessDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payment\StudentsPaid.aspx.cs">
+      <DependentUpon>StudentsPaid.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payment\StudentsPaid.aspx.designer.cs">
+      <DependentUpon>StudentsPaid.aspx</DependentUpon>
     </Compile>
     <Compile Include="Payment\TermsAndConditions.aspx.cs">
       <DependentUpon>TermsAndConditions.aspx</DependentUpon>

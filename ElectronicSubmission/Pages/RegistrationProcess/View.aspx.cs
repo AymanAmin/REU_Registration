@@ -31,6 +31,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             else
                 student_record_id = int.Parse(Request["StudentID"].ToString());
 
+            if (Session["Error_Message"] != null)
+            {
+                if (SessionWrapper.LoggedUser.Language_id == 1)
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  حالة التعديل : ','هذه العملية تمت من قبل موظف اخر');", true);
+                else
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "notify('top', 'right', 'fa fa-delete', 'danger', 'animated fadeInRight', 'animated fadeOutRight','  Save Status : ','This action done by other employee');", true);
+
+                Session["Error_Message"] = null;
+            }
 
             if (!IsPostBack)
             {
@@ -71,7 +80,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             if (SessionWrapper.LoggedUser.Language_id == 1)
             {
                 txtTypeOfCash.Items.Add("سنة كاملة");
-                txtTypeOfCash.Items.Add("سمستر");
+                txtTypeOfCash.Items.Add("فصل دراسي");
             }else
             {
                 txtTypeOfCash.Items.Add("Full Year");
@@ -134,6 +143,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         txtStatus.Text = "<span class='label label-warning' style='background:" + Color[index] + " !important;'>" + std.Status.Status_Name_Ar + "</span>";
                     else
                     txtStatus.Text = "<span class='label label-warning' style='background:" + Color[index] + " !important;'>" + std.Status.Status_Name_En + "</span>";
+
+                    Status_ID_Verification.Text = std.Student_Status_Id.ToString();
+
                     if (SessionWrapper.LoggedUser.Language_id == 1)
                         txtStudent_Nationality.Text = std.Nationality.Nationality_Name_Ar;
                     else
@@ -163,15 +175,19 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     DateTime date = DateTime.Parse(std.Student_CreationDate.ToString());
                     txtStudent_CreationDate.Text = date.ToShortDateString();
                     bool IsFinish_Equation = Made_Equation(std);
-                    if (std.Student_Status_Id == 7 && (std.Student_Type_Id == 1 || IsFinish_Equation))
+                    if ((std.Student_Status_Id == 7 || std.Student_Status_Id == 17) && (std.Student_Type_Id == 1 || IsFinish_Equation))
                     {
                         txtSetMeetingInfo.Visible = true;
                     }
+
+                    if (std.Student_Status_Id == 17)
+                        txtURL_Video.Text = "https://goo.gl/maps/SNM8YwauaTVRospB6";
 
                     // Change status to pendding if it's new
                     if (std.Status.Status_Code == 1)// New
                     {
                         std.Student_Status_Id = 2;// Assigned
+                        Status_ID_Verification.Text = "2";
                         db.Entry(std).State = System.Data.EntityState.Modified;
 
                         Sequence seq = db.Sequences.Create();
@@ -220,6 +236,36 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     btnApprove.Text = GetApproveStatusName((int)std.Student_Status_Id,std);
                     btnBranch2.Text = GetApproveBranchStatusName((int)std.Student_Status_Id,std);
 
+                    /* المالية */
+                    if (SessionWrapper.LoggedUser.Language_id == 1)
+                        btnSendSMS.Text = "إرسال";
+                    else
+                        btnSendSMS.Text = "Send";
+
+                    if (std.Student_Status_Id != 6 && std.Student_Status_Id != 11)
+                    {
+                        btnSendSMS.Visible = false;
+                        txtReadyToPay.Visible = false;
+                    }
+                    else
+                    {
+                        List<Payment_Process> ppList = db.Payment_Process.Where(x => x.Student_Id == std.Student_Id).ToList();
+                        if (ppList.Count > 0)
+                        {
+                            txtAmount.Text = ppList[ppList.Count - 1].Send_Amount.ToString();
+                            txtSadadNumber.Text = ppList[ppList.Count - 1].Result_Description;
+                            if(ppList[ppList.Count - 1].Result_Description != null && ppList[ppList.Count - 1].Result_Description != "")
+                            if (SessionWrapper.LoggedUser.Language_id == 1)
+                                btnSendSMS.Text = "إعادة ارسال";
+                            else
+                                btnSendSMS.Text = "Resend";
+
+                        }
+
+                        txtNote.Text = "Please complete the payment within 48 hours.";
+                    }
+                    /* المالية */
+
                     if (std.Student_Status_Id != 17 && std.Student_Status_Id != 10)
                     {
                         btnBranch2.Visible = false;
@@ -244,6 +290,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             catch { Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx"); }
         }
 
+        private bool Can_I_Update_Record(Student std)
+        {
+            int status_id = int.Parse(Status_ID_Verification.Text);
+            if (std.Student_Status_Id == status_id)
+                return true;
+            else
+            {
+                Session["Error_Message"] = true;
+                return false;
+            }
+        }
         private void CheckIfHeHasPermission(Student std)
         {
             if (std.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id)
@@ -414,14 +471,6 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             LoadSequence(UserID);*/
         }
 
-        private bool Can_I_Update_Record(Student Currnet_std)
-        {
-            Student Last_std = db.Students.Where(x => x.Student_Id == Currnet_std.Student_Id).FirstOrDefault();
-            if (Currnet_std.Student_Status_Id == Last_std.Student_Status_Id)
-                return true;
-            else
-                return false;
-        }
         protected void btnApprove_Click(object sender, EventArgs e)
         {
             int newStatus = 0, restore_id = 15;
@@ -472,10 +521,10 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
                 bool meeting_stage = false;
-                if (std.Student_Status_Id == 7 && (std.Student_Type_Id == 1 || IsFinish_Equation))
+                if ((std.Student_Status_Id == 7 || std.Student_Status_Id == 17) && (std.Student_Type_Id == 1 || IsFinish_Equation))
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
-                    std.Notes = "Meeting Date: " + txtMeeting_Date.Value + " Meeting Time: " + txtMeeting_Time.Value;
+                    std.Notes = "Meeting Date: " + txtMeeting_Date.Value + " Meeting Time: " + txtMeeting_Time.Value+ "(24-hour Clock)";
                     string MeetingDate = txtMeeting_Date.Value;
                     string MeetingTime = txtMeeting_Time.Value;
                     meeting_stage = true;
@@ -518,16 +567,31 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 }
                 else if (meeting_stage)
                 {
-                    sendEamil_Meeting(std, txtURL_Video.Text, txtMeeting_Date.Value, txtMeeting_Time.Value);
-                    // Send SMS
-                    SendSMS send_sms = new SendSMS();
+                    if (std.Student_Status_Id == 7)
+                    {
+                        sendEamil_Meeting(std, txtURL_Video.Text, txtMeeting_Date.Value, txtMeeting_Time.Value);
+                        // Send SMS
+                        SendSMS send_sms = new SendSMS();
 
 
-                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-                    string number_Phone = std.Student_Phone;
-                    string reslt_message = send_sms.SendMessage(Text, number_Phone);
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
+                        string number_Phone = std.Student_Phone;
+                        string reslt_message = send_sms.SendMessage(Text, number_Phone);
 
-                    SaveMessage(std.Student_Id, "SMS", Text);
+                        SaveMessage(std.Student_Id, "SMS", Text);
+                    }else
+                    {
+                        sendEamil_Meeting(std, txtURL_Video.Text, txtMeeting_Date.Value, txtMeeting_Time.Value);
+                        // Send SMS
+                        SendSMS send_sms = new SendSMS();
+
+
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse this link to reach the location :" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
+                        string number_Phone = std.Student_Phone;
+                        string reslt_message = send_sms.SendMessage(Text, number_Phone);
+
+                        SaveMessage(std.Student_Id, "SMS", Text);
+                    }
                 }
                 else
                 { //Send Email
@@ -598,7 +662,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     default: newStatus = 15; break; // Defalut Set To 15 File Complete with Failure
                 }
                 bool meeting_stage = false;
-                if (std.Student_Status_Id == 7 && std.Student_Type_Id == 1)
+                if ((std.Student_Status_Id == 7 || std.Student_Status_Id == 17) && (std.Student_Type_Id == 1 || IsFinish_Equation))
                 {
                     std.Student_URL_Video = txtURL_Video.Text;
                     std.Notes = "Meeting Date: " + txtMeeting_Date.Value + " Meeting Time: " + txtMeeting_Time.Value;
@@ -685,19 +749,40 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string sever_name = Request.Url.Authority.ToString();
 
             string StudentEmail = std.Student_Email;
-
-            /*string Missing_Data = "";
-
-            if (std.Student_Status_Id == 4)//  Data Not completed
-            {
-                Missing_Data = "<br /><br /><Strong>Missing Data:</Strong> " + txtNote.Text + "<br />"; 
-            }*/
-
             SendEmail send = new SendEmail();
-            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
-            bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
-            SaveMessage(std.Student_Id, "E-mail", Text);
-            return result;
+            if (std.Student_Status_Id == 20)//  Certificate Equation Completed
+            {
+                string equation = "Congratulations, the equation has been successfully completed. Please pay the registration fee to complete the registration processes";
+                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>" + equation + "</Strong> <br /> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+                bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
+                SaveMessage(std.Student_Id, "E-mail", Text);
+                return result;
+            } else if (std.Student_Status_Id == 7)//  Paid (Registration)
+            {
+                string interview = "Thank you, the request has been received and we will contact you soon to schedule the test and interview.";
+                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>" + interview + "</Strong> <br /> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+                bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
+                SaveMessage(std.Student_Id, "E-mail", Text);
+                return result;
+            }
+            else if(std.Student_Status_Id == 9)
+            {
+                string NoteStr = "";
+                if (txtNote.Text != string.Empty)
+                    NoteStr = "<br /><Strong>Note:</Strong>" + txtNote.Text + "<br />";
+
+                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br />"+ NoteStr + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+                bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
+                SaveMessage(std.Student_Id, "E-mail", Text);
+                return result;
+            }
+            else
+            {
+                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+                bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
+                SaveMessage(std.Student_Id, "E-mail", Text);
+                return result;
+            }
         }
 
         public bool sendEamil_Meeting(Student std,string url,string date, string time)
@@ -705,9 +790,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             string sever_name = Request.Url.Authority.ToString();
 
             string StudentEmail = std.Student_Email;
+            string Text = "";
+            string notes = "";
+            if (txtNote.Text != string.Empty)
+                notes = "<br /><Strong>Notes:</Strong>"+ txtNote.Text + "<br />";
 
             SendEmail send = new SendEmail();
-            string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            if(std.Student_Status_Id == 7)
+                Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM " + notes + "<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            else
+                Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Location:</Strong> " + url + "" + notes + "<br /><Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+
             bool result = send.TextEmail(std.Status.Status_Name_En, StudentEmail, Text, sever_name);
             SaveMessage(std.Student_Id, "E-mail", Text);
             return result;
@@ -736,11 +829,11 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             SendEmail send = new SendEmail();
 
             string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>Now you can pay the fees of " + Payment_For + ": </Strong> " + URL + " <br /> <Strong>Current Status:</Strong> " + std.Status.Status_Name_En + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
-            bool result = send.TextEmail("Ready To Pay", StudentEmail, Text, sever_name);
+            bool result = send.TextEmail("Ready To Pay("+ Payment_For + ")", StudentEmail, Text, sever_name);
 
             SaveMessage(std.Student_Id, "E-mail", Text);
 
-            return result;
+            return true;
         }
 
         public bool send_DatNotCompleted(Student std)
@@ -989,21 +1082,21 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
             bool IsFinish_Equation = Made_Equation(std);
 
-            if (std.Student_Status_Id == 6 || IsFinish_Equation)
+            if (std.Student_Status_Id == 6)
             {
                 // Check if He is New
                 double amount_reg = 0;
                 if (std.Student_Type_Id == 1 || IsFinish_Equation)
-                    amount_reg = (double)spec.Specialization_Registeration_Payment;
+                { amount_reg = (double)spec.Specialization_Registeration_Payment; Payment_For = "Registration"; }
                 else
-                    amount_reg = (double)spec.Specialization_Study_Payment_Equation;
+                { amount_reg = (double)spec.Specialization_Study_Payment_Equation; Payment_For = "Equation"; }
 
-                // Check if He is not Saudi
-                if (std.Nationality.Nationality_Id != 191)
+                    // Check if He is not Saudi
+                    if (std.Nationality.Nationality_Id != 191)
                     VAT = (amount_reg * 15) / 100;
 
                 amount = (amount_reg + VAT).ToString();
-                Payment_For = "Registration";
+                
                 payment_type_id = 1;
             }
             else
@@ -1130,6 +1223,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             Student std = db.Students.Find(student_record_id);
             if (std != null)
             {
+                if (!Can_I_Update_Record(std))
+                    return;
+
                 std.Student_Employee_Id = int.Parse(txtEmployees.SelectedValue);
                 std.Student_Status_Id = 3; // Assigned
                 db.Entry(std).State = System.Data.EntityState.Modified;
@@ -1278,6 +1374,39 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 Imagepath = UtilityClass.UploadFilePostedFile(ref fileAttach, Server.MapPath(Path));
             }
             return Imagepath;
+        }
+
+        protected void btnSendSMS_Click(object sender, EventArgs e)
+        {
+            int student_record_id = int.Parse(Request["StudentID"].ToString());
+            Student std = db.Students.Find(student_record_id);
+            string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
+            string number_Phone = std.Student_Phone;
+            SendSMS send_sms = new SendSMS();
+            string reslt_message = send_sms.SendMessage(Text, number_Phone);
+            SaveMessage(std.Student_Id, "SMS", Text);
+
+            string notes = "";
+            if (txtNote.Text != string.Empty)
+                notes = "<br /><Strong>Notes:</Strong>" + txtNote.Text + "<br />";
+            SendEmail send = new SendEmail();
+            Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>SADAD Number:</Strong> " + txtSadadNumber.Text + "<br /><Strong>Amount:</Strong> " + txtAmount.Text + "<br />" + notes + "<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh<br />Admission System</Strong> ";
+            string sever_name = Request.Url.Authority.ToString();
+            string StudentEmail = std.Student_Email; // "ayman@softwarecornerit.com";//
+            bool result = send.TextEmail("Ready To Pay", StudentEmail, Text, sever_name);
+
+            SaveMessage(std.Student_Id, "E-mail", Text);
+
+            List<Payment_Process> ppList = db.Payment_Process.Where(x => x.Student_Id == std.Student_Id).ToList();
+            if (ppList.Count > 0)
+            {
+                Payment_Process pp = ppList[ppList.Count - 1];
+                pp.Result_Description = txtSadadNumber.Text;
+                db.Payment_Process.Add(pp);
+                db.SaveChanges();
+            }
+
+            Response.Redirect("~/Pages/RegistrationProcess/view.aspx?StudentID=" + (int)std.Student_Id);
         }
 
         public bool Made_Equation(Student std)

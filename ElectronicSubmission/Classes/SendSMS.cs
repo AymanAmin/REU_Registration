@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,10 @@ namespace ElectronicSubmission
 {
     public class SendSMS
     {
+        LogFileModule logFileModule = new LogFileModule();
+        String LogData = "";
+        REU_RegistrationEntities db = new REU_RegistrationEntities();
+
         private string ConvertToUnicode(string val)
         {
             string msg2 = string.Empty;
@@ -66,31 +71,45 @@ namespace ElectronicSubmission
 
         public string SendMessage(string msg, string phone)
         {
-            string username = "riyadh.edu", passwor = "MYsms@dmin", sender = "REU-AD";
-            /* Encoding msg */
-            msg = ConvertToUnicode(msg);
-            /* End Encoding msg */
-
-            //string number = "966"+ phone.Substring(1, phone.Length - 1);
-
-            string number = phone;
-
-            string postData = "mobile=" + username + "&password=" + passwor + "&numbers=" + number + "&sender=" + sender + "&msg=" + msg + "&applicationType=24";
-            string strResponcse = "-1";
-
-            WebRequest request = WebRequest.Create("http://www.mobily.ws/api/msgSend.php?" + postData);
-            request.Method = "GET";
-            using (WebResponse response = request.GetResponse())
+            try
             {
-                using (Stream stream = response.GetResponseStream())
+                string username = "riyadh.edu", passwor = "MYsms@dmin", sender = "REU-AD";
+                /* Encoding msg */
+                msg = ConvertToUnicode(msg);
+                /* End Encoding msg */
+
+                //string number = "966"+ phone.Substring(1, phone.Length - 1);
+
+                string number = phone;
+
+                string postData = "mobile=" + username + "&password=" + passwor + "&numbers=" + number + "&sender=" + sender + "&msg=" + msg + "&applicationType=24";
+                string strResponcse = "-1";
+
+                WebRequest request = WebRequest.Create("http://www.mobily.ws/api/msgSend.php?" + postData);
+                request.Method = "GET";
+                using (WebResponse response = request.GetResponse())
                 {
-                    StreamReader reader = new StreamReader(stream);
-                    strResponcse = reader.ReadToEnd();
-                    reader.Close();
-                    stream.Close();
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        StreamReader reader = new StreamReader(stream);
+                        strResponcse = reader.ReadToEnd();
+                        reader.Close();
+                        stream.Close();
+                    }
                 }
+                return strResponcse;
+            }catch (Exception er)
+            {
+                Dictionary<string, dynamic> Message_SMS = new Dictionary<string, dynamic>();
+                Message_SMS["phone"] = phone;
+                Message_SMS["Message"] = msg;
+                Message_SMS["Exception"] = er;
+                db.Configuration.LazyLoadingEnabled = false;
+                /* Add it to log file */
+                LogData = "data:" + JsonConvert.SerializeObject(Message_SMS, logFileModule.settings);
+                logFileModule.logfile(10, "حدث خطأ في ارسال رسالة", "New Exception in Send SMS", LogData);
+                return "-1";
             }
-            return strResponcse;
         }
     }
 }

@@ -22,6 +22,8 @@ namespace ElectronicSubmission
         public int langId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["Terms"] = null;
+
             if (!IsPostBack)
             {
                 if (int.TryParse(Request["lang"], out langId) && langId > 0)
@@ -34,6 +36,7 @@ namespace ElectronicSubmission
                     {
                         langId = 2;
                         Session["lang"] = langId;
+
                     }
                     else
                     {

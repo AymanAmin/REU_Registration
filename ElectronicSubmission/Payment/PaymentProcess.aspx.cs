@@ -18,6 +18,7 @@ namespace ElectronicSubmission.Payment
         string Trackingkey = "", PaymentId = "";
         LogFileModule logFileModule = new LogFileModule();
         String LogData = "";
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request["Trackingkey"] != null)
@@ -83,7 +84,7 @@ namespace ElectronicSubmission.Payment
             try
             {
                 Dictionary<string, dynamic> responseData = CheckStatusPaymentRequest(PaymentId_local, entityId);
-                if (responseData["result"]["code"] == "000.100.110" || responseData["result"]["code"] == "000.100.112")
+                if (responseData["result"]["code"] == "000.100.110" || responseData["result"]["code"] == "000.100.112" || responseData["result"]["code"] == "000.000.000")
                 {
                     Payment_Process PaymentProcess_update = db.Payment_Process.FirstOrDefault(x => x.Payment_Trackingkey == Trackingkey_local);
                     PaymentProcess_update.Payment_IsPaid = true;
@@ -126,6 +127,14 @@ namespace ElectronicSubmission.Payment
                     LogData = "data:" + JsonConvert.SerializeObject(paymentLogFile, logFileModule.settings);
                     logFileModule.logfile(10, "اضافة عملية دفع", "add payment process", LogData);
 
+                    bool Make_Equation = false;
+                    List<Sequence> seq_Check = db.Sequences.Where(x => x.Student_Id == std.Student_Id && x.Status_Id == 1016).ToList(); // 1016 : Certificate Equation Completed
+                    if (seq_Check.Count > 0)
+                        Make_Equation = true;
+
+                    if (std.Student_Status_Id == 7 && std.Student_Type_Id !=1 && !Make_Equation)
+                        InCaseTajseerOrTransifare(std);
+
                     result = true;
                 }
                 else
@@ -152,6 +161,47 @@ namespace ElectronicSubmission.Payment
             return result;
         }
 
+        public void InCaseTajseerOrTransifare(Student std)
+        {
+            try
+            {
+                // Update student record to Equation
+                int new_Status_Id = 19;//معادلة الشهادة
+                std.Student_Status_Id = new_Status_Id;
+                db.Entry(std).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                // isnert new Sequences record to paid
+                Sequence seq = db.Sequences.Create();
+                seq.Emp_Id = 1;
+                seq.Status_Id = new_Status_Id;
+                seq.Student_Id = std.Student_Id;
+                seq.Note = "Auto Transaction";
+                seq.DateCreation = DateTime.Now;
+                db.Sequences.Add(seq);
+                db.SaveChanges();
+
+
+                db.Configuration.LazyLoadingEnabled = false;
+                /* Add it to log file */
+                Student stdLogFile = db.Students.Find(std.Student_Id);
+                stdLogFile.Employee = db.Employees.Find(seq.Emp_Id);
+                stdLogFile.Status = db.Status.Find(seq.Status_Id);
+
+                LogData = "data:" + JsonConvert.SerializeObject(stdLogFile, logFileModule.settings);
+                logFileModule.logfile(10, "تغير الحالة تلقائي", "Update Status Automatic", LogData);
+
+            }
+            catch (Exception er)
+            {
+                db.Configuration.LazyLoadingEnabled = false;
+                /* Add it to log file */
+
+                LogData = "data:" + JsonConvert.SerializeObject(er, logFileModule.settings);
+                logFileModule.logfile(10, "خطأ جديد التحقق من  للدفع", "New Exception in checkPayment Status", LogData);
+            }
+
+        }
         public Dictionary<string, dynamic> CheckStatusPaymentRequest(string PaymentId_local, string entityId)
         {
             ServicePointManager.Expect100Continue = true;

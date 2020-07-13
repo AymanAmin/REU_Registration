@@ -13,6 +13,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
     public partial class View {
         
         /// <summary>
+        /// Status_ID_Verification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Status_ID_Verification;
+        
+        /// <summary>
         /// DivAssign control.
         /// </summary>
         /// <remarks>
@@ -292,6 +301,33 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.DropDownList txtTypeOfCash;
         
         /// <summary>
+        /// txtReadyToPay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtReadyToPay;
+        
+        /// <summary>
+        /// txtSadadNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSadadNumber;
+        
+        /// <summary>
+        /// txtAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAmount;
+        
+        /// <summary>
         /// txtNote control.
         /// </summary>
         /// <remarks>
@@ -299,6 +335,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNote;
+        
+        /// <summary>
+        /// btnSendSMS control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSendSMS;
         
         /// <summary>
         /// btnApprove control.

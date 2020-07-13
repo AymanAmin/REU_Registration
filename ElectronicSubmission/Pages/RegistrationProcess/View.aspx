@@ -27,6 +27,7 @@
     <!-- All View cards start -->
     <div class="row">
         <!-- left View cards start -->
+        <asp:TextBox ID="Status_ID_Verification" runat="server" Visible="false"></asp:TextBox>
         <div class="col-sm-8">
             <!-- Assign card  -->
             <div class="card" id="DivAssign" runat="server" visible="false">
@@ -199,7 +200,7 @@
                             <div class="row text-left">
                                 <div class="col-md-12" id="txtSetMeetingInfo" runat="server" visible="false">
                                     <div class="col-md-12">
-                                        <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-URLVideoLink", "URL Video Link") %></div>
+                                        <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-URLLink", "URL Link") %></div>
                                         <div class="col-sm-12">
                                             <asp:TextBox ID="txtURL_Video" runat="server" class="form-control" TextMode="SingleLine" Style="width: 100%"></asp:TextBox>
                                         </div>
@@ -228,6 +229,21 @@
                                         </asp:DropDownList>
                                     </div>
                                 </div>
+                                <!-- المالية  -->
+                                <div class="col-md-12" id="txtReadyToPay" runat="server">
+                                    <div class="col-md-12">
+                                        <div class="col-sm-6">
+                                            <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-SadadNumber", "Sadad Number") %></div>
+                                            <asp:TextBox ID="txtSadadNumber" runat="server" class="form-control" TextMode="SingleLine" Style="width: 100%"></asp:TextBox>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-Amount", "Amount") %></div>
+                                            <asp:TextBox ID="txtAmount" runat="server" class="form-control" TextMode="SingleLine" Enabled="false" Style="width: 100%"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- المالية  -->
+
                                 <div class="col-sm-12">
                                     <br />
                                     <asp:TextBox ID="txtNote" runat="server" class="form-control" TextMode="MultiLine" Style="width: 100%"></asp:TextBox>
@@ -235,6 +251,7 @@
 
                                 <div class="col-sm-12 invoice-btn-group text-center">
                                     <br />
+                                    <asp:Button ID="btnSendSMS" class="btn btn-primary btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Send SMS" OnClick="btnSendSMS_Click" />
                                     <asp:Button ID="btnApprove" class="btn btn-success btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Approve" OnClick="btnApprove_Click" />
                                     <asp:Button ID="btnBranch2" class="btn btn-info btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Approve" OnClick="btnBranch2_Click" />
                                     <asp:Button ID="btnReject" class="btn btn-danger waves-effect m-b-10 btn-sm waves-light" runat="server" Text="Reject" OnClick="btnReject_Click" />
