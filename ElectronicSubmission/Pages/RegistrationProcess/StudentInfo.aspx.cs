@@ -507,7 +507,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             StudentNameArValidator.Text = "الرجاء إدخال الإسم بالعربي";
             StudentNameEnValidator.Text = "الرجاء إدخال الإسم بالانجليزي";
             StudentEmailValidator.Text = "الرجاء إدخال البريد الإلكتروني";
-            StudentPhoneValidator.Text = "الرجاء إدخال رقم الهاتف";
+            StudentPhoneValidator.Text = "الرجاء إدخال رقم الهاتف (12 رقم( ";
             AddressValidator.Text = "الرجاء إدخال العنوان";
             Student_SSNValidator.Text = "الرجاء إدخال رقم الهوية";
             HighSchoolDegreeValidator.Text = "الرجاء إدخال درجات الشهادة الثانوية";
@@ -520,7 +520,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             StudentNameAr.Attributes["placeholder"] = "أدخل الاسم بالعربي";
             StudentNameEn.Attributes["placeholder"] = "أدخل الأسم بالانجليزي";
             StudentEmail.Attributes["placeholder"] = "أدخل البريد الإلكتروني";
-            StudentPhone.Attributes["placeholder"] = "05xxxxxxxx";
+            StudentPhone.Attributes["placeholder"] = "9665xxxxxxxx";
             Address.Attributes["placeholder"] = "أدخل العنوان";
             Student_SSN.Attributes["placeholder"] = "أدخل رقم الهوية";
             HighSchoolDegree.Attributes["placeholder"] = "أدخل درجة الشهادة الثانوية";

@@ -674,10 +674,10 @@ namespace ElectronicSubmission
             StudentNameArValidator.Text = "الرجاء إدخال الإسم بالعربي";
             StudentNameEnValidator.Text = "الرجاء إدخال الإسم بالانجليزي";
             StudentEmailValidator.Text = "الرجاء إدخال البريد الإلكتروني";
-            StudentPhoneValidator.Text = "الرجاء إدخال رقم الهاتف";
+            StudentPhoneValidator.Text = " الرجاء إدخال رقم الهاتف (12 رقم(";
             AddressValidator.Text = "الرجاء إدخال العنوان";
             StudentSSNFileValidator.Text = "الرجاء إرفاق الهوية";
-            Student_SSNValidator.Text = "الرجاء إدخال رقم الهوية (10 ارقام) ";
+            Student_SSNValidator.Text = "الرجاء إدخال رقم الهوية";
             HighSchoolDegreeValidator.Text = "الرجاء إدخال درجات الشهادة الثانوية";
             CapabilitiesDegreeValidator.Text = "الرجاء إدخال درجات القدرات";
             MyAchievementDegreeValidator.Text = "الرجاء إدخال درجات التحصيلي";

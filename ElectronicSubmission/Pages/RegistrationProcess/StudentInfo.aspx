@@ -18,8 +18,9 @@
 
             var remaningChar = maxchar - obj.value.length;
 
-            if (remaningChar <= 0) {
-                obj.value = obj.value.substring(maxchar, 0);
+            if (remaningChar != 0) {
+                //obj.value = obj.value.substring(maxchar, 0);
+                obj.value = null;
                 return false;
 
             }
@@ -257,9 +258,9 @@
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentPhone", "Student Phone") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-ui-call"></i></span>
-                            <asp:TextBox ID="StudentPhone" runat="server" class="form-control" placeholder="9665xxxxxxxx" TextMode="Number" onkeyup="validatelimit(this,13"></asp:TextBox>
+                            <asp:TextBox ID="StudentPhone" runat="server" class="form-control" placeholder="9665xxxxxxxx" TextMode="Number" onchange="validatelimit(this,12)"></asp:TextBox>
                         </div>
-                        <asp:RequiredFieldValidator ID="StudentPhoneValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student Phone" ValidationGroup="valFormGroup" ControlToValidate="StudentPhone" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="StudentPhoneValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student Phone  (12 Number)" ValidationGroup="valFormGroup" ControlToValidate="StudentPhone" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
                     <div class="form-group col-sm-6">
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-StudentEmail", "Student Email") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
@@ -276,9 +277,9 @@
                         <label><% = ElectronicSubmission.FieldNames.getFieldName("StudentInfo-NationalityID", "Nationality ID") %></label><i class="icofont icofont-star-alt-1 text-danger"></i>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="icofont icofont-stamp"></i></span>
-                            <asp:TextBox ID="Student_SSN" runat="server" class="form-control" placeholder="Enter Nationality ID" onchange="validateSSN(this,10)"></asp:TextBox>
+                            <asp:TextBox ID="Student_SSN" runat="server" class="form-control" placeholder="Enter Nationality ID" ></asp:TextBox>
                         </div>
-                        <asp:RequiredFieldValidator ID="Student_SSNValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Nationality ID (10 Number)" ValidationGroup="valFormGroup" ControlToValidate="Student_SSN" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="Student_SSNValidator" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Nationality ID" ValidationGroup="valFormGroup" ControlToValidate="Student_SSN" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     </div>
 
                     <div class="form-group col-sm-6">
