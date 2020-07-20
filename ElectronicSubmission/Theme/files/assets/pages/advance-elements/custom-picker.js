@@ -245,14 +245,14 @@ $("#dropper-default").dateDropper( {
 }),
 $("#Body_Holder_treatmentDate").dateDropper({
         dropWidth: 200,
-        dropPrimaryColor: "#0a1350",
-        dropBorder: "1px solid #0a1350",
+        dropPrimaryColor: "#302780",
+        dropBorder: "1px solid #302780",
         maxYear: "3000"
 }),
 $("#Body_Holder_replyDate").dateDropper({
     dropWidth: 200,
-    dropPrimaryColor: "#0a1350",
-    dropBorder: "1px solid #0a1350",
+    dropPrimaryColor: "#302780",
+    dropBorder: "1px solid #302780",
     maxYear: "3000",
 }),
 $("#dropper-animation").dateDropper( {

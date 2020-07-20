@@ -10,18 +10,18 @@
 .wm-summary .rating-box:before,.wm-summary .rating-box:before, .wm-summary .wm-levelrating:before, .wm-summary .rating-box:before,.singleshop-tab .nav-tabs > li.active > a, .singleshop-tab .nav-tabs > li.active > a:hover,
 .wm-shop-products h2, .wm-404page-text h3, .wm-submit-question h6,.wm-submit-question p, .wm-faq h2, .wm-submit-question h6,.wm-submit-question p, .wm-faq h2, .wm-faq-form h2,.widget_check-box h5,.widget_futurecourse h5,
 .wm-futurecourse h4,.wm-futurecourse li a,.wm-grid-info h6,.wm-professor-info h2,.wm-professor-contact i,.wm-rich-aditor h3 {
-    color: #0a1350;
+    color: #302780;
 }
 .wm-bgcolor, .wm-bgcolorhover:hover,.wm-topstrip,.modal-backdrop,.wm-banner-one-nav-layer.slick-current,.wm-courses-popular figcaption,.wm-learn-listing figure:before,.wm-counter-simple,
 .wm-testimonial-slider-wrap p,.wm-light-transparent,.wm-contact-tab .nav-tabs li a:before,.wm-promo-box-text a,.wm-testimonial-slider-wrap p,.wm-light-transparent,.wm-contact-tab .nav-tabs li a:before, .wm-blog-author,.wm-price-plans h2,.wm-gallery figure:hover figcaption,
 .wm-get-started-button:hover,.wm-promo-box-text > .wm-save,.wm-our-professors figure figcaption:before,.wm-student-favorite-text,.wm-normal-btn a:hover,.wm-normal-btn a.active,.wm-grid-tittle {
-    background-color: #0a1350;
+    background-color: #302780;
 }
 .wm-bordercolor, .wm-bordercolorhover:hover {
-    border-color: #0a1350;
+    border-color: #302780;
 }
 .wm-testimonial-slider-wrap p:before {
-    border-top-color: #0a1350;
+    border-top-color: #302780;
 }
 
 
@@ -45,7 +45,7 @@
 .wm-sidebar a:hover, .wm-sidebar a:active, .wm-sidebar a:focus,.widget_check-box .rating-box:before,.widget_check-box .rating-box:before,.wm-futurecourse a:hover,.wm-futurecourse span,
 .wm-range-slider form input[type="submit"],.wm-grid-info span,.wm-cart-button a,.wm-cart-button i,.widget_our-professors figcaption a:hover,.widget_our-professors ul li a:hover i,.widget_contact-form input[type="submit"],
 .widget_twittwe-feed h5 span,.widget_twittwe-feed li a:hover,.widget_twittwe-feed li:before,.wm-rich-aditor li:before,.wm-shop-list .wm-cart-button > span {
-	color: #13491e;
+	color: #018137;
 }
 .wm-banner-btn,.wm-contact-form form input[type="submit"],.wm-plain-btn-style,
 .tags a,.wm-filterable ul li a,.wm-case-filter figcaption > a,.wm-tabs-typo .nav-tabs > li a:hover,.wm-tabs-typo .nav-tabs > li.active a,.wm-tabs-listing > .nav-tabs > li.active ,
@@ -53,7 +53,7 @@
 .wm-arrow-left:hover,.wm-ourcourses-right .wm-previous-icon,.wm-ourcourses-right .wm-Next-icon,.widget_professor-info > .wm-read-more,.widget_course-price a,.widget_course-price > a:hover,.widget_professor-info > .wm-read-more:hover,
 .wm-student-dashboard-form form input[type="submit"],.wm-favorite > .wm-remove, .wm-profile-info article ul li .wm-select-checkbox input[type="checkbox"] + label span,
 .wm-student-nav-text a,.wm-our-professors figcaption > a,.wm-tabs-listing .nav-tabs > li.active a, .wm-tabs-listing > .nav-tabs > li:hover a {
-    border-color: #13491e;
+    border-color: #018137;
 }
 .wm-banner-btn:hover,.wm-banner-one-nav-layer.slick-current .wm-banner-btn,.wm-search-course ul li input[type="submit"]:hover,.wm-subscribe-form h2:before,
 .wm-contact-form form input[type="submit"]:hover,.wm-transparent-hover,.wm-lesson-tabnav li.active a:before,.tabs-nav li:hover a,.tabs-nav li.active a,
@@ -66,5 +66,5 @@
 .wm-article ul li .wm-select-checkbox input[type="checkbox"]:checked + label span:before,.wm-404page-button a:before, .wm-404page-button a:after, .wm-submit-question a:hover, .wm-submit-question a:active, .wm-submit-question a:focus, 
 .wm-submit-question a:hover, .wm-submit-question a:active, .wm-submit-question a:focus, .wm-faq-form input[type="submit"]:hover,.wm-range-slider form input[type="submit"]:hover,.widget_check-box .ui-slider .ui-slider-handle,
 .wm-cart-button a:before,.wm-cart-button a:after,.widget_contact-form input[type="submit"]:hover,.wm-professor-contact a:before {
-    background-color: #13491e;
+    background-color: #018137;
 }

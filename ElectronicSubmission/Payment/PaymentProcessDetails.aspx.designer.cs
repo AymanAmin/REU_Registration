@@ -202,6 +202,24 @@ namespace ElectronicSubmission.Payment {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl SADAD;
         
         /// <summary>
+        /// StudentGender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList StudentGender;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        
+        /// <summary>
         /// StudentFirstName control.
         /// </summary>
         /// <remarks>

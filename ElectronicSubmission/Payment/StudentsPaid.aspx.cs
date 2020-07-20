@@ -15,12 +15,29 @@ namespace ElectronicSubmission.Payment
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "yellow" };
 
+        int Payment_Process_ID = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
-            if (!IsPostBack)
+            if (Request["Payment_Process_ID"] != null)
+            {
+                int.TryParse(Request["Payment_Process_ID"], out Payment_Process_ID);
+                if(Payment_Process_ID != 0)
+                {
+                    Payment_Process payment_process = db.Payment_Process.Find(Payment_Process_ID);
+                    if(payment_process != null)
+                    {
+                        payment_process.Payment_SMS_Result = "Done";
+                        db.Entry(payment_process).State = System.Data.EntityState.Modified;
+                        db.SaveChanges();
+                        Response.Redirect("~/Payment/StudentsPaid.aspx");
+                    }
+                }                
+            }
+
+                if (!IsPostBack)
             {
                 PaymentProcessList = db.Payment_Process.ToList();
 
@@ -52,8 +69,12 @@ namespace ElectronicSubmission.Payment
                     str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("StudentsPaid-Expand", "Expand") + "</td>";
                     str += "<td class='text-left'>";
                     str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + std.Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
-                    //str += "<a href= '../../../../Pages/RegistrationProcess/StudentInfo.aspx?StudentID=" + std.Student_Id + "' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-edit h5'></i>&nbsp;&nbsp;</a>";
-                    //str += "<a href= '../../../../Pages/RegistrationProcess/DeleteStudent.ashx?StudentID=" + std.Student_Id + "' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-recycle-alt h5'></i>&nbsp;&nbsp;</a>";
+                    if(PaymentProcessList[i].Payment_IsPaid == false)
+                        str += "<a href= '#' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-close-circled h5'></i>&nbsp;&nbsp;</a>";
+                    else if(PaymentProcessList[i].Payment_SMS_Result == null || PaymentProcessList[i].Payment_SMS_Result == "")
+                        str += "<a href= '../../../../Payment/StudentsPaid.aspx?Payment_Process_ID=" + PaymentProcessList[i].Payment_Id + "' style='color:black;'>&nbsp;&nbsp; <i class='icofont icofont-wall-clock h5'></i>&nbsp;&nbsp;</a>";
+                    else
+                        str += "<a href= '#' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-check-circled h5'></i>&nbsp;&nbsp;</a>";
                     str += "</td>";
                     if (PaymentProcessList[i].Payment_IsPaid == true)
                         str += "<td class='text-left'><label class='label label-success' style='background:green !important;'>" + FieldNames.getFieldName("StudentsPaid-Paid", "Paid") + "</label></td>";
@@ -85,8 +106,13 @@ namespace ElectronicSubmission.Payment
                             if (VISA_MADA.Count > 0)
                             {
                                 UUID = VISA_MADA[VISA_MADA.Count - 1].UUID;
-                                TypeOfPayment = "VISA/MADA";
+                                TypeOfPayment = "VISA/MASTER";
                                 CreationDate = VISA_MADA[VISA_MADA.Count - 1].DateCreation.ToString();
+
+                                if(PaymentProcessList[i].Send_EntityId == "8acda4ce72e5a3df0172fb75d45d4891")
+                                {
+                                    TypeOfPayment = "MADA";
+                                }
                             }
                         }
                     }

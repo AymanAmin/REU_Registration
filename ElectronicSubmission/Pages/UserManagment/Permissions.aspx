@@ -88,7 +88,7 @@
                                             <div class="form-group col-sm-4 j-unit" style="margin-top: -2%">
                                                 <div class="col-sm-12 col-xl-12 m-b-30">
                                                     <h5 class="sub-title"><% = ElectronicSubmission.FieldNames.getFieldName("Permissions-MainParent", "Main Parent") %></h5>
-                                                    <input runat="server" id="MainMenu" type="checkbox" style="color: #0a1350" class="js-single" />
+                                                    <input runat="server" id="MainMenu" type="checkbox" style="color: #302780" class="js-single" />
                                                 </div>
                                             </div>
 

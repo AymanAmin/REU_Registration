@@ -816,7 +816,7 @@ jQuery(document).ready(function($) {
           railpadding:  { top: 0, right: 0, left: 0, bottom: 0, },
     });
     jQuery(".wm-sidebar ul").niceScroll("",{
-      cursorcolor:"#13491e",
+      cursorcolor:"#018137",
       cursoropacitymax:1,
       boxzoom:true,
       autohidemode: false,

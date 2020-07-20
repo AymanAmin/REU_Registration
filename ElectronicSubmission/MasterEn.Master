@@ -134,7 +134,7 @@
 
         .dxbButton_Material {
             color: white;
-            background-color: #0a1350;
+            background-color: #302780;
         }
 
         .jFiler-input-dragDrop {
@@ -142,11 +142,11 @@
         }
 
         .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            background-color: #0a1350;
+            background-color: #302780;
         }
 
         .select2-container--default .select2-results__option--highlighted[aria-selected] {
-            background-color: #0a1350;
+            background-color: #302780;
             color: white;
         }
 
@@ -156,25 +156,25 @@
         }
 
         .nav-link.active {
-            border-left-color: #0a1350 !important;
+            border-left-color: #302780 !important;
             border-left-style: solid !important;
             border-left-width: 3px !important;
             background-color: #fafafa !important;
-            color: #0a1350;
+            color: #302780;
         }
 
         .user-body .page-list li.mail-section a:hover {
-            color: #0a1350 !important;
+            color: #302780 !important;
             background-color: #fafafa !important;
         }
 
         /* Menu item color (onhover - active)*/
         .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li .pcoded-submenu li.active > a {
-            color: #0a1350 !important;
+            color: #302780 !important;
         }
 
         .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li .pcoded-submenu li:hover > a {
-            color: #0a1350 !important;
+            color: #302780 !important;
         }
 
         .hover-notification:hover {
@@ -336,7 +336,7 @@
                             <div class="navbar-container container-fluid">
                                 <ul class="nav-left">
                                     <li>
-                                        <a href="#!" onclick="javascript:toggleFullScreen()" style="color: #0a1350">
+                                        <a href="#!" onclick="javascript:toggleFullScreen()" style="color: #302780">
                                             <i class="feather icon-maximize full-screen"></i>
                                         </a>
                                     </li>
@@ -420,7 +420,7 @@
                                                     <div class="col-lg-8">
                                                         <div class="page-header-title">
                                                             <div class="d-inline">
-                                                                <!--<h4 style="color:#0a1350;">-->
+                                                                <!--<h4 style="color:#302780;">-->
                                                                 <h4>
                                                                     <asp:Literal ID="PageName" runat="server"></asp:Literal>
                                                                 </h4>
@@ -638,7 +638,7 @@
 
                     // Change the color of nav-bar-custom
                     document.getElementById("nav-bar-custom").style.backgroundColor = "white";
-                    document.getElementById("nav-bar-custom").style.color = "#0a1350";
+                    document.getElementById("nav-bar-custom").style.color = "#302780";
 
                     
 

@@ -188,19 +188,14 @@
                                     <div class="wm-title-full">
                                         <h2><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-Title", "الأحكام والشروط") %></h2>
                                     </div>
-                                    <p><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-SubTitle", "أتعهد وأقر بكل مما يلي:") %> </p>
+                                    <p><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-SubTitle", "اقر بأنني قد أطلعت على البنود الموضحة أدناه وهذا إقرار مني بالموافقة عليها والتقيد بموجبها وعلى ذلك أوقع وهي :-") %> </p>
                                     <ul>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-1", "بأن أقوم بتعبئة جميع المعلومات المطلوبة وتزويد جامعة رياض العلم  بالوثائق اللازمة وبأن جميع المعلومات الواردة صحيحة ومطابقة للواقع.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-2", "أتعهد بأن ألتزم بكافة تعليمات وأنظمة جامعة رياض العلم  المعلنة والتي يتم إعلانها أو تعديلها لاحقًا، ومن ضمنها تعليمات الحضور والزي والأمانة العلمية والأكاديمية و المحافظة على الأدوات والمواد والأجهزة.") %> </li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-3", "أن رسوم التسجيل مستحقة لقاء المصاريف الأدارية و اتعهد بتسديد رسوم التسجيل بمبلغ 2000 ريال بتاريخ التسجيل وفقاً لسياسة الجامعه المالية.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-4", "اتعهد بأن رسوم التسجيل و/أو قيامي بدفع رسوم التسجيل أو أي جزءٍ منها هو إقرار مني بأن هذه الرسوم غير مستردة بأي حال من الأحوال، وهي حق الجامعة.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-5", "اتعهد بتسديد الرسوم الدراسية للدراسات العليا بالجامعة حين استحقاقها.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-6", "اتعهد بأن قيامي بالانسحاب من البرنامج لا يعطيني اي حق بطلب استعادة الرسوم المدفوعة أو أي جزءٍ منها أو الإمتناع عن تسديد اية رسوم مستحقة وغير مدفوعة بعد.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-7", "اتعهد بأن امتثال جامعة رياض العلم  لطلبي بسحب ملفي هو امتثال لقوانين الهيئة السعودية للتخصصات الصحية ولا يعتبر موافقة من جامعة رياض العلم  على سحب الملفات أو انهاء لأي تعاقد، وأن هذا الأمر لا يغير من اقراري بإن الرسوم المستحقة لجامعة رياض العلم  سواء كانت مدفوعة أو غير مدفوعة، وأن المدفوعة منها غير مستردة.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-8", "اتعهد بأن أي انهاء او انتهاء لأي سبب من الأسباب لا يؤثر على حق جامعة رياض العلم  باستيفاء الرسوم المستحقة سواء كانت مدفوعة من قبلي أم لم تدفع بعد، وليس لي أي حق باستعادة الرسوم الدراسية المدفوعة منها، أو الإمتناع عن تسديد الرسوم المستحقة وغير المدفوعة بعد، وأقر بأن قيمة هذه الرسوم المستحقة تُعتبر بمثابة تعويض اتفاقي مع جامعة رياض العلم  يترتب لها كتعويض عن الانسحاب أو الإقالة.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-9", "عدم تشويه سمعة جامعة رياض العلم  أو مؤسسيها و/ أو ممثليها أو التقليل من شأنها، داخل مجتمع جامعة رياض العلم  أو خارجه، بالفعل أو الكلمة او في مواقع التواصل الاجتماعي.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-10", "إن  جامعة رياض العلم  يمكن أن توّفر تجربة تعليمية قيمة للطالب وأنها تبذل كل جهد ممكن لتوفير بيئة آمنة ومأمونة للتعلم، ومع ذلك، فإن الطالب هو المسؤول عن سلوكه في جميع الأوقات وفي حال مخالفة الطالب لقواعد وأنظمة جامعة رياض العلم  ، بما في ذلك تلك المبيّنة في هذا الإقرار و التعهد، فأنه سوف يواجه عواقب تحددها جامعة رياض العلم  وضمن المبادئ التوجيهية للوزارة.") %></li>
-                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-11", "الحق بالأحتفاظ بالشهاده أو المستند والحق في وقف تسجيله في المقررات أو فصول دراسية إذا تعثر السداد .") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-1", "أولاً: التقيد والإلتزام بالتعليمات والأنظمة واللوائح المعمول بها في الجامعة وأن سنة الأمتياز جزء لايتجزأ من الخطة الدراسية وإتمام المرحلة الدراسية لنيل الشهادة.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-2", "ثانياً: إحتساب الغياب يبدأ من أول يوم من الفصل الدراسي وإذا قلت نسبة الحضور عن 75% من المحاضرات والدروس العملية والسريرية لأي مقرر فيعتبر الطالب محروم من دخول الإختبار النهائي كما يعتبر راسباً في المقرر وليس له حق الإعتراض.") %> </li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-3", "ثالثاً: الإلتزام بتسديد الرسوم الدراسية قبل بداية الفصل الدراسي بأسبوع هي مسؤولية الطالب حتى يتم إنهاء إجراءات التسجيل لذلك الفصل ولايحق له التسجيل بعد نهاية الأسبوع الأول من الدراسة إذا لم تدفع الرسوم الدراسية المستحقة للفصل الدراسي مع العلم أن حصول الطالب على منحة أو بعثة دراسية من أي جهة وتأخر دفع الرسوم عن الموعد المحدد فأن المسؤول أمام الجامعة هو الطالب نفسه.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-4", "رابعاً: دفع رسوم التسجيل لمرة واحدة مع بداية التسجيل ولا تسترد بأي حال من الأحوال.") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-5", "خامساً: الإلتزام بالشروط المنظمة لإسترداد الرسوم الدراسية في حالة الإنسحاب أو الإعتذار عن الدراسة (إذا إنسحب أو إعتذر الطالب / الطالبة قبل بدء الدراسة تعاد له 80% من الرسوم الدراسية وبعد بدأ أول يوم دراسي لايستحق للطالب / الطالبة استرداد لأي مبلغ).") %></li>
+                                        <li><a href="#" class="wmicon-lock"></a><% = ElectronicSubmission.FieldNames.getFieldName("TermsAndConditions-6", "سادساً: بعد إنتهاء إجراءات القبول وإكمال جميع المتطلبات سيتم الإتفاق والتوقيع على العقد المنظم لعلاقة الطرفين (الجامعة- الطالب/الطالبة) ويزود كل طرف بنسخة منه.") %></li> 
                                     </ul>
                                 </div>
                             </div>
@@ -258,15 +253,15 @@
                                     <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
                                         <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
                                     </a></li>
-                                    <li><i class="wm-color wmicon-phone"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></li>
+                                    <li><i class="wm-color wmicon-phone"></i><a href="tel:920000842" style="color:black;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></li>
                                     <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-EmailAddress","info@riyadh.edu.sa")%></a></li>
                                 </ul>
                                 <div class="wm-footer-icons">
-                                    <a href="https://www.facebook.com/RiyadhColleges"><i class="fa fa-facebook-square"></i></a>
+                                    <a href="https://www.facebook.com/riyadhelmu"><i class="fa fa-facebook-square"></i></a>
                                     <a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i></a>
                                     <a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i></a>
                                     <a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i></a>
-                                    <a href="https://www.flickr.com/photos/riyadhcolleges"><i class="fa fa-flickr"></i></a>
+                                    
                                     <a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i></a>
                                 </div>
                             </aside>
@@ -305,14 +300,14 @@
                                 <div class="wm-footer-widget-title">
                                     <h5><i class="fa fa-google-wallet"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurGoals", "Our Goals") %></h5>
                                 </div>
-                                <ol>
+                                <ul>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalOne", "Graduate competent professionals to meet the needs of the labor market.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalTwo", "Engage in community service.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalThree", "Conduct scientific research.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFour", "Provide competitive postgraduate programs.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFive", "Provide health care and promote health awareness to the public.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalSix", "Encourage lifelong learning through accredited continuous education programs.") %></li>
-                                </ol>
+                                </ul>
                             </aside>
                         </div>
                     </div>

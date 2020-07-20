@@ -8,8 +8,8 @@ namespace ElectronicSubmission
 { 
     public class SendEmail
     {
-        string System_email = "ECMS.REU@gmail.com";
-        string System_password = "admin123!@#";
+        string System_email = "admission@riyadh.edu.sa";
+        string System_password = "RiyadhElmU2020";
         string System_Name = "Admission System";
 
         /// <summary>

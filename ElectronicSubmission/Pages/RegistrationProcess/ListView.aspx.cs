@@ -80,7 +80,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             // End if he made action on sequence table
 
             // Set TempList3 into ListAllStudentStatistic
-            ListAllStudentStatistic = ListAllStudentStatistic.Distinct().ToList();
+            ListAllStudentStatistic = ListAllStudentStatistic.Where(x => x.Suspended != 1).Distinct().ToList();
         }
 
         private void LoadStudent()
@@ -122,7 +122,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("ListView-Expand", "Expand") + "</td>";
                     str += "<td class = 'text-left'> <a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
 
-                    if (ListAllStudent[i].Status.Status_Code == 4)
+                    //if (ListAllStudent[i].Status.Status_Code == 4)
                     {
                         str += "<a href='../../../../Pages/RegistrationProcess/StudentInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "'  style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-edit h5'></i>&nbsp;&nbsp;</a>";
 

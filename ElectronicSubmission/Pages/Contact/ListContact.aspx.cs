@@ -11,7 +11,7 @@ namespace ElectronicSubmission.Pages.Contact
     {
         List<Student_Concat> ListStudentContact = new List<Student_Concat>();
         REU_RegistrationEntities db = new REU_RegistrationEntities();
-        string[] Color = { "#0a1350", "#fe9365", "blue", "#eb3422", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "#0ac282", "#eb3422", "coral", "salmon", "#0ac282" };
+        string[] Color = { "#302780", "#fe9365", "blue", "#eb3422", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "#0ac282", "#eb3422", "coral", "salmon", "#0ac282" };
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)

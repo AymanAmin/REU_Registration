@@ -409,7 +409,7 @@ address { font-style: italic; }
     color: #ffffff;
     font-size: 12px;
     text-transform: uppercase;
-    background-color: #13491e;
+    background-color: #018137;
     border: none;
     line-height: 1;
 }
@@ -873,7 +873,7 @@ address { font-style: italic; }
     width: 46%;
 }
 .wm-banner-one                                  { position: relative; }
-.wm-banner-one-nav-layer.slick-current          { border-right: 4px solid #13491e; }
+.wm-banner-one-nav-layer.slick-current          { border-right: 4px solid #018137; }
 .wm-banner-one-nav-layer.slick-current h1       { color: #ffffff; }
 .wm-banner-one-nav-layer.slick-current p        { color: #c3c8e2; }
 .wm-banner-one-nav-layer.banner-bgcolor         { background-color: #efefef; }
@@ -892,7 +892,7 @@ address { font-style: italic; }
     display: inline-block;
     padding: 11px 21px 10px 21px;
     font-size: 12px;
-    color: #13491e;
+    color: #018137;
     border: 1px solid;
     text-transform: uppercase;
     font-weight: 500;
@@ -1267,11 +1267,11 @@ span.wm-blue-transparent {
     position: absolute;
     right: 0;
     bottom: 0px;
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
 }
 .wm-radio input[type=radio]:checked + label:before {
     content: "";
-    background-color: #13491e;
+    background-color: #018137;
     box-shadow: 0px 0px 0px 1px #f7f7f7 inset;
 }
 .wm-radio-partition {
@@ -1340,7 +1340,7 @@ span.wm-blue-transparent {
     display: inline-block;
     padding: 11px 21px 10px 21px;
     font-size: 12px;
-    color: #13491e;
+    color: #018137;
     border: 1px solid;
     text-transform: uppercase;
     font-weight: 500;
@@ -1407,12 +1407,12 @@ span.wm-blue-transparent {
     margin-bottom: 16px;
 }
 .wm-box-service-wrap h6 a                               { color: #ffffff; }
-.wm-box-service ul li:hover .wm-box-service-wrap i      { color: #13491e; }
-.wm-box-service ul li:hover .wm-box-service-wrap        { box-shadow: 4px 0px 0px 0px #13491e inset; }
+.wm-box-service ul li:hover .wm-box-service-wrap i      { color: #018137; }
+.wm-box-service ul li:hover .wm-box-service-wrap        { box-shadow: 4px 0px 0px 0px #018137 inset; }
 /* Plain Service */
 .wm-plain-service                                       { text-align: center; }
 .wm-plain-service span small                            { font-size: 45px; }
-.wm-plain-service h5 a                                  { color: #0a1350; }
+.wm-plain-service h5 a                                  { color: #302780; }
 .wm-plain-service h5                                    { margin-bottom: 20px; }
 .wm-plain-service ul li                                 { margin-bottom: 30px; }
 .wm-plain-service span {
@@ -1546,7 +1546,7 @@ ul li:hover .wm-popular-hover                   { opacity: 1; top: 0px; }
     text-align: left;
 }
 .wm-courses-price span {
-    color: #13491e;
+    color: #018137;
     display: inline-block;
     vertical-align: top;
     position: relative;
@@ -2172,7 +2172,7 @@ ul li:hover .wm-coursemodren-btn                            { top: 50%; }
 .wm-event-latest-slider .wm-banner-btn { padding: 9px 26px 10px 26px; }
 .wm-event-latest-slider .slick-arrow {
     font-size: 16px;
-    color: #0a1350;
+    color: #302780;
     top: auto;
     bottom: 0px;
 }
@@ -2249,14 +2249,14 @@ ul li:hover .wm-event-transparent-hover { opacity: 0.80; }
     position: relative;
 }
 .wm-filterable-link ul li a.active {
-    color: #13491e;
+    color: #018137;
 }
 .wm-filterable-link ul li a.active:before {
     content: '';
     position: absolute;
     right: 0px;
     bottom: -5px;
-    background-color: #13491e;
+    background-color: #018137;
     width: 100%;
     height: 2px;
 }
@@ -3286,7 +3286,7 @@ ul li:last-child .wm-latest-news-wrap {
     font-size: 12px;
     margin-top: 22px;
 }
-.wm-contact-form input[type="submit"]:hover { color: #0a1350; }
+.wm-contact-form input[type="submit"]:hover { color: #302780; }
 /* Contact Title */
 .wm-contact-title {
     float: right;
@@ -3549,7 +3549,7 @@ ul li:last-child .wm-latest-news-wrap {
 .wm-apply-info ul li:nth-child(2) i         { color: #1e5571; }
 .wm-apply-info ul li:nth-child(2)           { background-color: #21546e; }
 .wm-apply-info ul li:nth-child(2) i         { color: #31637c; }
-.wm-apply-info-color ul li                  { background-color: #13491e; }
+.wm-apply-info-color ul li                  { background-color: #018137; }
 .wm-apply-info-color ul li:nth-child(2)     { background-color: #b18d58; }
 .wm-apply-info-color ul li:nth-child(3)     { background-color: #a58250; }
 .wm-apply-info.wm-apply-info-color ul li i  { color: #c5a06a; }
@@ -3946,8 +3946,8 @@ ul li:hover .wm-ctservice-icon {
     margin-bottom: 8px;
 }
 .wm-recent-list-text a { font-size: 14px; }
-.wm-recent-list-slider-color .wm-recent-list-text a,.wm-recent-list-slider-color.wm-recent-list-slider .slick-arrow { color: #13491e; }
-.wm-recent-list-slider-color.wm-recent-list-slider .slick-arrow:hover { box-shadow: 0px 0px 0px 2px #13491e inset; }
+.wm-recent-list-slider-color .wm-recent-list-text a,.wm-recent-list-slider-color.wm-recent-list-slider .slick-arrow { color: #018137; }
+.wm-recent-list-slider-color.wm-recent-list-slider .slick-arrow:hover { box-shadow: 0px 0px 0px 2px #018137 inset; }
 .wm-recent-list-slider .slick-arrow {
     top: auto;
     bottom: 0px;
@@ -4553,7 +4553,7 @@ ul li:hover .wm-ctservice-icon {
     font-family: icon;
     width: 21px;
     height: 21px;
-    background-color: #13491e;
+    background-color: #018137;
     border-radius: 100%;
     color: #ffffff;
     font-size: 9px;
@@ -4586,34 +4586,34 @@ ul li:hover .wm-ctservice-icon {
 }
 .wm-left-border {
     padding-right: 22px;
-    border-right: 2px solid #13491e;
+    border-right: 2px solid #018137;
     margin-bottom: 30px;
 }
 .wm-editore-text p {
-    color: #0a1350;
+    color: #302780;
     margin-bottom: 20px;
     font-size: 16px;
 }
 .wm-editore-text ul li {
     list-style: none;
-    color: #0a1350;
+    color: #302780;
     font-size: 16px;
     margin-bottom: 2px;
 }
 .wm-editore-text ul li i {
     font-size: 11px;
     float: right;
-    color: #13491e;
+    color: #018137;
     margin: 11px 13px 0px 0px;
 }
 .wm-parallex-three .wm-transparent-button {
-    border: 1px solid #13491e;
-    color: #13491e;
+    border: 1px solid #018137;
+    color: #018137;
     border-radius: 0px;
     padding: 9px 29px 9px;
     font-weight: 500;
 }
-.wm-parallex-three.wm-parallex h2:before { background-color: #13491e; }
+.wm-parallex-three.wm-parallex h2:before { background-color: #018137; }
 /* Event Detail */
 .wm-event-countdown {
     float: right;
@@ -4674,7 +4674,7 @@ ul li:hover .wm-ctservice-icon {
 .wm-detail-editore h3 {
     font-size: 30px;
     border-bottom: 2px solid #f2f2f2;
-    color: #0a1350;
+    color: #302780;
     padding-bottom: 12px;
     margin-bottom: 22px;
 }
@@ -4854,7 +4854,7 @@ ul li:hover .wm-ctservice-icon {
     float: right;
     margin-bottom: 0px;
     font-weight: 400;
-    color: #0a1350;
+    color: #302780;
 }
 .wm-register-title span {
     float: left;
@@ -4874,7 +4874,7 @@ ul li:hover .wm-ctservice-icon {
     float: right;
     list-style: none;
     width: 20%;
-    color: #0a1350;
+    color: #302780;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
@@ -4954,7 +4954,7 @@ ul li:hover .wm-ctservice-icon {
 .wm-event-options ul li span {
     font-weight: 700;
     text-transform: uppercase;
-    color: #0a1350;
+    color: #302780;
     font-size: 14px;
 }
 .wm-event-options ul i {
@@ -4966,7 +4966,7 @@ ul li:hover .wm-ctservice-icon {
 }
 .wm-event-options ul li p {
     margin-bottom: 0px;
-    color: #0a1350;
+    color: #302780;
 }
 .wm-buyticket-section,.wm-buyticket-section ul li,
 .wm-buyticket-section ul {
@@ -7282,7 +7282,7 @@ aside .widget {
     top: 10px;
 }
 .widget_course-price .rating-box:before {
-    color: #13491e;
+    color: #018137;
     content: "\f111 \f111 \f111";
     font-family: FontAwesome;
     font-size: 11px;
@@ -7294,7 +7294,7 @@ aside .widget {
 }
 .widget_course-price .rating-box:before {
     content: "\f111 \f111 \f111";
-    color: #13491e;
+    color: #018137;
 }
 .widget_course-price .rating-box {
     height: 20px;
@@ -7335,7 +7335,7 @@ aside .widget {
 .wm-futurecourse h4 {
     float: right;
     font-size: 16px;
-    color: #0a1350;
+    color: #302780;
     display: block;
     margin: 0px;
     padding-bottom: 4px;
@@ -7356,7 +7356,7 @@ aside .widget {
 }
 .wm-futurecourse li                                        {margin-left: 14px;}
 .wm-futurecourse li a {
-    color: #0a1350;
+    color: #302780;
     font-size: 15px;
     margin-right: 24px;
     position: relative;
@@ -8263,7 +8263,7 @@ aside .widget {
 }
 .wm-404page-button a {
     font-size: 12px;
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     text-transform: uppercase;
     padding: 5px 44px 6px;
     float: right;
@@ -8389,7 +8389,7 @@ aside .widget {
 }
 .wm-submit-question a {
     font-size: 12px;
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     text-transform: uppercase;
     padding: 9px 30px;
     float: right;
@@ -8543,7 +8543,7 @@ aside .widget {
     width: 100%;
 }
 .wm-faq-form input[type="submit"] {
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     float: right;
     line-height: 1;
     font-size: 12px;
@@ -8627,7 +8627,7 @@ aside .widget {
 }
 .widget_check-box input[type="checkbox"] + label span {
     background-color: #ffffff;
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     cursor: pointer;
     display: inline-block;
     height: 11px;
@@ -8644,7 +8644,7 @@ aside .widget {
 .widget_check-box input[type="checkbox"]:checked + label span:before {
     content: "\f04d";
     float: right;
-    color: #13491e;
+    color: #018137;
     font-family: FontAwesome;
     font-size: 7px;
     width: 7px;
@@ -8720,7 +8720,7 @@ aside .widget {
 }
 .wm-range-slider form input[type="submit"] {
     background-color: transparent;
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     font-size: 12px;
     font-weight: 300;
     padding: 9px 26px;
@@ -8766,7 +8766,7 @@ aside .widget {
     top: -2px;
 }
 .widget_check-box .ui-slider .ui-slider-handle:before {
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     content: "";
     right: -2px;
     padding: 6px 5px 5px 6px;
@@ -8877,7 +8877,7 @@ aside .widget {
     padding-bottom: 31px;
 }
 .wm-cart-button a {
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     padding: 4px 21px 4px 39px;
     font-size: 12px;
     display: inline-block;
@@ -9046,7 +9046,7 @@ aside .widget {
 }
 .widget_contact-form input[type="submit"] {
     background-color: transparent;
-    border: 1px solid #13491e;
+    border: 1px solid #018137;
     float: right;
     font-size: 12px;
     line-height: 1;
@@ -9579,7 +9579,7 @@ aside .widget {
     width: 100%;
 }
 .wm-footer-newslatter {
-    background-color: #0a1350;
+    background-color: #302780;
     padding: 17px 0px;
 }
 .wm-footer-newslatter i {
@@ -9657,7 +9657,7 @@ aside .widget {
     margin: 0px 0px 7px 7px;
 }
 .wm-footer-icons a:first-child      { margin-right: 0px; }
-.wm-footer-icons a:hover            { color: #13491e; }
+.wm-footer-icons a:hover            { color: #018137; }
 /* Footer Widget Title */
 .wm-footer-widget-title h5 {
     margin-bottom: 22px;
@@ -9692,7 +9692,7 @@ aside .widget {
     list-style: none;
     margin-bottom: 24px;
 }
-.widget_twitter ul li p a { color: #13491e; }
+.widget_twitter ul li p a { color: #018137; }
 .widget_twitter ul li time {
     font-style: italic;
 }
@@ -9716,7 +9716,7 @@ aside .widget {
     right: 0px;
     width: 0%;
     height: 100%;
-    background-color: #13491e;
+    background-color: #018137;
     -webkit-transition: all 0.4s ease-in-out;
        -moz-transition: all 0.4s ease-in-out;
         -ms-transition: all 0.4s ease-in-out;
@@ -9730,7 +9730,7 @@ aside .widget {
     left: 0px;
     width: 0%;
     height: 100%;
-    background-color: #13491e;
+    background-color: #018137;
     -webkit-transition: all 0.4s ease-in-out;
        -moz-transition: all 0.4s ease-in-out;
         -ms-transition: all 0.4s ease-in-out;
@@ -9749,7 +9749,7 @@ aside .widget {
     padding: 35px 0px 32px 0px;
 }
 .wm-copyright span {
-    color: #0a1350;
+    color: #302780;
     font-size: 15px;
 }
 .wm-copyright span i {
@@ -9763,7 +9763,7 @@ aside .widget {
     color: #a4a4a4;
     font-size: 14px;
 }
-.wm-copyright p a { color: #13491e; }
+.wm-copyright p a { color: #018137; }
 /* FooterTwo */
 .wm-footer-two {
     float: right;

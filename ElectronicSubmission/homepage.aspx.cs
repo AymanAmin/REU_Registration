@@ -34,7 +34,7 @@ namespace ElectronicSubmission
                 {
                     if (Session["lang"] == null)
                     {
-                        langId = 2;
+                        langId = 1;
                         Session["lang"] = langId;
 
                     }

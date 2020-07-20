@@ -157,11 +157,11 @@ html body h1 h2 h3 h4 h5 h6 p a li ul div {
     padding-top: 1.5%;
 }
 .nav-link.active {
-    border-right-color: #0a1350 !important;
+    border-right-color: #302780 !important;
     border-right-style: solid !important;
     border-right-width: 3px !important;
     background-color: #fafafa !important;
-    color: #0a1350;
+    color: #302780;
 }
 .dxgvHeader_Mulberry{text-align: center !important;}
 div.dataTables_wrapper div.dataTables_filter {

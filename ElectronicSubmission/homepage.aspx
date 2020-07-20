@@ -87,7 +87,7 @@
                                 </div>
                                 <ul class="wm-stripinfo">
                                     <li><i class="wmicon-location"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></a></li>
-                                    <li><i class="wmicon-technology4"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></li>
+                                    <li><i class="wmicon-technology4"></i><a href="tel:920000842" style="color:white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></li>
                                     <li><i class="wmicon-clock2"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-work", "sat - fri: 7:00am - 6:00pm") %></li>
                                 </ul>
                                 <ul class="wm-adminuser-section">
@@ -169,12 +169,12 @@
                         <div class="wm-banner-one-nav-layer">
                             <h1><% = ElectronicSubmission.FieldNames.getFieldName("homepage-bannerHeadTow", "Bachelors Degrees") %></h1>
                             <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-bannerDetailTow", "The core of Riyadh Elm University, Formerly Riyadh Colleges of Dentistry and Pharmacy (RCsDP) is the academic excellence.") %></p>
-                            <a href="http://www.home.riyadh.edu.sa/bachelors-degrees/" class="wm-banner-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-ReadMore", "Read More") %></a>
+                            <a href="http://www.home.riyadh.edu.sa/admissions/future-program/" class="wm-banner-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-ReadMore", "Read More") %></a>
                         </div>
                         <div class="wm-banner-one-nav-layer banner-bgcolor">
                             <h1><% = ElectronicSubmission.FieldNames.getFieldName("homepage-bannerHeadThree", "Research & Business") %></h1>
                             <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-bannerDetailThree", "The scientific community nominates CRISPR System, based on research developed at the UA.") %></p>
-                            <a href="http://www.home.riyadh.edu.sa/" class="wm-banner-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-ReadMore", "Read More") %></a>
+                            <a href="http://www.home.riyadh.edu.sa/admissions/2173-2/" class="wm-banner-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-ReadMore", "Read More") %></a>
                         </div>
                     </div>
                 </div>
@@ -224,7 +224,7 @@
                 <!--// Main Section \\-->
 
                 <!--// Main Section \\-->
-                <div class="wm-main-section wm-whychooseus-full">
+                <!--<div class="wm-main-section wm-whychooseus-full">
                     <div class="container">
                         <div class="row">
 
@@ -251,8 +251,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="wm-questions-studying">
-                                    <img src="Template/extra-images/ask-questoin-bg.png" alt="">
-                                    <h3 class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsHead", "Questions about studying with us?") %></h3>
+                                    <!--<img src="Template/extra-images/ask-questoin-bg.png" alt="">-->
+                                   <!-- <h3 class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsHead", "Questions about studying with us?") %></h3>
                                     <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsDetail", "We have a team of student advisers & officers to answer any questions:") %></p>
                                     <a class="wm-banner-btn" href="#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsButton", "Ask us now") %></a>
                                 </div>
@@ -260,7 +260,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <!--// Main Section \\-->
 
                 <!--// Main Section \\-->
@@ -270,7 +270,7 @@
                         <div class="row">
 
                             <div class="col-md-5">
-                                <div class="wm-history-list">
+                                <div class="wm-history-list" style="display: block !important;">
                                     <h2><i class="fa fa-th-list"></i> <% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></h2>
                                     <ul>
                                         <li>
@@ -285,17 +285,21 @@
                                             <time datetime="2008-02-14 20:00">3</time>
                                             <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-StepThree", "English test personal interview.") %></span>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <time datetime="2008-02-14 20:00">4</time>
                                             <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-StepFour", "Congratulations acceptance.") %></span>
                                         </li>
                                         <li>
                                             <time datetime="2008-02-14 20:00">5</time>
                                             <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-StepFive", "Pay the tuition fees.") %></span>
+                                        </li>-->
+                                        <li>
+                                            <time datetime="2008-02-14 20:00">4</time>
+                                            <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-StepSix", "Issuing the university number.") %></span>
                                         </li>
                                         <li>
-                                            <time datetime="2008-02-14 20:00">6</time>
-                                            <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-StepSix", "Issuing the university number.") %></span>
+                                            <time datetime="2008-02-14 20:00">5</time>
+                                            <span><% = ElectronicSubmission.FieldNames.getFieldName("homepage-StepFive", "Pay the tuition fees.") %></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -401,7 +405,7 @@
                                                     <li class="col-md-4">
                                                         <span class="wm-service-icon"><i class="wmicon-phone"></i></span>
                                                         <h5 class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone", "Phone") %></h5>
-                                                        <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></p>
+                                                        <p><a href="tel:920000842" style="color:white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></p>
                                                     </li>
                                                     <li class="col-md-4">
                                                         <span class="wm-service-icon"><i class="wmicon-letter"></i></span>
@@ -411,11 +415,10 @@
                                                 </ul>
                                             </div>
                                             <ul class="contact-social-icon">
-                                                <li><a href="https://www.facebook.com/RiyadhColleges"><i class="fa fa-facebook-square"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Facebook", "Facebook") %></a></li>
+                                                <li><a href="https://www.facebook.com/riyadhelmu"><i class="fa fa-facebook-square"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Facebook", "Facebook") %></a></li>
                                                 <li><a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Twitter", "Twitter") %></a></li>
                                                 <li><a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Youtube", "Youtube") %></a></li>
                                                 <li><a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Instagram", "Instagram") %></a></li>
-                                                <li><a href="https://www.flickr.com/photos/riyadhcolleges"><i class="fa fa-flickr"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Flickr", "Flickr") %></a></li>
                                                 <li><a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Snapchat", "Snapchat") %></a></li>
                                             </ul>
                                         </div>
@@ -461,15 +464,15 @@
                                     <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
                                         <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
                                     </a></li>
-                                    <li><i class="wm-color wmicon-phone"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone","920-000-842")%></li>
+                                    <li><i class="wm-color wmicon-phone"></i><a href="tel:920000842" style="color:black;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone","920-000-842")%></a></li>
                                     <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-EmailAddress","info@riyadh.edu.sa")%></a></li>
                                 </ul>
                                 <div class="wm-footer-icons">
-                                    <a href="https://www.facebook.com/RiyadhColleges"><i class="fa fa-facebook-square"></i></a>
+                                    <a href="https://www.facebook.com/riyadhelmu"><i class="fa fa-facebook-square"></i></a>
                                     <a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i></a>
                                     <a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i></a>
                                     <a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i></a>
-                                    <a href="https://www.flickr.com/photos/riyadhcolleges"><i class="fa fa-flickr"></i></a>
+                                    
                                     <a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i></a>
                                 </div>
                             </aside>
@@ -508,14 +511,14 @@
                                 <div class="wm-footer-widget-title">
                                     <h5><i class="fa fa-google-wallet"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurGoals", "Our Goals") %></h5>
                                 </div>
-                                <ol>
+                                <ul>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalOne", "Graduate competent professionals to meet the needs of the labor market.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalTwo", "Engage in community service.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalThree", "Conduct scientific research.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFour", "Provide competitive postgraduate programs.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFive", "Provide health care and promote health awareness to the public.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalSix", "Encourage lifelong learning through accredited continuous education programs.") %></li>
-                                </ol>
+                                </ul>
                             </aside>
                         </div>
                     </div>

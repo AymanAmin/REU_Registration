@@ -11,7 +11,7 @@ namespace ElectronicSubmission.Pages.Contact
     public partial class ViewContact : System.Web.UI.Page
     {
         REU_RegistrationEntities db = new REU_RegistrationEntities();
-        string[] Color = { "#0a1350", "#fe9365", "blue", "#eb3422", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "#0ac282", "#eb3422", "coral", "salmon", "#0ac282" };
+        string[] Color = { "#302780", "#fe9365", "blue", "#eb3422", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "#0ac282", "#eb3422", "coral", "salmon", "#0ac282" };
         int student_record_id = 0;
         LogFileModule logFileModule = new LogFileModule();
         String LogData = "";

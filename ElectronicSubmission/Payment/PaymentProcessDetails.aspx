@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PaymentProcessDetails.aspx.cs" Inherits="ElectronicSubmission.Payment.PaymentProcessDetails" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Async="true" CodeBehind="PaymentProcessDetails.aspx.cs" Inherits="ElectronicSubmission.Payment.PaymentProcessDetails" %>
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -166,6 +166,7 @@
                                                     <asp:ListItem Value="1">VISA</asp:ListItem>
                                                     <asp:ListItem Value="2">MASTER</asp:ListItem>
                                                     <asp:ListItem Value="3">MADA</asp:ListItem>
+                                                    <asp:ListItem Value="4">SADAD</asp:ListItem>
                                                 </asp:DropDownList> 
                                                  <!--<asp:ListItem Value="4">SADAD</asp:ListItem>-->
                                             </div>
@@ -247,6 +248,18 @@
                                     </div>
 
                                      <div runat="server" id="SADAD" visible="false">
+                                         <div class="form-group col-sm-12">
+                                            <label><% = ElectronicSubmission.FieldNames.getFieldName("PaymentProcessDetails-StudentGender", "Student Gender") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="icofont icofont-underline"></i></span>
+                                                <asp:DropDownList ID="StudentGender" class="form-control" runat="server" OnSelectedIndexChanged="PaymentType_SelectedIndexChanged" AutoPostBack="True">
+                                                    <asp:ListItem Value="1">Male</asp:ListItem>
+                                                    <asp:ListItem Value="2">Female</asp:ListItem>
+                                                </asp:DropDownList>
+                                            </div>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" Text="Enter Student FirstName" ValidationGroup="valFormGroup" ControlToValidate="StudentFirstName" Display="Dynamic" CssClass="col-form-label" SetFocusOnError="True"></asp:RequiredFieldValidator>
+                                        </div>
+
                                          <div class="form-group col-sm-12">
                                             <label><% = ElectronicSubmission.FieldNames.getFieldName("PaymentProcessDetails-StudentFirstName", "Student FirstName") %><i class="icofont icofont-star-alt-1 text-danger"></i></label>
                                             <div class="input-group">
@@ -346,11 +359,11 @@
                                     <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-EmailAddress","info@riyadh.edu.sa")%></a></li>
                                 </ul>
                                 <div class="wm-footer-icons">
-                                    <a href="https://www.facebook.com/RiyadhColleges"><i class="fa fa-facebook-square"></i></a>
+                                    <a href="https://www.facebook.com/riyadhelmu"><i class="fa fa-facebook-square"></i></a>
                                     <a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i></a>
                                     <a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i></a>
                                     <a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i></a>
-                                    <a href="https://www.flickr.com/photos/riyadhcolleges"><i class="fa fa-flickr"></i></a>
+                                    
                                     <a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i></a>
                                 </div>
                             </aside>
@@ -389,14 +402,14 @@
                                 <div class="wm-footer-widget-title">
                                     <h5><i class="fa fa-google-wallet"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-OurGoals", "Our Goals") %></h5>
                                 </div>
-                                <ol>
+                                <ul>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalOne", "Graduate competent professionals to meet the needs of the labor market.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalTwo", "Engage in community service.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalThree", "Conduct scientific research.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFour", "Provide competitive postgraduate programs.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalFive", "Provide health care and promote health awareness to the public.") %></li>
                                     <li><% = ElectronicSubmission.FieldNames.getFieldName("homepage-GoalSix", "Encourage lifelong learning through accredited continuous education programs.") %></li>
-                                </ol>
+                                </ul>
                             </aside>
                         </div>
                     </div>
