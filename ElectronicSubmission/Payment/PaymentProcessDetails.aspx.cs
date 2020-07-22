@@ -275,18 +275,18 @@ namespace ElectronicSubmission.Payment
         /// <returns></returns>
         public async System.Threading.Tasks.Task<Dictionary<string, dynamic>> Prepare_Check_Payment_Request_SADAD(int Payment_Process_Id, string PayeeId, string UUID, string amount, string SSN, string paymentType, string FirstName, string LastName, int Student_id,string Gender)
         {
-
+            List < Rosom_Request> rosom_request = db.Rosom_Request.Where(x => x.Payment_Process_Id == Payment_Process_Id).ToList();
             string Res_str = "";
-
+            string NewInvoiceID = "";
             string School_Id = "2426"; // Female
             if(Gender == "1") 
-                School_Id = "2426"; // Male
+                School_Id = "2427"; // Male
 
             string CreateDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            string ExpiryDate = DateTime.Now.AddDays(2).ToString("yyyy-MM-ddTHH:mm:ss");
+            string ExpiryDate = DateTime.Now.AddDays(7).ToString("yyyy-MM-ddTHH:mm:ss");
 
             string InvoiceId = StringCipher.RandomString(5) + StringCipher.RandomString(3) + DateTime.Now.GetHashCode() + StringCipher.RandomString(5);
-            string DisplayInfo = "Free text for merchant to add details to the bill";
+            string DisplayInfo = "REU Riyadh Elm University - Admission System. ";
 
             List<student_local> student_List = new List<student_local>();
             student_local std_local = new student_local();
@@ -312,6 +312,18 @@ namespace ElectronicSubmission.Payment
             invoice_object.CreateDate = CreateDate;
             invoice_object.ExpiryDate = ExpiryDate;
             invoice_object.PaymentRange = paymentRange_object;
+
+            if (rosom_request.Count > 0)
+            {
+                invoice_object.InvoiceId = rosom_request[rosom_request.Count - 1].InvoiceId;
+                invoice_object.InvoiceStatus = "BillUpdated";
+                NewInvoiceID = rosom_request[rosom_request.Count - 1].InvoiceId;
+                /*invoice_object.CreateDate = rosom_request[rosom_request.Count - 1].CreateDate;
+                invoice_object.ExpiryDate = rosom_request[rosom_request.Count - 1].ExpiryDate;*/
+            }
+
+            
+
 
             Rosom rosom_object = new Rosom();
             rosom_object.UUID = UUID;
@@ -367,16 +379,27 @@ namespace ElectronicSubmission.Payment
             Dictionary<string, dynamic> responseData = s.Deserialize<Dictionary<string, dynamic>>(Res_str);
             if (responseData != null && responseData["Status"]["Code"] == 0)
             {
-                Rosom_Request Rosom = db.Rosom_Request.Create();
+                Rosom_Request Rosom;
+                if(rosom_request.Count > 0)
+                    Rosom = db.Rosom_Request.Find(rosom_request[rosom_request.Count - 1].Id);
+                else
+                    Rosom = db.Rosom_Request.Create();
+
                 Rosom.Trackingkey = Trackingkey;
                 Rosom.Payment_Process_Id = Payment_Process_Id;
                 Rosom.CreateDate = DateTime.Now.ToLongDateString();
                 Rosom.Invoice_Students_Id = InvoiceId;
+                if (rosom_request.Count > 0)
+                    Rosom.Invoice_Students_Id = NewInvoiceID;
+
                 Rosom.PayeeId = PayeeId;
                 Rosom.InvoiceStatus = "BillNew";
+                if (rosom_request.Count > 0)
+                    Rosom.InvoiceStatus = "BillUpdated";
+
                 Rosom.BillType = "OneTime";
                 Rosom.DisplayInfo = DisplayInfo;
-                Rosom.PaymentType = 4; // SADDAD option type id;
+                Rosom.PaymentType = 4; //SADDAD option type id;
                 Rosom.IsPaid = false;
 
                 Rosom.DateCreation = DateTime.Now;
@@ -386,14 +409,22 @@ namespace ElectronicSubmission.Payment
                 Rosom.Invoice_Students_FirstName = FirstName;
                 Rosom.Invoice_Students_LastName = LastName;
                 Rosom.InvoiceId = InvoiceId;
+
+                if (rosom_request.Count > 0)
+                    Rosom.InvoiceId = NewInvoiceID;
+
                 Rosom.DisplayInfo = DisplayInfo;
                 Rosom.AmountDue = amount;
                 Rosom.CreateDate = CreateDate;
                 Rosom.ExpiryDate = ExpiryDate;
+
                 Rosom.PaymentRange_MaxAdvanceAmount = amount;
                 Rosom.PaymentRange_MinAdvanceAmount = amount;
                 Rosom.PaymentRange_MinPartialAmount = amount + 1;
-                db.Rosom_Request.Add(Rosom);
+                if (rosom_request.Count > 0)
+                    db.Entry(Rosom).State = System.Data.EntityState.Modified;
+                else
+                    db.Rosom_Request.Add(Rosom);
                 db.SaveChanges();
             }
             return responseData;

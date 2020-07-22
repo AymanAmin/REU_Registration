@@ -18,7 +18,7 @@ namespace ElectronicSubmission
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
-            StudentList = db.Students.ToList();
+            StudentList = db.Students.Where(x => x.Suspended != 1).ToList();
             SequenceList = db.Sequences.ToList();
             Treatment_Status();
             lineChart();
@@ -26,7 +26,7 @@ namespace ElectronicSubmission
         private void Treatment_Status()
         {
             txtAllStudents.Text = StudentList.Count().ToString();
-            txtInProgress.Text = StudentList.Where(x => x.Student_Status_Id < 14).Count().ToString();
+            txtInProgress.Text = StudentList.Where(x => x.Student_Status_Id < 14 || x.Student_Status_Id > 15).Count().ToString();
             txtSuccessfully.Text = StudentList.Where(x => x.Student_Status_Id == 14).Count().ToString();
             txtFailure.Text = StudentList.Where(x => x.Student_Status_Id == 15).Count().ToString();
             string str = FieldNames.getFieldName("Default-Update", "Update") + " : ";
@@ -39,10 +39,10 @@ namespace ElectronicSubmission
 
         private void lineChart()
         {
-            string Status = "[";
+            //string Status = "[";
             string StatusPie = "[";
             string Data = "[";
-            string AvgDelay = "[";
+            //string AvgDelay = "[";
 
             // Replace Status_Color with delay until new step & Status_Icon with counter
             List<Status> StatusList = db.Status.ToList();
@@ -57,6 +57,10 @@ namespace ElectronicSubmission
             int student_id = 0;
             for (int i = 0; i < list_sequence.Count; i++)
             {
+                Student std = list_sequence[i].Student;
+                if (std.Suspended == 1)
+                    continue;
+
                 int trackEception = 0,index =0;
                 try
                 {

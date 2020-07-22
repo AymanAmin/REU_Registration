@@ -33,7 +33,22 @@
     <!-- sweet alert framework -->
     <link rel="stylesheet" type="text/css" href="Theme\files\bower_components\sweetalert\css\sweetalert.css">
 
-    
+    <!-- Google Tag Manager -->
+
+    <script>(function (w, d, s, l, i) {
+w[l] = w[l] || []; w[l].push({
+'gtm.start':
+
+new Date().getTime(), event: 'gtm.js'
+}); var f = d.getElementsByTagName(s)[0],
+
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+
+'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+
+})(window, document, 'script', 'dataLayer', 'GTM-NSFDCLN');</script>
+
+    <!-- End Google Tag Manager -->
 
     <style>
         .sweet-alert input {
@@ -153,7 +168,7 @@
             var ST_T_Id = document.getElementById("StudentType").value;
             var Nat_Id = document.getElementById("Nationality_ID").value;
             var E_Type = Nat_Id = document.getElementById("EducationType").value;
-            debugger;
+            //debugger;
             switch (ST_T_Id) {
                 //----------------------- New student ------------------------------
                 case "1":
@@ -339,6 +354,8 @@
             return true;  
         }
     </script>
+
+    
 </head>
 <body>
 
@@ -971,6 +988,47 @@
     <!-- sweet alert modal.js intialize js -->
     <!-- Custom js -->
     <script type="text/javascript" src="Theme\files\assets\js\script.js"></script>
+
+
+    <!-- if the Specialization_ID =  1, then the MyAchievementDegree must be greater thant 70 -->
+    <script>
+        $("#MyAchievementDegree").blur(function () {
+            var spes = $("#Specialization_ID").val();
+            var degree = $("#MyAchievementDegree").val();
+            if (spes == 1)
+            {
+                if(degree < 70)
+                {
+                   
+                    var dir = document.dir;
+                    if(dir == "rtl")
+                        AlertNotify('غير مستوفي الشروط!', 'درجة التحصيلي اقل من الحد الأدنى لطب الاسنان ٧٠ ، يرجى اختيار تخصص اخر', 'error');
+                    else
+                        AlertNotify('It does not meet the requirements!', 'Your Grade Below The Minimum For Dentistry “70”. Please Choose Other Specialty', 'error');
+                   
+                    $("#MyAchievementDegree").val("");
+                }
+            }
+        });
+
+        $("#Specialization_ID").blur(function () {
+            var spes = $("#Specialization_ID").val();
+            var degree = $("#MyAchievementDegree").val();
+            if (spes == 1) {
+                if (degree < 70) {
+
+                    /*var dir = document.dir;
+                    if (dir == "rtl")
+                        AlertNotify('غير مستوفي الشروط!', 'درجة التحصيلي غير مستوفية المتطلبات، يجب ان تكون اكبر من ٧٠ ', 'error');
+                    else
+                        AlertNotify('It does not meet the requirements!', 'The achievement score does not meet the requirements, it must be greater than 70', 'error');
+                    */
+                    $("#MyAchievementDegree").val("");
+                }
+            }
+        });
+    </script>
+    <!-- if the Specialization_ID =  1, then the MyAchievementDegree must be greater thant 70 -->
 </body>
 
 <!-- index18:22  -->

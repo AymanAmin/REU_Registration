@@ -86,6 +86,13 @@ namespace ElectronicSubmission.Payment
                     str += "<td class='text-left'>" + std.Student_Phone + "</td>";
                     str += "<td class='text-left'>" + std.Student_Email + "</td>";
 
+                    if(SessionWrapper.LoggedUser.Language_id ==1)
+                        str += "<td class='text-left'>" + std.Nationality.Country_Name_Ar + "</td>";
+                    else
+                        str += "<td class='text-left'>" + std.Nationality.Country_Name_En + "</td>";
+
+                    str += "<td class='text-left'>" + std.Student_SSN + "</td>";
+
                     string UUID = " - ";
                     string TypeOfPayment = " - ";
                     string SADAD = " - ";

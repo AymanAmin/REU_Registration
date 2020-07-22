@@ -29,6 +29,26 @@
         <!-- left View cards start -->
         <asp:TextBox ID="Status_ID_Verification" runat="server" Visible="false"></asp:TextBox>
         <div class="col-sm-8">
+
+            <!-- Change Status Mananger card  -->
+            <div class="card" id="DivChangeStatus" runat="server" visible="false">
+                <div class="row" style="padding: 2%">
+                    <div class="col-sm-12">
+                        <div class="form-group col-md-6 j-unit">
+                            <label class="j-label"><% = ElectronicSubmission.FieldNames.getFieldName("View-Status", "Status") %></label>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon0"><i class="icofont icofont-tree"></i></span>
+                                <asp:DropDownList ID="txtStatusDrop" runat="server" AutoPostBack="false" class="form-control form-control-primary"></asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="">
+                            <asp:Button ID="ChangeStatus" class="btn btn-info btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Ok" OnClick="ChangeStatus_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Change Status Mananger card  -->
+
             <!-- Assign card  -->
             <div class="card" id="DivAssign" runat="server" visible="false">
                 <div class="row" style="padding: 2%">

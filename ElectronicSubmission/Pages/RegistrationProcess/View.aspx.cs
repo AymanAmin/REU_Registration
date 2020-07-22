@@ -56,6 +56,10 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 btnAssign.Text = FieldNames.getFieldName("View-Assign", "Assign");
                 
             }
+
+            //check if he is manager 
+            if (SessionWrapper.LoggedUser.Employee_Id == 1)
+                DivChangeStatus.Visible = true;
         }
 
         private void FillEmployeeDropDown()
@@ -87,6 +91,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 txtTypeOfCash.Items.Add("Semster");
             }
             txtTypeOfCash.SelectedIndex = 0;
+
+            List<Status> Status_List = db.Status.ToList();
+            if (SessionWrapper.LoggedUser.Language_id == 1)
+                ddlFiller.dropDDL(txtStatusDrop, "Status_Id", "Status_Name_Ar", Status_List, "أختر الحالة");
+            else
+                ddlFiller.dropDDL(txtStatusDrop, "Status_Id", "Status_Name_En", Status_List, "Select Status");
+
 
         }
 
@@ -1446,6 +1457,45 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
 
             Response.Redirect("~/Pages/RegistrationProcess/view.aspx?StudentID=" + (int)std.Student_Id);
+        }
+
+        protected void ChangeStatus_Click(object sender, EventArgs e)
+        {
+            int Status_id = int.Parse(txtStatusDrop.SelectedValue);
+            if (Status_id > 0)
+            {
+                int student_record_id = int.Parse(Request["StudentID"].ToString());
+                Student std = db.Students.Find(student_record_id);
+
+                if (std != null)
+                {
+                    std.Student_Status_Id = Status_id;
+                    db.Entry(std).State = System.Data.EntityState.Modified;
+
+                    Sequence seq = db.Sequences.Create();
+
+                    seq.Emp_Id = SessionWrapper.LoggedUser.Employee_Id;
+                    seq.Status_Id = Status_id;
+                    seq.Student_Id = student_record_id;
+                    seq.Note = txtNote.Text;
+                    seq.DateCreation = DateTime.Now;
+
+                    db.Sequences.Add(seq);
+                    db.SaveChanges();
+
+                    db.Configuration.LazyLoadingEnabled = false;
+                    /* Add it to log file */
+                    Student stdLogFile = db.Students.Find(std.Student_Id);
+                    stdLogFile.Employee = db.Employees.Find(seq.Emp_Id);
+                    stdLogFile.Status = db.Status.Find(seq.Status_Id);
+
+                    LogData = "data:" + JsonConvert.SerializeObject(stdLogFile, logFileModule.settings);
+                    logFileModule.logfile(10, "تغير الحالة", "Update Status", LogData);
+
+                    Response.Redirect("~/Pages/RegistrationProcess/view.aspx?StudentID="+ std.Student_Id);
+                }
+
+            }
         }
 
         public bool Made_Equation(Student std)

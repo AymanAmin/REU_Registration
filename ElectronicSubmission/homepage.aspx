@@ -31,14 +31,31 @@
     <!-- sweet alert framework -->
     <link rel="stylesheet" type="text/css" href="Theme\files\bower_components\sweetalert\css\sweetalert.css">
 
-    
+    <!-- Google Tag Manager -->
+
+    <script>(function (w, d, s, l, i) {
+w[l] = w[l] || []; w[l].push({
+'gtm.start':
+
+new Date().getTime(), event: 'gtm.js'
+}); var f = d.getElementsByTagName(s)[0],
+
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+
+'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+
+})(window, document, 'script', 'dataLayer', 'GTM-NSFDCLN');</script>
+
+    <!-- End Google Tag Manager -->
+
+
 
     <style>
         .sweet-alert input {
             display: none !important;
         }
-        </style>
-    
+    </style>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -87,7 +104,7 @@
                                 </div>
                                 <ul class="wm-stripinfo">
                                     <li><i class="wmicon-location"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></a></li>
-                                    <li><i class="wmicon-technology4"></i><a href="tel:920000842" style="color:white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></li>
+                                    <li><i class="wmicon-technology4"></i><a href="tel:920000842" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></li>
                                     <li><i class="wmicon-clock2"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-work", "sat - fri: 7:00am - 6:00pm") %></li>
                                 </ul>
                                 <ul class="wm-adminuser-section">
@@ -199,7 +216,7 @@
                                     <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-FillBachelors", "Fill in the form below to find your Bachelors:") %></p>
                                     <ul>
                                         <li>
-                                            <input type="text" id="BachelorName" runat="server"/>
+                                            <input type="text" id="BachelorName" runat="server" />
                                             <i class="wmicon-search"></i></li>
                                         <li>
                                             <div class="wm-apply-select">
@@ -252,7 +269,7 @@
                             <div class="col-md-4">
                                 <div class="wm-questions-studying">
                                     <!--<img src="Template/extra-images/ask-questoin-bg.png" alt="">-->
-                                   <!-- <h3 class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsHead", "Questions about studying with us?") %></h3>
+                <!-- <h3 class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsHead", "Questions about studying with us?") %></h3>
                                     <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsDetail", "We have a team of student advisers & officers to answer any questions:") %></p>
                                     <a class="wm-banner-btn" href="#contactas"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-QuestionsButton", "Ask us now") %></a>
                                 </div>
@@ -271,7 +288,7 @@
 
                             <div class="col-md-5">
                                 <div class="wm-history-list" style="display: block !important;">
-                                    <h2><i class="fa fa-th-list"></i> <% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></h2>
+                                    <h2><i class="fa fa-th-list"></i><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Steps", "Steps") %></h2>
                                     <ul>
                                         <li>
                                             <time datetime="2008-02-14 20:00">1</time>
@@ -316,13 +333,13 @@
                                         <br>
                                     </div>
                                     <ul>
-                                        <li style="color:#1e2860">
+                                        <li style="color: #1e2860">
                                             <asp:RequiredFieldValidator ID="valStepStudentName" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" ValidationGroup="valFormGroup1" ControlToValidate="StepStudentName" Display="Dynamic" CssClass="col-form-label"></asp:RequiredFieldValidator>
                                         </li>
-                                        <li style="color:#1e2860">
+                                        <li style="color: #1e2860">
                                             <asp:RequiredFieldValidator ID="valStepStudentPhone" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" ValidationGroup="valFormGroup1" ControlToValidate="StepStudentPhone" Display="Dynamic" CssClass="col-form-label"></asp:RequiredFieldValidator>
                                         </li>
-                                        <li style="color:#1e2860">
+                                        <li style="color: #1e2860">
                                             <asp:RequiredFieldValidator ID="valStepStudentEmail" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" ValidationGroup="valFormGroup1" ControlToValidate="StepStudentEmail" Display="Dynamic" CssClass="col-form-label"></asp:RequiredFieldValidator>
                                         </li>
                                     </ul>
@@ -355,7 +372,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="wm-map">
-                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d231875.01587813653!2d46.4668287!3d24.7595734!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2efc51ecffffff%3A0x654f534d5c948f2e!2sRiyadh%20Elm%20University!5e0!3m2!1sen!2s!4v1591457410444!5m2!1sen!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d231875.01587813653!2d46.4668287!3d24.7595734!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2efc51ecffffff%3A0x654f534d5c948f2e!2sRiyadh%20Elm%20University!5e0!3m2!1sen!2s!4v1591457410444!5m2!1sen!2s" width="600" height="450" frameborder="0" style="border: 0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
@@ -383,7 +400,7 @@
                                                                 <asp:RequiredFieldValidator ID="valStudentMessage" runat="server" ForeColor="Red" ErrorMessage="RequiredFieldValidator" ValidationGroup="valFormGroup" ControlToValidate="StudentMessage" Display="Dynamic" CssClass="col-form-label"></asp:RequiredFieldValidator>
                                                             </li>
                                                             <li>
-                                                                <asp:Button ID="SubmitMessage" runat="server" ValidationGroup="valFormGroup" OnClick="SubmitMessage_Click"/>
+                                                                <asp:Button ID="SubmitMessage" runat="server" ValidationGroup="valFormGroup" OnClick="SubmitMessage_Click" />
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -405,7 +422,7 @@
                                                     <li class="col-md-4">
                                                         <span class="wm-service-icon"><i class="wmicon-phone"></i></span>
                                                         <h5 class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone", "Phone") %></h5>
-                                                        <p><a href="tel:920000842" style="color:white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></p>
+                                                        <p><a href="tel:920000842" style="color: white;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-PhoneNumber", "920-000-842") %></a></p>
                                                     </li>
                                                     <li class="col-md-4">
                                                         <span class="wm-service-icon"><i class="wmicon-letter"></i></span>
@@ -445,7 +462,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <i class="wmicon-pen"></i>
-                                <input type="text"  id="txtAdmissionFormButton" runat="server" readonly="readonly" style="width: 77%;" >
+                                <input type="text" id="txtAdmissionFormButton" runat="server" readonly="readonly" style="width: 77%;">
                                 <a href="StudentSubmitting.aspx"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-AdmissionFormRequest", "Admission Form Request") %></a>
                             </div>
                         </div>
@@ -464,7 +481,7 @@
                                     <li><i class="wm-color wmicon-pin"></i><a href="https://www.google.com.sa/maps/place/Riyadh+Elm+University/@24.7595734,46.4668287,11z/data=!4m8!1m2!2m1!1sriyadh+colleges+of+dentistry+and+pharmacy!3m4!1s0x3e2efc51ecffffff:0x654f534d5c948f2e!8m2!3d24.6580528!4d46.7005641">
                                         <p><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Address", "King Fahd Branch Road, An Namudhajiyah, Riyadh 12734, Saudi Arabia") %></p>
                                     </a></li>
-                                    <li><i class="wm-color wmicon-phone"></i><a href="tel:920000842" style="color:black;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone","920-000-842")%></a></li>
+                                    <li><i class="wm-color wmicon-phone"></i><a href="tel:920000842" style="color: black;"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-Phone","920-000-842")%></a></li>
                                     <li><i class="wm-color wmicon-letter"></i><a href="mailto:info@riyadh.edu.sa"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-EmailAddress","info@riyadh.edu.sa")%></a></li>
                                 </ul>
                                 <div class="wm-footer-icons">
@@ -472,7 +489,7 @@
                                     <a href="https://twitter.com/RiyadhElmU"><i class="fa fa-twitter-square"></i></a>
                                     <a href="https://www.youtube.com/user/RiyadhColleges"><i class="fa fa-youtube-play"></i></a>
                                     <a href="https://www.instagram.com/riyadhelmu/"><i class="fa fa-instagram"></i></a>
-                                    
+
                                     <a href="https://snapchat.com/add/Riyadh.elmu"><i class="fa fa-snapchat-square"></i></a>
                                 </div>
                             </aside>
@@ -541,7 +558,7 @@
                 </div>
                 <!--// FooterCopyRight \\-->
                 <!-- Page body start -->
-                
+
             </footer>
             <!--// Footer \\-->
 
@@ -566,7 +583,7 @@
                                 </li>
                                 <li><a href="Pages/Auth/ResetPassword.aspx" class="wm-forgot-btn"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-ForgotPassword", "Forgot Password?") %></a> </li>
                                 <li>
-                                    <asp:Button ID="LoginAcc" runat="server" OnClick="LoginAcc_Click"/>
+                                    <asp:Button ID="LoginAcc" runat="server" OnClick="LoginAcc_Click" />
                                 </li>
                             </ul>
                         </div>
@@ -586,8 +603,10 @@
                         <div class="wm-modallogin-form">
                             <span class="wm-color"><% = ElectronicSubmission.FieldNames.getFieldName("homepage-FindYourBachelors", "Find Your Bachelors") %></span>
                             <ul>
-                                <li><input type="text" id="keywordBachelors" runat="server" /></li> 
-                                <li><asp:Button ID="SearchkeyWord" runat="server" OnClick="SearchkeyWord_Click1"/></li>
+                                <li>
+                                    <input type="text" id="keywordBachelors" runat="server" /></li>
+                                <li>
+                                    <asp:Button ID="SearchkeyWord" runat="server" OnClick="SearchkeyWord_Click1" /></li>
                             </ul>
                         </div>
 
