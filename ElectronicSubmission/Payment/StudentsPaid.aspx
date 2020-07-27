@@ -28,17 +28,21 @@
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Expand", "Expand") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Actions", "Actions") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Status", "Status") %></th>
+                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-FileNo", "File No") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-EnglishName", "English Name") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-ArabicName", "Arabic Name") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Phone", "Phone") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Email", "Email") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-NationalName", "National Name") %></th>
+                                
+                                
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-NationalID", "National ID") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-TypeOfPayment", "Type Of Payment") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Amount", "Amount") %></th>
+                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-NationalName", "National Name") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-PaymentFor", "Payment For") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-UUID", "UUID") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-CreationDate", "Creation Date") %></th>
+
+                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Phone", "Phone") %></th>
+                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Email", "Email") %></th>
                             </tr>
                         </thead>
                         <tbody class="text-left">

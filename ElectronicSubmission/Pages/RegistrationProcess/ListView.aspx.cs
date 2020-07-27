@@ -128,8 +128,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                     }
 
-                    str += "<a href='#' data-href= '../../../../Pages/RegistrationProcess/DeleteStudent.ashx?StudentID=" + ListAllStudent[i].Student_Id + "' data-toggle='modal' data-target='#confirm-delete' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-ui-delete h5'></i>&nbsp;&nbsp;</a></td>";
-
+                    str += "<a href='#' data-href= '../../../../Pages/RegistrationProcess/DeleteStudent.ashx?StudentID=" + ListAllStudent[i].Student_Id + "' data-toggle='modal' data-target='#confirm-delete' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-ui-delete h5'></i>&nbsp;&nbsp;</a>";
+                    str += "<a href= '../../../../Pages/RegistrationProcess/OtherInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-message h5'></i>&nbsp;&nbsp;</a></td>";
                     if (SessionWrapper.LoggedUser.Language_id == 1)
                     {
                         str += "<td class = 'text-left'><label class='label label-success' style='background:" + Color[index] + " !important;'>" + ListAllStudent[i].Status.Status_Name_Ar + "</label></td>";

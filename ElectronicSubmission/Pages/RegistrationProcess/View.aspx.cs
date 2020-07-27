@@ -273,7 +273,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                         }
 
-                        txtNote.Text = "Please complete the payment within 48 hours.";
+                        //txtNote.Text = "Please complete the payment within 48 hours.";
                     }
                     /* المالية */
 
@@ -1178,6 +1178,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             db.Payment_Process.Add(payment);
             db.SaveChanges();
 
+            if (std.Student_Status_Id == 11)
+                return;
+
             // Send Email 
             send_ReadyToPay(std, payment, Payment_For);
 
@@ -1425,29 +1428,66 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         {
             int student_record_id = int.Parse(Request["StudentID"].ToString());
             Student std = db.Students.Find(student_record_id);
-            string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-            string Text_ar = "المكرم/ المكرمة " + std.Student_Name_En + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة لحضور رابط الاختبار:"+""+"\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
+
+            List<Payment_Process> ppList = db.Payment_Process.Where(x => x.Student_Id == student_record_id).ToList();
+
+            
+            if (ppList.Count > 0)
+            {
+                Payment_Process Payment_Process_local = ppList[ppList.Count - 1];
+                try
+                {
+                    Payment_Process_local.Send_Amount = float.Parse(txtAmount.Text);
+                    db.Entry(Payment_Process_local).State = System.Data.EntityState.Modified;
+                    db.SaveChanges();
+                }
+                catch { return; }
+                //txtAmount.Text = ppList[ppList.Count - 1].Send_Amount.ToString();
+            }
+                string notes = "", notes_ar = "";
+            if (txtNote.Text != string.Empty)
+            {
+                notes = "\n\nNotes:" + txtNote.Text + "";
+                notes_ar = "\n\nملاحظات:" + txtNote.Text + "";
+            }
+
+            if (txtSadadNumber.Text == string.Empty)
+            {
+                return;
+                //t nnnnr(std);
+                Payment_Process pp = ppList[ppList.Count - 1];
+                pp.Result_Description = "0";
+                db.Payment_Process.Add(pp);
+                db.SaveChanges();
+
+                send_ready_to_payRigestreation(std, pp);
+                return;
+            }
+
+            string Text = "Dear " + std.Student_Name_En + "\n\nTrackId : " + std.Student_Id + "\nYour file has now reached the " + std.Status.Status_Name_En + " stage \nSADAD Number: " + txtSadadNumber.Text + "\nAmount: " + txtAmount.Text + "" + notes + "\n\nDate: " + DateTime.Now.ToShortDateString() + "\n\nElm University Riyadh";
+            string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nرقم الملف : " + std.Student_Id + "\n وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + "\n رقم سداد:" + txtSadadNumber.Text + "\nالمبلغ: " + txtAmount.Text + "" + notes_ar + "\n\nالتاريخ: " + DateTime.Now.ToShortDateString() + "\n\nجامعة رياض العلم";
             string number_Phone = std.Student_Phone;
             SendSMS send_sms = new SendSMS();
             string reslt_message = send_sms.SendMessage(Text_ar +"\n"+Text, number_Phone);
             SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
 
-            string notes = "", notes_ar = "";
+
             if (txtNote.Text != string.Empty)
             {
                 notes = "<br /><Strong>Notes:</Strong>" + txtNote.Text + "<br />";
                 notes_ar = "<br /><Strong>ملاحظات:</Strong>" + txtNote.Text + "<br />";
             }
+
             SendEmail send = new SendEmail();
             Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>SADAD Number:</Strong> " + txtSadadNumber.Text + "<br /><Strong>Amount:</Strong> " + txtAmount.Text + "<br />" + notes + "<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
-            Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " stage </Strong> <br /><Strong>رقم سداد:</Strong> " + txtSadadNumber.Text + "<br /><Strong>المبلغ:</Strong> " + txtAmount.Text + "<br />" + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong></div> ";
+            Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br /><Strong>رقم سداد:</Strong> " + txtSadadNumber.Text + "<br /><Strong>المبلغ:</Strong> " + txtAmount.Text + "<br />" + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong></div> ";
             string sever_name = Request.Url.Authority.ToString();
             string StudentEmail = std.Student_Email; // "ayman@softwarecornerit.com";//
 
             bool result = send.TextEmail(std.Status.Status_Name_En + " - " + std.Status.Status_Name_Ar, StudentEmail, Text_ar + "<br /><br />" + Text, sever_name);
             SaveMessage(std.Student_Id, "E-mail", Text + "<br/>" + Text_ar);
 
-            List<Payment_Process> ppList = db.Payment_Process.Where(x => x.Student_Id == std.Student_Id).ToList();
+            //List<Payment_Process> ppList_local = db.Payment_Process.Where(x => x.Student_Id == std.Student_Id).ToList();
             if (ppList.Count > 0)
             {
                 Payment_Process pp = ppList[ppList.Count - 1];
@@ -1455,8 +1495,16 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 db.Payment_Process.Add(pp);
                 db.SaveChanges();
             }
+            send_ready_to_payRigestreation(std, ppList[ppList.Count - 1]);
+            //ReadyToPay(std);
 
             Response.Redirect("~/Pages/RegistrationProcess/view.aspx?StudentID=" + (int)std.Student_Id);
+        }
+
+        public void send_ready_to_payRigestreation(Student std,Payment_Process payment)
+        {
+            // Send Email 
+            //send_ReadyToPay(std, payment, "Study");
         }
 
         protected void ChangeStatus_Click(object sender, EventArgs e)

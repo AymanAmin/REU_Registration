@@ -258,7 +258,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="col-sm-12"><% = ElectronicSubmission.FieldNames.getFieldName("View-Amount", "Amount") %></div>
-                                            <asp:TextBox ID="txtAmount" runat="server" class="form-control" TextMode="SingleLine" Enabled="false" Style="width: 100%"></asp:TextBox>
+                                            <asp:TextBox ID="txtAmount" runat="server" class="form-control" TextMode="SingleLine" Enabled="true" Style="width: 100%"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>

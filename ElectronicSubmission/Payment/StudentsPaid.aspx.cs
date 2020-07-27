@@ -65,34 +65,6 @@ namespace ElectronicSubmission.Payment
                     if (index >= Color.Length)
                         index = 1;
 
-                    str += "<tr>";
-                    str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("StudentsPaid-Expand", "Expand") + "</td>";
-                    str += "<td class='text-left'>";
-                    str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + std.Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
-                    if(PaymentProcessList[i].Payment_IsPaid == false)
-                        str += "<a href= '#' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-close-circled h5'></i>&nbsp;&nbsp;</a>";
-                    else if(PaymentProcessList[i].Payment_SMS_Result == null || PaymentProcessList[i].Payment_SMS_Result == "")
-                        str += "<a href= '../../../../Payment/StudentsPaid.aspx?Payment_Process_ID=" + PaymentProcessList[i].Payment_Id + "' style='color:black;'>&nbsp;&nbsp; <i class='icofont icofont-wall-clock h5'></i>&nbsp;&nbsp;</a>";
-                    else
-                        str += "<a href= '#' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-check-circled h5'></i>&nbsp;&nbsp;</a>";
-                    str += "</td>";
-                    if (PaymentProcessList[i].Payment_IsPaid == true)
-                        str += "<td class='text-left'><label class='label label-success' style='background:green !important;'>" + FieldNames.getFieldName("StudentsPaid-Paid", "Paid") + "</label></td>";
-                    else
-                        str += "<td class='text-left'><label class='label label-success' style='background:red !important;'>" + FieldNames.getFieldName("StudentsPaid-NotPaid", "Not Paid") + "</label></td>";
-
-                    str += "<td class='text-left'>" + std.Student_Name_En + "</td>";
-                    str += "<td class='text-left'>" + std.Student_Name_Ar + "</td>";
-                    str += "<td class='text-left'>" + std.Student_Phone + "</td>";
-                    str += "<td class='text-left'>" + std.Student_Email + "</td>";
-
-                    if(SessionWrapper.LoggedUser.Language_id ==1)
-                        str += "<td class='text-left'>" + std.Nationality.Country_Name_Ar + "</td>";
-                    else
-                        str += "<td class='text-left'>" + std.Nationality.Country_Name_En + "</td>";
-
-                    str += "<td class='text-left'>" + std.Student_SSN + "</td>";
-
                     string UUID = " - ";
                     string TypeOfPayment = " - ";
                     string SADAD = " - ";
@@ -124,11 +96,47 @@ namespace ElectronicSubmission.Payment
                         }
                     }
 
+                    str += "<tr>";
+                    str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("StudentsPaid-Expand", "Expand") + "</td>";
+                    str += "<td class='text-left'>";
+                    str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + std.Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
+                    if(PaymentProcessList[i].Payment_IsPaid == false)
+                        str += "<a href= '#' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-close-circled h5'></i>&nbsp;&nbsp;</a>";
+                    else if(PaymentProcessList[i].Payment_SMS_Result == null || PaymentProcessList[i].Payment_SMS_Result == "")
+                        str += "<a href= '../../../../Payment/StudentsPaid.aspx?Payment_Process_ID=" + PaymentProcessList[i].Payment_Id + "' style='color:black;'>&nbsp;&nbsp; <i class='icofont icofont-wall-clock h5'></i>&nbsp;&nbsp;</a>";
+                    else
+                        str += "<a href= '#' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-check-circled h5'></i>&nbsp;&nbsp;</a>";
+                    str += "</td>";
+                    if (PaymentProcessList[i].Payment_IsPaid == true)
+                        str += "<td class='text-left'><label class='label label-success' style='background:green !important;'>" + FieldNames.getFieldName("StudentsPaid-Paid", "Paid") + "</label></td>";
+                    else
+                        str += "<td class='text-left'><label class='label label-success' style='background:red !important;'>" + FieldNames.getFieldName("StudentsPaid-NotPaid", "Not Paid") + "</label></td>";
+
+                    str += "<td class='text-left'>" + std.Student_Id + "</td>";
+                    str += "<td class='text-left'>" + std.Student_Name_En + "</td>";
+                    str += "<td class='text-left'>" + std.Student_Name_Ar + "</td>";
+                    
+
+                    
+
+                    str += "<td class='text-left'>" + std.Student_SSN + "</td>";
+
+                    
+
                     str += "<td class='text-left'>" + TypeOfPayment + "</td>";
                     str += "<td class='text-left'>" + PaymentProcessList[i].Send_Amount + "</td>";
+
+                    if (SessionWrapper.LoggedUser.Language_id == 1)
+                        str += "<td class='text-left'>" + std.Nationality.Country_Name_Ar + "</td>";
+                    else
+                        str += "<td class='text-left'>" + std.Nationality.Country_Name_En + "</td>";
+
                     str += "<td class='text-left'>" + PaymentProcessList[i].Comment + "</td>";
                     str += "<td class='text-left'>" + UUID + "</td>";
                     str += "<td class='text-left'>" + CreationDate + "</td>";
+
+                    str += "<td class='text-left'>" + std.Student_Phone + "</td>";
+                    str += "<td class='text-left'>" + std.Student_Email + "</td>";
 
                     str += "</tr>";
 

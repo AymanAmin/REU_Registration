@@ -80,7 +80,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("ListView-Expand", "Expand") + "</td>";
                     str += "<td class='text-left'>";
                     str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
-                    //str += "<a href= '../../../../Pages/RegistrationProcess/StudentInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-edit h5'></i>&nbsp;&nbsp;</a>";
+                    str += "<a href= '../../../../Pages/RegistrationProcess/OtherInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-message h5'></i>&nbsp;&nbsp;</a>";
                     //str += "<a href= '../../../../Pages/RegistrationProcess/DeleteStudent.ashx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-recycle-alt h5'></i>&nbsp;&nbsp;</a>";
                     str += "</td>";
                     if (SessionWrapper.LoggedUser.Language_id == 1)

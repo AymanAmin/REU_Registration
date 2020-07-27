@@ -144,23 +144,25 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
 
     <script>
         function DefDate(obj) {
-
-            if (this.id) obj = this;
-            const date1 = Date.now();
-            const date2 =new Date(obj.value);
-            const diffTime = Math.abs(date2 - date1);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            const diffYears = Math.ceil(diffTime / (365*1000 * 60 * 60 * 24));
-            console.log(diffTime + " milliseconds");
-            console.log(diffDays + " days");
-            if (diffYears > 5)
-            {
-                alert("The high school certificate must not exceed five years");
-                HighSchoolDate.value = null;
-                return false;
-            } else {
-                return true;
+            var ST_T_Id = document.getElementById("StudentType").value;
+            if (ST_T_Id == 1) {
+                if (this.id) obj = this;
+                const date1 = Date.now();
+                const date2 = new Date(obj.value);
+                const diffTime = Math.abs(date2 - date1);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const diffYears = Math.ceil(diffTime / (365 * 1000 * 60 * 60 * 24));
+                console.log(diffTime + " milliseconds");
+                console.log(diffDays + " days");
+                if (diffYears > 5) {
+                    alert("The high school certificate must not exceed five years");
+                    HighSchoolDate.value = null;
+                    return false;
+                } else {
+                    return true;
+                }
             }
+            return true;
         }
     </script>
     <script>

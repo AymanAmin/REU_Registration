@@ -13,12 +13,21 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "yellow" };
+        int student_record_id = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
-            ListAllStudent = db.Students.ToList();
+            if (Request["StudentID"] == null)
+                Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx");
+            else
+                student_record_id = int.Parse(Request["StudentID"].ToString());
+
+            if(student_record_id == 0)
+                Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx");
+
+            ListAllStudent = db.Students.Where(x => x.Student_Id == student_record_id).ToList();
             LoadStudent();
         }
 
