@@ -160,12 +160,13 @@ namespace ElectronicSubmission
             /* Pie Chart */
             string lineChartfun = "lineChart(" + DelayData + "," + DelayStatus + ");";
 
-              /******************************/
-             /* Treatment Per mounth Chart */
             /******************************/
-
-            DateTime date_today = DateTime.Now;
-            int day = date_today.Day;
+            /* Request Per day Chart */
+            /******************************/
+            string date_str = DateTime.Now.ToShortDateString();
+            DateTime date_today = DateTime.Parse(date_str);
+            date_today = date_today.AddMinutes(-1);
+            //int day = date_today.Day;
             //date_today = date_today.AddDays(-day + 1);
             List<DateTime> DateList = new List<DateTime>();
             for (int i = 0; i < 15; i++)
@@ -179,14 +180,14 @@ namespace ElectronicSubmission
 
             for (int i = DateList.Count - 1; i >= 0; i--)
             {
-                Total += StudentList.Where(x => x.Student_CreationDate > DateList[i].AddDays(-1) && x.Student_CreationDate <= DateList[i]).Count().ToString();
+                Total += StudentList.Where(x => x.Student_CreationDate > DateList[i] && x.Student_CreationDate <= DateList[i].AddDays(1)).Count().ToString();
 
                 string mounth = DateList[i].ToString("MMM", CultureInfo.InvariantCulture);
 
                 if (SessionWrapper.LoggedUser.Language_id == 1)
                     mounth =  ArabicDate(mounth);
 
-                categories += "'"+DateList[i].Day + " / " + mounth + "'";
+                categories += "'"+(DateList[i].Day + 1) + " / " + mounth + "'";
                 if (i > 0)
                 {
                     Total += ",";
@@ -209,8 +210,8 @@ namespace ElectronicSubmission
 
             for (int i = 0; i < List_Resource.Count; i++)
             {
-                if(SessionWrapper.LoggedUser.Language_id ==1)
-                Labels += "' " + List_Resource[i].Resource_Name_Ar + " '";
+                if (SessionWrapper.LoggedUser.Language_id == 1)
+                    Labels += "' " + List_Resource[i].Resource_Name_Ar + " '";
                 else
                     Labels += "'" + List_Resource[i].Resource_Name_En + "'";
                 Data += List_Resource[i].Students.Count;

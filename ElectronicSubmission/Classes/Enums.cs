@@ -32,7 +32,8 @@ namespace ElectronicSubmission
             Description_of_Courses = 12,
             Before_Contract = 13,
             After_Contract = 14,
-            Equation = 15 
+            Equation = 15 ,
+            KuwaitContract = 16
 
         }
         public enum brnch

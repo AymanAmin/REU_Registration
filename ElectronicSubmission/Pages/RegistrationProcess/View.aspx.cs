@@ -54,11 +54,14 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 //Rename button names
                 btnAssign.Text = FieldNames.getFieldName("View-Assign", "Assign");
-                
+                ChangeStatus.Text = FieldNames.getFieldName("View-ChangeStatus", "Change Status");
+
+
             }
 
             //check if he is manager 
-            if (SessionWrapper.LoggedUser.Employee_Id == 1)
+            // 1. System Admin  -  10. Dr. Fahad   -   12. عبدالمجيد الرمال 
+            if (SessionWrapper.LoggedUser.Employee_Id == 1 || SessionWrapper.LoggedUser.Employee_Id == 10 || SessionWrapper.LoggedUser.Employee_Id == 12) 
                 DivChangeStatus.Visible = true;
         }
 
@@ -173,12 +176,12 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                     int str_index = (std.Student_Total.ToString()).IndexOf('.');
                     if (str_index != -1)
-                        txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2);
+                        txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2) + "%";
                     else
                     {
                         str_index = (std.Student_Total.ToString()).IndexOf(',');
                         if (str_index != -1)
-                            txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2);
+                            txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2) + "%";
                         else
                             txtStudent_Total.Text = std.Student_Total + "%";
                     }
@@ -289,7 +292,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     }
 
 
-                    if (std.Student_Status_Id == 18 || std.Student_Status_Id == 19)
+                    if (std.Student_Status_Id == 10 || std.Student_Status_Id == 18 || std.Student_Status_Id == 19)
                     {
                         txtContracts.Visible = true;
                         txtContract_Label.Visible = true;
@@ -351,7 +354,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             {
                 string str = string.Empty, FileName = string.Empty;
                 int Nationality_Counter = 0, Capabilities_Counter = 0, High_School_Counter = 0, My_Achievement_Counter = 0, Contracts_Counter = 0, Before_Contract_Counter = 0, Acadimec_Regsteration_Counter = 0;
-                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0, Equation_Counter = 0;
+                int Classification_Authority_Counter = 0, Description_of_Courses_Counter = 0, Diploma_Counter = 0, EnglishCertificate_Counter = 0, SAT1_Counter = 0, SAT2_Counter = 0, Equation_Counter = 0, KuwaitContract_Counter = 0;
                 int Current_Counter = 1;
                 List<File> List_File = db.Files.Where(x => x.Student_Id == Student_Id).OrderBy(x => x.Type).ToList();
                 for (int i = 0; i < List_File.Count; i++)
@@ -372,6 +375,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     else if (List_File[i].Type == (int)FileType.SAT1) { fileType = FieldNames.getFieldName("View-SAT1", "SAT 1"); Current_Counter = SAT1_Counter = SAT1_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.SAT2) { fileType = FieldNames.getFieldName("View-SAT2", "SAT 2"); Current_Counter = SAT2_Counter = SAT2_Counter + 1; }
                     else if (List_File[i].Type == (int)FileType.Equation) { fileType = FieldNames.getFieldName("View-Equation", "Equation"); Current_Counter = Equation_Counter = Equation_Counter + 1; }
+                    else if (List_File[i].Type == (int)FileType.KuwaitContract) { fileType = FieldNames.getFieldName("View-KuwaitContract", "Kuwait Contract"); Current_Counter = KuwaitContract_Counter = KuwaitContract_Counter + 1; }
+
+                    
                     str += "<tr>" +
                            "<td>" +
                            "" + fileType + " " + Current_Counter + "" +
@@ -550,6 +556,11 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 else if (std.Student_Status_Id == 19)
                 {
                     UploadFile(std.Student_Id, (int)FileType.Equation, txtContracts, @"~\media\StudentAttachments\");
+                }
+                //Contract for Kuwait (دولة الكويت) File upload
+                else if (std.Student_Status_Id == 10)
+                {
+                    UploadFile(std.Student_Id, (int)FileType.KuwaitContract, txtContracts, @"~\media\StudentAttachments\");
                 }
 
                 std.Student_Status_Id = newStatus;
@@ -783,7 +794,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 SaveMessage(std.Student_Id, "E-mail", Text + "<br/>"+ Text_ar);
                 return result;
             }
-            else if(std.Student_Status_Id == 9)
+            else if(std.Student_Status_Id == 9) // Failure in Exam
             {
                 string NoteStr = "";
                 string NoteStr_ar = "";
@@ -797,6 +808,32 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 string Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br />" + NoteStr_ar + " <br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong> </div>";
                 bool result = send.TextEmail(std.Status.Status_Name_En + " - "+ std.Status.Status_Name_Ar, StudentEmail, Text_ar + "<br/><br/>" + Text, sever_name);
+                SaveMessage(std.Student_Id, "E-mail", Text + "<br/>" + Text_ar);
+                return result;
+            }
+            else if (std.Student_Status_Id == 11) // Ready to pay (study)
+            {
+                string Attached_Emails = "<table style='text-align:left;'>"+
+                    "<tr><th>#</th><th>Email</th></tr>" +
+                    "<tr><td>1.</td><td>bandiralajmi@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>2.</td><td>n.khodiry@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>3.</td><td>asmaabdlaziz@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>4.</td><td>magdy.a.ghany@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>5.</td><td>mohamed.elmarghny@riyadh.edu.sa</td></tr>" +
+                    "</table>";
+
+                string Attached_Emails_ar = "<table style='text-align:right;'>" +
+                    "<tr><th>#</th><th>البريد</th></tr>" +
+                    "<tr><td>1.</td><td>bandiralajmi@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>2.</td><td>n.khodiry@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>3.</td><td>asmaabdlaziz@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>4.</td><td>magdy.a.ghany@riyadh.edu.sa</td></tr>" +
+                    "<tr><td>5.</td><td>mohamed.elmarghny@riyadh.edu.sa</td></tr>" +
+                    "</table>";
+
+                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong><br /> <Strong>Please download the document, sign it and resend it to the attached email to receive the payment link Or Sadad Number </Strong>" + "<br/> Document Link:https://mega.nz/file/x5ESEY5L#cmoXXodwMEgiYuJRLt2ZwcjP--rCHDujFmBoSVGEtZs" + " <br/> "+Attached_Emails+"<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
+                string Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة " + std.Status.Status_Name_Ar + "  </Strong> <br /> <Strong>التاريخ:</Strong>" + DateTime.Now.ToShortDateString() + " <br /> <Strong>الرجاء تحميل المستند والتوقيع عليه وإعادة ارساله للايميلات المرفقة  ليصلك رابط السداد او رقم سداد:</Strong>" + "رابط المستند: https://mega.nz/file/x5ESEY5L#cmoXXodwMEgiYuJRLt2ZwcjP--rCHDujFmBoSVGEtZs" + DateTime.Now.ToShortDateString() + "<br/> " + Attached_Emails_ar + "<br /><Strong>جامعة رياض العلم</Strong></div> ";
+                bool result = send.TextEmail(std.Status.Status_Name_En + " - " + std.Status.Status_Name_Ar, StudentEmail+ ", mohamed.elmarghny@riyadh.edu.sa, magdy.a.ghany@riyadh.edu.sa, asmaabdlaziz@riyadh.edu.sa, n.khodiry@riyadh.edu.sa, bandiralajmi@riyadh.edu.sa", Text_ar + "<br/><br/>" + Text, sever_name);
                 SaveMessage(std.Student_Id, "E-mail", Text + "<br/>" + Text_ar);
                 return result;
             }
@@ -824,10 +861,10 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
 
             SendEmail send = new SendEmail();
-            if (std.Student_Status_Id == 7)
+            if (std.Student_Status_Id == 8)
             {
-                Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM " + notes + "<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
-                Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br /><Strong>Meeting تاريخ الاجتماع:</Strong> " + date + "<br /><Strong>زمن الاجتماع:</Strong> " + time + "<br /><Strong>رابط الاجتماع:</Strong> " + url + "<br /><Strong>الفيديو:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM " + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong> </div>";
+                Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /><Strong>Pdf Guidances:</Strong> https://mega.nz/file/pllxCZBC#QxZlhqeotTCcxps3dxZqRaMPOSGF4O5ge0nIbabGp8E " + notes + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
+                Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br /><Strong> تاريخ الاجتماع:</Strong> " + date + "<br /><Strong>زمن الاجتماع:</Strong> " + time + "<br /><Strong>رابط الاجتماع:</Strong> " + url + "<br /><Strong>الفيديو:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /><Strong>ملف الارشادات:</Strong> https://mega.nz/file/pllxCZBC#QxZlhqeotTCcxps3dxZqRaMPOSGF4O5ge0nIbabGp8E" + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong> </div>";
             }
             else
             {
@@ -1179,7 +1216,11 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             db.SaveChanges();
 
             if (std.Student_Status_Id == 11)
+            {
+                sendEamil(std);
                 return;
+            }
+                
 
             // Send Email 
             send_ReadyToPay(std, payment, Payment_For);

@@ -13,7 +13,7 @@ namespace ElectronicSubmission
         string System_Name = "Admission System";
 
         /// <summary>
-        /// Send New message 
+        /// Send New message
         /// </summary>
         /// <param name="SendTo"></param>
         /// <param name="Message"></param>

@@ -14,6 +14,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         List<Sequence> ListSequence = new List<Sequence>();
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "yellow" };
+        bool callcenter_emp = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,6 +24,13 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             if (!IsPostBack)
             {
                 int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
+
+                // Just for call center
+                List<Group_Status> List_StatusL_CallCenter = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
+                Group_Status Assigned = List_StatusL_CallCenter.Where(x => x.Status_Id == 3).FirstOrDefault();
+                Group_Status New_Pending = List_StatusL_CallCenter.Where(x => x.Status_Id == 1 || x.Status_Id == 2).FirstOrDefault();
+                if (Assigned != null && New_Pending == null)
+                    callcenter_emp = true;
 
                 // Start if it's on his status
                 List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
@@ -37,7 +45,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
                 // Start if he is Call cetner
                 List<Student> TempList2 = db.Students.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1).ToList();
-                
+
                 // Set TempList2 into ListAllStudent
                 ListAllStudent.AddRange(TempList2);
                 // End if he is Call cetner
@@ -48,11 +56,17 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 for (int i = 0; i < ListSequence.Count; i++)
                 {
                     Student student = ListSequence[i].Student;
-                    TempList3.Add(student);
+                    if (student.Suspended != 1)
+                        TempList3.Add(student);
                 }
                 // Set TempList3 into ListAllStudent
                 ListAllStudent.AddRange(TempList3);
                 // End if he made action on sequence table
+
+
+                // Start if he is Call cetner => reset the list with call center records.
+                if (callcenter_emp)
+                    ListAllStudent = TempList2;
 
                 // Set TempList3 into ListAllStudent
                 ListAllStudent = ListAllStudent.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
@@ -82,6 +96,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
                     str += "<a href= '../../../../Pages/RegistrationProcess/OtherInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-message h5'></i>&nbsp;&nbsp;</a>";
                     //str += "<a href= '../../../../Pages/RegistrationProcess/DeleteStudent.ashx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:red;'>&nbsp;&nbsp; <i class='icofont icofont-recycle-alt h5'></i>&nbsp;&nbsp;</a>";
+                    if (callcenter_emp)
+                        str += "<a href='../../../../Pages/RegistrationProcess/StudentInfo.aspx?StudentID=" + ListAllStudent[i].Student_Id + "'  style='color:green;'>&nbsp;&nbsp; <i class='icofont icofont-ui-edit h5'></i>&nbsp;&nbsp;</a>";
+
                     str += "</td>";
                     if (SessionWrapper.LoggedUser.Language_id == 1)
                     {

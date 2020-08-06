@@ -21,24 +21,40 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
                 loadAllRecord();
 
                 int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
-                
+
+                // Just for call center
+                bool callcenter_emp = false;
+                List<Group_Status> List_StatusL_CallCenter = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
+                Group_Status Assigned = List_StatusL_CallCenter.Where(x => x.Status_Id == 3).FirstOrDefault();
+                Group_Status New_Pending = List_StatusL_CallCenter.Where(x => x.Status_Id == 1 || x.Status_Id == 2).FirstOrDefault();
+                if (Assigned != null && New_Pending == null)
+                    callcenter_emp = true;
+
                 List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID && x.Status_Id != 3 && x.Status_Id != 4).ToList();
-                
-                for (int i = 0; i< List_Status.Count;i++)
+                int counter = List_Status.Count;
+                if (!callcenter_emp)
+                    for (int i = 0; i < counter; i++)
+                    {
+                        List<Student> Temp_List = List_Status[i].Status.Students.Where(x => x.Suspended != 1).ToList();
+                        ListStudentWithStatus.AddRange(Temp_List);
+                    }
+
+                List<Student> Student_TempList = db.Students.ToList();
+                for (int j = 0; j < counter; j++)
                 {
-                    List<Student> Temp_List = List_Status[i].Status.Students.Where(x => x.Suspended != 1).ToList();
-                    ListStudentWithStatus.AddRange(Temp_List);
+                    List<Student> TempList3 = Student_TempList.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1 && x.Student_Status_Id == List_Status[j].Status_Id).ToList();
+                    ListStudentWithStatus.AddRange(TempList3);
                 }
-                List<Student> TempList3 = db.Students.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1 && (x.Student_Status_Id == 3 || x.Student_Status_Id == 4 || x.Student_Status_Id == 5)).ToList();
-                ListStudentWithStatus.AddRange(TempList3);
 
                 ListAllStudent.AddRange(ListStudentWithStatus);
                 ListAllStudent = ListAllStudent.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
+
+
 
                 // List Sequence
                 ListSequence = db.Sequences.Where(x => x.Emp_Id == SessionWrapper.LoggedUser.Employee_Id).ToList();
@@ -79,7 +95,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             ListAllStudentStatistic.AddRange(TempList3);
             // End if he made action on sequence table
 
-            // Set TempList3 into ListAllStudentStatistic
+            // Set Distinct ListAllStudentStatistic
             ListAllStudentStatistic = ListAllStudentStatistic.Where(x => x.Suspended != 1).Distinct().ToList();
         }
 

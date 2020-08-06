@@ -186,7 +186,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 Stu.Student_Email = Email;
                 Stu.Student_Phone = Phone;
                 Stu.Student_Address = StuAddress;
-                Stu.Student_CreationDate = RegistrationDate;
+                //Stu.Student_CreationDate = RegistrationDate;
                 Stu.Student_SSN = StudentSSN;
                 Stu.Student_High_School_Degree = HighSchoolDeg.ToString();
                 Stu.Student_Capabilities_Degree = CapabilitiesDeg.ToString();
@@ -209,6 +209,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 }
                 else
                 {
+                    Stu.Student_CreationDate = RegistrationDate;
                     db.Students.Add(Stu);
                 }
                 db.SaveChanges();
