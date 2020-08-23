@@ -11,7 +11,7 @@ namespace ElectronicSubmission.Pages.Setting.UserManagment
     public partial class MyNotifications : System.Web.UI.Page
     {
         REU_RegistrationEntities db = new REU_RegistrationEntities();
-        string[] Color = { "blue", "purple", "green", "black", "red", "orange", "maroon", "teal", "deepskyblue", "gray", "yellow", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon" };
+        string[] Color = { "blue", "purple", "green", "black", "red", "orange", "maroon", "teal", "deepskyblue", "gray", "#43b791", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon" };
         protected void Page_PreInit(object sender, EventArgs e)
         {
            /* if (Session["IsECMS"] != null)

@@ -382,6 +382,15 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.Button btnApprove;
         
         /// <summary>
+        /// btnResendLastMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnResendLastMsg;
+        
+        /// <summary>
         /// btnBranch2 control.
         /// </summary>
         /// <remarks>

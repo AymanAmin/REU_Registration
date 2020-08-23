@@ -16,7 +16,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
     public partial class View : System.Web.UI.Page
     {
         REU_RegistrationEntities db = new REU_RegistrationEntities();
-        string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "yellow" };
+        string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
         int student_record_id = 0;
         bool EnableEditActions = false, EnableEditAssign = false;
         LogFileModule logFileModule = new LogFileModule();
@@ -55,7 +55,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 //Rename button names
                 btnAssign.Text = FieldNames.getFieldName("View-Assign", "Assign");
                 ChangeStatus.Text = FieldNames.getFieldName("View-ChangeStatus", "Change Status");
-
+                btnResendLastMsg.Text = FieldNames.getFieldName("View-ResendLastEmail", "Resend Last Email");
 
             }
 
@@ -174,18 +174,52 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     txtStudent_High_School_Degree.Text = " " + std.Student_High_School_Degree + "";
                     txtStudent_My_Achievement_Degree.Text = " " + std.Student_My_Achievement_Degree + "";
 
-                    int str_index = (std.Student_Total.ToString()).IndexOf('.');
-                    if (str_index != -1)
-                        txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2) + "%";
-                    else
+                    try
                     {
-                        str_index = (std.Student_Total.ToString()).IndexOf(',');
+                        //High School
+                        double High_School_Percent = double.Parse(std.Specialization.High_School_Percent);
+                        double High_School = (double.Parse(std.Student_High_School_Degree) * High_School_Percent) / 100;
+
+                        //Capabilities
+                        double Capabilities_Percent = double.Parse(std.Specialization.Capabilities_Percent);
+                        double Capabilities = (double.Parse(std.Student_Capabilities_Degree) * Capabilities_Percent) / 100;
+
+                        //My_Achievement
+                        double My_Achievement_Percent = double.Parse(std.Specialization.My_Achievement_Percent);
+                        double My_Achievement = (double.Parse(std.Student_My_Achievement_Degree) * My_Achievement_Percent) / 100;
+
+                        //Total Calc
+                        string Total = (High_School + Capabilities + My_Achievement).ToString();
+
+                        int str_index = (std.Student_Total.ToString()).IndexOf('.');
+                        if (str_index != -1)
+                            Total = (Total).Substring(0, str_index + 2) + "%";
+                        else
+                        {
+                            str_index = (Total).IndexOf(',');
+                            if (str_index != -1)
+                                Total = (Total).Substring(0, str_index + 2) + "%";
+                            else
+                                Total = Total + "%";
+                        }
+
+                        txtStudent_Total.Text = Total;
+                    }
+                    catch
+                    {
+
+                        int str_index = (std.Student_Total.ToString()).IndexOf('.');
                         if (str_index != -1)
                             txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2) + "%";
                         else
-                            txtStudent_Total.Text = std.Student_Total + "%";
+                        {
+                            str_index = (std.Student_Total.ToString()).IndexOf(',');
+                            if (str_index != -1)
+                                txtStudent_Total.Text = (std.Student_Total.ToString()).Substring(0, str_index + 2) + "%";
+                            else
+                                txtStudent_Total.Text = std.Student_Total + "%";
+                        }
                     }
-
                     DateTime date = DateTime.Parse(std.Student_CreationDate.ToString());
                     txtStudent_CreationDate.Text = date.ToShortDateString();
                     bool IsFinish_Equation = Made_Equation(std);
@@ -596,8 +630,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         SendSMS send_sms = new SendSMS();
 
 
-                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة لحضور رابط الاختبار." + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة للحضور." + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
                         string number_Phone = std.Student_Phone;
                         string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
                         SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
@@ -722,12 +756,23 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     // Send SMS
                     SendSMS send_sms = new SendSMS();
 
+                    if (txtMeeting_Date.Value == string.Empty || txtMeeting_Date.Value == "" || txtMeeting_Date.Value == null)
+                    {
 
-                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend the exam Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-                    string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط ادناه لحضور الاختبار:" + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
-                    string number_Phone = std.Student_Phone;
-                    string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
-                    SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
+                        string Text = "Dear " + std.Student_Name_En + "\n\n" + txtNote.Text + "\n\nPlease Check Your Email.";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\n" + txtNote.Text + "\n\nالرجاء التحقق من الايميل.";
+                        string number_Phone = std.Student_Phone;
+                        string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
+                        SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
+                    }
+                    else
+                    {
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط ادناه لحضور للموعد:" + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
+                        string number_Phone = std.Student_Phone;
+                        string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
+                        SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
+                    }
                 }
                 else if (std.Student_Status_Id == 16)
                 {
@@ -839,7 +884,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
             else
             {
-                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
+                string Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En +  " stage </Strong> <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
                 string Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة " + std.Status.Status_Name_Ar + "  </Strong> <br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong></div> ";
                 bool result = send.TextEmail(std.Status.Status_Name_En + " - " + std.Status.Status_Name_Ar, StudentEmail, Text_ar + "<br/><br/>" + Text, sever_name);
                 SaveMessage(std.Student_Id, "E-mail", Text + "<br/>" + Text_ar);
@@ -861,7 +906,14 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
 
             SendEmail send = new SendEmail();
-            if (std.Student_Status_Id == 8)
+            if(date == null || date == string.Empty || date == "")
+            {
+                sever_name = Request.Url.Authority.ToString();
+                string linkstr = sever_name + "/StudentSubmitting.aspx?Student_Id=" + std.Student_Id;
+                Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong><br />" + notes + "<br /><Strong>Use this link:"+linkstr+ "</Strong><br /><br /><Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
+                Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br />" + notes_ar + "<br /><Strong>استخدم الرابط :"+linkstr+ "<br /><br /><Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong> </div>";
+            }
+            else if (std.Student_Status_Id == 8)
             {
                 Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>Meeting Date:</Strong> " + date + "<br /><Strong>Meeting Time:</Strong> " + time + "<br /><Strong>URL Meeting:</Strong> " + url + "<br /><Strong>Video:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /><Strong>Pdf Guidances:</Strong> https://mega.nz/file/pllxCZBC#QxZlhqeotTCcxps3dxZqRaMPOSGF4O5ge0nIbabGp8E " + notes + " <br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
                 Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br /><Strong> تاريخ الاجتماع:</Strong> " + date + "<br /><Strong>زمن الاجتماع:</Strong> " + time + "<br /><Strong>رابط الاجتماع:</Strong> " + url + "<br /><Strong>الفيديو:</Strong> https://mega.nz/file/Y4Mz2AqA#vjyWb8rdnz3x-9pQhHzvhsdDfai2625uOmxH2P6UHxM <br /><Strong>ملف الارشادات:</Strong> https://mega.nz/file/pllxCZBC#QxZlhqeotTCcxps3dxZqRaMPOSGF4O5ge0nIbabGp8E" + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong> </div>";
@@ -1504,9 +1556,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 send_ready_to_payRigestreation(std, pp);
                 return;
             }
-
-            string Text = "Dear " + std.Student_Name_En + "\n\nTrackId : " + std.Student_Id + "\nYour file has now reached the " + std.Status.Status_Name_En + " stage \nSADAD Number: " + txtSadadNumber.Text + "\nAmount: " + txtAmount.Text + "" + notes + "\n\nDate: " + DateTime.Now.ToShortDateString() + "\n\nElm University Riyadh";
-            string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nرقم الملف : " + std.Student_Id + "\n وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + "\n رقم سداد:" + txtSadadNumber.Text + "\nالمبلغ: " + txtAmount.Text + "" + notes_ar + "\n\nالتاريخ: " + DateTime.Now.ToShortDateString() + "\n\nجامعة رياض العلم";
+            string RosomAccount = "901 - Rosom";
+            string Text = "Dear " + std.Student_Name_En + "\n\nTrackId : " + std.Student_Id + "\nYour file has now reached the " + std.Status.Status_Name_En + " stage \nSADAD Number: " + txtSadadNumber.Text + "\nAmount: " + txtAmount.Text + "\nPayment code:" + RosomAccount+"" + notes + "\n\nDate: " + DateTime.Now.ToShortDateString() + "\n\nElm University Riyadh";
+            string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nرقم الملف : " + std.Student_Id + "\n وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + "\n رقم سداد:" + txtSadadNumber.Text + "\nالمبلغ: " + txtAmount.Text + "\nرمز السداد:" + RosomAccount + "" + notes_ar + "\n\nالتاريخ: " + DateTime.Now.ToShortDateString() + "\n\nجامعة رياض العلم";
             string number_Phone = std.Student_Phone;
             SendSMS send_sms = new SendSMS();
             string reslt_message = send_sms.SendMessage(Text_ar +"\n"+Text, number_Phone);
@@ -1520,8 +1572,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
 
             SendEmail send = new SendEmail();
-            Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>SADAD Number:</Strong> " + txtSadadNumber.Text + "<br /><Strong>Amount:</Strong> " + txtAmount.Text + "<br />" + notes + "<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
-            Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br /><Strong>رقم سداد:</Strong> " + txtSadadNumber.Text + "<br /><Strong>المبلغ:</Strong> " + txtAmount.Text + "<br />" + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong></div> ";
+            Text = "<Strong style='font-size:18;'>Dear " + std.Student_Name_En + "</Strong><br /><br /><Strong>TrackId : </Strong>  " + std.Student_Id + " <br /> <Strong>Your file has now reached the " + std.Status.Status_Name_En + " stage </Strong> <br /><Strong>SADAD Number:</Strong> " + txtSadadNumber.Text + "<br /><Strong>Amount:</Strong> " + txtAmount.Text + "<br /><Strong>Payment code:</Strong>" + RosomAccount +"<br />" + notes + "<br /> <Strong>Date:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>Elm University Riyadh</Strong> ";
+            Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:18;'>المكرم/ المكرمة " + std.Student_Name_Ar + "</Strong><br /><br /><Strong>رقم التتبع : </Strong>  " + std.Student_Id + " <br /> <Strong>وصل ملفك إلى مرحلة  " + std.Status.Status_Name_Ar + " </Strong> <br /><Strong>رقم سداد:</Strong> " + txtSadadNumber.Text + "<br /><Strong>رمز السداد:</Strong>" + RosomAccount + "<br /><Strong>المبلغ:</Strong> " + txtAmount.Text + "<br />" + notes_ar + "<br /> <Strong>التاريخ:</Strong> " + DateTime.Now.ToShortDateString() + "<br /><br /><Strong>جامعة رياض العلم</Strong></div> ";
             string sever_name = Request.Url.Authority.ToString();
             string StudentEmail = std.Student_Email; // "ayman@softwarecornerit.com";//
 
@@ -1584,6 +1636,20 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     Response.Redirect("~/Pages/RegistrationProcess/view.aspx?StudentID="+ std.Student_Id);
                 }
 
+            }
+        }
+
+        protected void btnResendLastMsg_Click(object sender, EventArgs e)
+        {
+            List<Student_Other_Info> std_OI = db.Student_Other_Info.Where(x => x.Student_Id == student_record_id && x.MessageType == "E-mail").ToList();
+            if (std_OI.Count > 0)
+            {
+                SendEmail send = new SendEmail();
+                string sever_name = Request.Url.Authority.ToString();
+                Student std = std_OI[std_OI.Count - 1].Student;
+                bool result = send.TextEmail(std.Status.Status_Name_En + " - " + std.Status.Status_Name_Ar, std.Student_Email, std_OI[std_OI.Count - 1].Message, sever_name);
+                int std_id = (int)std_OI[std_OI.Count - 1].Student_Id;
+                SaveMessage(std_id, "E-mail", std_OI[std_OI.Count - 1].Message);
             }
         }
 

@@ -33,6 +33,7 @@
                                 <th ><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Phone", "Phone") %></th>
                                 <th ><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Email", "Email") %></th>
                                 <th ><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Address", "Address") %></th>
+                                <th ><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Country", "Country") %></th>
                                 <th ><% = ElectronicSubmission.FieldNames.getFieldName("ListView-CreationDate", "Creation Date") %></th>
                             </tr>
                         </thead>

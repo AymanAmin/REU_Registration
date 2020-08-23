@@ -185,6 +185,7 @@
     <Content Include="Pages\Auth\LockScreen.aspx" />
     <Content Include="Pages\Auth\Login.aspx" />
     <Content Include="Pages\Auth\ResetPassword.aspx" />
+    <Content Include="Pages\Reports\StatByStatus.aspx" />
     <Content Include="Pages\Reports\StudentsPerSpecialization.aspx" />
     <Content Include="Pages\Setting\FormCollege.aspx" />
     <Content Include="Pages\Setting\FormNationality.aspx" />
@@ -2850,6 +2851,13 @@
     </Compile>
     <Compile Include="Pages\Auth\ResetPassword.aspx.designer.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Reports\StatByStatus.aspx.cs">
+      <DependentUpon>StatByStatus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Reports\StatByStatus.aspx.designer.cs">
+      <DependentUpon>StatByStatus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Reports\StudentsPerSpecialization.aspx.cs">
       <DependentUpon>StudentsPerSpecialization.aspx</DependentUpon>

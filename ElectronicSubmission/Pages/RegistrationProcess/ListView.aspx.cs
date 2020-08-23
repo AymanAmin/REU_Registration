@@ -15,7 +15,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         List<Student> ListStudentCurrent = new List<Student>();
         List<Sequence> ListSequence = new List<Sequence>();
         REU_RegistrationEntities db = new REU_RegistrationEntities();
-        string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "yellow" };
+        string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)

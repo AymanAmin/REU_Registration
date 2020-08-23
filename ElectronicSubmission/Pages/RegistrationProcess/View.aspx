@@ -273,6 +273,7 @@
                                     <br />
                                     <asp:Button ID="btnSendSMS" class="btn btn-primary btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Send SMS" OnClick="btnSendSMS_Click" />
                                     <asp:Button ID="btnApprove" class="btn btn-success btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Approve" OnClick="btnApprove_Click" />
+                                    <asp:Button ID="btnResendLastMsg" class="btn btn-warning btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Resend Last Msg" OnClick="btnResendLastMsg_Click" />
                                     <asp:Button ID="btnBranch2" class="btn btn-info btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Approve" OnClick="btnBranch2_Click" />
                                     <asp:Button ID="btnReject" class="btn btn-danger waves-effect m-b-10 btn-sm waves-light" runat="server" Text="Reject" OnClick="btnReject_Click" />
                                 </div>

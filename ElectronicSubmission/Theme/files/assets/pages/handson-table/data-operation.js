@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         paginating.loadData(getData())
     }
     );
-    var data=[["Nissan", 2012, "black", "black"], ["Nissan", 2013, "blue", "blue"], ["Chrysler", 2014, "yellow", "black"], ["Volvo", 2015, "yellow", "gray"]], example=document.getElementById("searching"), searchFiled=document.getElementById("search_field");
+    var data=[["Nissan", 2012, "black", "black"], ["Nissan", 2013, "blue", "blue"], ["Chrysler", 2014, "#43b791", "black"], ["Volvo", 2015, "#43b791", "gray"]], example=document.getElementById("searching"), searchFiled=document.getElementById("search_field");
     hot=new Handsontable(example, {
         data: data, colHeaders: !0, search: !0
     }

@@ -43,6 +43,7 @@
 
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Phone", "Phone") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Email", "Email") %></th>
+                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsPaid-Specialization", "Specialization") %></th>
                             </tr>
                         </thead>
                         <tbody class="text-left">

@@ -433,7 +433,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return [
       ["Nissan", 2012, "black", "black"],
       ["Nissan", 2013, "blue", "blue"],
-      ["Chrysler", 2014, "yellow", "black"],
+      ["Chrysler", 2014, "#43b791", "black"],
       ["Volvo", 2015, "white", "gray"]
     ];
   }
@@ -489,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return [
       ["Nissan", 2013, "black", "black"],
       ["Nissan", 2014, "blue", "blue"],
-      ["Chrysler", 2015, "yellow", "black"],
+      ["Chrysler", 2015, "#43b791", "black"],
       ["Volvo", 2016, "white", "gray"]
     ];
   }

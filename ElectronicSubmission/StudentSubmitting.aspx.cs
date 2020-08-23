@@ -644,9 +644,9 @@ namespace ElectronicSubmission
                 CapabilitiesPercent = (CapabilitiesDegre / CapabilitiesTotal) * 100;
                 MyAchievementPercent = (MyAchievementDegre / MyAchievementTotal) * 100;
 
-                HighSchoolPercent2 = (HighSchoolPercent * int.Parse(SpecList.High_School_Percent)) / 100;
-                CapabilitiesPercent2 = (CapabilitiesPercent * int.Parse(SpecList.Capabilities_Percent)) / 100;
-                MyAchievementPercent2 = (MyAchievementPercent * int.Parse(SpecList.My_Achievement_Percent)) / 100;
+                HighSchoolPercent2 = (HighSchoolPercent * float.Parse(SpecList.High_School_Percent)) / 100;
+                CapabilitiesPercent2 = (CapabilitiesPercent * float.Parse(SpecList.Capabilities_Percent)) / 100;
+                MyAchievementPercent2 = (MyAchievementPercent * float.Parse(SpecList.My_Achievement_Percent)) / 100;
 
                 float.TryParse(SpecList.Weighted_Ratio_Percent, out WeightedRatioPercent);
 

@@ -2183,7 +2183,7 @@ var delay = (function(){
             var randomColor = "";
             if($.fn.postitall.globals.randomColor && $.fn.postitall.defaults.features.randomColor) {
                 //Random color
-                //var colors = ["red", "blue", "yellow", "black", "green"];
+                //var colors = ["red", "blue", "#43b791", "black", "green"];
                 //return colors[Math.floor(Math.random() * colors.length)];
                 randomColor = "#"+(Math.random()*0xFFFFFF<<0).toString(16);
             } else {

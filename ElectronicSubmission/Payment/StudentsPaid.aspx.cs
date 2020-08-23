@@ -16,7 +16,7 @@ namespace ElectronicSubmission.Payment
 
         List<Sequence> ListSequence = new List<Sequence>();
         REU_RegistrationEntities db = new REU_RegistrationEntities();
-        string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "yellow" };
+        string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
 
         int Payment_Process_ID = 0;
         protected void Page_Load(object sender, EventArgs e)
@@ -170,6 +170,12 @@ namespace ElectronicSubmission.Payment
 
                     str += "<td class='text-left'>" + std.Student_Phone + "</td>";
                     str += "<td class='text-left'>" + std.Student_Email + "</td>";
+
+                    if (SessionWrapper.LoggedUser.Language_id == 1)
+                        str += "<td class='text-left'>" + std.Specialization.Specialization_Name_Ar + "</td>";
+                    else
+                        str += "<td class='text-left'>" + std.Specialization.Specialization_Name_En + "</td>";
+
 
                     str += "</tr>";
 
