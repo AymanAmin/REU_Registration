@@ -630,8 +630,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         SendSMS send_sms = new SendSMS();
 
 
-                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة للحضور." + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email." + "\n\nRiyadh Elm University";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة للحضور." + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل."+"\n\nجامعة رياض العلم";
                         string number_Phone = std.Student_Phone;
                         string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
                         SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
@@ -643,8 +643,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         SendSMS send_sms = new SendSMS();
 
 
-                        string Text = "Dear " + std.Student_Name_En + "\n\nUse this link to reach the location :" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط للوصل للموقع :" + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse this link to reach the location :" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email." + "\n\nRiyadh Elm University";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط للوصل للموقع :" + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل."+"\n\nجامعة رياض العلم";
                         string number_Phone = std.Student_Phone;
                         string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
                         SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
@@ -759,16 +759,16 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     if (txtMeeting_Date.Value == string.Empty || txtMeeting_Date.Value == "" || txtMeeting_Date.Value == null)
                     {
 
-                        string Text = "Dear " + std.Student_Name_En + "\n\n" + txtNote.Text + "\n\nPlease Check Your Email.";
-                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\n" + txtNote.Text + "\n\nالرجاء التحقق من الايميل.";
+                        string Text = "Dear " + std.Student_Name_En + "\n\n" + txtNote.Text + "\n\nPlease Check Your Email." + "\n\nRiyadh Elm University";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\n" + txtNote.Text + "\n\nالرجاء التحقق من الايميل."+"\n\nجامعة رياض العلم";
                         string number_Phone = std.Student_Phone;
                         string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
                         SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
                     }
                     else
                     {
-                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email.";
-                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط ادناه لحضور للموعد:" + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل.";
+                        string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to attend Link:" + std.Student_URL_Video + "\n\n" + std.Notes + "\n\nPlease Check Your Email." + "\n\nRiyadh Elm University";
+                        string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط ادناه لحضور للموعد:" + "" + "\n\n" + std.Notes + "\n\nالرجاء التحقق من الايميل."+"\n\nجامعة رياض العلم";
                         string number_Phone = std.Student_Phone;
                         string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
                         SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);
@@ -787,8 +787,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     SendSMS send_sms = new SendSMS();
 
 
-                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to upload the required files Link:" + url + "\n\nPlease Check Your Email.";
-                    string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة لرفع الملفات المطلوبة" + "" + "\n\nالرجاء التحقق من الايميل.";
+                    string Text = "Dear " + std.Student_Name_En + "\n\nUse the link that sent with the message to upload the required files Link:" + url + "\n\nPlease Check Your Email." + "\n\nRiyadh Elm University";
+                    string Text_ar = "المكرم/ المكرمة " + std.Student_Name_Ar + "\n\nاستخدم الرابط الذي تم إرساله مع الرسالة لرفع الملفات المطلوبة" + "" + "\n\nالرجاء التحقق من الايميل."+"\n\nجامعة رياض العلم";
                     string number_Phone = std.Student_Phone;
                     string reslt_message = send_sms.SendMessage(Text_ar + "\n" + Text, number_Phone);
                     SaveMessage(std.Student_Id, "SMS", Text_ar + "<br/>" + Text);

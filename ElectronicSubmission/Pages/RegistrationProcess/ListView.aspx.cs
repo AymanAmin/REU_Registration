@@ -14,12 +14,31 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         List<Student> ListStudentWithStatus = new List<Student>();
         List<Student> ListStudentCurrent = new List<Student>();
         List<Sequence> ListSequence = new List<Sequence>();
+        List<Student> std_List = new List<Student>();
+        List<Status> Status_List = new List<Status>();
+        List<Employee> Emp_List = new List<Employee>();
+        List<Nationality> Nationality_List = new List<Nationality>();
+
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
+
+            db.Configuration.LazyLoadingEnabled = false;
+
+            // Load all student Files
+            std_List = db.Students.Where(x => x.Suspended != 1).ToList();
+
+            // Load all Status
+            Status_List = db.Status.ToList();
+
+            // Load all Nationality
+            Nationality_List = db.Nationalities.ToList();
+
+            // Load all Employee
+            Emp_List = db.Employees.ToList();
 
             if (!IsPostBack)
             {
@@ -44,7 +63,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                         ListStudentWithStatus.AddRange(Temp_List);
                     }
 
-                List<Student> Student_TempList = db.Students.ToList();
+                List<Student> Student_TempList = std_List;
                 for (int j = 0; j < counter; j++)
                 {
                     List<Student> TempList3 = Student_TempList.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1 && x.Student_Status_Id == List_Status[j].Status_Id).ToList();
@@ -64,6 +83,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
         private void loadAllRecord()
         {
+            db.Configuration.LazyLoadingEnabled = false;
+
             int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
 
             // Start if it's on his status
@@ -77,7 +98,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             // End if it's on his status
 
             // Start if he is Call cetner
-            List<Student> TempList2 = db.Students.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1).ToList();
+            List<Student> TempList2 = std_List.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1).ToList();
 
             // Set TempList2 into ListAllStudentStatistic
             ListAllStudentStatistic.AddRange(TempList2);
@@ -89,7 +110,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             for (int i = 0; i < ListSequence.Count; i++)
             {
                 Student student = ListSequence[i].Student;
-                TempList3.Add(student);
+                if(student != null)
+                    TempList3.Add(student);
             }
             // Set TempList3 into ListAllStudentStatistic
             ListAllStudentStatistic.AddRange(TempList3);

@@ -10,8 +10,12 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
     public partial class AllRecords : System.Web.UI.Page
     {
         List<Student> ListAllStudent = new List<Student>();
-        
         List<Sequence> ListSequence = new List<Sequence>();
+        List<Student> std_List = new List<Student>();
+        List<Status> Status_List = new List<Status>();
+        List<Employee> Emp_List = new List<Employee>();
+        List<Nationality> Nationality_List = new List<Nationality>();
+
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
         bool callcenter_emp = false, Assigned_Flag = false,Supervisor_emp=false;
@@ -21,68 +25,84 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
+            db.Configuration.LazyLoadingEnabled = false;
+
+            // Load all student Files
+            std_List = db.Students.Where(x => x.Suspended != 1).ToList();
+
+            // Load all Status
+            Status_List = db.Status.ToList();
+
+            // Load all Nationality
+            Nationality_List = db.Nationalities.ToList();
+
+            // Load all Employee
+            Emp_List = db.Employees.ToList();
+
             if (!IsPostBack)
             {
-                int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
-
-                // Just for call center
-                List<Group_Status> List_StatusL_CallCenter = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
-                Group_Status Assigned = List_StatusL_CallCenter.Where(x => x.Status_Id == 3).FirstOrDefault();
-                Group_Status New_Pending = List_StatusL_CallCenter.Where(x => x.Status_Id == 1 || x.Status_Id == 2).FirstOrDefault();
-                if (Assigned != null)
                 {
-                    Assigned_Flag = true;
-                    if (New_Pending == null)
-                        callcenter_emp = true;
-                }
+                   /* int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
 
-                if (New_Pending == null)
-                    Supervisor_emp = true;
-
-                // Start if he is Supervisor_emp => reset the list with all records.
-                if (Supervisor_emp)
-                    ListAllStudent = db.Students.Where(x => x.Suspended != 1).ToList();
-
-                else
-                {
-                    // Start if it's on his status
+                    // Just for call center
                     List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
-                    for (int i = 0; i < List_Status.Count; i++)
+                    Group_Status Assigned = List_Status.Where(x => x.Status_Id == 3).FirstOrDefault();
+                    Group_Status New_Pending = List_Status.Where(x => x.Status_Id == 1 || x.Status_Id == 2).FirstOrDefault();
+
+                    if (Assigned != null)
                     {
-                        List<Student> TempList1 = List_Status[i].Status.Students.Where(x => x.Suspended != 1).ToList();
-
-                        // Set TempList1 into ListAllStudent
-                        ListAllStudent.AddRange(TempList1);
+                        Assigned_Flag = true;
+                        if (New_Pending == null)
+                            callcenter_emp = true;
                     }
-                    // End if it's on his status
 
-                    // Start if he is Call cetner
-                    List<Student> TempList2 = db.Students.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1).ToList();
+                    if (New_Pending == null)
+                        Supervisor_emp = true;
 
-                    // Set TempList2 into ListAllStudent
-                    ListAllStudent.AddRange(TempList2);
-                    // End if he is Call cetner
+                    // Start if he is Supervisor_emp => reset the list with all records.
+                    if (Supervisor_emp)
+                        ListAllStudent = std_List;
 
-                    // Start if he is Call cetner => reset the list with call center records.
-                    if (callcenter_emp)
-                        ListAllStudent = TempList2;
-
-                    // Start if he made action on sequence table
-                    ListSequence = db.Sequences.Where(x => x.Emp_Id == SessionWrapper.LoggedUser.Employee_Id).ToList();
-                    List<Student> TempList3 = new List<Student>();
-                    for (int i = 0; i < ListSequence.Count; i++)
+                    else
                     {
-                        Student student = ListSequence[i].Student;
-                        if (student.Suspended != 1)
-                            TempList3.Add(student);
-                    }
-                    // Set TempList3 into ListAllStudent
-                    ListAllStudent.AddRange(TempList3);
-                    // End if he made action on sequence table
+                        // Start if it's on his status
+                        for (int i = 0; i < List_Status.Count; i++)
+                        {
+                            List<Student> TempList1 = List_Status[i].Status.Students.Where(x => x.Suspended != 1).ToList();
+
+                            // Set TempList1 into ListAllStudent
+                            ListAllStudent.AddRange(TempList1);
+                        }
+                        // End if it's on his status
+
+                        // Start if he is Call cetner
+                        List<Student> TempList2 = std_List.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1).ToList();
+
+                        // Set TempList2 into ListAllStudent
+                        ListAllStudent.AddRange(TempList2);
+                        // End if he is Call cetner
+
+                        // Start if he is Call cetner => reset the list with call center records.
+                        if (callcenter_emp)
+                            ListAllStudent = TempList2;
+
+                        // Start if he made action on sequence table
+                        ListSequence = db.Sequences.Where(x => x.Emp_Id == SessionWrapper.LoggedUser.Employee_Id).ToList();
+                        List<Student> TempList3 = new List<Student>();
+                        for (int i = 0; i < ListSequence.Count; i++)
+                        {
+                            Student student = ListSequence[i].Student;
+                            if (student != null && student.Suspended != 1)
+                                TempList3.Add(student);
+                        }
+                        // Set TempList3 into ListAllStudent
+                        ListAllStudent.AddRange(TempList3);
+                        // End if he made action on sequence table
+                    }*/
                 }
 
                 // Set TempList3 into ListAllStudent
-                ListAllStudent = ListAllStudent.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
+                ListAllStudent = std_List.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
             }
             LoadStudent();
         }
