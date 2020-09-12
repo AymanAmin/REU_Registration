@@ -39,6 +39,22 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             // Load all Employee
             Emp_List = db.Employees.ToList();
 
+            int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
+            List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
+            Group_Status Assigned = List_Status.Where(x => x.Status_Id == 3).FirstOrDefault();
+            Group_Status New_Pending = List_Status.Where(x => x.Status_Id == 1 || x.Status_Id == 2).FirstOrDefault();
+
+            if (Assigned != null)
+            {
+                Assigned_Flag = true;
+                if (New_Pending == null)
+                    callcenter_emp = true;
+            }
+
+            if (New_Pending == null)
+                Supervisor_emp = true;
+
+
             if (!IsPostBack)
             {
                 {
@@ -123,7 +139,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     if (index >= Color.Length)
                         index = 1;
 
-                    str += "<tr>";
+                    str = "<tr>";
                     str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("ListView-Expand", "Expand") + "</td>";
                     str += "<td class='text-left'>";
                     str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
@@ -158,9 +174,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     str += "<td class='text-left'>" + ListAllStudent[i].Student_CreationDate.ToString() + "</td>";
                     str += "</tr>";
 
-
+                    txtStudentListData.Controls.Add(new LiteralControl(str));
                 }
-                txtStudentList.Text = str;
+                txtStudentList.Text = "";// str;
             }
             catch { Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx"); }
         }

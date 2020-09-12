@@ -162,6 +162,9 @@
                             </tr>
                         </thead>
                         <tbody class="text-left">
+                            <div runat="server" id="txtStudentListData">
+                                            <!-- Create Table Send Treatment in Code behind Function loadListViewTreatment()-->
+                                        </div>
                             <asp:Literal ID="txtStudentList" runat="server"></asp:Literal>
                         </tbody>
                     </table>

@@ -156,7 +156,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     if (index >= Color.Length)
                         index = 1;
 
-                    str += "<tr class = 'text-left'>";
+                    str = "<tr class = 'text-left'>";
                     str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("ListView-Expand", "Expand") + "</td>";
                     str += "<td class = 'text-left'> <a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + ListAllStudent[i].Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
 
@@ -188,9 +188,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                     str += "<td class = 'text-left'>" + ListAllStudent[i].Student_CreationDate.ToString() + "</td>";
                     str += "</tr>";
 
-
+                    txtStudentListData.Controls.Add(new LiteralControl(str));
                 }
-                txtStudentList.Text = str;
+                txtStudentList.Text = "";// str;
             }
             catch { Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx"); }
         }

@@ -188,23 +188,28 @@
 
         @media screen and (max-width: 570px) {
             .md-tabs .nav-item {
-                width: 100%;/*calc(100% / 4);*/
+                width: 100%; /*calc(100% / 4);*/
             }
         }
     </style>
-     <script>
+    <script>
         $('#confirm-delete').on('show.bs.modal', function (e) {
             alert();
             $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
         });
     </script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164487020-1"></script>
     <script>
-        function exportdata() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-        }
-        // Do something with the 'data' variable
+        gtag('config', 'UA-164487020-2');
     </script>
+
+    <!-- End Google Tag Manager  -->
     <script>
 
 

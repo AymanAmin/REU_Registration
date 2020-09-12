@@ -60,7 +60,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             }
 
             //check if he is manager 
-            // 1. System Admin  -  10. Dr. Fahad   -   12. عبدالمجيد الرمال 
+            // 1. System Admin  -  10. Dr. Fahad   -   12. عبدالمجيد الرمال
             if (SessionWrapper.LoggedUser.Employee_Id == 1 || SessionWrapper.LoggedUser.Employee_Id == 10 || SessionWrapper.LoggedUser.Employee_Id == 12) 
                 DivChangeStatus.Visible = true;
         }
@@ -111,7 +111,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 if (std != null)
                 {
                     //Check If He Has Permission
-                    CheckIfHeHasPermission(std);
+                    bool res = CheckIfHeHasPermission(std);
 
                     // select the color based on status id
                     int index = (int)std.Student_Status_Id - 1;
@@ -349,28 +349,28 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 return false;
             }
         }
-        private void CheckIfHeHasPermission(Student std)
+        private bool CheckIfHeHasPermission(Student std)
         {
             if (std.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id)
-                return;
+                return true;
             else
             {
                 List<Group_Status> List_group_status = db.Group_Status.Where(x => x.Group_Id == SessionWrapper.LoggedUser.Group_Id).ToList();
                 for(int i =0; i < List_group_status.Count; i++)
                 {
                     if (List_group_status[i].Status_Id == std.Student_Status_Id)
-                        return;
+                        return true;
                     else
                     {
                         int Temp_Status_Id = (int)List_group_status[i].Status_Id;
                         List<Sequence> list_sequence = db.Sequences.Where(x => x.Student_Id == std.Student_Id && x.Status_Id == Temp_Status_Id).ToList();
                         if (list_sequence.Count > 0)
-                            return;
+                            return true;
                     }
                 }
             }
-
-            Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx");
+            return false;
+            //Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx");
         }
 
         private void SetActions()

@@ -129,7 +129,7 @@ namespace ElectronicSubmission.Payment
                         }
                     }
 
-                    str += "<tr>";
+                    str = "<tr>";
                     str += "<td class='txt-primary text-left'>" + FieldNames.getFieldName("StudentsPaid-Expand", "Expand") + "</td>";
                     str += "<td class='text-left'>";
                     str += "<a href= '../../../../Pages/RegistrationProcess/view.aspx?StudentID=" + std.Student_Id + "' style='color:#00c3da;'>&nbsp;&nbsp; <i class='icofont icofont-eye-alt h5'></i>&nbsp;&nbsp;</a>";
@@ -179,9 +179,9 @@ namespace ElectronicSubmission.Payment
 
                     str += "</tr>";
 
-
+                    txtStudentListData.Controls.Add(new LiteralControl(str));
                 }
-                txtStudentList.Text = str;
+                txtStudentList.Text = "";// str;
             }
             catch { Response.Redirect("~/Pages/RegistrationProcess/StudentsPaid.aspx"); }
         }

@@ -302,9 +302,11 @@ namespace ElectronicSubmission
                             string sever_name = Request.Url.Authority.ToString();
                             string StuEmail = StudentEmail.Text;
                             SendEmail send = new SendEmail();
-                            Text = "<Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you for your interest and desire to join Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard, <br /> ";
+                            //Text = "<Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you for your interest and desire to join Riyadh Elm University. We will contact you within 48 hours." + " <br /> <br />" + "Best Regard, <br /> ";
+                            Text = "<Strong style='font-size:16px;'> Dear " + StudentNameEn.Text + "</Strong><br /><br /> " + "Thank you For Your interest in Studying in Riyadh Elm University The Admission for 1st Semester is Closed We will contact you when the registration for the 2nd Semester is open." + " <br /> <br />" + "Best Regard, <br /> ";
 
-                            string Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:16px;'> المكرم/ المكرمة " + StudentNameAr.Text + "</Strong><br /><br /> " + "نشكرك على اهتمامك ورغبتك في الإلتحاق بجامعة رياض العلم، سوف نتصل بك خلال 48 ساعة." + " <br /> <br />" + " " + " <br /></div>";
+                            //string Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:16px;'> المكرم/ المكرمة " + StudentNameAr.Text + "</Strong><br /><br /> " + "نشكرك على اهتمامك ورغبتك في الإلتحاق بجامعة رياض العلم، سوف نتصل بك خلال 48 ساعة." + " <br /> <br />" + " " + " <br /></div>";
+                            string Text_ar = "<div style='text-align:right;direction:rtl'><Strong style='font-size:16px;'> المكرم/ المكرمة " + StudentNameAr.Text + "</Strong><br /><br /> " + "شكرا لاهتماكم بالدراسة في جامعة رياض العلم نفيدكم ان التسجيل للفصل الدراسي الاول انتهى وسيتم التواصل معكم عند افتتاح التسجيل للفصل الدراسي الثاني." + " <br /> <br />" + " " + " <br /></div>";
 
                             bool R = send.TextEmail("Riyadh Elm University - جامعة رياض العلم", StuEmail, Text_ar + "<br/><br/>" + Text, sever_name);
                             SaveMessage(Student_Id, "E-mail", Text + "<br/>" + Text_ar);
@@ -312,8 +314,10 @@ namespace ElectronicSubmission
 
                             // Send SMS
                             SendSMS send_sms = new SendSMS();
-                            string smsText = "Dear " + StudentNameEn.Text + "\n\n" + "Thank you for your interest and desire to join Riyadh Elm University. We will contact you within 48 hours." + " \n\n" + "Best Regard," + " \n" + "";
-                            string smsText_ar = "المكرم/ المكرمة " + StudentNameAr.Text + "\n\n" + "نشكرك على اهتمامك ورغبتك في الإلتحاق بجامعة رياض العلم، سوف نتصل بك خلال 48 ساعة." + " \n\n" + " ";
+                            //string smsText = "Dear " + StudentNameEn.Text + "\n\n" + "Thank you for your interest and desire to join Riyadh Elm University. We will contact you within 48 hours." + " \n\n" + "Best Regard," + " \n" + "";
+                            string smsText = "Dear " + StudentNameEn.Text + "\n\n" + "Thank you For Your interest in Studying in Riyadh Elm University The Admission for 1st Semester is Closed We will contact you when the registration for the 2nd Semester is open." + " \n\n" + "Best Regard," + " \n" + "";
+                            //string smsText_ar = "المكرم/ المكرمة " + StudentNameAr.Text + "\n\n" + "نشكرك على اهتمامك ورغبتك في الإلتحاق بجامعة رياض العلم، سوف نتصل بك خلال 48 ساعة." + " \n\n" + " ";
+                            string smsText_ar = "المكرم/ المكرمة " + StudentNameAr.Text + "\n\n" + "شكرا لاهتماكم بالدراسة في جامعة رياض العلم نفيدكم ان التسجيل للفصل الدراسي الاول انتهى وسيتم التواصل معكم عند افتتاح التسجيل للفصل الدراسي الثاني." + " \n\n" + " ";
                             string number_Phone = StudentPhone.Text;
                             string reslt_message = send_sms.SendMessage(smsText_ar + "\n" + smsText, number_Phone);
                             SaveMessage(Student_Id, "SMS", smsText + "<br/>" + smsText_ar);

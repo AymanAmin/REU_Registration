@@ -38,7 +38,7 @@ namespace ElectronicSubmission.Pages.Reports
                 string str = string.Empty;
                 for (int i = 0; i < StudentsList.Count; i++)
                 {
-                    str += "<tr>";
+                    str = "<tr>";
 
                     str += "<td class='text-left'>#" + StudentsList[i].Student_Id + "</td>";
                     str += "<td class='text-left'>" + StudentsList[i].Student_SSN + "</td>";
@@ -86,10 +86,9 @@ namespace ElectronicSubmission.Pages.Reports
                     str += "<td class='text-left'>" + StudentsList[i].Student_CreationDate + "</td>";
 
                     str += "</tr>";
-
-
+                    txtStudentListData.Controls.Add(new LiteralControl(str));
                 }
-                txtStudentsList.Text = str;
+                txtStudentsList.Text = "";// str;
             }
             catch { Response.Redirect("~/"); }
 
