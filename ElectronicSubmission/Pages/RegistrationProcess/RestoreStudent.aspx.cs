@@ -12,6 +12,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         List<Student> ListAllStudent = new List<Student>();
         List<Student> ListStudentWithStatus = new List<Student>();
         REU_RegistrationEntities db = new REU_RegistrationEntities();
+
+        DateTime DateToday = DateTime.Parse("10/3/2020");
+        bool IsNew = true;
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -20,23 +23,39 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
 
             if (!IsPostBack)
             {
-                int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
-
-                List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID && x.Status_Id != 3 && x.Status_Id != 4).ToList();
-
-                for (int i = 0; i < List_Status.Count; i++)
-                {
-                    List<Student> Temp_List = List_Status[i].Status.Students.Where(x => x.Suspended == 1).ToList();
-                    ListStudentWithStatus.AddRange(Temp_List);
-                }
-                List<Student> TempList3 = db.Students.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended == 1).ToList();
-                ListAllStudent = ListStudentWithStatus.Union(TempList3).ToList();
-                ListAllStudent = ListAllStudent.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
-
+                startLoad();
             }
-            LoadStudent();
+            
         }
 
+        private void startLoad()
+        {
+            if (Session["IsNew"] != null)
+            {
+                IsNew = (bool)Session["IsNew"];
+                New.Checked = IsNew;
+                Old.Checked = !IsNew;
+            }
+            int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
+
+            List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID && x.Status_Id != 3 && x.Status_Id != 4).ToList();
+
+            for (int i = 0; i < List_Status.Count; i++)
+            {
+                List<Student> Temp_List = List_Status[i].Status.Students.Where(x => x.Suspended == 1).ToList();
+                ListStudentWithStatus.AddRange(Temp_List);
+            }
+            List<Student> TempList3 = db.Students.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended == 1).ToList();
+            ListAllStudent = ListStudentWithStatus.Union(TempList3).ToList();
+            if(IsNew)
+                ListAllStudent = ListAllStudent.Where(x => x.Student_CreationDate >= DateToday).ToList();
+            else
+                ListAllStudent = ListAllStudent.Where(x => x.Student_CreationDate < DateToday).ToList();
+
+            ListAllStudent = ListAllStudent.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
+
+            LoadStudent();
+        }
         private void LoadStudent()
         {
             try
@@ -84,6 +103,18 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 txtStudentList.Text = str;
             }
             catch { Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx"); }
+        }
+
+        protected void New_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["IsNew"] = New.Checked;
+            startLoad();
+        }
+
+        protected void Old_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["IsNew"] = New.Checked;
+            startLoad();
         }
     }
 }

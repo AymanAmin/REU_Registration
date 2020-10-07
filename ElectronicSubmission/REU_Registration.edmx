@@ -102,6 +102,17 @@
           <Property Name="Nationality_Name_En" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Nationality_Name_Ar" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="NewStudent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar(max)" />
+          <Property Name="StudentPhone" Type="nvarchar(max)" />
+          <Property Name="StudentEmail" Type="nvarchar(max)" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Notification_Employee">
           <Key>
             <PropertyRef Name="NotificationShow_Employee_Id" />
@@ -780,6 +791,7 @@
           <EntitySet Name="LastUpdate" EntityType="Self.LastUpdate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Log_File" EntityType="Self.Log_File" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Nationality" EntityType="Self.Nationality" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewStudent" EntityType="Self.NewStudent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification_Employee" EntityType="Self.Notification_Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification_Master" EntityType="Self.Notification_Master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification_Show" EntityType="Self.Notification_Show" Schema="dbo" store:Type="Tables" />
@@ -976,6 +988,7 @@
           <EntitySet Name="LastUpdates" EntityType="REU_RegistrationModel.LastUpdate" />
           <EntitySet Name="Log_File" EntityType="REU_RegistrationModel.Log_File" />
           <EntitySet Name="Nationalities" EntityType="REU_RegistrationModel.Nationality" />
+          <EntitySet Name="NewStudents" EntityType="REU_RegistrationModel.NewStudent" />
           <EntitySet Name="Notification_Employee" EntityType="REU_RegistrationModel.Notification_Employee" />
           <EntitySet Name="Notification_Master" EntityType="REU_RegistrationModel.Notification_Master" />
           <EntitySet Name="Notification_Show" EntityType="REU_RegistrationModel.Notification_Show" />
@@ -1244,6 +1257,17 @@
           <NavigationProperty Name="Nationality1" Relationship="REU_RegistrationModel.FK_Nationality_Nationality" FromRole="Nationality" ToRole="Nationality1" />
           <NavigationProperty Name="Nationality2" Relationship="REU_RegistrationModel.FK_Nationality_Nationality" FromRole="Nationality1" ToRole="Nationality" />
           <NavigationProperty Name="Students" Relationship="REU_RegistrationModel.FK_Student_Nationality" FromRole="Nationality" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="NewStudent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StudentPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StudentEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Notification_Employee">
           <Key>
@@ -2067,6 +2091,18 @@
                 <ScalarProperty Name="Country_Name_En" ColumnName="Country_Name_En" />
                 <ScalarProperty Name="Country_code" ColumnName="Country_code" />
                 <ScalarProperty Name="Nationality_Id" ColumnName="Nationality_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewStudents">
+            <EntityTypeMapping TypeName="REU_RegistrationModel.NewStudent">
+              <MappingFragment StoreEntitySet="NewStudent">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="StudentEmail" ColumnName="StudentEmail" />
+                <ScalarProperty Name="StudentPhone" ColumnName="StudentPhone" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -13,12 +13,14 @@ namespace ElectronicSubmission
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         List<Student> StudentList = new List<Student>();
         List<Sequence> SequenceList = new List<Sequence>();
+
+        DateTime DateToday = DateTime.Parse("10/3/2020");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
-            StudentList = db.Students.Where(x => x.Suspended != 1).ToList();
+            StudentList = db.Students.Where(x => x.Suspended != 1 && x.Student_CreationDate >= DateToday).ToList();
             SequenceList = db.Sequences.ToList();
             Treatment_Status();
             lineChart();
@@ -52,7 +54,7 @@ namespace ElectronicSubmission
                 StatusList[i].Status_Icon = "0";
             }
 
-            List<Sequence> list_sequence = db.Sequences.ToList();
+            List<Sequence> list_sequence = db.Sequences.Where(x => x.DateCreation >= DateToday).ToList();
             DateTime date_two = DateTime.Now;
             int student_id = 0;
             for (int i = 0; i < list_sequence.Count; i++)

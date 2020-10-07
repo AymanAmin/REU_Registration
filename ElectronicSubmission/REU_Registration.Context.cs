@@ -38,6 +38,7 @@ namespace ElectronicSubmission
         public DbSet<LastUpdate> LastUpdates { get; set; }
         public DbSet<Log_File> Log_File { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
+        public DbSet<NewStudent> NewStudents { get; set; }
         public DbSet<Notification_Employee> Notification_Employee { get; set; }
         public DbSet<Notification_Master> Notification_Master { get; set; }
         public DbSet<Notification_Show> Notification_Show { get; set; }

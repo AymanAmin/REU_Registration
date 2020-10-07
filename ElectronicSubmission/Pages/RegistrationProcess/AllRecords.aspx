@@ -5,6 +5,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body_Holder" runat="server">
     <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="col-md-6">
+                    <asp:RadioButton ID="New" runat="server" Checked="true" AutoPostBack="true" GroupName="Old_New" OnCheckedChanged="New_CheckedChanged" />
+                     <% = ElectronicSubmission.FieldNames.getFieldName("ListView-NewFiles", "New Files") %>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="col-md-6">
+                    <asp:RadioButton ID="Old" runat="server" Checked="false" AutoPostBack="true" GroupName="Old_New" OnCheckedChanged="Old_CheckedChanged" />
+                    <% = ElectronicSubmission.FieldNames.getFieldName("ListView-OldFiles", "Old Files") %>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12">
             <div class="card user-activity-card feed-card">
                 <div class="card-header">

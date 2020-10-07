@@ -20,6 +20,13 @@ namespace ElectronicSubmission.Pages.Setting.Auth
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Request.IsLocal && !Request.IsSecureConnection)
+            {
+                string redirectUrl = Request.Url.ToString().Replace("http:", "https:");
+                Response.Redirect(redirectUrl, false);
+                //HttpContext.ApplicationInstance.CompleteRequest();
+            }
+
             if (SessionWrapper.LoggedUser != null)
                 Response.Redirect("~/default.aspx");
         }
@@ -72,7 +79,10 @@ namespace ElectronicSubmission.Pages.Setting.Auth
                             SessionWrapper.Language = db.Lanuage_Detials.Where(x => x.Language_Master_Id == emp.Language_id).ToList();
 
                             // Set Permission List in session
-                            SessionWrapper.Permssions = List_permission;                            
+                            SessionWrapper.Permssions = List_permission;
+
+                            //Get New Records
+                            Session["IsNew"] = true;
 
                             Employee Log_Emp = new Employee();
                             Log_Emp.Employee_Id = emp.Employee_Id;

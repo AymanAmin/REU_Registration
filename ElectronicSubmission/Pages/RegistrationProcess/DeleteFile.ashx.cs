@@ -16,6 +16,8 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
     {
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         int StudentID = 0;
+
+        DateTime DateToday = DateTime.Parse("10/3/2020");
         public void ProcessRequest(HttpContext context)
         {
             try

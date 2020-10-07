@@ -16,6 +16,9 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         List<Employee> Emp_List = new List<Employee>();
         List<Nationality> Nationality_List = new List<Nationality>();
 
+        DateTime DateToday = DateTime.Parse("10/3/2020");
+        bool IsNew = true;
+
         REU_RegistrationEntities db = new REU_RegistrationEntities();
         string[] Color = { "green", "orange", "blue", "red", "maroon", "purple", "teal", "deepskyblue", "gray", "hotpink", "blueviolet", "violet", "deepskyblue", "cyan", "olivedrab", "coral", "salmon", "#43b791" };
         bool callcenter_emp = false, Assigned_Flag = false,Supervisor_emp=false;
@@ -39,6 +42,21 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             // Load all Employee
             Emp_List = db.Employees.ToList();
 
+            if (!IsPostBack)
+            {
+                startLoad();
+            }
+
+        }
+        private void startLoad()
+        {
+            if (Session["IsNew"] != null)
+            {
+                IsNew = (bool)Session["IsNew"];
+                New.Checked = IsNew;
+                Old.Checked = !IsNew;
+            }
+
             int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
             List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
             Group_Status Assigned = List_Status.Where(x => x.Status_Id == 3).FirstOrDefault();
@@ -54,72 +72,14 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
             if (New_Pending == null)
                 Supervisor_emp = true;
 
+            // Set TempList3 into ListAllStudent
+            if(IsNew)
+                ListAllStudent = std_List.Where(x => x.Student_CreationDate >= DateToday).ToList();
+            else
+                ListAllStudent = std_List.Where(x => x.Student_CreationDate < DateToday).ToList();
 
-            if (!IsPostBack)
-            {
-                {
-                   /* int GroupID = (int)SessionWrapper.LoggedUser.Group_Id;
+            ListAllStudent = ListAllStudent.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
 
-                    // Just for call center
-                    List<Group_Status> List_Status = db.Group_Status.Where(x => x.Group_Id == GroupID).ToList();
-                    Group_Status Assigned = List_Status.Where(x => x.Status_Id == 3).FirstOrDefault();
-                    Group_Status New_Pending = List_Status.Where(x => x.Status_Id == 1 || x.Status_Id == 2).FirstOrDefault();
-
-                    if (Assigned != null)
-                    {
-                        Assigned_Flag = true;
-                        if (New_Pending == null)
-                            callcenter_emp = true;
-                    }
-
-                    if (New_Pending == null)
-                        Supervisor_emp = true;
-
-                    // Start if he is Supervisor_emp => reset the list with all records.
-                    if (Supervisor_emp)
-                        ListAllStudent = std_List;
-
-                    else
-                    {
-                        // Start if it's on his status
-                        for (int i = 0; i < List_Status.Count; i++)
-                        {
-                            List<Student> TempList1 = List_Status[i].Status.Students.Where(x => x.Suspended != 1).ToList();
-
-                            // Set TempList1 into ListAllStudent
-                            ListAllStudent.AddRange(TempList1);
-                        }
-                        // End if it's on his status
-
-                        // Start if he is Call cetner
-                        List<Student> TempList2 = std_List.Where(x => x.Student_Employee_Id == SessionWrapper.LoggedUser.Employee_Id && x.Suspended != 1).ToList();
-
-                        // Set TempList2 into ListAllStudent
-                        ListAllStudent.AddRange(TempList2);
-                        // End if he is Call cetner
-
-                        // Start if he is Call cetner => reset the list with call center records.
-                        if (callcenter_emp)
-                            ListAllStudent = TempList2;
-
-                        // Start if he made action on sequence table
-                        ListSequence = db.Sequences.Where(x => x.Emp_Id == SessionWrapper.LoggedUser.Employee_Id).ToList();
-                        List<Student> TempList3 = new List<Student>();
-                        for (int i = 0; i < ListSequence.Count; i++)
-                        {
-                            Student student = ListSequence[i].Student;
-                            if (student != null && student.Suspended != 1)
-                                TempList3.Add(student);
-                        }
-                        // Set TempList3 into ListAllStudent
-                        ListAllStudent.AddRange(TempList3);
-                        // End if he made action on sequence table
-                    }*/
-                }
-
-                // Set TempList3 into ListAllStudent
-                ListAllStudent = std_List.OrderByDescending(x => x.Student_CreationDate).Distinct().ToList();
-            }
             LoadStudent();
         }
 
@@ -179,6 +139,18 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 txtStudentList.Text = "";// str;
             }
             catch { Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx"); }
+        }
+
+        protected void New_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["IsNew"] = New.Checked;
+            startLoad();
+        }
+
+        protected void Old_CheckedChanged(object sender, EventArgs e)
+        {
+            Session["IsNew"] = New.Checked;
+            startLoad();
         }
     }
 }

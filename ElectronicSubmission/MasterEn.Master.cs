@@ -20,6 +20,13 @@ namespace ElectronicSubmission
         {
             db = new REU_RegistrationEntities();
 
+            if (!Request.IsLocal && !Request.IsSecureConnection)
+            {
+                string redirectUrl = Request.Url.ToString().Replace("http:", "https:");
+                Response.Redirect(redirectUrl, false);
+                //HttpContext.ApplicationInstance.CompleteRequest();
+            }
+
             Session["IsECMS"] = true;
             //ListPermissions = db.Permissions.ToList();
             if (SessionWrapper.LoggedUser != null)

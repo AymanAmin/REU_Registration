@@ -994,6 +994,8 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
     <script type="text/javascript" src="Template/script/isotope.min.js"></script>
     <script type="text/javascript" src="Template/script/jquery.nicescroll.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/3.3.1/jquery-ui.min.js" ></script>
     <asp:Literal ID="ScriptRTL" runat="server"></asp:Literal>
 
 
@@ -1040,8 +1042,34 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
                     */
                     $("#MyAchievementDegree").val("");
                 }
+
+                //اغلاق طب الاسنان لغير السعوديين
+                var Nationality = $("#Nationality_ID").val();
+                if (Nationality != 191) {
+                    $("#Specialization_ID").val("0");
+                    var dir = document.dir;
+                    if (dir == "rtl")
+                        AlertNotify('عذرا!', ' يرجى اختيار تخصص اخر', 'error');
+                    else
+                        AlertNotify('Sorry!', 'Please Choose Other Specialty', 'error');
+                }
             }
         });
+
+        //اغلاق طب الاسنان لغير السعوديين
+        $("#Nationality_ID").blur(function () {
+            var Nationality = $("#Nationality_ID").val();
+            var Specialization = $("#Specialization_ID").val();
+            if (Specialization == 1 && Nationality != 191) {
+                $("#Specialization_ID").val("0");
+                var dir = document.dir;
+                if (dir == "rtl")
+                    AlertNotify('عذرا!', ' يرجى اختيار تخصص اخر', 'error');
+                else
+                    AlertNotify('Sorry!', 'Please Choose Other Specialty', 'error');
+            }
+        });
+
     </script>
     <!-- if the Specialization_ID =  1, then the MyAchievementDegree must be greater thant 70 -->
 </body>

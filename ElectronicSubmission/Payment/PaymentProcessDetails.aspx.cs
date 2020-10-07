@@ -313,18 +313,13 @@ namespace ElectronicSubmission.Payment
             invoice_object.ExpiryDate = ExpiryDate;
             invoice_object.PaymentRange = paymentRange_object;
 
+            // If it's Update
             if (rosom_request.Count > 0)
             {
                 invoice_object.InvoiceId = rosom_request[rosom_request.Count - 1].InvoiceId;
                 invoice_object.InvoiceStatus = "BillUpdated";
                 NewInvoiceID = rosom_request[rosom_request.Count - 1].InvoiceId;
-                /*invoice_object.CreateDate = rosom_request[rosom_request.Count - 1].CreateDate;
-                invoice_object.ExpiryDate = rosom_request[rosom_request.Count - 1].ExpiryDate;*/
             }
-
-            
-
-
             Rosom rosom_object = new Rosom();
             rosom_object.UUID = UUID;
             rosom_object.Timestamp = CreateDate;

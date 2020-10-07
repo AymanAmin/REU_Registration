@@ -22,6 +22,13 @@ namespace ElectronicSubmission
         public int langId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Request.IsLocal && !Request.IsSecureConnection)
+            {
+                string redirectUrl = Request.Url.ToString().Replace("http:", "https:");
+                Response.Redirect(redirectUrl, false);
+                //HttpContext.ApplicationInstance.CompleteRequest();
+            }
+
             Session["Terms"] = null;
 
             if (!IsPostBack)

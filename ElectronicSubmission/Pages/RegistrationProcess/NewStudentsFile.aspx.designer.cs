@@ -10,25 +10,7 @@
 namespace ElectronicSubmission.Pages.RegistrationProcess {
     
     
-    public partial class AllRecords {
-        
-        /// <summary>
-        /// New control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton New;
-        
-        /// <summary>
-        /// Old control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton Old;
+    public partial class NewStudentsFile {
         
         /// <summary>
         /// Literal1 control.
@@ -40,21 +22,21 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.Literal Literal1;
         
         /// <summary>
-        /// txtStudentListData control.
+        /// txtListofStudentsData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtStudentListData;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl txtListofStudentsData;
         
         /// <summary>
-        /// txtStudentList control.
+        /// txtListofStudents control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal txtStudentList;
+        protected global::System.Web.UI.WebControls.Literal txtListofStudents;
     }
 }

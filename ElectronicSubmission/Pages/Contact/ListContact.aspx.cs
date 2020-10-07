@@ -73,9 +73,9 @@ namespace ElectronicSubmission.Pages.Contact
                     str += "<td>" + ListStudentContact[i].Student_Concat_Message + "</td>";
                     str += "</tr>";
 
-
+                    txtStudentListData.Controls.Add(new LiteralControl(str));
                 }
-                txtStudentList.Text = str;
+                txtStudentList.Text = "";// str;
             }
             catch { Response.Redirect("~/Pages/RegistrationProcess/ListView.aspx"); }
         }

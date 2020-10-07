@@ -130,48 +130,64 @@
     </div>
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="card user-activity-card feed-card">
-                <div class="card-header">
-                    <h5><span>
-                        <asp:Literal ID="Literal1" runat="server"></asp:Literal>
-                        <% = ElectronicSubmission.FieldNames.getFieldName("ListView-ListofStudents", "List of Students") %> </span></h5>
-                    <div class="card-header-right">
-                        <ul class="list-unstyled card-option">
-                            <li><i class="feather full-card icon-maximize"></i></li>
-                            <li><i class="feather icon-minus minimize-card"></i></li>
-                        </ul>
-
-                    </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="col-md-6">
+                    <asp:RadioButton ID="New" runat="server" Checked="true" AutoPostBack="true" GroupName="Old_New" OnCheckedChanged="New_CheckedChanged" />
+                     <% = ElectronicSubmission.FieldNames.getFieldName("ListView-NewFiles", "New Files") %>
                 </div>
-                <!-- start of table -->
-                <div class="table-responsive" style="padding: 2%;">
-                    <table id="issue-list-table" class="table dt-responsive width-100">
-                        <thead class="text-left">
-                            <tr>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Expand", "Expand") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Actions", "Actions") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Status", "Status") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-AssignTo", "Assign To") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-EnglishName", "English Name") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-ArabicName", "Arabic Name") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Phone", "Phone") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Email", "Email") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Address", "Address") %></th>
-                                <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-CreationDate", "Creation Date") %></th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-left">
-                            <div runat="server" id="txtStudentListData">
-                                            <!-- Create Table Send Treatment in Code behind Function loadListViewTreatment()-->
-                                        </div>
-                            <asp:Literal ID="txtStudentList" runat="server"></asp:Literal>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- end of table -->
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="col-md-6">
+                    <asp:RadioButton ID="Old" runat="server" Checked="false" AutoPostBack="true" GroupName="Old_New" OnCheckedChanged="Old_CheckedChanged" />
+                    <% = ElectronicSubmission.FieldNames.getFieldName("ListView-OldFiles", "Old Files") %>
+                </div>
+            </div>
+        </div>
+    <div class="col-md-12">
+        <div class="card user-activity-card feed-card">
+            <div class="card-header">
+                <h5><span>
+                    <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                    <% = ElectronicSubmission.FieldNames.getFieldName("ListView-ListofStudents", "List of Students") %> </span></h5>
+                <div class="card-header-right">
+                    <ul class="list-unstyled card-option">
+                        <li><i class="feather full-card icon-maximize"></i></li>
+                        <li><i class="feather icon-minus minimize-card"></i></li>
+                    </ul>
+
+                </div>
+            </div>
+            <!-- start of table -->
+            <div class="table-responsive" style="padding: 2%;">
+                <table id="issue-list-table" class="table dt-responsive width-100">
+                    <thead class="text-left">
+                        <tr>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Expand", "Expand") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Actions", "Actions") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Status", "Status") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-AssignTo", "Assign To") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-EnglishName", "English Name") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-ArabicName", "Arabic Name") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Phone", "Phone") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Email", "Email") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-Address", "Address") %></th>
+                            <th><% = ElectronicSubmission.FieldNames.getFieldName("ListView-CreationDate", "Creation Date") %></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-left">
+                        <div runat="server" id="txtStudentListData">
+                            <!-- Create Table Send Treatment in Code behind Function loadListViewTreatment()-->
+                        </div>
+                        <asp:Literal ID="txtStudentList" runat="server"></asp:Literal>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end of table -->
+        </div>
+    </div>
 
     </div>
 

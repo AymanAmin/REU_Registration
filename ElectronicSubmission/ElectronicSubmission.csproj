@@ -178,6 +178,7 @@
     <Content Include="Pages\PaymentWebService\CheckPaymentService.asmx" />
     <Content Include="Pages\RegistrationProcess\AllRecords.aspx" />
     <Content Include="Pages\RegistrationProcess\ListView.aspx" />
+    <Content Include="Pages\RegistrationProcess\NewStudentsFile.aspx" />
     <Content Include="Pages\RegistrationProcess\OtherInfo.aspx" />
     <Content Include="Pages\RegistrationProcess\RestoreStudent.aspx" />
     <Content Include="Pages\RegistrationProcess\StudentInfo.aspx" />
@@ -201,6 +202,7 @@
     <Content Include="Payment\RiyadhEducation.pfx" />
     <Content Include="media\RiyadhEducation.pfx" />
     <None Include="Properties\PublishProfiles\REU Registration.pubxml" />
+    <None Include="Properties\PublishProfiles\REU.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -237,6 +239,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="StudentSubmitting.aspx" />
+    <Content Include="SubmitingClosed.aspx" />
     <Content Include="Template\404-page.html" />
     <Content Include="Template\about-us.html" />
     <Content Include="Template\blog-detail.html" />
@@ -2740,6 +2743,9 @@
     <Compile Include="Nationality.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>
+    <Compile Include="NewStudent.cs">
+      <DependentUpon>REU_Registration.tt</DependentUpon>
+    </Compile>
     <Compile Include="Notification_Employee.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
     </Compile>
@@ -2800,6 +2806,13 @@
     </Compile>
     <Compile Include="Pages\RegistrationProcess\ListView.aspx.designer.cs">
       <DependentUpon>ListView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RegistrationProcess\NewStudentsFile.aspx.cs">
+      <DependentUpon>NewStudentsFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\RegistrationProcess\NewStudentsFile.aspx.designer.cs">
+      <DependentUpon>NewStudentsFile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Pages\RegistrationProcess\OtherInfo.aspx.cs">
       <DependentUpon>OtherInfo.aspx</DependentUpon>
@@ -3039,6 +3052,13 @@
     </Compile>
     <Compile Include="Student_Type.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubmitingClosed.aspx.cs">
+      <DependentUpon>SubmitingClosed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SubmitingClosed.aspx.designer.cs">
+      <DependentUpon>SubmitingClosed.aspx</DependentUpon>
     </Compile>
     <Compile Include="VISA_MADA.cs">
       <DependentUpon>REU_Registration.tt</DependentUpon>

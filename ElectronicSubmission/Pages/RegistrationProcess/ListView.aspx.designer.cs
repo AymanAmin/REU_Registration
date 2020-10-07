@@ -121,6 +121,24 @@ namespace ElectronicSubmission.Pages.RegistrationProcess {
         protected global::System.Web.UI.WebControls.Literal txtFourPercentageCss;
         
         /// <summary>
+        /// New control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton New;
+        
+        /// <summary>
+        /// Old control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton Old;
+        
+        /// <summary>
         /// Literal1 control.
         /// </summary>
         /// <remarks>
