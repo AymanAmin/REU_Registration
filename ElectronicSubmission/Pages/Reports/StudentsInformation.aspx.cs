@@ -15,17 +15,19 @@ namespace ElectronicSubmission.Pages.Reports
         List<Nationality> Nationality_List = new List<Nationality>();
         List<Student_Type> Student_Type_List = new List<Student_Type>();
         List<Specialization> Specialization_List = new List<Specialization>();
+        List<Resource> Resource_List = new List<Resource>();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)
                 Response.Redirect("~/Pages/Auth/Login.aspx");
 
+            db.Configuration.LazyLoadingEnabled = false;
+
             Status_List = db.Status.ToList();
             Nationality_List = db.Nationalities.ToList();
             Student_Type_List = db.Student_Type.ToList();
             Specialization_List = db.Specializations.ToList();
-
-            db.Configuration.LazyLoadingEnabled = false;
+            Resource_List = db.Resources.ToList();
 
             list_Student = db.Students.Where(x => x.Suspended != 1).ToList();
             loadData(list_Student);
@@ -68,6 +70,11 @@ namespace ElectronicSubmission.Pages.Reports
                         str += "<td class='text-left'>" + StudentsList[i].Student_Type.Student_Type_Name_Ar + "</td>";
                     else
                         str += "<td class='text-left'>" + StudentsList[i].Student_Type.Student_Type_Name_En + "</td>";
+
+                    if (SessionWrapper.LoggedUser.Language_id == 1)
+                        str += "<td class='text-left'>" + StudentsList[i].Resource.Resource_Name_Ar + "</td>";
+                    else
+                        str += "<td class='text-left'>" + StudentsList[i].Resource.Resource_Name_En + "</td>";
 
                     str += "<td class='text-left'>" + StudentsList[i].Student_Phone + "</td>";
                     str += "<td class='text-left'>" + StudentsList[i].Student_Email + "</td>";

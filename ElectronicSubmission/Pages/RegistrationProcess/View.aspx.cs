@@ -21,6 +21,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
         bool EnableEditActions = false, EnableEditAssign = false;
         LogFileModule logFileModule = new LogFileModule();
         String LogData = "";
+        DateTime DateToday = DateTime.Parse("10/3/2020");
         protected void Page_Load(object sender, EventArgs e)
         {
             if (SessionWrapper.LoggedUser == null)
@@ -56,6 +57,7 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 btnAssign.Text = FieldNames.getFieldName("View-Assign", "Assign");
                 ChangeStatus.Text = FieldNames.getFieldName("View-ChangeStatus", "Change Status");
                 btnResendLastMsg.Text = FieldNames.getFieldName("View-ResendLastEmail", "Resend Last Email");
+                btnUpdateDate.Text = FieldNames.getFieldName("View-UpdateDate", "Update Date");
 
             }
 
@@ -112,6 +114,10 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 {
                     //Check If He Has Permission
                     bool res = CheckIfHeHasPermission(std);
+
+                    //Check if it before 10/3/2020 DateToday
+                    if (DateToday < std.Student_CreationDate)
+                        btnUpdateDate.Visible = false;
 
                     // select the color based on status id
                     int index = (int)std.Student_Status_Id - 1;
@@ -1650,6 +1656,32 @@ namespace ElectronicSubmission.Pages.RegistrationProcess
                 bool result = send.TextEmail(std.Status.Status_Name_En + " - " + std.Status.Status_Name_Ar, std.Student_Email, std_OI[std_OI.Count - 1].Message, sever_name);
                 int std_id = (int)std_OI[std_OI.Count - 1].Student_Id;
                 SaveMessage(std_id, "E-mail", std_OI[std_OI.Count - 1].Message);
+            }
+        }
+
+        protected void btnUpdateDate_Click(object sender, EventArgs e)
+        {
+            Student std = db.Students.Find(student_record_id);
+            if (std != null)
+            {
+                if (!Can_I_Update_Record(std))
+                    return;
+
+                std.Student_CreationDate = DateToday.AddDays(1);
+                db.Entry(std).State = System.Data.EntityState.Modified;
+
+                db.SaveChanges();
+
+                db.Configuration.LazyLoadingEnabled = false;
+                /* Add it to log file */
+                Student stdLogFile = db.Students.Find(std.Student_Id);
+                stdLogFile.Employee = db.Employees.Find(SessionWrapper.LoggedUser.Employee_Id);
+
+
+                LogData = "data:" + JsonConvert.SerializeObject(stdLogFile, logFileModule.settings);
+                logFileModule.logfile(10, "إعادة تعيين تاريخ للطالب "+std.Student_Name_Ar, "Update CreateionDate for student "+std.Student_Name_En, LogData);
+
+                Response.Redirect("~/Pages/RegistrationProcess/view.aspx?StudentID=" + std.Student_Id);
             }
         }
 

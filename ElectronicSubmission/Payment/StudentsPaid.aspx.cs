@@ -148,14 +148,7 @@ namespace ElectronicSubmission.Payment
                     str += "<td class='text-left'>" + std.Student_Id + "</td>";
                     str += "<td class='text-left'>" + std.Student_Name_En + "</td>";
                     str += "<td class='text-left'>" + std.Student_Name_Ar + "</td>";
-
-
-
-
                     str += "<td class='text-left'>" + std.Student_SSN + "</td>";
-
-
-
                     str += "<td class='text-left'>" + TypeOfPayment + "</td>";
                     str += "<td class='text-left'>" + PaymentProcessList[i].Send_Amount + "</td>";
 
@@ -167,7 +160,6 @@ namespace ElectronicSubmission.Payment
                     str += "<td class='text-left'>" + PaymentProcessList[i].Comment + "</td>";
                     str += "<td class='text-left'>" + UUID + "</td>";
                     str += "<td class='text-left'>" + CreationDate + "</td>";
-
                     str += "<td class='text-left'>" + std.Student_Phone + "</td>";
                     str += "<td class='text-left'>" + std.Student_Email + "</td>";
 
@@ -175,7 +167,6 @@ namespace ElectronicSubmission.Payment
                         str += "<td class='text-left'>" + std.Specialization.Specialization_Name_Ar + "</td>";
                     else
                         str += "<td class='text-left'>" + std.Specialization.Specialization_Name_En + "</td>";
-
 
                     str += "</tr>";
 

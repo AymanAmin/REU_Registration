@@ -1016,7 +1016,6 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
             {
                 if(degree < 70)
                 {
-                   
                     var dir = document.dir;
                     if(dir == "rtl")
                         AlertNotify('غير مستوفي الشروط!', 'درجة التحصيلي اقل من الحد الأدنى لطب الاسنان ٧٠ ، يرجى اختيار تخصص اخر', 'error');
@@ -1043,30 +1042,61 @@ j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
                     $("#MyAchievementDegree").val("");
                 }
 
-                //اغلاق طب الاسنان لغير السعوديين
-                var Nationality = $("#Nationality_ID").val();
-                if (Nationality != 191) {
-                    $("#Specialization_ID").val("0");
-                    var dir = document.dir;
-                    if (dir == "rtl")
-                        AlertNotify('عذرا!', ' يرجى اختيار تخصص اخر', 'error');
-                    else
-                        AlertNotify('Sorry!', 'Please Choose Other Specialty', 'error');
-                }
+                
             }
-        });
-
-        //اغلاق طب الاسنان لغير السعوديين
-        $("#Nationality_ID").blur(function () {
+            //اغلاق بقية التخصصات ماعدا طب الاسنان لغير السعوديين
             var Nationality = $("#Nationality_ID").val();
-            var Specialization = $("#Specialization_ID").val();
-            if (Specialization == 1 && Nationality != 191) {
+            if (Nationality != 191 && spes != 1) {
                 $("#Specialization_ID").val("0");
                 var dir = document.dir;
                 if (dir == "rtl")
                     AlertNotify('عذرا!', ' يرجى اختيار تخصص اخر', 'error');
                 else
                     AlertNotify('Sorry!', 'Please Choose Other Specialty', 'error');
+            }
+        });
+
+        
+        $("#Nationality_ID").blur(function () {
+            var Nationality = $("#Nationality_ID").val();
+            var Specialization = $("#Specialization_ID").val();
+            var dir = document.dir;
+            if (Specialization == 1 && Nationality != 191) {
+                $("#Specialization_ID").val("0");
+                
+                if (dir == "rtl")
+                    AlertNotify('عذرا!', ' يرجى اختيار تخصص اخر', 'error');
+                else
+                    AlertNotify('Sorry!', 'Please Choose Other Specialty', 'error');
+            }
+
+
+            //وضع حد قبول ادنى للطلاب الكويتين
+            var HighSchoolDegrees = $("#HighSchoolDegree").val();
+            if (Nationality == 122 && HighSchoolDegrees != "" && HighSchoolDegrees < 95) {
+                if (HighSchoolDegrees != "")
+                    if (dir == "rtl")
+                        AlertNotify('نعتذر لايمكن قبولك!', ' الحد الادنى لقبول الطلبة الكويتين هو 95%', 'error');
+                    else
+                        AlertNotify('Sorry!', 'Please Choose Other Specialty', 'error');
+
+                $("#HighSchoolDegree").val("");
+            }
+        });
+
+        //وضع حد قبول ادنى للطلاب الكويتين
+        $("#HighSchoolDegree").blur(function () {
+            var dir = document.dir;
+            var Nationality = $("#Nationality_ID").val();
+            var HighSchoolDegrees = $("#HighSchoolDegree").val();
+            if (Nationality == 122 && HighSchoolDegrees < 95) {
+                if (HighSchoolDegrees != "")
+                    if (dir == "rtl")
+                        AlertNotify('نعتذر لايمكن قبولك!', ' الحد الادنى لقبول الطلبة الكويتين هو 95%', 'error');
+                    else
+                        AlertNotify('We are sorry can not be accepted!', 'The minimum admission limit for Kuwait students is 95%', 'error');
+
+                $("#HighSchoolDegree").val("");
             }
         });
 

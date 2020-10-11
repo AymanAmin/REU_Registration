@@ -271,6 +271,7 @@
 
                                 <div class="col-sm-12 invoice-btn-group text-center">
                                     <br />
+                                    <asp:Button ID="btnUpdateDate" class="btn btn-info btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Update Date" OnClick="btnUpdateDate_Click" />
                                     <asp:Button ID="btnSendSMS" class="btn btn-primary btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Send SMS" OnClick="btnSendSMS_Click" />
                                     <asp:Button ID="btnApprove" class="btn btn-success btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Approve" OnClick="btnApprove_Click" />
                                     <asp:Button ID="btnResendLastMsg" class="btn btn-warning btn-print-invoice m-b-10 btn-sm waves-effect waves-light m-r-20" runat="server" Text="Resend Last Msg" OnClick="btnResendLastMsg_Click" />

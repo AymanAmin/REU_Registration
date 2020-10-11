@@ -31,6 +31,7 @@
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-Specialization", "Specialization") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-Specialization2", "Specialization2") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-TypeofAdmission", "Type of Admission") %></th>
+                                <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-Resource", "Resource") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-Phone", "Phone") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-Email", "Email") %></th>
                                 <th><% = ElectronicSubmission.FieldNames.getFieldName("StudentsInformation-Address", "Address") %></th>
